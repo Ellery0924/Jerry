@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+require('colors');
+var cluster = require('cluster'),
+    startQProxy = require('./lib/start.js');
+
+if (cluster.isMaster) {
+
+    var worker = cluster.fork(),
+        MAX_COUNT = 5,
+        count = 0;
+
+    cluster.on('exit', function () {
+
+        count++;
+
+        if (count < MAX_COUNT) {
+
+            console.log('[WARN]'['yellow'] + ':qproxy出现异常,重启进程');
+            worker = cluster.fork();
+        }
+        else {
+
+            console.log('异常次数已达' + MAX_COUNT + '次,退出进程.');
+            process.exit(1);
+        }
+    });
+
+    worker.on('message', function (code) {
+
+        if (code === 'exit') {
+
+            process.exit(1);
+        }
+    });
+}
+else {
+
+    startQProxy();
+}

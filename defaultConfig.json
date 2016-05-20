@@ -1,0 +1,38 @@
+{
+  "fekitWorkPath": "/Users/Ellery1/Documents/qunarzz.com/",
+  "activated": "default",
+  "nocache": false,
+  "qport": 999,
+  "aport": 1000,
+  "group": {
+    "default": [
+      {
+        "domain": "qunarzz.com",
+        "current": "local",
+        "cache": {
+          "local": 1,
+          "qzz": 2,
+          "dev": 3,
+          "custom": ""
+        }
+      },
+      {
+        "domain": "te.qunarzz.com",
+        "current": "local",
+        "cache": {
+          "local": 1,
+          "qzz": 2,
+          "dev": 3,
+          "custom": ""
+        }
+      }
+    ]
+  },
+  "rewrite": [
+    {
+      "pattern": "http://test.qunar.com",
+      "responder": "http://www.qunar.com",
+      "isOn": true
+    }
+  ]
+}

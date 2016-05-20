@@ -1,0 +1,239 @@
+body {
+    padding: 0;
+    margin: 0;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+a:focus, a:active, a:link, a:hover {
+    outline: none;
+}
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+.nav-sidebar > li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+
+/*
+ * Main content
+ */
+
+.main {
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+.main .page-header {
+    margin-top: 0;
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.placeholders h4 {
+    margin-bottom: 0;
+}
+
+.placeholder {
+    margin-bottom: 20px;
+}
+
+.cache-control-wrap {
+    margin-bottom: 15px;
+}
+
+.cache-control {
+    margin-left: 17px;
+}
+
+.cache-control button .text {
+    display: inline-block;
+    width: 102px;
+}
+
+.cache-control .btn .caret {
+    margin-left: 5px;
+}
+
+.setting_panel {
+    padding: 20px;
+}
+
+.table {
+    table-layout: fixed;
+}
+
+.group_setting_table .domain {
+    width: 40%;
+}
+
+.group_setting_table .env {
+    width: 20%;
+}
+
+.group_setting_table .host {
+    width: 20%;
+}
+
+.table .action {
+    width: 250px;
+}
+
+.table .rewrite_rule_is_on {
+    width: 150px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.newRuleModal_content #newRule_domain {
+    width: 550px;
+    height: 220px;
+}
+
+.newRuleModal_content select, .newRuleModal_content input {
+    width: 300px;
+}
+
+.serverView {
+}
+
+.serverView .serverInfo_input {
+    height: 400px;
+    width: 60%;
+}
+
+.serverView .page-header h1 {
+
+}
+
+.serverView .save {
+    float: left;
+    width: 100px;
+    margin-top: 10px;
+}
+
+#addRuleMultiInput {
+    width: 550px;
+    height: 220px;
+}
+
+.exportHostDisplay {
+    width: 100%;
+    height: 400px;
+}
+
+.page-header .btn, .del_cell .btn {
+    margin-right: 5px;
+}
+
+.rule_domain {
+    cursor: pointer;
+}
+
+.navbar-nav a.active, .navbar-nav li:hover {
+    color: #555;
+    background-color: #e7e7e7;
+}
+
+.rewrite_rule .del_pattern {
+    margin-left: 5px;
+}
+
+.rule-select {
+    width: 20px;
+}
+
+.https-switch {
+    margin-bottom: 10px;
+}
+
+.https-switch .btn {
+    width: 136px;
+    text-align: left;
+}
+
+.https-switch .caret{
+    float:right;
+    display:block;
+    margin-top:8px;
+}
