@@ -5,11 +5,12 @@ import {qproxyApp} from './reducer/index'
 import React from 'react';
 import ReactDom from 'react-dom';
 import {Provider} from 'react-redux';
-import {Router,Route} from 'react-router';
+import {Router, Route} from 'react-router';
 
 import HostManageView from './view/ControllerView/HostManageView';
 import ServerManageView from './view/ControllerView/ServerManageView';
 import PatternManageView from './view/ControllerView/PatternManageView';
+import './logSocket';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(qproxyApp);

@@ -34,6 +34,8 @@ var _PatternManageView = require('./view/ControllerView/PatternManageView');
 
 var _PatternManageView2 = _interopRequireDefault(_PatternManageView);
 
+require('./logSocket');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
