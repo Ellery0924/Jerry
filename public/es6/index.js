@@ -10,7 +10,7 @@ import {Router, Route} from 'react-router';
 import HostManageView from './view/ControllerView/HostManageView';
 import ServerManageView from './view/ControllerView/ServerManageView';
 import PatternManageView from './view/ControllerView/PatternManageView';
-import './logSocket';
+import './logSocket/index';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(qproxyApp);

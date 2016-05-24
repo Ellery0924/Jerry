@@ -7,7 +7,5 @@ var socket = io('http://127.0.0.1:3000');
 
 socket.on('log', function (log) {
 
-    var url = log.url;
-    console.log('REQUEST:' + url);
-    console.log(log);
+    console.log(log.method + ' ' + log.url, log);
 });
