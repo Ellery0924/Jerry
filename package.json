@@ -1,6 +1,6 @@
 {
   "name": "qfproxy",
-  "version": "0.3.38",
+  "version": "0.3.39",
   "private": false,
   "dependencies": {
     "babel-preset-es2015": "^6.3.13",
