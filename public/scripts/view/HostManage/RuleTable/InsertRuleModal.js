@@ -19,7 +19,7 @@ exports.default = _react2.default.createClass({
     displayName: 'InsertRuleModal',
     formatRuleList: function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
 
-        var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '').split(/[\n\r]+/),
+        var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
             ruleList = ruleListRaw.reduce(function (acc, ruleStr) {
 
             var ruleArr = ruleStr.trim().split(/\s+/),

@@ -7,7 +7,7 @@ import {getServerByIp,validateMultiDomain} from '../../../utils';
 export default React.createClass({
     formatRuleList(ruleListStr, serverInfo, existedRuleList) {
 
-        var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g,'').split(/[\n\r]+/),
+        var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g,'\n').split(/[\n\r]+/),
             ruleList = ruleListRaw.reduce((acc, ruleStr)=> {
 
                 var ruleArr = ruleStr.trim().split(/\s+/),
