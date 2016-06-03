@@ -12,6 +12,10 @@ a:focus, a:active, a:link, a:hover {
     outline: none;
 }
 
+.content {
+    overflow: hidden;
+}
+
 /*
  * Base structure
  */
@@ -232,8 +236,8 @@ body {
     text-align: left;
 }
 
-.https-switch .caret{
-    float:right;
-    display:block;
-    margin-top:8px;
+.https-switch .caret {
+    float: right;
+    display: block;
+    margin-top: 8px;
 }
