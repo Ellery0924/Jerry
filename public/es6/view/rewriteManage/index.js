@@ -13,7 +13,7 @@ export default React.createClass({
         return (
             <div className="rewriteSetting container-fluid">
                 <div className="page-header">
-                    <h1>URL Rewrite配置</h1>
+                    <h1>URL MAP配置</h1>
                     <button className="btn btn-success openAddModal" data-toggle="modal" data-target="#addPatternModal">
                         新增规则
                     </button>

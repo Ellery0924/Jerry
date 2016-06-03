@@ -40,7 +40,7 @@ exports.default = _react2.default.createClass({
                 _react2.default.createElement(
                     'h1',
                     null,
-                    'URL Rewrite配置'
+                    'URL MAP配置'
                 ),
                 _react2.default.createElement(
                     'button',

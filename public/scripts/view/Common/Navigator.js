@@ -70,7 +70,7 @@ exports.default = _react2.default.createClass({
                             _react2.default.createElement(
                                 _reactRouter.Link,
                                 { activeClassName: 'active', to: 'rewrite' },
-                                'URL Rewrite'
+                                'URL MAP'
                             )
                         ),
                         _react2.default.createElement(

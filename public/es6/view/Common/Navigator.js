@@ -28,7 +28,7 @@ export default React.createClass({
                                 代理面板
                             </Link>
                         </li>
-                        <li nav-hash="#rewrite"><Link activeClassName="active" to="rewrite">URL Rewrite</Link></li>
+                        <li nav-hash="#rewrite"><Link activeClassName="active" to="rewrite">URL MAP</Link></li>
                         <li nav-hash="#server"><Link activeClassName="active" to="server">服务器组配置</Link></li>
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
