@@ -8,7 +8,6 @@ export default React.createClass({
 
         const {
                 current,
-                server,
                 cache,
                 onHostChange,
                 groupName,

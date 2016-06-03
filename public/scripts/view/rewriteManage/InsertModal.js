@@ -41,6 +41,7 @@ exports.default = _react2.default.createClass({
         var _this = this;
 
         $(this.refs.insertPatternModal).on('shown.bs.modal', function () {
+
             $(_this.refs.newPatternInput).val('').focus();
             $(_this.refs.newResponderInput).val('');
         });

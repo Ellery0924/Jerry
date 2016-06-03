@@ -2,57 +2,13 @@
  * Created by Ellery1 on 16/1/3.
  */
 import React from 'react';
-import {getServerByIp,validateMultiDomain} from '../../../utils';
+import {formatRuleList} from '../../../utils';
 
 export default React.createClass({
-    formatRuleList(ruleListStr, serverInfo, existedRuleList) {
-
-        var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g,'\n').split(/[\n\r]+/),
-            ruleList = ruleListRaw.reduce((acc, ruleStr)=> {
-
-                var ruleArr = ruleStr.trim().split(/\s+/),
-                    ip = ruleArr.shift(),
-                    domain = ruleArr.join(' ');
-
-                if (ip && domain) {
-
-                    acc.push({
-                        ip: ip,
-                        domain: domain
-                    });
-                }
-
-                return acc;
-            }, []);
-
-        var validated = validateMultiDomain(ruleList, existedRuleList);
-
-        if (!validated.result) {
-
-            alert(validated.message);
-            return null;
-        }
-
-        return ruleList.map((rule)=> {
-
-            var targetServer = getServerByIp(rule.ip, serverInfo),
-                domain = rule.domain,
-                generatedRule = {
-                    domain: domain,
-                    current: targetServer.groupName,
-                    cache: {}
-                };
-
-            generatedRule.cache[targetServer.groupName] = targetServer.ipIndex;
-
-            return generatedRule;
-        });
-    },
     submit(){
 
-        const {onInsertRule,serverInfo,groupName,existedRuleList}=this.props;
-        var formatedRuleList = this.formatRuleList(this.refs.insertRuleInput.value, serverInfo, existedRuleList);
-
+        const {onInsertRule, serverInfo, groupName, existedRuleList}=this.props;
+        const formatedRuleList = formatRuleList(this.refs.insertRuleInput.value, serverInfo, existedRuleList);
         if (formatedRuleList) {
             onInsertRule(groupName, formatedRuleList);
             $(this.refs.insertRuleModal).modal('hide');

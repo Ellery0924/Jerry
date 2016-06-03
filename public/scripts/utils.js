@@ -10,6 +10,7 @@ exports.validatePattern = validatePattern;
 exports.validateServerConfig = validateServerConfig;
 exports.exportHostList = exportHostList;
 exports.getServerByIp = getServerByIp;
+exports.formatRuleList = formatRuleList;
 
 var _underscore = require('underscore');
 
@@ -278,4 +279,48 @@ function getServerByIp(ip, serverInfo) {
         ipIndex: ip
     };
 }
+
+function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
+
+    var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
+        ruleList = ruleListRaw.reduce(function (acc, ruleStr) {
+
+        var ruleArr = ruleStr.trim().split(/\s+/),
+            ip = ruleArr.shift(),
+            domain = ruleArr.join(' ');
+
+        if (ip && domain) {
+
+            acc.push({
+                ip: ip,
+                domain: domain
+            });
+        }
+
+        return acc;
+    }, []);
+
+    var validated = validateMultiDomain(ruleList, existedRuleList);
+
+    if (!validated.result) {
+
+        alert(validated.message);
+        return null;
+    }
+
+    return ruleList.map(function (rule) {
+
+        var targetServer = getServerByIp(rule.ip, serverInfo),
+            domain = rule.domain,
+            generatedRule = {
+            domain: domain,
+            current: targetServer.groupName,
+            cache: {}
+        };
+
+        generatedRule.cache[targetServer.groupName] = targetServer.ipIndex;
+
+        return generatedRule;
+    });
+};
 //# sourceMappingURL=utils.js.map

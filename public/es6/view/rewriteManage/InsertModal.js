@@ -27,6 +27,7 @@ export default React.createClass({
     componentDidMount(){
 
         $(this.refs.insertPatternModal).on('shown.bs.modal', ()=> {
+            
             $(this.refs.newPatternInput).val('').focus();
             $(this.refs.newResponderInput).val('');
         });

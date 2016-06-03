@@ -255,3 +255,47 @@ export function getServerByIp(ip, serverInfo) {
         ipIndex: ip
     };
 }
+
+export function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
+
+    var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g,'\n').split(/[\n\r]+/),
+        ruleList = ruleListRaw.reduce((acc, ruleStr)=> {
+
+            var ruleArr = ruleStr.trim().split(/\s+/),
+                ip = ruleArr.shift(),
+                domain = ruleArr.join(' ');
+
+            if (ip && domain) {
+
+                acc.push({
+                    ip: ip,
+                    domain: domain
+                });
+            }
+
+            return acc;
+        }, []);
+
+    var validated = validateMultiDomain(ruleList, existedRuleList);
+
+    if (!validated.result) {
+
+        alert(validated.message);
+        return null;
+    }
+
+    return ruleList.map((rule)=> {
+
+        var targetServer = getServerByIp(rule.ip, serverInfo),
+            domain = rule.domain,
+            generatedRule = {
+                domain: domain,
+                current: targetServer.groupName,
+                cache: {}
+            };
+
+        generatedRule.cache[targetServer.groupName] = targetServer.ipIndex;
+
+        return generatedRule;
+    });
+};

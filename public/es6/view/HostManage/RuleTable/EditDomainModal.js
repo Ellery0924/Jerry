@@ -25,10 +25,12 @@ export default React.createClass({
             validateRet = validateDomain(newDomainVal, ruleIndex, ruleList);
 
         if (validateRet.result) {
+
             onEditDomain(groupName, ruleIndex, newDomainVal);
             $(this.refs.editDomainModal).modal('hide');
         }
         else {
+            
             alert(validateRet.message);
         }
     },

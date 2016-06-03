@@ -45,9 +45,11 @@ exports.default = _react2.default.createClass({
             validateRet = (0, _utils.validateDomain)(newDomainVal, ruleIndex, ruleList);
 
         if (validateRet.result) {
+
             onEditDomain(groupName, ruleIndex, newDomainVal);
             $(this.refs.editDomainModal).modal('hide');
         } else {
+
             alert(validateRet.message);
         }
     },

@@ -17,49 +17,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 exports.default = _react2.default.createClass({
     displayName: 'InsertRuleModal',
-    formatRuleList: function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
-
-        var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
-            ruleList = ruleListRaw.reduce(function (acc, ruleStr) {
-
-            var ruleArr = ruleStr.trim().split(/\s+/),
-                ip = ruleArr.shift(),
-                domain = ruleArr.join(' ');
-
-            if (ip && domain) {
-
-                acc.push({
-                    ip: ip,
-                    domain: domain
-                });
-            }
-
-            return acc;
-        }, []);
-
-        var validated = (0, _utils.validateMultiDomain)(ruleList, existedRuleList);
-
-        if (!validated.result) {
-
-            alert(validated.message);
-            return null;
-        }
-
-        return ruleList.map(function (rule) {
-
-            var targetServer = (0, _utils.getServerByIp)(rule.ip, serverInfo),
-                domain = rule.domain,
-                generatedRule = {
-                domain: domain,
-                current: targetServer.groupName,
-                cache: {}
-            };
-
-            generatedRule.cache[targetServer.groupName] = targetServer.ipIndex;
-
-            return generatedRule;
-        });
-    },
     submit: function submit() {
         var _props = this.props;
         var onInsertRule = _props.onInsertRule;
@@ -67,8 +24,7 @@ exports.default = _react2.default.createClass({
         var groupName = _props.groupName;
         var existedRuleList = _props.existedRuleList;
 
-        var formatedRuleList = this.formatRuleList(this.refs.insertRuleInput.value, serverInfo, existedRuleList);
-
+        var formatedRuleList = (0, _utils.formatRuleList)(this.refs.insertRuleInput.value, serverInfo, existedRuleList);
         if (formatedRuleList) {
             onInsertRule(groupName, formatedRuleList);
             $(this.refs.insertRuleModal).modal('hide');

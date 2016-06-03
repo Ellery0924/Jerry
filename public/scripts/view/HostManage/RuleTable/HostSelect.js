@@ -15,7 +15,6 @@ exports.default = _react2.default.createClass({
     render: function render() {
         var _props = this.props;
         var current = _props.current;
-        var server = _props.server;
         var cache = _props.cache;
         var onHostChange = _props.onHostChange;
         var groupName = _props.groupName;
