@@ -1,16 +1,16 @@
 var express = require('express'),
     router = express.Router(),
-    filter = require('../lib/proxy').filter;
+    service = require('../lib/service');
 
 router
     .route('/proxy/config')
     .get(function (req, res) {
 
-        res.send(filter.getConfig());
+        res.send(service.getConfig());
     })
     .put(function (req, res) {
 
-        filter.setConfig(req.body.config);
+        service.setConfig(req.body.config);
         res.send({
             ret: 1
         });
@@ -20,11 +20,11 @@ router
     .route('/proxy/serverInfo')
     .get(function (req, res) {
 
-        res.send(filter.getServerInfo());
+        res.send(service.getServerInfo());
     })
     .put(function (req, res) {
 
-        filter.setServerInfo(req.body.server);
+        service.setServerInfo(req.body.server);
         res.send({
             ret: 1
         });
