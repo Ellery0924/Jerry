@@ -6,6 +6,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-babel');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.initConfig({
         requirejs: {
@@ -27,7 +31,7 @@ module.exports = function (grunt) {
         babel: {
             options: {
                 sourceMap: true,
-                presets: ['es2015','react']
+                presets: ['es2015', 'react']
             },
             dist: {
                 files: [{
@@ -38,8 +42,38 @@ module.exports = function (grunt) {
                     ext: '.js'
                 }]
             }
+        },
+        concat: {
+            js: {
+                files: {
+                    'public/dest/base.js': ['public/vendor/jquery.js', 'public/vendor/bootstrap.js']
+                }
+            },
+            css: {
+                files: {
+                    'public/dest/style.css': ['public/stylesheets/*.css']
+                }
+            }
+        },
+        uglify: {
+            js: {
+                files: {
+                    'public/dest/base.min.js': 'public/dest/base.js'
+                }
+            }
+        },
+        cssmin: {
+            css: {
+                files: {
+                    'public/dest/style.min.css': 'public/dest/style.css'
+                }
+            }
+        },
+        clean: {
+            afterbuild: ['public/dest/style.css', 'public/dest/base.js']
         }
     });
 
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('build', ['concat:js', 'concat:css', 'uglify', 'cssmin', 'clean']);
 };
