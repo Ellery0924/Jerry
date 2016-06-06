@@ -6,7 +6,7 @@ var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
 var _redux = require('redux');
 
-var _action = require('./action');
+var _action = require('./dataLayer/qproxy/action');
 
 var _index = require('./dataLayer/index');
 
