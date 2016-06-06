@@ -70,7 +70,8 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            beforebuild: ['public/dest/']
+            beforebuild: ['public/dest/'],
+            afterbuild: ['public/dest/base.js', 'public/dest/style.css']
         }
     });
 
