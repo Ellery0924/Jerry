@@ -80,6 +80,10 @@
 
 	var _PatternManageView2 = _interopRequireDefault(_PatternManageView);
 
+	var _LoggerView = __webpack_require__(261);
+
+	var _LoggerView2 = _interopRequireDefault(_LoggerView);
+
 	__webpack_require__(252);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -98,7 +102,8 @@
 	        null,
 	        _react2.default.createElement(_reactRouter.Route, { name: 'host', path: '/', component: _HostManageView2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { name: 'server', path: '/server', component: _ServerManageView2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { name: 'rewrite', path: '/rewrite', component: _PatternManageView2.default })
+	        _react2.default.createElement(_reactRouter.Route, { name: 'rewrite', path: '/rewrite', component: _PatternManageView2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { name: 'logger', path: '/logger', component: _LoggerView2.default })
 	    )
 	), root);
 	//# sourceMappingURL=index.js.map
@@ -30633,8 +30638,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var App = _react2.default.createClass({
-	    displayName: 'App',
+	var HostManageView = _react2.default.createClass({
+	    displayName: 'HostManageView',
 	    render: function render() {
 	        var _props = this.props;
 	        var dispatch = _props.dispatch;
@@ -30702,7 +30707,7 @@
 	    return state.toJS().qproxy;
 	}
 
-	exports.default = (0, _reactRedux.connect)(select)(App);
+	exports.default = (0, _reactRedux.connect)(select)(HostManageView);
 	//# sourceMappingURL=HostManageView.js.map
 
 
@@ -30793,6 +30798,15 @@
 	                                { activeClassName: 'active', to: 'server' },
 	                                '服务器组配置'
 	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            { 'nav-hash': '#logger' },
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { activeClassName: 'active', to: 'logger' },
+	                                '请求/响应日志'
+	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -30803,7 +30817,8 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                'a',
-	                                { target: '_blank', href: 'https://chrome.google.com/webstore/detail/qproxy/nbilnamflokjimlgajofochkjdmlohao/related' },
+	                                { target: '_blank',
+	                                    href: 'https://chrome.google.com/webstore/detail/qproxy/nbilnamflokjimlgajofochkjdmlohao/related' },
 	                                'Chrome Extension (By Barret.Ma)'
 	                            )
 	                        ),
@@ -42319,6 +42334,59 @@
 	  return state.get('logger');
 	};
 	//# sourceMappingURL=index.js.map
+
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(18);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(175);
+
+	var _Navigator = __webpack_require__(234);
+
+	var _Navigator2 = _interopRequireDefault(_Navigator);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var LoggerView = _react2.default.createClass({
+	    displayName: 'LoggerView',
+	    render: function render() {
+	        var _props = this.props;
+	        var current = _props.current;
+	        var list = _props.list;
+
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'logger' },
+	            _react2.default.createElement(_Navigator2.default, null),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'test' },
+	                JSON.stringify(current)
+	            )
+	        );
+	    }
+	}); /**
+	     * Created by Ellery1 on 16/6/6.
+	     */
+
+	function select(state) {
+
+	    return state.get('logger').toJS();
+	}
+
+	exports.default = (0, _reactRedux.connect)(select)(LoggerView);
+	//# sourceMappingURL=LoggerView.js.map
 
 
 /***/ }

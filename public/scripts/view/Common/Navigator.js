@@ -81,6 +81,15 @@ exports.default = _react2.default.createClass({
                                 { activeClassName: 'active', to: 'server' },
                                 '服务器组配置'
                             )
+                        ),
+                        _react2.default.createElement(
+                            'li',
+                            { 'nav-hash': '#logger' },
+                            _react2.default.createElement(
+                                _reactRouter.Link,
+                                { activeClassName: 'active', to: 'logger' },
+                                '请求/响应日志'
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -91,7 +100,8 @@ exports.default = _react2.default.createClass({
                             null,
                             _react2.default.createElement(
                                 'a',
-                                { target: '_blank', href: 'https://chrome.google.com/webstore/detail/qproxy/nbilnamflokjimlgajofochkjdmlohao/related' },
+                                { target: '_blank',
+                                    href: 'https://chrome.google.com/webstore/detail/qproxy/nbilnamflokjimlgajofochkjdmlohao/related' },
                                 'Chrome Extension (By Barret.Ma)'
                             )
                         ),

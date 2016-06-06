@@ -1,7 +1,7 @@
 /**
  * Created by Ellery1 on 16/1/1.
  */
-import React,{Component} from 'react'
+import React, {Component} from 'react'
 import {Link} from 'react-router';
 
 export default React.createClass({
@@ -30,10 +30,12 @@ export default React.createClass({
                         </li>
                         <li nav-hash="#rewrite"><Link activeClassName="active" to="rewrite">URL MAP</Link></li>
                         <li nav-hash="#server"><Link activeClassName="active" to="server">服务器组配置</Link></li>
+                        <li nav-hash="#logger"><Link activeClassName="active" to="logger">请求/响应日志</Link></li>
                     </ul>
                     <ul className="nav navbar-nav navbar-right">
                         <li>
-                            <a target="_blank" href="https://chrome.google.com/webstore/detail/qproxy/nbilnamflokjimlgajofochkjdmlohao/related">
+                            <a target="_blank"
+                               href="https://chrome.google.com/webstore/detail/qproxy/nbilnamflokjimlgajofochkjdmlohao/related">
                                 Chrome Extension (By Barret.Ma)
                             </a>
                         </li>

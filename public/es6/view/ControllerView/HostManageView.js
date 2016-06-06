@@ -20,7 +20,7 @@ import {
     switchHttpsAndSave
 } from '../../dataLayer/qproxy/action';
 
-var App = React.createClass({
+var HostManageView = React.createClass({
     render() {
 
         const {dispatch, server}=this.props,
@@ -57,4 +57,4 @@ function select(state) {
     return state.toJS().qproxy;
 }
 
-export default connect(select)(App);
+export default connect(select)(HostManageView);

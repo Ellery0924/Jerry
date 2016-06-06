@@ -10,6 +10,7 @@ import {Router, Route} from 'react-router';
 import HostManageView from './view/ControllerView/HostManageView';
 import ServerManageView from './view/ControllerView/ServerManageView';
 import PatternManageView from './view/ControllerView/PatternManageView';
+import LoggerView from './view/ControllerView/LoggerView';
 import './logSocket/index';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
@@ -24,6 +25,7 @@ ReactDom.render(
             <Route name="host" path="/" component={HostManageView}/>
             <Route name="server" path="/server" component={ServerManageView}/>
             <Route name="rewrite" path="/rewrite" component={PatternManageView}/>
+            <Route name="logger" path="/logger" component={LoggerView}/>
         </Router>
     </Provider>,
     root

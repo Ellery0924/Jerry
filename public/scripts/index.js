@@ -34,6 +34,10 @@ var _PatternManageView = require('./view/ControllerView/PatternManageView');
 
 var _PatternManageView2 = _interopRequireDefault(_PatternManageView);
 
+var _LoggerView = require('./view/ControllerView/LoggerView');
+
+var _LoggerView2 = _interopRequireDefault(_LoggerView);
+
 require('./logSocket/index');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -52,7 +56,8 @@ _reactDom2.default.render(_react2.default.createElement(
         null,
         _react2.default.createElement(_reactRouter.Route, { name: 'host', path: '/', component: _HostManageView2.default }),
         _react2.default.createElement(_reactRouter.Route, { name: 'server', path: '/server', component: _ServerManageView2.default }),
-        _react2.default.createElement(_reactRouter.Route, { name: 'rewrite', path: '/rewrite', component: _PatternManageView2.default })
+        _react2.default.createElement(_reactRouter.Route, { name: 'rewrite', path: '/rewrite', component: _PatternManageView2.default }),
+        _react2.default.createElement(_reactRouter.Route, { name: 'logger', path: '/logger', component: _LoggerView2.default })
     )
 ), root);
 //# sourceMappingURL=index.js.map

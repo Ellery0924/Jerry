@@ -22,8 +22,8 @@ var _action = require('../../dataLayer/qproxy/action');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var App = _react2.default.createClass({
-    displayName: 'App',
+var HostManageView = _react2.default.createClass({
+    displayName: 'HostManageView',
     render: function render() {
         var _props = this.props;
         var dispatch = _props.dispatch;
@@ -91,5 +91,5 @@ function select(state) {
     return state.toJS().qproxy;
 }
 
-exports.default = (0, _reactRedux.connect)(select)(App);
+exports.default = (0, _reactRedux.connect)(select)(HostManageView);
 //# sourceMappingURL=HostManageView.js.map
