@@ -4,7 +4,7 @@
 import React from 'react';
 import Navigator from '../Common/Navigator';
 import {connect} from 'react-redux';
-import {setServerAndSave} from '../../action';
+import {setServerAndSave} from '../../dataLayer/qproxy/action';
 import {validateServerConfig} from '../../utils';
 
 var ServerManageView = React.createClass({
@@ -54,7 +54,7 @@ var ServerManageView = React.createClass({
 });
 
 function select(state) {
-    return state.toJS();
+    return state.toJS().qproxy;
 }
 
 export default connect(select)(ServerManageView);

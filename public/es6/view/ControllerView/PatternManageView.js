@@ -5,7 +5,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Navigator from '../Common/Navigator';
 import RewriteManage from '../RewriteManage/index';
-import {setPatternAndSave,insertPatternAndSave,deletePatternAndSave} from '../../action';
+import {setPatternAndSave, insertPatternAndSave, deletePatternAndSave} from '../../dataLayer/qproxy/action';
 
 var RewriteManageView = React.createClass({
     render(){
@@ -29,7 +29,7 @@ var RewriteManageView = React.createClass({
 
 function select(state) {
 
-    return state.toJS();
+    return state.toJS().qproxy;
 }
 
 export default connect(select)(RewriteManageView);

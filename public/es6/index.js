@@ -1,7 +1,7 @@
 import thunkMiddleware from 'redux-thunk'
 import {createStore, applyMiddleware} from 'redux'
 import {fetchConfig} from './action'
-import {qproxyApp} from './reducer/index'
+import {qproxyApp} from './dataLayer/index'
 import React from 'react';
 import ReactDom from 'react-dom';
 import {Provider} from 'react-redux';

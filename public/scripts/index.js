@@ -8,7 +8,7 @@ var _redux = require('redux');
 
 var _action = require('./action');
 
-var _index = require('./reducer/index');
+var _index = require('./dataLayer/index');
 
 var _react = require('react');
 

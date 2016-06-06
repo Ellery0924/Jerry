@@ -18,7 +18,7 @@ var _index = require('../HostManage/index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _action = require('../../action');
+var _action = require('../../dataLayer/qproxy/action');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -88,7 +88,7 @@ var App = _react2.default.createClass({
      */
 
 function select(state) {
-    return state.toJS();
+    return state.toJS().qproxy;
 }
 
 exports.default = (0, _reactRedux.connect)(select)(App);

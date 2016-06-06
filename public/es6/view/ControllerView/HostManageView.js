@@ -1,7 +1,7 @@
 /**
  * Created by Ellery1 on 16/1/1.
  */
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Navigator from '../Common/Navigator';
 import HostManage from '../HostManage/index';
@@ -17,13 +17,14 @@ import {
     insertGroupAndSave,
     insertRuleAndSave,
     editDomainAndSave,
-    switchHttpsAndSave} from '../../action';
+    switchHttpsAndSave
+} from '../../dataLayer/qproxy/action';
 
 var App = React.createClass({
     render() {
 
-        const {dispatch,server}=this.props,
-            {group,activated,multiDeleteDisabled,httpsOn}=this.props.config;
+        const {dispatch, server}=this.props,
+            {group, activated, multiDeleteDisabled, httpsOn}=this.props.config;
 
         return (
             <div className="qproxyApp">
@@ -53,7 +54,7 @@ var App = React.createClass({
 });
 
 function select(state) {
-    return state.toJS();
+    return state.toJS().qproxy;
 }
 
 export default connect(select)(App);

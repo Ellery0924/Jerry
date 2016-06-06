@@ -14,7 +14,7 @@ var _Navigator2 = _interopRequireDefault(_Navigator);
 
 var _reactRedux = require('react-redux');
 
-var _action = require('../../action');
+var _action = require('../../dataLayer/qproxy/action');
 
 var _utils = require('../../utils');
 
@@ -78,7 +78,7 @@ var ServerManageView = _react2.default.createClass({
      */
 
 function select(state) {
-    return state.toJS();
+    return state.toJS().qproxy;
 }
 
 exports.default = (0, _reactRedux.connect)(select)(ServerManageView);
