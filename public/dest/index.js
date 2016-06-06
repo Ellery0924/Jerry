@@ -30783,6 +30783,15 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'li',
+	                            { 'nav-hash': '#logger' },
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { activeClassName: 'active', to: 'logger' },
+	                                '请求/响应日志'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
 	                            { 'nav-hash': '#rewrite' },
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
@@ -30797,15 +30806,6 @@
 	                                _reactRouter.Link,
 	                                { activeClassName: 'active', to: 'server' },
 	                                '服务器组配置'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { 'nav-hash': '#logger' },
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { activeClassName: 'active', to: 'logger' },
-	                                '请求/响应日志'
 	                            )
 	                        )
 	                    ),
