@@ -33,3 +33,5 @@ fs.writeFileSync('./ver.json', JSON.stringify({
     style: '@' + styleMd5
 }, null, 4));
 
+fs.writeFileSync('./public/dest/index.js', fs.readFileSync(indexJs.replace('.js', '@' + indexMd5 + '.js')));
+
