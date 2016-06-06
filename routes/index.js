@@ -18,6 +18,7 @@ router.get('/qproxyDev', function (req, res) {
     res.render('index', {
         baseVer: ver.base,
         styleVer: ver.style,
+        indexVer: '',
         isDebug: true
     });
 });

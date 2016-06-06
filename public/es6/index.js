@@ -14,10 +14,9 @@ import './logSocket/index';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(qproxyApp);
+var root = document.getElementById('content');
 
 store.dispatch(fetchConfig());
-
-var root = document.getElementById('content');
 
 ReactDom.render(
     <Provider store={store}>

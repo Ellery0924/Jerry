@@ -40,10 +40,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
 var store = createStoreWithMiddleware(_index.qproxyApp);
+var root = document.getElementById('content');
 
 store.dispatch((0, _action.fetchConfig)());
-
-var root = document.getElementById('content');
 
 _reactDom2.default.render(_react2.default.createElement(
     _reactRedux.Provider,

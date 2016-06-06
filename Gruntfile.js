@@ -70,10 +70,10 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            afterbuild: ['public/dest/style.css', 'public/dest/base.js']
+            beforebuild: ['public/dest/']
         }
     });
 
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['concat:js', 'concat:css', 'uglify', 'cssmin', 'clean']);
+    grunt.registerTask('build', ['concat:js', 'concat:css', 'uglify', 'cssmin']);
 };

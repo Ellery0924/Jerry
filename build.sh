@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+grunt clean
 grunt babel
 webpack -p
 grunt build
