@@ -3,13 +3,16 @@
 <head>
     <title>QProxy</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-    <!--<link rel="stylesheet" href="/stylesheets/Bootstrap.css">-->
-    <!--<link rel='stylesheet' href='/stylesheets/style.css'/>-->
-    <link rel="stylesheet" href="dest/style.min.css"/>
+    <% if(isDebug){ %>
+    <link rel="stylesheet" href="/stylesheets/Bootstrap.css">
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <% }else { %>
+    <link rel="stylesheet" href="dest/style.min<%= styleVer %>.css"/>
+    <% } %>
 </head>
 <body>
 <div id="content" class="content"></div>
-<script src="dest/base.min.js"></script>
-<script src="dest/index.js"></script>
+<script src="dest/base.min<%= baseVer %>.js"></script>
+<script src="dest/index<%= indexVer %>.js"></script>
 </body>
 </html>
