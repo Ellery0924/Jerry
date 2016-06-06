@@ -19,7 +19,7 @@ router.get('/qproxyDev', function (req, res) {
         baseVer: ver.base,
         styleVer: ver.style,
         isDebug: true
-    })
+    });
 });
 
 module.exports = router;
