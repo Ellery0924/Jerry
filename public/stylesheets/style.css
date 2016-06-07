@@ -214,9 +214,9 @@ body {
     cursor: pointer;
 }
 
-.navbar-nav a.active, .navbar-nav li:hover {
+.navbar-nav a.active, .navbar-nav li:hover, .nav-bar-nav li:focus {
     color: #555;
-    background-color: #e7e7e7;
+    background: #e7e7e7 !important;
 }
 
 .rewrite_rule .del_pattern {
