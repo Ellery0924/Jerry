@@ -268,3 +268,17 @@ body {
     border: 1px solid #ccc;
     border-radius: 6px;
 }
+
+.filter {
+    display: flex;
+    flex-direction: row;
+}
+
+.filter-input {
+    flex: 1;
+}
+
+.filter-btn {
+    margin-left: 5px;
+    width: 100px;
+}

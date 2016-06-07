@@ -42285,50 +42285,63 @@
 
 	        return _react2.default.createElement(
 	            "div",
-	            { className: "input-group" },
+	            { className: "filter" },
 	            _react2.default.createElement(
 	                "div",
-	                { className: "input-group-btn" },
+	                { className: "filter-input" },
 	                _react2.default.createElement(
-	                    "button",
-	                    { type: "button", className: "btn btn-default dropdown-toggle", "data-toggle": "dropdown",
-	                        "aria-haspopup": "true", "aria-expanded": "false" },
-	                    "Action ",
-	                    _react2.default.createElement("span", { className: "caret" })
-	                ),
-	                _react2.default.createElement(
-	                    "ul",
-	                    { className: "dropdown-menu" },
+	                    "div",
+	                    { className: "input-group" },
 	                    _react2.default.createElement(
-	                        "li",
-	                        null,
+	                        "div",
+	                        { className: "input-group-btn" },
 	                        _react2.default.createElement(
-	                            "a",
-	                            { href: "javascript:void 0;" },
-	                            "不限"
+	                            "button",
+	                            { type: "button", className: "btn btn-default dropdown-toggle", "data-toggle": "dropdown",
+	                                "aria-haspopup": "true", "aria-expanded": "false" },
+	                            "Action ",
+	                            _react2.default.createElement("span", { className: "caret" })
+	                        ),
+	                        _react2.default.createElement(
+	                            "ul",
+	                            { className: "dropdown-menu" },
+	                            _react2.default.createElement(
+	                                "li",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { href: "javascript:void 0;" },
+	                                    "不限"
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "li",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { href: "javascript:void 0;" },
+	                                    "GET"
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "li",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { href: "javascript:void 0" },
+	                                    "POST"
+	                                )
+	                            )
 	                        )
 	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        null,
-	                        _react2.default.createElement(
-	                            "a",
-	                            { href: "javascript:void 0;" },
-	                            "GET"
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        null,
-	                        _react2.default.createElement(
-	                            "a",
-	                            { href: "javascript:void 0" },
-	                            "POST"
-	                        )
-	                    )
+	                    _react2.default.createElement("input", { type: "text", className: "form-control" })
 	                )
 	            ),
-	            _react2.default.createElement("input", { type: "text", className: "form-control" })
+	            _react2.default.createElement(
+	                "button",
+	                { type: "button", className: "btn btn-primary filter-btn" },
+	                "过滤"
+	            )
 	        );
 	    }
 	}); /**
