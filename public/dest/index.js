@@ -34987,6 +34987,7 @@
 	exports.default = _react2.default.createClass({
 	    displayName: 'LoggerView',
 	    render: function render() {
+	        var list = this.props.list;
 
 	        return _react2.default.createElement(
 	            'div',
@@ -34995,7 +34996,7 @@
 	                'div',
 	                { className: 'logger-left' },
 	                _react2.default.createElement(_Filter2.default, null),
-	                _react2.default.createElement(_Console2.default, null)
+	                _react2.default.createElement(_Console2.default, { logList: list })
 	            ),
 	            _react2.default.createElement(
 	                'div',
@@ -42364,7 +42365,7 @@
 /* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -42374,30 +42375,66 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _ListView = __webpack_require__(263);
+
+	var _ListView2 = _interopRequireDefault(_ListView);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * Created by Ellery1 on 16/6/7.
+	 */
 	exports.default = _react2.default.createClass({
-	    displayName: "Console",
-	    render: function render() {
+	    displayName: 'Console',
+	    _renderRow: function _renderRow(item) {
+	        var method = item.method;
+	        var url = item.url;
+	        var time = item.time;
 
 	        return _react2.default.createElement(
-	            "div",
-	            { className: "panel panel-default console" },
+	            'div',
+	            { className: 'log-item' },
 	            _react2.default.createElement(
-	                "div",
-	                { className: "panel-heading" },
+	                'span',
+	                { className: 'log-item-method' },
+	                method
+	            ),
+	            _react2.default.createElement(
+	                'span',
+	                { className: 'log-item-url' },
+	                url
+	            )
+	        );
+	    },
+	    render: function render() {
+	        var logList = this.props.logList;
+
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'panel panel-default console' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-heading' },
 	                _react2.default.createElement(
-	                    "h3",
-	                    { className: "panel-title" },
-	                    "日志"
+	                    'h3',
+	                    { className: 'panel-title' },
+	                    '日志'
 	                )
 	            ),
-	            _react2.default.createElement("div", { className: "panel-body" })
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-body' },
+	                _react2.default.createElement(_ListView2.default, {
+	                    dataSrc: logList,
+	                    itemHeight: 50,
+	                    containerHeight: 200,
+	                    rangeSize: 10,
+	                    renderRow: this._renderRow
+	                })
+	            )
 	        );
 	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/7.
-	     */
+	});
 	//# sourceMappingURL=Console.js.map
 
 
@@ -42469,6 +42506,142 @@
 	     * Created by Ellery1 on 16/6/7.
 	     */
 	//# sourceMappingURL=Detail.js.map
+
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _dataSource = __webpack_require__(264);
+
+	var _dataSource2 = _interopRequireDefault(_dataSource);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Created by Ellery1 on 16/6/7.
+	 */
+	exports.default = _react2.default.createClass({
+	    displayName: 'ListView',
+	    render: function render() {
+	        var dataSrc = this.props.dataSrc;
+
+	        if (dataSrc) {
+	            var _props = this.props;
+	            var containerHeight = _props.containerHeight;
+	            var renderRow = _props.renderRow;
+	            var itemHeight = _props.itemHeight;
+	            var rangeSize = _props.rangeSize;
+	            var ds = new _dataSource2.default({
+	                dataSrc: dataSrc,
+	                itemHeight: itemHeight,
+	                containerHeight: containerHeight,
+	                rangeSize: rangeSize
+	            });
+	            var visibleItemList = ds.getVisibleItems();
+	            var contentHeight = ds.getContentHeight();
+
+	            return _react2.default.createElement(
+	                'div',
+	                { style: {
+	                        position: 'relative',
+	                        height: containerHeight + 'px',
+	                        overflow: 'auto'
+	                    }, className: 'listview-container' },
+	                _react2.default.createElement(
+	                    'ul',
+	                    { style: {
+	                            height: contentHeight + "px"
+	                        } },
+	                    visibleItemList.map(function (item, i) {
+	                        return _react2.default.createElement(
+	                            'li',
+	                            { className: 'listview-item-wrap', style: {
+	                                    position: "absolute",
+	                                    height: itemHeight + "px",
+	                                    top: item.top + "px",
+	                                    left: 0,
+	                                    right: 0
+	                                }, key: item.index },
+	                            renderRow(item)
+	                        );
+	                    })
+	                )
+	            );
+	        }
+
+	        return null;
+	    }
+	});
+	//# sourceMappingURL=index.js.map
+
+
+/***/ },
+/* 264 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Created by Ellery1 on 16/6/7.
+	 */
+	function DataSource(opt) {
+
+	    this.init(opt);
+	}
+
+	DataSource.prototype = {
+	    init: function init(opt) {
+
+	        var self = this;
+	        this.itemHeight = opt.itemHeight;
+	        this.dataSrc = opt.dataSrc.map(function (itemData, i) {
+	            return Object.assign({}, itemData, { top: i * self.itemHeight });
+	        });
+	        this.visibleRange = [0, opt.rangeSize || 10];
+	        this.containerHeight = opt.containerHeight;
+	    },
+	    setVisibleRage: function setVisibleRage(start, end) {
+
+	        this.visibleRange = [start, end];
+	    },
+	    getVisibleItems: function getVisibleItems() {
+
+	        return [].slice.apply(this.dataSrc, this.visibleRange);
+	    },
+	    getContentHeight: function getContentHeight() {
+
+	        return this.dataSrc.length * this.itemHeight;
+	    },
+	    configureVisibleRange: function configureVisibleRange(offsetY) {
+
+	        var startY = offsetY - this.containerHeight,
+	            endY = offsetY + this.containerHeight,
+	            startIndex = startY / this.itemHeight,
+	            endIndex = endY / this.itemHeight;
+
+	        startIndex = startIndex >= 0 ? startIndex : 0;
+	        endIndex = endIndex < this.dataSrc.length ? endIndex : this.dataSrc.length - 1;
+
+	        this.setVisibleRage(startIndex, endIndex);
+	    }
+	};
+
+	exports.default = DataSource;
+	//# sourceMappingURL=dataSource.js.map
 
 
 /***/ }

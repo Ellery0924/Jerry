@@ -9,11 +9,12 @@ import Detail from './Detail';
 export default React.createClass({
     render(){
 
+        const {list}=this.props;
         return (
             <div className="logger-view">
                 <div className="logger-left">
                     <Filter/>
-                    <Console/>
+                    <Console logList={list}/>
                 </div>
                 <div className="logger-right">
                     <Detail/>
