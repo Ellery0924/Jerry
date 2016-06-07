@@ -13,7 +13,10 @@ var initialState = Immutable.fromJS({
         server: {}
     },
     logger: {
-        filterCondition: {},
+        filterCondition: {
+            method: 'ALL',
+            regex: ''
+        },
         current: {},
         list: [],
         filtered: []

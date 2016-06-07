@@ -241,3 +241,30 @@ body {
     display: block;
     margin-top: 8px;
 }
+
+.logger-view {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.logger-left {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.logger-right {
+    flex: 1;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+.console {
+    height: 500px;
+    margin-top: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}

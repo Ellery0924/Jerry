@@ -4,16 +4,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Navigator from '../Common/Navigator';
+import Logger from '../LoggerView';
+import {filter, checkDetail, pushLog} from '../../dataLayer/log/action';
 
 var LoggerView = React.createClass({
     render(){
 
-        const {current, list} = this.props;
+        const {current, list, filterCondition, filtered} = this.props;
 
         return (
             <div className="logger">
                 <Navigator/>
-                <div className="test">{JSON.stringify(current)}</div>
+                <Logger {...this.props}/>
             </div>
         )
     }
