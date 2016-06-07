@@ -263,10 +263,9 @@ body {
 }
 
 .console {
-    height: 500px;
+    height: 75vh;
     margin-top: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    margin-bottom: 0;
 }
 
 .filter {
@@ -278,7 +277,30 @@ body {
     flex: 1;
 }
 
-.filter-btn {
+.filter-btn, .reset-btn {
     margin-left: 5px;
     width: 100px;
+}
+
+.log-detail-panel {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+}
+
+.nav-tabs > li.active.log-detail-first-tab {
+    border-bottom-left-radius: 0;
+}
+
+.logger-right-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.logger-right-content .tab-content {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 0 0 6px 6px;
+    border-top: none;
 }

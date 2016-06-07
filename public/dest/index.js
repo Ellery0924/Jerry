@@ -34975,8 +34975,15 @@
 
 	var _Console2 = _interopRequireDefault(_Console);
 
+	var _Detail = __webpack_require__(262);
+
+	var _Detail2 = _interopRequireDefault(_Detail);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * Created by Ellery1 on 16/6/7.
+	 */
 	exports.default = _react2.default.createClass({
 	    displayName: 'LoggerView',
 	    render: function render() {
@@ -34993,13 +35000,11 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'logger-right' },
-	                '22222'
+	                _react2.default.createElement(_Detail2.default, null)
 	            )
 	        );
 	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/7.
-	     */
+	});
 	//# sourceMappingURL=index.js.map
 
 
@@ -42341,6 +42346,11 @@
 	                "button",
 	                { type: "button", className: "btn btn-primary filter-btn" },
 	                "过滤"
+	            ),
+	            _react2.default.createElement(
+	                "button",
+	                { type: "button", className: "btn btn-danger reset-btn" },
+	                "重置"
 	            )
 	        );
 	    }
@@ -42370,12 +42380,95 @@
 	    displayName: "Console",
 	    render: function render() {
 
-	        return _react2.default.createElement("div", { className: "console" });
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "panel panel-default console" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "panel-heading" },
+	                _react2.default.createElement(
+	                    "h3",
+	                    { className: "panel-title" },
+	                    "日志"
+	                )
+	            ),
+	            _react2.default.createElement("div", { className: "panel-body" })
+	        );
 	    }
 	}); /**
 	     * Created by Ellery1 on 16/6/7.
 	     */
 	//# sourceMappingURL=Console.js.map
+
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _react2.default.createClass({
+	    displayName: "Detail",
+	    render: function render() {
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "logger-right-content" },
+	            _react2.default.createElement(
+	                "ul",
+	                { className: "nav nav-tabs", role: "tablist" },
+	                _react2.default.createElement(
+	                    "li",
+	                    { role: "presentation", className: "log-detail-first-tab active" },
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: "#home", "aria-controls": "home", role: "tab",
+	                            "data-toggle": "tab" },
+	                        "Overview"
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "li",
+	                    { role: "presentation" },
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: "#profile", "aria-controls": "profile", role: "tab", "data-toggle": "tab" },
+	                        "Request"
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "li",
+	                    { role: "presentation" },
+	                    _react2.default.createElement(
+	                        "a",
+	                        { href: "#messages", "aria-controls": "messages", role: "tab", "data-toggle": "tab" },
+	                        "Response"
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "tab-content" },
+	                _react2.default.createElement("div", { role: "tabpanel", className: "tab-pane active", id: "home" }),
+	                _react2.default.createElement("div", { role: "tabpanel", className: "tab-pane", id: "profile" }),
+	                _react2.default.createElement("div", { role: "tabpanel", className: "tab-pane", id: "messages" })
+	            )
+	        );
+	    }
+	}); /**
+	     * Created by Ellery1 on 16/6/7.
+	     */
+	//# sourceMappingURL=Detail.js.map
 
 
 /***/ }

@@ -25,6 +25,7 @@ export default React.createClass({
                     </div>
                 </div>
                 <button type="button" className="btn btn-primary filter-btn">过滤</button>
+                <button type="button" className="btn btn-danger reset-btn">重置</button>
             </div>
         );
     }

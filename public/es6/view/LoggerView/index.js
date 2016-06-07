@@ -4,6 +4,7 @@
 import React from 'react';
 import Filter from './Filter';
 import Console from './Console';
+import Detail from './Detail';
 
 export default React.createClass({
     render(){
@@ -14,7 +15,9 @@ export default React.createClass({
                     <Filter/>
                     <Console/>
                 </div>
-                <div className="logger-right">22222</div>
+                <div className="logger-right">
+                    <Detail/>
+                </div>
             </div>
         );
     }
