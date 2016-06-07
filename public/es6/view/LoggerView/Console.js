@@ -4,16 +4,29 @@
 import React from 'react';
 import ListView from '../Common/ListView';
 
+var LogItem = React.createClass({
+    shouldComponentUpdate(){
+
+        return false;
+    },
+    render(){
+
+        const {method, url}=this.props.item;
+
+        return (
+            <a href="javascript:void 0;" className="log-item" title={url}>
+                <span className={"log-item-method "+(method==='GET'?'get':'post')}>{method}</span>
+                <span className="log-item-url">{url}</span>
+            </a>
+        );
+    }
+});
+
 export default React.createClass({
     _renderRow(item){
 
-        const {method, url}=item;
-
         return (
-            <div className="log-item">
-                <span className="log-item-method">{method}</span>
-                <span className="log-item-url">{url}</span>
-            </div>
+            <LogItem item={item}/>
         );
     },
     render(){
@@ -29,9 +42,9 @@ export default React.createClass({
                 <div className="panel-body">
                     <ListView
                         dataSrc={logList}
-                        itemHeight={50}
+                        itemHeight={30}
                         containerHeight={0.75 * vh-68}
-                        rangeSize={10}
+                        rangeSize={20}
                         renderRow={this._renderRow}
                     />
                 </div>

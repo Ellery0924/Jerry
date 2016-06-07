@@ -29,7 +29,7 @@ export default React.createClass({
 
                 self.autoScroll = false;
             }
-            else if (nextScrollTop >= ds.getMaxScrollTop()) {
+            if (nextScrollTop >= ds.getMaxScrollTop() - self.props.itemHeight) {
 
                 self.autoScroll = true;
             }

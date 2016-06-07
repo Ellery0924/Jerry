@@ -306,6 +306,39 @@ body {
 }
 
 .log-item {
+    display: block;
+    height: 100%;
+    line-height: 30px;
+    vertical-align: middle;
     overflow: hidden;
-    height: 50px;
+    word-break: break-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.log-item-method.get {
+    color: #5cb85c;
+}
+
+.log-item-method.post {
+    color: #d9534f;
+}
+
+.log-item:hover {
+    text-decoration: none;
+    background: #eee;
+    color: #23527c;
+    cursor: pointer;
+}
+
+.log-item:active, .log-item:visited, .log-item:focus {
+    text-decoration: none;
+}
+
+.log-item-method, .log-item-url {
+    display: inline-block;
+}
+
+.log-item-url {
+    margin-left: 5px;
 }

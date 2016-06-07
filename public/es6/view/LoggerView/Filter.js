@@ -21,7 +21,7 @@ export default React.createClass({
                                 <li><a href="javascript:void 0">POST</a></li>
                             </ul>
                         </div>
-                        <input type="text" className="form-control"/>
+                        <input type="text" placeholder="输入正则表达式或者字符串" className="form-control"/>
                     </div>
                 </div>
                 <button type="button" className="btn btn-primary filter-btn">过滤</button>

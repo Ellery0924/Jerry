@@ -42342,7 +42342,7 @@
 	                            )
 	                        )
 	                    ),
-	                    _react2.default.createElement("input", { type: "text", className: "form-control" })
+	                    _react2.default.createElement("input", { type: "text", placeholder: "输入正则表达式或者字符串", className: "form-control" })
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -42386,18 +42386,24 @@
 	/**
 	 * Created by Ellery1 on 16/6/7.
 	 */
-	exports.default = _react2.default.createClass({
-	    displayName: 'Console',
-	    _renderRow: function _renderRow(item) {
-	        var method = item.method;
-	        var url = item.url;
+
+	var LogItem = _react2.default.createClass({
+	    displayName: 'LogItem',
+	    shouldComponentUpdate: function shouldComponentUpdate() {
+
+	        return false;
+	    },
+	    render: function render() {
+	        var _props$item = this.props.item;
+	        var method = _props$item.method;
+	        var url = _props$item.url;
 
 	        return _react2.default.createElement(
-	            'div',
-	            { className: 'log-item' },
+	            'a',
+	            { href: 'javascript:void 0;', className: 'log-item', title: url },
 	            _react2.default.createElement(
 	                'span',
-	                { className: 'log-item-method' },
+	                { className: "log-item-method " + (method === 'GET' ? 'get' : 'post') },
 	                method
 	            ),
 	            _react2.default.createElement(
@@ -42406,6 +42412,14 @@
 	                url
 	            )
 	        );
+	    }
+	});
+
+	exports.default = _react2.default.createClass({
+	    displayName: 'Console',
+	    _renderRow: function _renderRow(item) {
+
+	        return _react2.default.createElement(LogItem, { item: item });
 	    },
 	    render: function render() {
 	        var logList = this.props.logList;
@@ -42429,9 +42443,9 @@
 	                { className: 'panel-body' },
 	                _react2.default.createElement(_ListView2.default, {
 	                    dataSrc: logList,
-	                    itemHeight: 50,
+	                    itemHeight: 30,
 	                    containerHeight: 0.75 * vh - 68,
-	                    rangeSize: 10,
+	                    rangeSize: 20,
 	                    renderRow: this._renderRow
 	                })
 	            )
@@ -42560,7 +42574,8 @@
 	            if (deltaTop < 0) {
 
 	                self.autoScroll = false;
-	            } else if (nextScrollTop >= ds.getMaxScrollTop()) {
+	            }
+	            if (nextScrollTop >= ds.getMaxScrollTop() - self.props.itemHeight) {
 
 	                self.autoScroll = true;
 	            }
