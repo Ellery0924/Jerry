@@ -4,6 +4,7 @@
 export const PUSH_LOG = 'PUSH_LOG';
 export const CHECK_DETAIL = 'CHECK_DETAIL';
 export const FILTER = 'FILTER';
+export const CLEAR = 'CLEAR';
 
 export function pushLog(logData) {
     return {type: PUSH_LOG, logData};
@@ -15,5 +16,9 @@ export function checkDetail(index) {
 
 export function filter(condition) {
     return {type: FILTER, condition};
+}
+
+export function clear() {
+    return {type: CLEAR};
 }
 

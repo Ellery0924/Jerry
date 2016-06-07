@@ -43,6 +43,14 @@ export function filter(logState, condition) {
         });
 }
 
+export function clear(logState) {
+
+    return logState
+        .updateIn(['filtered'], _=>Immutable.fromJS([]))
+        .updateIn(['list'], _=>Immutable.fromJS([]))
+        .updateIn(['current', _=>Immutable.fromJS({})]);
+}
+
 function _filterSingleLog(logData, condition) {
 
     var method = condition.method || 'ALL',

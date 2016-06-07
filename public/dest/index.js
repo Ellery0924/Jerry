@@ -6501,6 +6501,9 @@
 	        case _action.PUSH_LOG:
 	            return (0, _log.pushLog)(logState, action.logData);
 
+	        case _action.CLEAR:
+	            return (0, _log.clear)(logState);
+
 	        default:
 	            return logState;
 	    }
@@ -6524,12 +6527,14 @@
 	exports.pushLog = pushLog;
 	exports.checkDetail = checkDetail;
 	exports.filter = filter;
+	exports.clear = clear;
 	/**
 	 * Created by Ellery1 on 16/6/6.
 	 */
 	var PUSH_LOG = exports.PUSH_LOG = 'PUSH_LOG';
 	var CHECK_DETAIL = exports.CHECK_DETAIL = 'CHECK_DETAIL';
 	var FILTER = exports.FILTER = 'FILTER';
+	var CLEAR = exports.CLEAR = 'CLEAR';
 
 	function pushLog(logData) {
 	    return { type: PUSH_LOG, logData: logData };
@@ -6541,6 +6546,10 @@
 
 	function filter(condition) {
 	    return { type: FILTER, condition: condition };
+	}
+
+	function clear() {
+	    return { type: CLEAR };
 	}
 	//# sourceMappingURL=action.js.map
 
@@ -6557,6 +6566,7 @@
 	exports.pushLog = pushLog;
 	exports.checkDetail = checkDetail;
 	exports.filter = filter;
+	exports.clear = clear;
 
 	var _immutable = __webpack_require__(16);
 
@@ -6607,6 +6617,17 @@
 	            return _filterSingleLog(log.toJS(), condition);
 	        });
 	    });
+	}
+
+	function clear(logState) {
+
+	    return logState.updateIn(['filtered'], function (_) {
+	        return _immutable2.default.fromJS([]);
+	    }).updateIn(['list'], function (_) {
+	        return _immutable2.default.fromJS([]);
+	    }).updateIn(['current', function (_) {
+	        return _immutable2.default.fromJS({});
+	    }]);
 	}
 
 	function _filterSingleLog(logData, condition) {
