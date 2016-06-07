@@ -33,7 +33,6 @@ export default React.createClass({
 
                 self.autoScroll = true;
             }
-            console.log('scrolling:' + nextScrollTop);
 
             ds.configureVisibleRange(nextScrollTop);
             self.setState({
@@ -43,7 +42,6 @@ export default React.createClass({
             currentScrollTop = nextScrollTop;
         };
     },
-
     componentWillReceiveProps(props){
 
         const {dataSrc}=this.props;
@@ -63,11 +61,13 @@ export default React.createClass({
                 visibleItemList: ds.getVisibleItems(),
                 contentHeight: ds.getContentHeight()
             });
+        }
+    },
+    componentDidUpdate(){
 
-            if (this.autoScroll) {
+        if (this.autoScroll) {
 
-                $(this.refs.container).scrollTop(ds.getMaxScrollTop());
-            }
+            $(this.refs.container).scrollTop(ds.getMaxScrollTop());
         }
     },
     componentWillMount(){

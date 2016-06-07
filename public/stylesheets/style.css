@@ -304,3 +304,8 @@ body {
     border-radius: 0 0 6px 6px;
     border-top: none;
 }
+
+.log-item {
+    overflow: hidden;
+    height: 50px;
+}

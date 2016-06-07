@@ -28,7 +28,7 @@ DataSource.prototype = {
     },
     getMaxScrollTop(){
 
-        return this.getContentHeight() - this.containerHeight ;
+        return Math.ceil(this.getContentHeight() - this.containerHeight);
     },
     configureVisibleRange(offsetY){
 

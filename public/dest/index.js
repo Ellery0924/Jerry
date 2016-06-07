@@ -42564,7 +42564,6 @@
 
 	                self.autoScroll = true;
 	            }
-	            console.log('scrolling:' + nextScrollTop);
 
 	            ds.configureVisibleRange(nextScrollTop);
 	            self.setState({
@@ -42593,11 +42592,13 @@
 	                visibleItemList: ds.getVisibleItems(),
 	                contentHeight: ds.getContentHeight()
 	            });
+	        }
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
 
-	            if (this.autoScroll) {
+	        if (this.autoScroll) {
 
-	                $(this.refs.container).scrollTop(ds.getMaxScrollTop());
-	            }
+	            $(this.refs.container).scrollTop(ds.getMaxScrollTop());
 	        }
 	    },
 	    componentWillMount: function componentWillMount() {
@@ -42695,7 +42696,7 @@
 	    },
 	    getMaxScrollTop: function getMaxScrollTop() {
 
-	        return this.getContentHeight() - this.containerHeight;
+	        return Math.ceil(this.getContentHeight() - this.containerHeight);
 	    },
 	    configureVisibleRange: function configureVisibleRange(offsetY) {
 
