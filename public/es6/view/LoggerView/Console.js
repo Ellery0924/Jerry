@@ -7,7 +7,7 @@ import ListView from '../Common/ListView';
 export default React.createClass({
     _renderRow(item){
 
-        const {method, url, time}=item;
+        const {method, url}=item;
 
         return (
             <div className="log-item">
@@ -19,6 +19,7 @@ export default React.createClass({
     render(){
 
         const {logList}=this.props;
+        const vh = $(window).height();
 
         return (
             <div className="panel panel-default console">
@@ -29,7 +30,7 @@ export default React.createClass({
                     <ListView
                         dataSrc={logList}
                         itemHeight={50}
-                        containerHeight={200}
+                        containerHeight={0.75 * vh-68}
                         rangeSize={10}
                         renderRow={this._renderRow}
                     />

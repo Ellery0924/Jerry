@@ -4,6 +4,7 @@
 import Immutable from 'immutable';
 
 var guid = -1;
+const MAX_LOG_NUM = 500;
 
 export function pushLog(logState, logData) {
 
@@ -13,7 +14,7 @@ export function pushLog(logState, logData) {
     return logState
         .updateIn(['list'], list=> {
 
-            return list.push(renderedLogData);
+            return list.push(renderedLogData).slice(-MAX_LOG_NUM);
         })
         .updateIn(['filtered'], filteredList=> {
 

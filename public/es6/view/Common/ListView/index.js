@@ -4,31 +4,95 @@
 import React from 'react';
 import DataSource from './dataSource';
 
-export default React.createClass({
-    render(){
+var ds = new DataSource({visibleRange: 10});
 
-        var {dataSrc}=this.props;
+export default React.createClass({
+    getInitialState(){
+
+        return {
+            visibleItemList: [],
+            contentHeight: 0
+        };
+    },
+    _onScrollGenerator(){
+
+        var currentScrollTop = 0,
+            self = this;
+
+        return function (evt) {
+
+            var container = evt.target,
+                nextScrollTop = container.scrollTop,
+                deltaTop = nextScrollTop - currentScrollTop;
+
+            if (deltaTop < 0) {
+
+                self.autoScroll = false;
+            }
+            else if (nextScrollTop >= ds.getMaxScrollTop()) {
+
+                self.autoScroll = true;
+            }
+            console.log('scrolling:' + nextScrollTop);
+
+            ds.configureVisibleRange(nextScrollTop);
+            self.setState({
+                visibleItemList: ds.getVisibleItems(),
+                contentHeight: ds.getContentHeight()
+            });
+            currentScrollTop = nextScrollTop;
+        };
+    },
+
+    componentWillReceiveProps(props){
+
+        const {dataSrc}=this.props;
 
         if (dataSrc) {
 
-            var {containerHeight, renderRow, itemHeight, rangeSize}=this.props,
-                ds = new DataSource({
-                    dataSrc,
-                    itemHeight,
-                    containerHeight,
-                    rangeSize
-                }),
-                visibleItemList = ds.getVisibleItems(),
-                contentHeight = ds.getContentHeight();
+            const {containerHeight, itemHeight, rangeSize}=props;
+
+            ds.refresh({
+                dataSrc,
+                itemHeight,
+                containerHeight,
+                rangeSize
+            });
+
+            this.setState({
+                visibleItemList: ds.getVisibleItems(),
+                contentHeight: ds.getContentHeight()
+            });
+
+            if (this.autoScroll) {
+
+                $(this.refs.container).scrollTop(ds.getMaxScrollTop());
+            }
+        }
+    },
+    componentWillMount(){
+
+        this.autoScroll = true;
+        this._onScroll = this._onScrollGenerator();
+        ds.setVisibleRage(0, 10);
+    },
+    render(){
+
+        const {renderRow, containerHeight, itemHeight}=this.props;
+        const {visibleItemList, contentHeight}=this.state;
+
+        if (visibleItemList) {
 
             return (
-                <div style={{
+                <div onScroll={this._onScroll} ref="container" style={{
                     position:'relative',
                     height:containerHeight+'px',
-                    overflow:'auto'
+                    "overflowY":'auto',
+                    "overflowX":"hidden"
                 }} className="listview-container">
-                    <ul style={{
-                        height:contentHeight+"px"
+                    <ul ref="content" style={{
+                        height:contentHeight+"px",
+                        marginBottom:0
                     }}>
                         {visibleItemList.map((item, i)=>(
                             <li className="listview-item-wrap" style={{

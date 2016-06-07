@@ -6568,6 +6568,8 @@
 	                * Created by Ellery1 on 16/6/7.
 	                */
 
+	var MAX_LOG_NUM = 500;
+
 	function pushLog(logState, logData) {
 
 	    var index = ++guid,
@@ -6575,7 +6577,7 @@
 
 	    return logState.updateIn(['list'], function (list) {
 
-	        return list.push(renderedLogData);
+	        return list.push(renderedLogData).slice(-MAX_LOG_NUM);
 	    }).updateIn(['filtered'], function (filteredList) {
 
 	        var condition = logState.get('filterCondition').toJS();
@@ -42389,7 +42391,6 @@
 	    _renderRow: function _renderRow(item) {
 	        var method = item.method;
 	        var url = item.url;
-	        var time = item.time;
 
 	        return _react2.default.createElement(
 	            'div',
@@ -42409,6 +42410,8 @@
 	    render: function render() {
 	        var logList = this.props.logList;
 
+	        var vh = $(window).height();
+
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'panel panel-default console' },
@@ -42427,7 +42430,7 @@
 	                _react2.default.createElement(_ListView2.default, {
 	                    dataSrc: logList,
 	                    itemHeight: 50,
-	                    containerHeight: 200,
+	                    containerHeight: 0.75 * vh - 68,
 	                    rangeSize: 10,
 	                    renderRow: this._renderRow
 	                })
@@ -42531,37 +42534,102 @@
 	/**
 	 * Created by Ellery1 on 16/6/7.
 	 */
+
+	var ds = new _dataSource2.default({ visibleRange: 10 });
+
 	exports.default = _react2.default.createClass({
 	    displayName: 'ListView',
-	    render: function render() {
+	    getInitialState: function getInitialState() {
+
+	        return {
+	            visibleItemList: [],
+	            contentHeight: 0
+	        };
+	    },
+	    _onScrollGenerator: function _onScrollGenerator() {
+
+	        var currentScrollTop = 0,
+	            self = this;
+
+	        return function (evt) {
+
+	            var container = evt.target,
+	                nextScrollTop = container.scrollTop,
+	                deltaTop = nextScrollTop - currentScrollTop;
+
+	            if (deltaTop < 0) {
+
+	                self.autoScroll = false;
+	            } else if (nextScrollTop >= ds.getMaxScrollTop()) {
+
+	                self.autoScroll = true;
+	            }
+	            console.log('scrolling:' + nextScrollTop);
+
+	            ds.configureVisibleRange(nextScrollTop);
+	            self.setState({
+	                visibleItemList: ds.getVisibleItems(),
+	                contentHeight: ds.getContentHeight()
+	            });
+	            currentScrollTop = nextScrollTop;
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(props) {
 	        var dataSrc = this.props.dataSrc;
 
 	        if (dataSrc) {
-	            var _props = this.props;
-	            var containerHeight = _props.containerHeight;
-	            var renderRow = _props.renderRow;
-	            var itemHeight = _props.itemHeight;
-	            var rangeSize = _props.rangeSize;
-	            var ds = new _dataSource2.default({
+	            var containerHeight = props.containerHeight;
+	            var itemHeight = props.itemHeight;
+	            var rangeSize = props.rangeSize;
+
+	            ds.refresh({
 	                dataSrc: dataSrc,
 	                itemHeight: itemHeight,
 	                containerHeight: containerHeight,
 	                rangeSize: rangeSize
 	            });
-	            var visibleItemList = ds.getVisibleItems();
-	            var contentHeight = ds.getContentHeight();
+
+	            this.setState({
+	                visibleItemList: ds.getVisibleItems(),
+	                contentHeight: ds.getContentHeight()
+	            });
+
+	            if (this.autoScroll) {
+
+	                $(this.refs.container).scrollTop(ds.getMaxScrollTop());
+	            }
+	        }
+	    },
+	    componentWillMount: function componentWillMount() {
+
+	        this.autoScroll = true;
+	        this._onScroll = this._onScrollGenerator();
+	        ds.setVisibleRage(0, 10);
+	    },
+	    render: function render() {
+	        var _props = this.props;
+	        var renderRow = _props.renderRow;
+	        var containerHeight = _props.containerHeight;
+	        var itemHeight = _props.itemHeight;
+	        var _state = this.state;
+	        var visibleItemList = _state.visibleItemList;
+	        var contentHeight = _state.contentHeight;
+
+	        if (visibleItemList) {
 
 	            return _react2.default.createElement(
 	                'div',
-	                { style: {
+	                { onScroll: this._onScroll, ref: 'container', style: {
 	                        position: 'relative',
 	                        height: containerHeight + 'px',
-	                        overflow: 'auto'
+	                        "overflowY": 'auto',
+	                        "overflowX": "hidden"
 	                    }, className: 'listview-container' },
 	                _react2.default.createElement(
 	                    'ul',
-	                    { style: {
-	                            height: contentHeight + "px"
+	                    { ref: 'content', style: {
+	                            height: contentHeight + "px",
+	                            marginBottom: 0
 	                        } },
 	                    visibleItemList.map(function (item, i) {
 	                        return _react2.default.createElement(
@@ -42600,18 +42668,17 @@
 	 */
 	function DataSource(opt) {
 
-	    this.init(opt);
+	    this.visibleRange = [0, opt.visibleRange];
 	}
 
 	DataSource.prototype = {
-	    init: function init(opt) {
+	    refresh: function refresh(opt) {
 
 	        var self = this;
 	        this.itemHeight = opt.itemHeight;
 	        this.dataSrc = opt.dataSrc.map(function (itemData, i) {
 	            return Object.assign({}, itemData, { top: i * self.itemHeight });
 	        });
-	        this.visibleRange = [0, opt.rangeSize || 10];
 	        this.containerHeight = opt.containerHeight;
 	    },
 	    setVisibleRage: function setVisibleRage(start, end) {
@@ -42626,15 +42693,19 @@
 
 	        return this.dataSrc.length * this.itemHeight;
 	    },
+	    getMaxScrollTop: function getMaxScrollTop() {
+
+	        return this.getContentHeight() - this.containerHeight;
+	    },
 	    configureVisibleRange: function configureVisibleRange(offsetY) {
 
 	        var startY = offsetY - this.containerHeight,
-	            endY = offsetY + this.containerHeight,
-	            startIndex = startY / this.itemHeight,
-	            endIndex = endY / this.itemHeight;
+	            endY = offsetY + 2 * this.containerHeight,
+	            startIndex = Math.ceil(startY / this.itemHeight),
+	            endIndex = Math.floor(endY / this.itemHeight);
 
 	        startIndex = startIndex >= 0 ? startIndex : 0;
-	        endIndex = endIndex < this.dataSrc.length ? endIndex : this.dataSrc.length - 1;
+	        endIndex = endIndex < this.dataSrc.length ? endIndex : this.dataSrc.length;
 
 	        this.setVisibleRage(startIndex, endIndex);
 	    }
