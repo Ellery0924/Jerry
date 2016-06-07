@@ -13,12 +13,14 @@ var initialState = Immutable.fromJS({
         server: {}
     },
     logger: {
+        filterCondition: {},
         current: {},
-        list: []
+        list: [],
+        filtered: []
     }
 });
 
-export function qproxyApp(state = initialState, action) {
+export default function (state = initialState, action) {
 
     return Immutable.fromJS({
         qproxy: qproxyReducer(state, action),

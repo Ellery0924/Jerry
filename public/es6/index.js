@@ -1,7 +1,7 @@
 import thunkMiddleware from 'redux-thunk'
 import {createStore, applyMiddleware} from 'redux'
 import {fetchConfig} from './dataLayer/qproxy/action'
-import {qproxyApp} from './dataLayer/index'
+import reducer from './dataLayer/index'
 import React from 'react';
 import ReactDom from 'react-dom';
 import {Provider} from 'react-redux';
@@ -14,8 +14,7 @@ import LoggerView from './view/ControllerView/LoggerView';
 import './logSocket/index';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
-const store = createStoreWithMiddleware(qproxyApp);
-var root = document.getElementById('content');
+const store = createStoreWithMiddleware(reducer);
 
 store.dispatch(fetchConfig());
 
@@ -28,5 +27,5 @@ ReactDom.render(
             <Route name="logger" path="/logger" component={LoggerView}/>
         </Router>
     </Provider>,
-    root
+    document.getElementById('content')
 );

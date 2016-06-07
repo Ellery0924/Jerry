@@ -3,8 +3,10 @@
  */
 export default function (state, action) {
 
+    var logState = state.get('logger');
+
     switch (action.type) {
         default:
-            return state.get('logger');
+            return logState;
     }
 }
