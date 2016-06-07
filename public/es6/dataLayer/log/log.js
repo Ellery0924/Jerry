@@ -4,27 +4,26 @@
 import Immutable from 'immutable';
 
 var guid = -1;
-const MAX_LOG_NUM = 500;
 
 export function pushLog(logState, logData) {
 
-    var index = ++guid,
-        renderedLogData = Immutable.fromJS(Object.assign({}, logData, {index}));
+    var renderedLogData = logData.map(log=> {
+
+        var index = ++guid;
+        return Immutable.fromJS(Object.assign({}, log, {index}));
+    });
 
     return logState
         .updateIn(['list'], list=> {
 
-            return list.push(renderedLogData).slice(-MAX_LOG_NUM);
+            return list.concat(renderedLogData);
         })
         .updateIn(['filtered'], filteredList=> {
 
             var condition = logState.get('filterCondition').toJS();
+            var filteredRenderedLogData = renderedLogData.filter(log=>_filterSingleLog(log.toJS(), condition));
 
-            if (_filterSingleLog(logData, condition)) {
-
-                return filteredList.push(renderedLogData)
-            }
-            return filteredList;
+            return filteredList.concat(Immutable.fromJS(filteredRenderedLogData));
         });
 }
 

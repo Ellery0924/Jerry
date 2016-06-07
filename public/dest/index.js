@@ -92,6 +92,10 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
+	var _safeEvent = __webpack_require__(265);
+
+	var _safeEvent2 = _interopRequireDefault(_safeEvent);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
@@ -6578,25 +6582,25 @@
 	                * Created by Ellery1 on 16/6/7.
 	                */
 
-	var MAX_LOG_NUM = 500;
-
 	function pushLog(logState, logData) {
 
-	    var index = ++guid,
-	        renderedLogData = _immutable2.default.fromJS(Object.assign({}, logData, { index: index }));
+	    var renderedLogData = logData.map(function (log) {
+
+	        var index = ++guid;
+	        return _immutable2.default.fromJS(Object.assign({}, log, { index: index }));
+	    });
 
 	    return logState.updateIn(['list'], function (list) {
 
-	        return list.push(renderedLogData).slice(-MAX_LOG_NUM);
+	        return list.concat(renderedLogData);
 	    }).updateIn(['filtered'], function (filteredList) {
 
 	        var condition = logState.get('filterCondition').toJS();
+	        var filteredRenderedLogData = renderedLogData.filter(function (log) {
+	            return _filterSingleLog(log.toJS(), condition);
+	        });
 
-	        if (_filterSingleLog(logData, condition)) {
-
-	            return filteredList.push(renderedLogData);
-	        }
-	        return filteredList;
+	        return filteredList.concat(_immutable2.default.fromJS(filteredRenderedLogData));
 	    });
 	}
 
@@ -42745,6 +42749,87 @@
 
 	exports.default = DataSource;
 	//# sourceMappingURL=dataSource.js.map
+
+
+/***/ },
+/* 265 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/**
+	 * Created by Ellery1 on 15/9/10.
+	 */
+	module.exports = function (origHandler, context, gap, endGap) {
+
+	    var lastTriggerTime,
+
+	    //这个变量用来保存当前的实参
+	    args,
+
+	    //这个变量用于判断是否是首次触发
+	    //如果orgHandler尚未被触发过，则直接触发
+	    hasTriggered = false;
+
+	    context = context || window;
+
+	    if (gap && gap < 50) {
+
+	        window.console && console.warn('safeEvent: 设置的间隔值过小!自动调整为50ms');
+	        gap = 50;
+	    }
+
+	    if (endGap && endGap < gap) {
+
+	        window.console && console.warn('safeEvent: 设置的endGap过小!自动调整为一倍gap');
+	        endGap = gap;
+	    }
+
+	    //工具函数，在context上触发orgHandler并且重置lastTriggerTime
+	    var trigger = function trigger(now, _trigger) {
+
+	        lastTriggerTime = now;
+	        _trigger && origHandler.apply(context, args);
+	    };
+
+	    return function () {
+
+	        var now = new Date().valueOf(),
+
+	        //用于监控结束时刻的定时器
+	        endWatcher;
+
+	        args = Array.prototype.slice.apply(arguments);
+
+	        if (hasTriggered) {
+
+	            if (now - lastTriggerTime > gap) {
+
+	                trigger(now, gap);
+	            }
+	        } else {
+
+	            hasTriggered = true;
+	            trigger(now, gap);
+
+	            if (endGap) {
+
+	                endWatcher = setInterval(function () {
+
+	                    var now = new Date().valueOf();
+
+	                    if (now - lastTriggerTime >= endGap) {
+
+	                        trigger(now, endGap);
+	                        clearInterval(endWatcher);
+	                        hasTriggered = false;
+	                    }
+	                }, 50);
+	            }
+	        }
+	    };
+	};
+	//# sourceMappingURL=safeEvent.js.map
 
 
 /***/ }
