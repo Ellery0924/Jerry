@@ -34929,11 +34929,6 @@
 	var LoggerView = _react2.default.createClass({
 	    displayName: 'LoggerView',
 	    render: function render() {
-	        var _props = this.props;
-	        var current = _props.current;
-	        var list = _props.list;
-	        var filterCondition = _props.filterCondition;
-	        var filtered = _props.filtered;
 
 	        return _react2.default.createElement(
 	            'div',
