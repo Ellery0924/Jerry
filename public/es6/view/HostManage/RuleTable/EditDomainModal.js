@@ -35,6 +35,7 @@ export default React.createClass({
         }
     },
     render(){
+
         const {ruleIndex}=this.props;
 
         return (
