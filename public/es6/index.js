@@ -13,7 +13,6 @@ import ServerManageView from './view/ControllerView/ServerManageView';
 import PatternManageView from './view/ControllerView/PatternManageView';
 import LoggerView from './view/ControllerView/LoggerView';
 import io from 'socket.io-client/socket.io';
-import safeEvent from './safeEvent';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducer);
@@ -22,6 +21,7 @@ var socket = io('http://127.0.0.1:3000');
 
 socket.on('log', function (logData) {
 
+    console.log(logData);
     store.dispatch(pushLog(logData));
 });
 

@@ -44,10 +44,10 @@ export default React.createClass({
     },
     componentWillReceiveProps(props){
 
-        const {dataSrc}=this.props;
+        const {dataSrc}=props;
 
         if (dataSrc) {
-
+            
             const {containerHeight, itemHeight, rangeSize}=props;
 
             ds.refresh({
@@ -57,10 +57,8 @@ export default React.createClass({
                 rangeSize
             });
 
-            this.setState({
-                visibleItemList: ds.getVisibleItems(),
-                contentHeight: ds.getContentHeight()
-            });
+            this.state.visibleItemList = ds.getVisibleItems();
+            this.state.contentHeight = ds.getContentHeight();
         }
     },
     componentDidUpdate(){

@@ -7,11 +7,11 @@ var guid = -1;
 
 export function pushLog(logState, logData) {
 
-    var renderedLogData = logData.map(log=> {
+    var renderedLogData = Immutable.fromJS(logData.map(log=> {
 
         var index = ++guid;
-        return Immutable.fromJS(Object.assign({}, log, {index}));
-    });
+        return Object.assign({}, log, {index});
+    }));
 
     return logState
         .updateIn(['list'], list=> {
