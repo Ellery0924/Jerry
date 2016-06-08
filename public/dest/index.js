@@ -35073,10 +35073,16 @@
 	            filter({ method: method, regex: regex });
 	        }
 	    },
-	    _resetFilter: function _resetFilter() {
+	    _onResetFilter: function _onResetFilter() {
 	        var filter = this.props.filter;
 
 	        filter({ method: 'ALL', regex: '' });
+	    },
+	    _onRegexChange: function _onRegexChange() {
+	        var filter = this.props.filter;
+
+	        var regex = this.refs.regexInput.value;
+	        filter({ method: this.currentMethod, regex: regex });
 	    },
 	    componentWillMount: function componentWillMount() {
 
@@ -35151,12 +35157,14 @@
 	                            )
 	                        )
 	                    ),
-	                    _react2.default.createElement('input', { ref: 'regexInput', type: 'text', placeholder: '输入正则表达式或者字符串', className: 'form-control' })
+	                    _react2.default.createElement('input', { onChange: this._onRegexChange, value: regex, ref: 'regexInput', type: 'text',
+	                        placeholder: '输入正则表达式(请使用\\.和\\?代替.和?,其他正则表达式元字符以此类推)',
+	                        className: 'form-control' })
 	                )
 	            ),
 	            _react2.default.createElement(
 	                'button',
-	                { type: 'button', onClick: this._resetFilter, className: 'btn btn-danger reset-btn' },
+	                { type: 'button', onClick: this._onResetFilter, className: 'btn btn-danger reset-btn' },
 	                '重置'
 	            )
 	        );

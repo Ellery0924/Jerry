@@ -15,10 +15,16 @@ export default React.createClass({
             filter({method, regex});
         }
     },
-    _resetFilter(){
+    _onResetFilter(){
 
         const {filter}=this.props;
         filter({method: 'ALL', regex: ''});
+    },
+    _onRegexChange(){
+
+        const {filter}=this.props;
+        var regex = this.refs.regexInput.value;
+        filter({method: this.currentMethod, regex});
     },
     componentWillMount(){
 
@@ -48,10 +54,12 @@ export default React.createClass({
                                        href="javascript:void 0">POST</a></li>
                             </ul>
                         </div>
-                        <input ref="regexInput" type="text" placeholder="输入正则表达式或者字符串" className="form-control"/>
+                        <input onChange={this._onRegexChange} value={regex} ref="regexInput" type="text"
+                               placeholder="输入正则表达式(请使用\.和\?代替.和?,其他正则表达式元字符以此类推)"
+                               className="form-control"/>
                     </div>
                 </div>
-                <button type="button" onClick={this._resetFilter} className="btn btn-danger reset-btn">重置</button>
+                <button type="button" onClick={this._onResetFilter} className="btn btn-danger reset-btn">重置</button>
             </div>
         );
     }
