@@ -35282,7 +35282,7 @@
 	                    '日志',
 	                    _react2.default.createElement(
 	                        'button',
-	                        { onClick: this._clearConsole, type: 'button', className: 'clear-console' },
+	                        { onClick: this._clearConsole, type: 'button', className: 'glyphicon glyphicon-ban-circle clear-console' },
 	                        '清空'
 	                    )
 	                )

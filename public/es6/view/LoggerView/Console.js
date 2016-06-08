@@ -44,7 +44,7 @@ export default React.createClass({
                 <div className="panel-heading">
                     <h3 className="panel-title">
                         日志
-                        <button onClick={this._clearConsole} type="button" className="clear-console">清空</button>
+                        <button onClick={this._clearConsole} type="button" className="glyphicon glyphicon-ban-circle clear-console">清空</button>
                     </h3>
                 </div>
                 <div className="panel-body">
