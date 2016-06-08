@@ -29,6 +29,11 @@ export default React.createClass({
             <LogItem item={item}/>
         );
     },
+    _clearConsole(){
+
+        const {clear}=this.props;
+        clear();
+    },
     render(){
 
         const {logList, shouldResetY}=this.props;
@@ -37,7 +42,10 @@ export default React.createClass({
         return (
             <div className="panel panel-default console">
                 <div className="panel-heading">
-                    <h3 className="panel-title">日志</h3>
+                    <h3 className="panel-title">
+                        日志
+                        <button onClick={this._clearConsole} type="button" className="clear-console">清空</button>
+                    </h3>
                 </div>
                 <div className="panel-body">
                     <ListView

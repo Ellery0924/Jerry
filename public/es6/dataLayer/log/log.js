@@ -35,14 +35,12 @@ export function checkDetail(logState, index) {
 
 export function filter(logState, condition) {
 
-    var ret = logState
+    return logState
         .updateIn(['filterCondition'], ()=>Immutable.fromJS(condition))
         .updateIn(['filtered'], ()=> {
 
             return logState.get('list').filter(log=>_filterSingleLog(log.toJS(), condition));
         });
-
-    return ret;
 }
 
 export function clear(logState) {
@@ -50,7 +48,7 @@ export function clear(logState) {
     return logState
         .updateIn(['filtered'], _=>Immutable.fromJS([]))
         .updateIn(['list'], _=>Immutable.fromJS([]))
-        .updateIn(['current', _=>Immutable.fromJS({})]);
+        .updateIn(['current'], _=>Immutable.fromJS({}));
 }
 
 function _filterSingleLog(logData, condition) {

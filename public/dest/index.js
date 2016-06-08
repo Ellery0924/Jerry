@@ -6610,7 +6610,7 @@
 
 	function filter(logState, condition) {
 
-	    var ret = logState.updateIn(['filterCondition'], function () {
+	    return logState.updateIn(['filterCondition'], function () {
 	        return _immutable2.default.fromJS(condition);
 	    }).updateIn(['filtered'], function () {
 
@@ -6618,8 +6618,6 @@
 	            return _filterSingleLog(log.toJS(), condition);
 	        });
 	    });
-
-	    return ret;
 	}
 
 	function clear(logState) {
@@ -6628,9 +6626,9 @@
 	        return _immutable2.default.fromJS([]);
 	    }).updateIn(['list'], function (_) {
 	        return _immutable2.default.fromJS([]);
-	    }).updateIn(['current', function (_) {
+	    }).updateIn(['current'], function (_) {
 	        return _immutable2.default.fromJS({});
-	    }]);
+	    });
 	}
 
 	function _filterSingleLog(logData, condition) {
@@ -34969,6 +34967,9 @@
 	                },
 	                checkDetail: function checkDetail(index) {
 	                    dispatch((0, _action.checkDetail)(index));
+	                },
+	                clear: function clear() {
+	                    dispatch((0, _action.clear)());
 	                }
 	            }))
 	        );
@@ -35022,6 +35023,7 @@
 	        var filtered = _props.filtered;
 	        var filterCondition = _props.filterCondition;
 	        var filter = _props.filter;
+	        var clear = _props.clear;
 
 	        return _react2.default.createElement(
 	            'div',
@@ -35030,7 +35032,7 @@
 	                'div',
 	                { className: 'logger-left' },
 	                _react2.default.createElement(_Filter2.default, { condition: filterCondition, filter: filter }),
-	                _react2.default.createElement(_Console2.default, { logList: filtered })
+	                _react2.default.createElement(_Console2.default, { logList: filtered, clear: clear })
 	            ),
 	            _react2.default.createElement(
 	                'div',
@@ -35219,6 +35221,11 @@
 
 	        return _react2.default.createElement(LogItem, { item: item });
 	    },
+	    _clearConsole: function _clearConsole() {
+	        var clear = this.props.clear;
+
+	        clear();
+	    },
 	    render: function render() {
 	        var _props = this.props;
 	        var logList = _props.logList;
@@ -35235,7 +35242,12 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    { className: 'panel-title' },
-	                    '日志'
+	                    '日志',
+	                    _react2.default.createElement(
+	                        'button',
+	                        { onClick: this._clearConsole, type: 'button', className: 'clear-console' },
+	                        '清空'
+	                    )
 	                )
 	            ),
 	            _react2.default.createElement(

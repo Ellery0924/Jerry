@@ -342,3 +342,8 @@ body {
 .log-item-url {
     margin-left: 5px;
 }
+
+.clear-console {
+    display: inline-block;
+    margin-left: 5px;
+}
