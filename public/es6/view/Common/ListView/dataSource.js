@@ -13,6 +13,7 @@ DataSource.prototype = {
         this.itemHeight = opt.itemHeight;
         this.dataSrc = opt.dataSrc.map((itemData, i)=>Object.assign({}, itemData, {top: i * self.itemHeight}));
         this.containerHeight = opt.containerHeight;
+        this.configureVisibleRange(0);
     },
     setVisibleRage(start, end){
 

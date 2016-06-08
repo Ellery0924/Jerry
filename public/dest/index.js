@@ -101,7 +101,6 @@
 
 	socket.on('log', function (logData) {
 
-	    console.log(logData);
 	    store.dispatch((0, _action2.pushLog)(logData));
 	});
 
@@ -6597,7 +6596,7 @@
 	            return _filterSingleLog(log.toJS(), condition);
 	        });
 
-	        return filteredList.concat(_immutable2.default.fromJS(filteredRenderedLogData));
+	        return filteredList.concat(filteredRenderedLogData);
 	    });
 	}
 
@@ -6610,7 +6609,7 @@
 
 	function filter(logState, condition) {
 
-	    return logState.updateIn(['filterCondition'], function () {
+	    var ret = logState.updateIn(['filterCondition'], function () {
 	        return _immutable2.default.fromJS(condition);
 	    }).updateIn(['filtered'], function () {
 
@@ -6618,6 +6617,10 @@
 	            return _filterSingleLog(log.toJS(), condition);
 	        });
 	    });
+
+	    console.log(ret.toJS().filterCondition);
+	    console.log(ret.toJS().filtered);
+	    return ret;
 	}
 
 	function clear(logState) {
@@ -34926,6 +34929,10 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * Created by Ellery1 on 16/6/6.
+	                                                                                                                                                                                                                                                                   */
+
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
@@ -34951,17 +34958,23 @@
 	var LoggerView = _react2.default.createClass({
 	    displayName: 'LoggerView',
 	    render: function render() {
+	        var dispatch = this.props.dispatch;
 
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'logger' },
 	            _react2.default.createElement(_Navigator2.default, null),
-	            _react2.default.createElement(_LoggerView2.default, this.props)
+	            _react2.default.createElement(_LoggerView2.default, _extends({}, this.props, {
+	                filter: function filter(condition) {
+	                    dispatch((0, _action.filter)(condition));
+	                },
+	                checkDetail: function checkDetail(index) {
+	                    dispatch((0, _action.checkDetail)(index));
+	                }
+	            }))
 	        );
 	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/6.
-	     */
+	});
 
 	function select(state) {
 
@@ -35006,7 +35019,10 @@
 	exports.default = _react2.default.createClass({
 	    displayName: 'LoggerView',
 	    render: function render() {
-	        var list = this.props.list;
+	        var _props = this.props;
+	        var filtered = _props.filtered;
+	        var filterCondition = _props.filterCondition;
+	        var filter = _props.filter;
 
 	        return _react2.default.createElement(
 	            'div',
@@ -35014,8 +35030,8 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'logger-left' },
-	                _react2.default.createElement(_Filter2.default, null),
-	                _react2.default.createElement(_Console2.default, { logList: list })
+	                _react2.default.createElement(_Filter2.default, { condition: filterCondition, filter: filter }),
+	                _react2.default.createElement(_Console2.default, { logList: filtered })
 	            ),
 	            _react2.default.createElement(
 	                'div',
@@ -35032,7 +35048,7 @@
 /* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -35045,72 +35061,98 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _react2.default.createClass({
-	    displayName: "Filter",
+	    displayName: 'Filter',
+	    _onSelectMethod: function _onSelectMethod(method) {
+	        var filter = this.props.filter;
+
+	        var regex = this.refs.regexInput.value;
+
+	        if (method !== this.currentMethod) {
+
+	            this.currentMethod = method;
+	            filter({ method: method, regex: regex });
+	        }
+	    },
+	    componentWillMount: function componentWillMount() {
+
+	        this.currentMethod = 'ALL';
+	    },
 	    render: function render() {
+	        var _this = this;
+
+	        var _props$condition = this.props.condition;
+	        var method = _props$condition.method;
+	        var regex = _props$condition.regex;
+
+	        var methodText = method === 'ALL' ? '不限 ' : method;
 
 	        return _react2.default.createElement(
-	            "div",
-	            { className: "filter" },
+	            'div',
+	            { className: 'filter' },
 	            _react2.default.createElement(
-	                "div",
-	                { className: "filter-input" },
+	                'div',
+	                { className: 'filter-input' },
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "input-group" },
+	                    'div',
+	                    { className: 'input-group' },
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "input-group-btn" },
+	                        'div',
+	                        { className: 'input-group-btn' },
 	                        _react2.default.createElement(
-	                            "button",
-	                            { type: "button", className: "btn btn-default dropdown-toggle", "data-toggle": "dropdown",
-	                                "aria-haspopup": "true", "aria-expanded": "false" },
-	                            "Action ",
-	                            _react2.default.createElement("span", { className: "caret" })
+	                            'button',
+	                            { type: 'button', className: 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown',
+	                                'aria-haspopup': 'true', 'aria-expanded': 'false' },
+	                            methodText,
+	                            _react2.default.createElement('span', { className: 'caret' })
 	                        ),
 	                        _react2.default.createElement(
-	                            "ul",
-	                            { className: "dropdown-menu" },
+	                            'ul',
+	                            { className: 'dropdown-menu' },
 	                            _react2.default.createElement(
-	                                "li",
+	                                'li',
 	                                null,
 	                                _react2.default.createElement(
-	                                    "a",
-	                                    { href: "javascript:void 0;" },
-	                                    "不限"
+	                                    'a',
+	                                    { ref: 'allSelect', onClick: function onClick() {
+	                                            return _this._onSelectMethod('ALL');
+	                                        }, 'data-method': 'ALL',
+	                                        href: 'javascript:void 0;' },
+	                                    '不限'
 	                                )
 	                            ),
 	                            _react2.default.createElement(
-	                                "li",
+	                                'li',
 	                                null,
 	                                _react2.default.createElement(
-	                                    "a",
-	                                    { href: "javascript:void 0;" },
-	                                    "GET"
+	                                    'a',
+	                                    { ref: 'getSelect', onClick: function onClick() {
+	                                            return _this._onSelectMethod('GET');
+	                                        }, 'data-method': 'GET',
+	                                        href: 'javascript:void 0;' },
+	                                    'GET'
 	                                )
 	                            ),
 	                            _react2.default.createElement(
-	                                "li",
+	                                'li',
 	                                null,
 	                                _react2.default.createElement(
-	                                    "a",
-	                                    { href: "javascript:void 0" },
-	                                    "POST"
+	                                    'a',
+	                                    { ref: 'postSelect', onClick: function onClick() {
+	                                            return _this._onSelectMethod('POST');
+	                                        }, 'data-method': 'POST',
+	                                        href: 'javascript:void 0' },
+	                                    'POST'
 	                                )
 	                            )
 	                        )
 	                    ),
-	                    _react2.default.createElement("input", { type: "text", placeholder: "输入正则表达式或者字符串", className: "form-control" })
+	                    _react2.default.createElement('input', { ref: 'regexInput', type: 'text', placeholder: '输入正则表达式或者字符串', className: 'form-control' })
 	                )
 	            ),
 	            _react2.default.createElement(
-	                "button",
-	                { type: "button", className: "btn btn-primary filter-btn" },
-	                "过滤"
-	            ),
-	            _react2.default.createElement(
-	                "button",
-	                { type: "button", className: "btn btn-danger reset-btn" },
-	                "重置"
+	                'button',
+	                { type: 'button', className: 'btn btn-danger reset-btn' },
+	                '重置'
 	            )
 	        );
 	    }
@@ -35182,8 +35224,7 @@
 	        var logList = this.props.logList;
 
 	        var vh = $(window).height();
-	        console.log('loglist:');
-	        console.log(logList);
+	        console.log('loglist:', logList);
 
 	        return _react2.default.createElement(
 	            'div',
@@ -35314,9 +35355,9 @@
 	        var renderRow = _props.renderRow;
 	        var containerHeight = _props.containerHeight;
 	        var itemHeight = _props.itemHeight;
-	        var _state = this.state;
-	        var visibleItemList = _state.visibleItemList;
-	        var contentHeight = _state.contentHeight;
+
+	        var visibleItemList = this.state.visibleItemList;
+	        var contentHeight = this.state.contentHeight;
 
 	        if (visibleItemList) {
 
@@ -35383,6 +35424,7 @@
 	            return Object.assign({}, itemData, { top: i * self.itemHeight });
 	        });
 	        this.containerHeight = opt.containerHeight;
+	        this.configureVisibleRange(0);
 	    },
 	    setVisibleRage: function setVisibleRage(start, end) {
 

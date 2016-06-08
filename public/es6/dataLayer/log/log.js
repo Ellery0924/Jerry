@@ -23,7 +23,7 @@ export function pushLog(logState, logData) {
             var condition = logState.get('filterCondition').toJS();
             var filteredRenderedLogData = renderedLogData.filter(log=>_filterSingleLog(log.toJS(), condition));
 
-            return filteredList.concat(Immutable.fromJS(filteredRenderedLogData));
+            return filteredList.concat(filteredRenderedLogData);
         });
 }
 
@@ -34,12 +34,16 @@ export function checkDetail(logState, index) {
 
 export function filter(logState, condition) {
 
-    return logState
+    var ret = logState
         .updateIn(['filterCondition'], ()=>Immutable.fromJS(condition))
         .updateIn(['filtered'], ()=> {
 
             return logState.get('list').filter(log=>_filterSingleLog(log.toJS(), condition));
         });
+
+    console.log(ret.toJS().filterCondition);
+    console.log(ret.toJS().filtered)
+    return ret;
 }
 
 export function clear(logState) {

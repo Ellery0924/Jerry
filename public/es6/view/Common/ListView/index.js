@@ -47,7 +47,7 @@ export default React.createClass({
         const {dataSrc}=props;
 
         if (dataSrc) {
-            
+
             const {containerHeight, itemHeight, rangeSize}=props;
 
             ds.refresh({
@@ -77,7 +77,8 @@ export default React.createClass({
     render(){
 
         const {renderRow, containerHeight, itemHeight}=this.props;
-        const {visibleItemList, contentHeight}=this.state;
+        const visibleItemList = this.state.visibleItemList;
+        const contentHeight = this.state.contentHeight;
 
         if (visibleItemList) {
 

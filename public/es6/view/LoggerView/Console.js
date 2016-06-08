@@ -33,6 +33,7 @@ export default React.createClass({
 
         const {logList}=this.props;
         const vh = $(window).height();
+        console.log('loglist:', logList)
 
         return (
             <div className="panel panel-default console">

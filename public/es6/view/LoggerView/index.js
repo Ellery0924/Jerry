@@ -9,12 +9,13 @@ import Detail from './Detail';
 export default React.createClass({
     render(){
 
-        const {list}=this.props;
+        const {filtered, filterCondition, filter}=this.props;
+
         return (
             <div className="logger-view">
                 <div className="logger-left">
-                    <Filter/>
-                    <Console logList={list}/>
+                    <Filter condition={filterCondition} filter={filter}/>
+                    <Console logList={filtered}/>
                 </div>
                 <div className="logger-right">
                     <Detail/>

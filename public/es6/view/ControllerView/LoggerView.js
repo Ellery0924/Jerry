@@ -10,10 +10,16 @@ import {filter, checkDetail} from '../../dataLayer/log/action';
 var LoggerView = React.createClass({
     render(){
 
+        const {dispatch}=this.props;
+
         return (
             <div className="logger">
                 <Navigator/>
-                <Logger {...this.props}/>
+                <Logger
+                    {...this.props}
+                    filter={(condition)=>{dispatch(filter(condition))}}
+                    checkDetail={(index)=>{dispatch(checkDetail(index))}}
+                />
             </div>
         );
     }
