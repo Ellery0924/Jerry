@@ -23,7 +23,6 @@ export function pushLog(logState, logData) {
             var condition = logState.get('filterCondition').toJS();
             var filteredRenderedLogData = renderedLogData.filter(log=>_filterSingleLog(log.toJS(), condition));
 
-            console.log(filteredRenderedLogData.toJS());
             return filteredList.concat(filteredRenderedLogData);
         });
 }

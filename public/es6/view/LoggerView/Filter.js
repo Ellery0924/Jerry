@@ -15,6 +15,11 @@ export default React.createClass({
             filter({method, regex});
         }
     },
+    _resetFilter(){
+
+        const {filter}=this.props;
+        filter({method: 'ALL', regex: ''});
+    },
     componentWillMount(){
 
         this.currentMethod = 'ALL';
@@ -46,7 +51,7 @@ export default React.createClass({
                         <input ref="regexInput" type="text" placeholder="输入正则表达式或者字符串" className="form-control"/>
                     </div>
                 </div>
-                <button type="button" className="btn btn-danger reset-btn">重置</button>
+                <button type="button" onClick={this._resetFilter} className="btn btn-danger reset-btn">重置</button>
             </div>
         );
     }

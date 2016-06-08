@@ -6596,7 +6596,6 @@
 	            return _filterSingleLog(log.toJS(), condition);
 	        });
 
-	        console.log(filteredRenderedLogData.toJS());
 	        return filteredList.concat(filteredRenderedLogData);
 	    });
 	}
@@ -35074,6 +35073,11 @@
 	            filter({ method: method, regex: regex });
 	        }
 	    },
+	    _resetFilter: function _resetFilter() {
+	        var filter = this.props.filter;
+
+	        filter({ method: 'ALL', regex: '' });
+	    },
 	    componentWillMount: function componentWillMount() {
 
 	        this.currentMethod = 'ALL';
@@ -35152,7 +35156,7 @@
 	            ),
 	            _react2.default.createElement(
 	                'button',
-	                { type: 'button', className: 'btn btn-danger reset-btn' },
+	                { type: 'button', onClick: this._resetFilter, className: 'btn btn-danger reset-btn' },
 	                '重置'
 	            )
 	        );
