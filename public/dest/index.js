@@ -35076,6 +35076,7 @@
 	    _onResetFilter: function _onResetFilter() {
 	        var filter = this.props.filter;
 
+	        this.currentMethod = 'ALL';
 	        filter({ method: 'ALL', regex: '' });
 	    },
 	    _onRegexChange: function _onRegexChange() {
@@ -35153,6 +35154,30 @@
 	                                        }, 'data-method': 'POST',
 	                                        href: 'javascript:void 0' },
 	                                    'POST'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'li',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { ref: 'postSelect', onClick: function onClick() {
+	                                            return _this._onSelectMethod('PUT');
+	                                        }, 'data-method': 'POST',
+	                                        href: 'javascript:void 0' },
+	                                    'PUT'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'li',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { ref: 'postSelect', onClick: function onClick() {
+	                                            return _this._onSelectMethod('DELETE');
+	                                        }, 'data-method': 'POST',
+	                                        href: 'javascript:void 0' },
+	                                    'DELETE'
 	                                )
 	                            )
 	                        )

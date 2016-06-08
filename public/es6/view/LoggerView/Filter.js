@@ -18,6 +18,7 @@ export default React.createClass({
     _onResetFilter(){
 
         const {filter}=this.props;
+        this.currentMethod = 'ALL';
         filter({method: 'ALL', regex: ''});
     },
     _onRegexChange(){
@@ -52,6 +53,10 @@ export default React.createClass({
                                        href="javascript:void 0;">GET</a></li>
                                 <li><a ref="postSelect" onClick={()=>this._onSelectMethod('POST')} data-method='POST'
                                        href="javascript:void 0">POST</a></li>
+                                <li><a ref="postSelect" onClick={()=>this._onSelectMethod('PUT')} data-method='POST'
+                                       href="javascript:void 0">PUT</a></li>
+                                <li><a ref="postSelect" onClick={()=>this._onSelectMethod('DELETE')} data-method='POST'
+                                       href="javascript:void 0">DELETE</a></li>
                             </ul>
                         </div>
                         <input onChange={this._onRegexChange} value={regex} ref="regexInput" type="text"
