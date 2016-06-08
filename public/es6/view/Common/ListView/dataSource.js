@@ -3,6 +3,7 @@
  */
 function DataSource(opt) {
 
+    this.currentY = 0;
     this.visibleRange = [0, opt.visibleRange];
 }
 
@@ -13,7 +14,8 @@ DataSource.prototype = {
         this.itemHeight = opt.itemHeight;
         this.dataSrc = opt.dataSrc.map((itemData, i)=>Object.assign({}, itemData, {top: i * self.itemHeight}));
         this.containerHeight = opt.containerHeight;
-        this.configureVisibleRange(0);
+        this.currentY = this.currentY > this.getMaxScrollTop() ? this.getMaxScrollTop() : this.currentY;
+        this.configureVisibleRange(this.currentY);
     },
     setVisibleRage(start, end){
 
@@ -38,6 +40,7 @@ DataSource.prototype = {
             startIndex = Math.ceil(startY / this.itemHeight),
             endIndex = Math.floor(endY / this.itemHeight);
 
+        this.currentY = offsetY;
         startIndex = startIndex >= 0 ? startIndex : 0;
         endIndex = endIndex < this.dataSrc.length ? endIndex : this.dataSrc.length;
 

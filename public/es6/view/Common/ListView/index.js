@@ -63,9 +63,11 @@ export default React.createClass({
     },
     componentDidUpdate(){
 
+        var container = this.refs.container;
+
         if (this.autoScroll) {
 
-            $(this.refs.container).scrollTop(ds.getMaxScrollTop());
+            $(container).scrollTop(ds.getMaxScrollTop());
         }
     },
     componentWillMount(){
@@ -83,7 +85,7 @@ export default React.createClass({
         if (visibleItemList) {
 
             return (
-                <div onScroll={this._onScroll} ref="container" style={{
+                <div onScroll={this._onScroll} className="js-listview-container" ref="container" style={{
                     position:'relative',
                     height:containerHeight+'px',
                     "overflowY":'auto',

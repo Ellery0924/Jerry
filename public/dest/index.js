@@ -6596,6 +6596,7 @@
 	            return _filterSingleLog(log.toJS(), condition);
 	        });
 
+	        console.log(filteredRenderedLogData.toJS());
 	        return filteredList.concat(filteredRenderedLogData);
 	    });
 	}
@@ -6618,8 +6619,6 @@
 	        });
 	    });
 
-	    console.log(ret.toJS().filterCondition);
-	    console.log(ret.toJS().filtered);
 	    return ret;
 	}
 
@@ -35221,10 +35220,11 @@
 	        return _react2.default.createElement(LogItem, { item: item });
 	    },
 	    render: function render() {
-	        var logList = this.props.logList;
+	        var _props = this.props;
+	        var logList = _props.logList;
+	        var shouldResetY = _props.shouldResetY;
 
 	        var vh = $(window).height();
-	        console.log('loglist:', logList);
 
 	        return _react2.default.createElement(
 	            'div',
@@ -35246,6 +35246,7 @@
 	                    itemHeight: 30,
 	                    containerHeight: 0.75 * vh - 68,
 	                    rangeSize: 20,
+	                    shouldResetY: !!shouldResetY,
 	                    renderRow: this._renderRow
 	                })
 	            )
@@ -35339,9 +35340,11 @@
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
 
+	        var container = this.refs.container;
+
 	        if (this.autoScroll) {
 
-	            $(this.refs.container).scrollTop(ds.getMaxScrollTop());
+	            $(container).scrollTop(ds.getMaxScrollTop());
 	        }
 	    },
 	    componentWillMount: function componentWillMount() {
@@ -35363,7 +35366,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { onScroll: this._onScroll, ref: 'container', style: {
+	                { onScroll: this._onScroll, className: 'js-listview-container', ref: 'container', style: {
 	                        position: 'relative',
 	                        height: containerHeight + 'px',
 	                        "overflowY": 'auto',
@@ -35412,6 +35415,7 @@
 	 */
 	function DataSource(opt) {
 
+	    this.currentY = 0;
 	    this.visibleRange = [0, opt.visibleRange];
 	}
 
@@ -35424,7 +35428,8 @@
 	            return Object.assign({}, itemData, { top: i * self.itemHeight });
 	        });
 	        this.containerHeight = opt.containerHeight;
-	        this.configureVisibleRange(0);
+	        this.currentY = this.currentY > this.getMaxScrollTop() ? this.getMaxScrollTop() : this.currentY;
+	        this.configureVisibleRange(this.currentY);
 	    },
 	    setVisibleRage: function setVisibleRage(start, end) {
 
@@ -35449,6 +35454,7 @@
 	            startIndex = Math.ceil(startY / this.itemHeight),
 	            endIndex = Math.floor(endY / this.itemHeight);
 
+	        this.currentY = offsetY;
 	        startIndex = startIndex >= 0 ? startIndex : 0;
 	        endIndex = endIndex < this.dataSrc.length ? endIndex : this.dataSrc.length;
 

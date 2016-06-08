@@ -31,9 +31,8 @@ export default React.createClass({
     },
     render(){
 
-        const {logList}=this.props;
+        const {logList, shouldResetY}=this.props;
         const vh = $(window).height();
-        console.log('loglist:', logList)
 
         return (
             <div className="panel panel-default console">
@@ -46,6 +45,7 @@ export default React.createClass({
                         itemHeight={30}
                         containerHeight={0.75 * vh-68}
                         rangeSize={20}
+                        shouldResetY={!!shouldResetY}
                         renderRow={this._renderRow}
                     />
                 </div>
