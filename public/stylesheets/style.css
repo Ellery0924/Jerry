@@ -262,10 +262,32 @@ body {
     padding: 15px;
 }
 
-.console {
+.logger-right #overview-panel {
+    overflow: auto;
+}
+
+.console, .tab-content > .tab-pane {
     height: 75vh;
     margin-top: 15px;
     margin-bottom: 0;
+}
+
+.overview-panel {
+    border-bottom: 1px solid #ddd;
+}
+
+.log-overview .panel-group {
+    margin-bottom: 4px;
+}
+
+.log-overview .panel-group:last-child {
+    margin-bottom: 0;
+}
+
+.log-overview .panel-group:last-child .panel {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .filter {
@@ -298,9 +320,12 @@ body {
     height: 100%;
 }
 
+.logger-right-content .nav > li > a {
+    padding: 6px 15px;
+}
+
 .logger-right-content .tab-content {
     flex: 1;
-    border: 1px solid #ddd;
     border-radius: 0 0 6px 6px;
     border-top: none;
 }

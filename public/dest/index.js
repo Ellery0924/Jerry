@@ -88,7 +88,7 @@
 
 	var _LoggerView2 = _interopRequireDefault(_LoggerView);
 
-	var _socket = __webpack_require__(263);
+	var _socket = __webpack_require__(264);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
@@ -35515,6 +35515,84 @@
 /* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Overview = __webpack_require__(263);
+
+	var _Overview2 = _interopRequireDefault(_Overview);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Created by Ellery1 on 16/6/7.
+	 */
+	exports.default = _react2.default.createClass({
+	    displayName: 'Detail',
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'logger-right-content' },
+	            _react2.default.createElement(
+	                'ul',
+	                { className: 'nav nav-tabs', role: 'tablist' },
+	                _react2.default.createElement(
+	                    'li',
+	                    { role: 'presentation', className: 'log-detail-first-tab active' },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#overview-panel', 'aria-controls': 'overview-panel', role: 'tab',
+	                            'data-toggle': 'tab' },
+	                        'Overview'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'li',
+	                    { role: 'presentation' },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#request-panel', 'aria-controls': 'request-panel', role: 'tab', 'data-toggle': 'tab' },
+	                        'Request'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'li',
+	                    { role: 'presentation' },
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: '#response-panel', 'aria-controls': 'response-panel', role: 'tab', 'data-toggle': 'tab' },
+	                        'Response'
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'tab-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { role: 'tabpanel', className: 'tab-pane overview-panel active', id: 'overview-panel' },
+	                    _react2.default.createElement(_Overview2.default, null)
+	                ),
+	                _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane', id: 'request-panel' }),
+	                _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane', id: 'response-panel' })
+	            )
+	        );
+	    }
+	});
+	//# sourceMappingURL=index.js.map
+
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
@@ -35528,61 +35606,119 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _react2.default.createClass({
-	    displayName: "Detail",
+	    displayName: "Overview",
 	    render: function render() {
 
 	        return _react2.default.createElement(
 	            "div",
-	            { className: "logger-right-content" },
+	            { className: "log-overview" },
 	            _react2.default.createElement(
-	                "ul",
-	                { className: "nav nav-tabs", role: "tablist" },
+	                "div",
+	                { className: "panel-group", id: "accordion", role: "tablist", "aria-multiselectable": "true" },
 	                _react2.default.createElement(
-	                    "li",
-	                    { role: "presentation", className: "log-detail-first-tab active" },
+	                    "div",
+	                    { className: "panel panel-default" },
 	                    _react2.default.createElement(
-	                        "a",
-	                        { href: "#home", "aria-controls": "home", role: "tab",
-	                            "data-toggle": "tab" },
-	                        "Overview"
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "li",
-	                    { role: "presentation" },
+	                        "div",
+	                        { className: "panel-heading", role: "tab", id: "headingOne" },
+	                        _react2.default.createElement(
+	                            "h4",
+	                            { className: "panel-title" },
+	                            _react2.default.createElement(
+	                                "a",
+	                                { role: "button", "data-toggle": "collapse", "data-parent": "#accordion", href: "#collapseOne",
+	                                    "aria-expanded": "true", "aria-controls": "collapseOne" },
+	                                "General"
+	                            )
+	                        )
+	                    ),
 	                    _react2.default.createElement(
-	                        "a",
-	                        { href: "#profile", "aria-controls": "profile", role: "tab", "data-toggle": "tab" },
-	                        "Request"
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "li",
-	                    { role: "presentation" },
-	                    _react2.default.createElement(
-	                        "a",
-	                        { href: "#messages", "aria-controls": "messages", role: "tab", "data-toggle": "tab" },
-	                        "Response"
+	                        "div",
+	                        { id: "collapseOne", className: "panel-collapse collapse in", role: "tabpanel",
+	                            "aria-labelledby": "headingOne" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "panel-body" },
+	                            "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
+	                        )
 	                    )
 	                )
 	            ),
 	            _react2.default.createElement(
 	                "div",
-	                { className: "tab-content" },
-	                _react2.default.createElement("div", { role: "tabpanel", className: "tab-pane active", id: "home" }),
-	                _react2.default.createElement("div", { role: "tabpanel", className: "tab-pane", id: "profile" }),
-	                _react2.default.createElement("div", { role: "tabpanel", className: "tab-pane", id: "messages" })
+	                { className: "panel-group", id: "response", role: "tablist", "aria-multiselectable": "true" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "panel panel-default" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "panel-heading", role: "tab", id: "response-accordion-control" },
+	                        _react2.default.createElement(
+	                            "h4",
+	                            { className: "panel-title" },
+	                            _react2.default.createElement(
+	                                "a",
+	                                { className: "collapsed", role: "button", "data-toggle": "collapse", "data-parent": "#response",
+	                                    href: "#response-accordion-content", "aria-expanded": "true",
+	                                    "aria-controls": "collapseThree" },
+	                                "Response"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { id: "response-accordion-content", className: "panel-collapse collapse in", role: "tabpanel",
+	                            "aria-labelledby": "response-accordion-content" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "panel-body" },
+	                            "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
+	                        )
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "panel-group", id: "request", role: "tablist", "aria-multiselectable": "true" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "panel panel-default" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "panel-heading", role: "tab", id: "response-accordion-control" },
+	                        _react2.default.createElement(
+	                            "h4",
+	                            { className: "panel-title" },
+	                            _react2.default.createElement(
+	                                "a",
+	                                { className: "collapsed", role: "button", "data-toggle": "collapse", "data-parent": "#request",
+	                                    href: "#request-accordion-content", "aria-expanded": "true", "aria-controls": "collapseThree" },
+	                                "Request"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { id: "request-accordion-content", className: "panel-collapse collapse in", role: "tabpanel",
+	                            "aria-labelledby": "request-accordion-content" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "panel-body" },
+	                            "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
+	                        )
+	                    )
+	                )
 	            )
 	        );
 	    }
 	}); /**
-	     * Created by Ellery1 on 16/6/7.
+	     * Created by Ellery1 on 16/6/9.
 	     */
-	//# sourceMappingURL=Detail.js.map
+	//# sourceMappingURL=Overview.js.map
 
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;var require;/* WEBPACK VAR INJECTION */(function(global) {(function(f){if(true){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.io = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return require(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
