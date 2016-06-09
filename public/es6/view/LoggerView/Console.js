@@ -44,7 +44,8 @@ export default React.createClass({
                 <div className="panel-heading">
                     <h3 className="panel-title">
                         日志
-                        <button onClick={this._clearConsole} type="button" className="glyphicon glyphicon-ban-circle clear-console">清空</button>
+                        <button onClick={this._clearConsole} type="button"
+                                className="btn btn-default glyphicon glyphicon-ban-circle clear-console"/>
                     </h3>
                 </div>
                 <div className="panel-body">
@@ -53,7 +54,6 @@ export default React.createClass({
                         itemHeight={30}
                         containerHeight={0.75 * vh-68}
                         rangeSize={20}
-                        shouldResetY={!!shouldResetY}
                         renderRow={this._renderRow}
                     />
                 </div>

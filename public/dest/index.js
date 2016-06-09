@@ -35280,11 +35280,8 @@
 	                    'h3',
 	                    { className: 'panel-title' },
 	                    '日志',
-	                    _react2.default.createElement(
-	                        'button',
-	                        { onClick: this._clearConsole, type: 'button', className: 'glyphicon glyphicon-ban-circle clear-console' },
-	                        '清空'
-	                    )
+	                    _react2.default.createElement('button', { onClick: this._clearConsole, type: 'button',
+	                        className: 'btn btn-default glyphicon glyphicon-ban-circle clear-console' })
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -35295,7 +35292,6 @@
 	                    itemHeight: 30,
 	                    containerHeight: 0.75 * vh - 68,
 	                    rangeSize: 20,
-	                    shouldResetY: !!shouldResetY,
 	                    renderRow: this._renderRow
 	                })
 	            )

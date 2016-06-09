@@ -344,6 +344,17 @@ body {
 }
 
 .clear-console {
-    display: inline-block;
+    float: right;
+    padding: 3px 8px;
     margin-left: 5px;
+    margin-top: -6px;
+    margin-right: -10px;
+}
+
+.clear-console:hover, .clear-console:focus, .clear-console:active {
+    text-decoration: none;
+}
+
+.clear-console:hover {
+    color: #000;
 }
