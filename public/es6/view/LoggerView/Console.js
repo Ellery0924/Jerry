@@ -31,8 +31,7 @@ export default React.createClass({
     },
     _clearConsole(){
 
-        const {clear}=this.props;
-        clear();
+        this.props.clear();
     },
     _onItemLayout(item, domNode){
 
@@ -56,7 +55,7 @@ export default React.createClass({
             <div className="panel panel-default console">
                 <div className="panel-heading">
                     <h3 className="panel-title">
-                        日志
+                        日志(最多保留1000条,单击查看详情)
                         <button onClick={this._clearConsole} type="button"
                                 className="btn btn-default glyphicon glyphicon-ban-circle clear-console"/>
                     </h3>

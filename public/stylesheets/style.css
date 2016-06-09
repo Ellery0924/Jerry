@@ -12,6 +12,10 @@ a:focus, a:active, a:link, a:hover {
     outline: none;
 }
 
+textarea {
+    padding: 0;
+}
+
 .content {
     overflow: hidden;
 }
@@ -249,7 +253,7 @@ body {
 }
 
 .logger-left {
-    flex: 1.5;
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -263,7 +267,7 @@ body {
     overflow: hidden;
 }
 
-.logger-right #overview-panel {
+.logger-right .tab-pane {
     overflow: auto;
 }
 
@@ -274,8 +278,26 @@ body {
     word-break: break-all;
 }
 
-.overview-panel {
-    border-bottom: 1px solid #ddd;
+.logger-right .form-group {
+    margin-bottom: 0;
+}
+
+.logger-right .form-group .name {
+    padding: 0;
+    margin: 0;
+    display: inline;
+    line-height: 25px;
+    vertical-align: middle;
+    text-align: right;
+}
+
+.logger-right .form-group .value {
+    margin-left: .5em;
+    padding: 0;
+    line-height: 25px;
+    vertical-align: middle;
+    margin-bottom: 0;
+    word-break: break-all;
 }
 
 .log-overview .panel-group {
@@ -284,12 +306,6 @@ body {
 
 .log-overview .panel-group:last-child {
     margin-bottom: 0;
-}
-
-.log-overview .panel-group:last-child .panel {
-    border-bottom: none;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
 }
 
 .filter {
@@ -392,4 +408,17 @@ body {
 
 .clear-console:hover {
     color: #000;
+}
+
+.body-textarea {
+    border: none;
+    resize: none;
+    width: 100%;
+    overflow: auto;
+    height: auto;
+}
+
+.body-textarea:focus, .body-textarea:active {
+    border: none;
+    outline: none;
 }

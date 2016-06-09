@@ -258,7 +258,7 @@ export function getServerByIp(ip, serverInfo) {
 
 export function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
 
-    var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g,'\n').split(/[\n\r]+/),
+    var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
         ruleList = ruleListRaw.reduce((acc, ruleStr)=> {
 
             var ruleArr = ruleStr.trim().split(/\s+/),
@@ -298,4 +298,11 @@ export function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
 
         return generatedRule;
     });
-};
+}
+
+export function parseJSON(obj) {
+
+    return JSON.stringify(obj, null, 4)
+        .replace(/\s/g, '&nbsp;')
+        .replace(/[\n\r]/g, '<br/>');
+}

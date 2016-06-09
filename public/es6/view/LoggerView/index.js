@@ -17,9 +17,7 @@ export default React.createClass({
                     <Filter condition={filterCondition} filter={filter}/>
                     <Console current={current} logList={filtered} clear={clear} checkDetail={checkDetail}/>
                 </div>
-                <div className="logger-right">
-                    <Detail current={current}/>
-                </div>
+                <Detail current={current}/>
             </div>
         );
     }

@@ -3,6 +3,7 @@
  */
 import Immutable from 'immutable';
 
+const MAX_LOG_NUM = 1000;
 var guid = -1;
 
 export function pushLog(logState, logData) {
@@ -16,14 +17,14 @@ export function pushLog(logState, logData) {
     return logState
         .updateIn(['list'], list=> {
 
-            return list.concat(renderedLogData);
+            return list.concat(renderedLogData).slice(-MAX_LOG_NUM);
         })
         .updateIn(['filtered'], filteredList=> {
 
             var condition = logState.get('filterCondition').toJS();
             var filteredRenderedLogData = renderedLogData.filter(log=>_filterSingleLog(log.toJS(), condition));
 
-            return filteredList.concat(filteredRenderedLogData);
+            return filteredList.concat(filteredRenderedLogData).slice(-MAX_LOG_NUM);
         });
 }
 
