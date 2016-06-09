@@ -351,7 +351,15 @@ body {
     color: #d9534f;
 }
 
-.log-item:hover {
+.listview-item-wrap.active, .listview-item-wrap.active:hover {
+    background: #428bca;
+}
+
+.listview-item-wrap.active a {
+    color: white;
+}
+
+.listview-item-wrap:hover {
     text-decoration: none;
     background: #eee;
     color: #23527c;

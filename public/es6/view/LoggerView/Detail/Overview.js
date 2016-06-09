@@ -23,7 +23,6 @@ export default React.createClass({
                         <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel"
                              aria-labelledby="headingOne">
                             <div className="panel-body">
-                                {JSON.stringify(current)}
                             </div>
                         </div>
                     </div>

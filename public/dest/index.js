@@ -35033,7 +35033,7 @@
 	                'div',
 	                { className: 'logger-left' },
 	                _react2.default.createElement(_Filter2.default, { condition: filterCondition, filter: filter }),
-	                _react2.default.createElement(_Console2.default, { logList: filtered, clear: clear, checkDetail: checkDetail })
+	                _react2.default.createElement(_Console2.default, { current: current, logList: filtered, clear: clear, checkDetail: checkDetail })
 	            ),
 	            _react2.default.createElement(
 	                'div',
@@ -35265,10 +35265,21 @@
 
 	        clear();
 	    },
+	    _onItemLayout: function _onItemLayout(item, domNode) {
+
+	        if (item.index === this.props.current.index) {
+
+	            $(domNode).addClass('active');
+	        }
+	    },
+	    _onItemClick: function _onItemClick(item, evt) {
+
+	        this.props.checkDetail(item);
+	        $('.listview-item-wrap').removeClass('active');
+	        $(evt.currentTarget).addClass('active');
+	    },
 	    render: function render() {
-	        var _props = this.props;
-	        var logList = _props.logList;
-	        var checkDetail = _props.checkDetail;
+	        var logList = this.props.logList;
 
 	        var vh = $(window).height();
 
@@ -35295,9 +35306,8 @@
 	                    containerHeight: 0.75 * vh - 68,
 	                    rangeSize: 20,
 	                    renderRow: this._renderRow,
-	                    onItemClick: function onItemClick(item) {
-	                        console.log(item);checkDetail(item);
-	                    }
+	                    onItemClick: this._onItemClick,
+	                    onItemLayout: this._onItemLayout
 	                })
 	            )
 	        );
@@ -35331,6 +35341,50 @@
 	 */
 
 	var ds = new _dataSource2.default({ visibleRange: 10 });
+
+	var noop = function noop() {};
+
+	var ListItem = _react2.default.createClass({
+	    displayName: 'ListItem',
+	    componentDidMount: function componentDidMount() {
+	        var _props = this.props;
+	        var item = _props.item;
+	        var onItemLayout = _props.onItemLayout;
+
+	        onItemLayout(item, this.domNode);
+	    },
+	    render: function render() {
+	        var _this = this;
+
+	        var _props2 = this.props;
+	        var item = _props2.item;
+	        var itemHeight = _props2.itemHeight;
+	        var onItemClick = _props2.onItemClick;
+	        var renderRow = _props2.renderRow;
+
+	        return _react2.default.createElement(
+	            'li',
+	            {
+	                ref: function ref(component) {
+	                    _this.domNode = component;
+	                },
+	                className: 'listview-item-wrap',
+	                onClick: function onClick(evt) {
+	                    onItemClick(item, evt);
+	                },
+	                itemIndex: item.index,
+	                style: {
+	                    position: "absolute",
+	                    height: itemHeight + "px",
+	                    top: item.top + "px",
+	                    left: 0,
+	                    right: 0
+	                },
+	                key: item.index },
+	            renderRow(item)
+	        );
+	    }
+	});
 
 	exports.default = _react2.default.createClass({
 	    displayName: 'ListView',
@@ -35404,15 +35458,15 @@
 	        ds.setVisibleRage(0, 10);
 	    },
 	    render: function render() {
-	        var _props = this.props;
-	        var renderRow = _props.renderRow;
-	        var containerHeight = _props.containerHeight;
-	        var itemHeight = _props.itemHeight;
+	        var _props3 = this.props;
+	        var renderRow = _props3.renderRow;
+	        var containerHeight = _props3.containerHeight;
+	        var itemHeight = _props3.itemHeight;
 
 	        var visibleItemList = this.state.visibleItemList;
 	        var contentHeight = this.state.contentHeight;
-
-	        var onItemClick = this.props.onItemClick || function () {};
+	        var onItemClick = this.props.onItemClick || noop;
+	        var onItemLayout = this.props.onItemLayout || noop;
 
 	        if (visibleItemList) {
 
@@ -35431,23 +35485,14 @@
 	                            marginBottom: 0
 	                        } },
 	                    visibleItemList.map(function (item, i) {
-	                        return _react2.default.createElement(
-	                            'li',
-	                            {
-	                                className: 'listview-item-wrap',
-	                                onClick: function onClick(evt) {
-	                                    onItemClick(item, i, evt);
-	                                },
-	                                style: {
-	                                    position: "absolute",
-	                                    height: itemHeight + "px",
-	                                    top: item.top + "px",
-	                                    left: 0,
-	                                    right: 0
-	                                },
-	                                key: item.index },
-	                            renderRow(item)
-	                        );
+	                        return _react2.default.createElement(ListItem, {
+	                            item: item,
+	                            itemHeight: itemHeight,
+	                            onItemClick: onItemClick,
+	                            onItemLayout: onItemLayout,
+	                            renderRow: renderRow,
+	                            key: item.index
+	                        });
 	                    })
 	                )
 	            );
@@ -35652,11 +35697,7 @@
 	                        "div",
 	                        { id: "collapseOne", className: "panel-collapse collapse in", role: "tabpanel",
 	                            "aria-labelledby": "headingOne" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "panel-body" },
-	                            JSON.stringify(current)
-	                        )
+	                        _react2.default.createElement("div", { className: "panel-body" })
 	                    )
 	                )
 	            ),

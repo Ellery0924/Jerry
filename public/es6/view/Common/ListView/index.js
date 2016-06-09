@@ -6,6 +6,40 @@ import DataSource from './dataSource';
 
 var ds = new DataSource({visibleRange: 10});
 
+const noop = function () {
+};
+
+var ListItem = React.createClass({
+    componentDidMount(){
+
+        const {item, onItemLayout}=this.props;
+
+        onItemLayout(item, this.domNode);
+    },
+    render(){
+
+        const {item, itemHeight, onItemClick, renderRow}=this.props;
+
+        return (
+            <li
+                ref={component=>{this.domNode=component}}
+                className="listview-item-wrap"
+                onClick={(evt)=>{onItemClick(item,evt)}}
+                itemIndex={item.index}
+                style={{
+                    position:"absolute",
+                    height:itemHeight+"px",
+                    top:item.top+"px",
+                    left:0,
+                    right:0
+                }}
+                key={item.index}>
+                {renderRow(item)}
+            </li>
+        );
+    }
+});
+
 export default React.createClass({
     getInitialState(){
 
@@ -81,9 +115,8 @@ export default React.createClass({
         const {renderRow, containerHeight, itemHeight}=this.props;
         const visibleItemList = this.state.visibleItemList;
         const contentHeight = this.state.contentHeight;
-
-        var onItemClick = this.props.onItemClick || function () {
-            };
+        const onItemClick = this.props.onItemClick || noop;
+        const onItemLayout = this.props.onItemLayout || noop;
 
         if (visibleItemList) {
 
@@ -99,19 +132,14 @@ export default React.createClass({
                         marginBottom:0
                     }}>
                         {visibleItemList.map((item, i)=>(
-                            <li
-                                className="listview-item-wrap"
-                                onClick={(evt)=>{onItemClick(item,i,evt)}}
-                                style={{
-                                    position:"absolute",
-                                    height:itemHeight+"px",
-                                    top:item.top+"px",
-                                    left:0,
-                                    right:0
-                                }}
-                                key={item.index}>
-                                {renderRow(item)}
-                            </li>
+                            <ListItem
+                                item={item}
+                                itemHeight={itemHeight}
+                                onItemClick={onItemClick}
+                                onItemLayout={onItemLayout}
+                                renderRow={renderRow}
+                                key={item.index}
+                            />
                         ))}
                     </ul>
                 </div>

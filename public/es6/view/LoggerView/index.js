@@ -15,7 +15,7 @@ export default React.createClass({
             <div className="logger-view">
                 <div className="logger-left">
                     <Filter condition={filterCondition} filter={filter}/>
-                    <Console logList={filtered} clear={clear} checkDetail={checkDetail}/>
+                    <Console current={current} logList={filtered} clear={clear} checkDetail={checkDetail}/>
                 </div>
                 <div className="logger-right">
                     <Detail current={current}/>

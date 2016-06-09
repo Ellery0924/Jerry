@@ -34,9 +34,22 @@ export default React.createClass({
         const {clear}=this.props;
         clear();
     },
+    _onItemLayout(item, domNode){
+
+        if (item.index === this.props.current.index) {
+
+            $(domNode).addClass('active');
+        }
+    },
+    _onItemClick(item, evt){
+
+        this.props.checkDetail(item);
+        $('.listview-item-wrap').removeClass('active');
+        $(evt.currentTarget).addClass('active');
+    },
     render(){
 
-        const {logList, checkDetail}=this.props;
+        const {logList}=this.props;
         const vh = $(window).height();
 
         return (
@@ -55,7 +68,8 @@ export default React.createClass({
                         containerHeight={0.75 * vh-68}
                         rangeSize={20}
                         renderRow={this._renderRow}
-                        onItemClick={item=>{console.log(item);checkDetail(item)}}
+                        onItemClick={this._onItemClick}
+                        onItemLayout={this._onItemLayout}
                     />
                 </div>
             </div>
