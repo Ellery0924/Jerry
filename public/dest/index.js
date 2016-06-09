@@ -1149,8 +1149,8 @@
 	    return { type: PUSH_LOG, logData: logData };
 	}
 
-	function checkDetail(index) {
-	    return { type: CHECK_DETAIL, index: index };
+	function checkDetail(current) {
+	    return { type: CHECK_DETAIL, current: current };
 	}
 
 	function filter(condition) {
@@ -1332,7 +1332,7 @@
 
 	function receiveConfig(config, server) {
 
-	    return _immutable2.default.fromJS({ config: config, server: server }).updateIn(['config', 'multiDeleteDisabled'], function (_) {
+	    return _immutable2.default.fromJS({ config: config, server: server }).updateIn(['config', 'multiDeleteDisabled'], function () {
 	        return true;
 	    });
 	} /**
@@ -1341,7 +1341,7 @@
 
 	function selectEnv(state, groupName, ruleIndex, env) {
 
-	    return state.updateIn(['config', 'group', groupName, ruleIndex, 'current'], function (_) {
+	    return state.updateIn(['config', 'group', groupName, ruleIndex, 'current'], function () {
 	        return env;
 	    }).updateIn(['config', 'group', groupName, ruleIndex, 'cache', env], function (hostIndex) {
 
@@ -1351,9 +1351,9 @@
 
 	function selectGroup(state, groupName) {
 
-	    return state.updateIn(['config', 'activated'], function (_) {
+	    return state.updateIn(['config', 'activated'], function () {
 	        return groupName;
-	    }).updateIn(['config', 'multiDeleteDisabled'], function (_) {
+	    }).updateIn(['config', 'multiDeleteDisabled'], function () {
 	        return true;
 	    }).updateIn(['config', 'group', groupName], function (ruleList) {
 	        return ruleList.map(function (rule) {
@@ -1364,7 +1364,7 @@
 
 	function selectHost(state, groupName, ruleIndex, env, host) {
 
-	    return state.updateIn(['config', 'group', groupName, ruleIndex, 'cache', env], function (_) {
+	    return state.updateIn(['config', 'group', groupName, ruleIndex, 'cache', env], function () {
 	        return host;
 	    });
 	}
@@ -1414,27 +1414,27 @@
 
 	function editDomain(state, groupName, ruleIndex, domain) {
 
-	    return state.updateIn(['config', 'group', groupName, ruleIndex, 'domain'], function (_) {
+	    return state.updateIn(['config', 'group', groupName, ruleIndex, 'domain'], function () {
 	        return domain;
 	    });
 	}
 
 	function selectRule(state, groupName, ruleIndex) {
 
-	    return state.updateIn(['config', 'group', groupName, ruleIndex, 'selected'], function (_) {
+	    return state.updateIn(['config', 'group', groupName, ruleIndex, 'selected'], function () {
 	        return true;
-	    }).updateIn(['config', 'multiDeleteDisabled'], function (_) {
+	    }).updateIn(['config', 'multiDeleteDisabled'], function () {
 	        return false;
 	    });
 	}
 
 	function deselectRule(state, groupName, ruleIndex) {
 
-	    var newState = state.updateIn(['config', 'group', groupName, ruleIndex, 'selected'], function (_) {
+	    var newState = state.updateIn(['config', 'group', groupName, ruleIndex, 'selected'], function () {
 	        return false;
 	    });
 
-	    return newState.updateIn(['config', 'multiDeleteDisabled'], function (_) {
+	    return newState.updateIn(['config', 'multiDeleteDisabled'], function () {
 	        return newState.get('config').get('group').get(groupName).every(function (rule) {
 	            return !rule.get('selected');
 	        });
@@ -1447,14 +1447,14 @@
 	        return ruleList.filter(function (rule) {
 	            return !rule.get('selected');
 	        });
-	    }).updateIn(['config', 'multiDeleteDisabled'], function (_) {
+	    }).updateIn(['config', 'multiDeleteDisabled'], function () {
 	        return true;
 	    });
 	}
 
 	function switchHttps(state, isOn) {
 
-	    return state.updateIn(['config', 'httpsOn'], function (_) {
+	    return state.updateIn(['config', 'httpsOn'], function () {
 	        return isOn;
 	    });
 	}
@@ -6535,7 +6535,7 @@
 	            return (0, _log.filter)(logState, action.condition);
 
 	        case _action.CHECK_DETAIL:
-	            return (0, _log.checkDetail)(logState, action.index);
+	            return (0, _log.checkDetail)(logState, action.current);
 
 	        case _action.PUSH_LOG:
 	            return (0, _log.pushLog)(logState, action.logData);
@@ -6600,11 +6600,11 @@
 	    });
 	}
 
-	function checkDetail(logState, index) {
+	function checkDetail(logState, current) {
 
-	    return logState.updateIn('current', logState.get('list').find(function (item) {
-	        return item.index === index;
-	    }));
+	    return logState.updateIn(['current'], function () {
+	        return _immutable2.default.fromJS(current);
+	    });
 	}
 
 	function filter(logState, condition) {
@@ -35023,6 +35023,8 @@
 	        var filterCondition = _props.filterCondition;
 	        var filter = _props.filter;
 	        var clear = _props.clear;
+	        var checkDetail = _props.checkDetail;
+	        var current = _props.current;
 
 	        return _react2.default.createElement(
 	            'div',
@@ -35031,12 +35033,12 @@
 	                'div',
 	                { className: 'logger-left' },
 	                _react2.default.createElement(_Filter2.default, { condition: filterCondition, filter: filter }),
-	                _react2.default.createElement(_Console2.default, { logList: filtered, clear: clear })
+	                _react2.default.createElement(_Console2.default, { logList: filtered, clear: clear, checkDetail: checkDetail })
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'logger-right' },
-	                _react2.default.createElement(_Detail2.default, null)
+	                _react2.default.createElement(_Detail2.default, { current: current })
 	            )
 	        );
 	    }
@@ -35266,7 +35268,7 @@
 	    render: function render() {
 	        var _props = this.props;
 	        var logList = _props.logList;
-	        var shouldResetY = _props.shouldResetY;
+	        var checkDetail = _props.checkDetail;
 
 	        var vh = $(window).height();
 
@@ -35292,7 +35294,10 @@
 	                    itemHeight: 30,
 	                    containerHeight: 0.75 * vh - 68,
 	                    rangeSize: 20,
-	                    renderRow: this._renderRow
+	                    renderRow: this._renderRow,
+	                    onItemClick: function onItemClick(item) {
+	                        console.log(item);checkDetail(item);
+	                    }
 	                })
 	            )
 	        );
@@ -35407,6 +35412,8 @@
 	        var visibleItemList = this.state.visibleItemList;
 	        var contentHeight = this.state.contentHeight;
 
+	        var onItemClick = this.props.onItemClick || function () {};
+
 	        if (visibleItemList) {
 
 	            return _react2.default.createElement(
@@ -35426,13 +35433,19 @@
 	                    visibleItemList.map(function (item, i) {
 	                        return _react2.default.createElement(
 	                            'li',
-	                            { className: 'listview-item-wrap', style: {
+	                            {
+	                                className: 'listview-item-wrap',
+	                                onClick: function onClick(evt) {
+	                                    onItemClick(item, i, evt);
+	                                },
+	                                style: {
 	                                    position: "absolute",
 	                                    height: itemHeight + "px",
 	                                    top: item.top + "px",
 	                                    left: 0,
 	                                    right: 0
-	                                }, key: item.index },
+	                                },
+	                                key: item.index },
 	                            renderRow(item)
 	                        );
 	                    })
@@ -35537,6 +35550,8 @@
 	exports.default = _react2.default.createClass({
 	    displayName: 'Detail',
 	    render: function render() {
+	        var current = this.props.current;
+
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'logger-right-content' },
@@ -35578,7 +35593,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { role: 'tabpanel', className: 'tab-pane overview-panel active', id: 'overview-panel' },
-	                    _react2.default.createElement(_Overview2.default, null)
+	                    _react2.default.createElement(_Overview2.default, { current: current })
 	                ),
 	                _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane', id: 'request-panel' }),
 	                _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane', id: 'response-panel' })
@@ -35608,6 +35623,7 @@
 	exports.default = _react2.default.createClass({
 	    displayName: "Overview",
 	    render: function render() {
+	        var current = this.props.current;
 
 	        return _react2.default.createElement(
 	            "div",
@@ -35639,7 +35655,7 @@
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "panel-body" },
-	                            "Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS."
+	                            JSON.stringify(current)
 	                        )
 	                    )
 	                )

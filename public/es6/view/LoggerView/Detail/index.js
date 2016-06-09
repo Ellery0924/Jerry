@@ -6,6 +6,9 @@ import Overview from './Overview';
 
 export default React.createClass({
     render(){
+
+        const {current}=this.props;
+
         return (
             <div className="logger-right-content">
                 <ul className="nav nav-tabs" role="tablist">
@@ -28,7 +31,7 @@ export default React.createClass({
                 </ul>
                 <div className="tab-content">
                     <div role="tabpanel" className="tab-pane overview-panel active" id="overview-panel">
-                        <Overview/>
+                        <Overview current={current}/>
                     </div>
                     <div role="tabpanel" className="tab-pane" id="request-panel">
                     </div>

@@ -82,6 +82,9 @@ export default React.createClass({
         const visibleItemList = this.state.visibleItemList;
         const contentHeight = this.state.contentHeight;
 
+        var onItemClick = this.props.onItemClick || function () {
+            };
+
         if (visibleItemList) {
 
             return (
@@ -96,13 +99,17 @@ export default React.createClass({
                         marginBottom:0
                     }}>
                         {visibleItemList.map((item, i)=>(
-                            <li className="listview-item-wrap" style={{
-                                position:"absolute",
-                                height:itemHeight+"px",
-                                top:item.top+"px",
-                                left:0,
-                                right:0
-                            }} key={item.index}>
+                            <li
+                                className="listview-item-wrap"
+                                onClick={(evt)=>{onItemClick(item,i,evt)}}
+                                style={{
+                                    position:"absolute",
+                                    height:itemHeight+"px",
+                                    top:item.top+"px",
+                                    left:0,
+                                    right:0
+                                }}
+                                key={item.index}>
                                 {renderRow(item)}
                             </li>
                         ))}

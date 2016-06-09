@@ -5,13 +5,13 @@ import Immutable from 'immutable';
 
 export function receiveConfig(config, server) {
 
-    return Immutable.fromJS({config, server}).updateIn(['config', 'multiDeleteDisabled'], _=>true);
+    return Immutable.fromJS({config, server}).updateIn(['config', 'multiDeleteDisabled'], ()=>true);
 }
 
 export function selectEnv(state, groupName, ruleIndex, env) {
 
     return state
-        .updateIn(['config', 'group', groupName, ruleIndex, 'current'], _=>env)
+        .updateIn(['config', 'group', groupName, ruleIndex, 'current'], ()=>env)
         .updateIn(['config', 'group', groupName, ruleIndex, 'cache', env], hostIndex=> {
 
             return hostIndex ? hostIndex :
@@ -22,14 +22,14 @@ export function selectEnv(state, groupName, ruleIndex, env) {
 export function selectGroup(state, groupName) {
 
     return state
-        .updateIn(['config', 'activated'], _=>groupName)
-        .updateIn(['config', 'multiDeleteDisabled'], _=>true)
+        .updateIn(['config', 'activated'], ()=>groupName)
+        .updateIn(['config', 'multiDeleteDisabled'], ()=>true)
         .updateIn(['config', 'group', groupName], ruleList=>ruleList.map(rule=>rule.set('selected', false)));
 }
 
 export function selectHost(state, groupName, ruleIndex, env, host) {
 
-    return state.updateIn(['config', 'group', groupName, ruleIndex, 'cache', env], _=>host);
+    return state.updateIn(['config', 'group', groupName, ruleIndex, 'cache', env], ()=>host);
 }
 
 export function insertRule(state, groupName, ruleList) {
@@ -67,7 +67,7 @@ export function deleteGroup(state, groupName) {
                 var newGroup = {},
                     groupObj = group.toJS();
 
-                Object.keys(groupObj).forEach((key)=> {
+                Object.keys(groupObj).forEach(key=> {
                     if (key !== groupName) {
                         newGroup[key] = groupObj[key];
                     }
@@ -83,25 +83,25 @@ export function editDomain(state, groupName, ruleIndex, domain) {
 
     return state.updateIn(
         ['config', 'group', groupName, ruleIndex, 'domain'],
-        _=>domain
+        ()=>domain
     );
 }
 
 export function selectRule(state, groupName, ruleIndex) {
 
     return state
-        .updateIn(['config', 'group', groupName, ruleIndex, 'selected'], _=> true)
-        .updateIn(['config', 'multiDeleteDisabled'], _=>false);
+        .updateIn(['config', 'group', groupName, ruleIndex, 'selected'], ()=> true)
+        .updateIn(['config', 'multiDeleteDisabled'], ()=>false);
 }
 
 export function deselectRule(state, groupName, ruleIndex) {
 
-    var newState = state.updateIn(['config', 'group', groupName, ruleIndex, 'selected'], _=>false);
+    var newState = state.updateIn(['config', 'group', groupName, ruleIndex, 'selected'], ()=>false);
 
     return newState
         .updateIn(
             ['config', 'multiDeleteDisabled'],
-            _=>newState.get('config').get('group').get(groupName).every(rule=>!rule.get('selected'))
+            ()=>newState.get('config').get('group').get(groupName).every(rule=>!rule.get('selected'))
         );
 }
 
@@ -109,10 +109,10 @@ export function multiDeleteRule(state, groupName) {
 
     return state
         .updateIn(['config', 'group', groupName], ruleList=>ruleList.filter(rule=>!rule.get('selected')))
-        .updateIn(['config', 'multiDeleteDisabled'], _=>true);
+        .updateIn(['config', 'multiDeleteDisabled'], ()=>true);
 }
 
 export function switchHttps(state, isOn) {
 
-    return state.updateIn(['config', 'httpsOn'], _=>isOn);
+    return state.updateIn(['config', 'httpsOn'], ()=>isOn);
 }

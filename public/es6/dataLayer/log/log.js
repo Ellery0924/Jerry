@@ -27,9 +27,9 @@ export function pushLog(logState, logData) {
         });
 }
 
-export function checkDetail(logState, index) {
+export function checkDetail(logState, current) {
 
-    return logState.updateIn('current', logState.get('list').find(item=>item.index === index));
+    return logState.updateIn(['current'], ()=>Immutable.fromJS(current));
 }
 
 export function filter(logState, condition) {

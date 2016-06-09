@@ -36,7 +36,7 @@ export default React.createClass({
     },
     render(){
 
-        const {logList, shouldResetY}=this.props;
+        const {logList, checkDetail}=this.props;
         const vh = $(window).height();
 
         return (
@@ -55,6 +55,7 @@ export default React.createClass({
                         containerHeight={0.75 * vh-68}
                         rangeSize={20}
                         renderRow={this._renderRow}
+                        onItemClick={item=>{console.log(item);checkDetail(item)}}
                     />
                 </div>
             </div>

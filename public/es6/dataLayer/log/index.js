@@ -13,7 +13,7 @@ export default function (state, action) {
             return filter(logState, action.condition);
 
         case CHECK_DETAIL:
-            return checkDetail(logState, action.index);
+            return checkDetail(logState, action.current);
 
         case PUSH_LOG:
             return pushLog(logState, action.logData);

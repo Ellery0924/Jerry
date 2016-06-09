@@ -260,6 +260,7 @@ body {
     flex: 1;
     box-sizing: border-box;
     padding: 15px;
+    overflow: hidden;
 }
 
 .logger-right #overview-panel {
@@ -270,6 +271,7 @@ body {
     height: 75vh;
     margin-top: 15px;
     margin-bottom: 0;
+    word-break: break-all;
 }
 
 .overview-panel {

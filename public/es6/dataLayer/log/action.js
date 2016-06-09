@@ -10,8 +10,8 @@ export function pushLog(logData) {
     return {type: PUSH_LOG, logData};
 }
 
-export function checkDetail(index) {
-    return {type: CHECK_DETAIL, index};
+export function checkDetail(current) {
+    return {type: CHECK_DETAIL, current};
 }
 
 export function filter(condition) {

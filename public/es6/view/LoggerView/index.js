@@ -9,16 +9,16 @@ import Detail from './Detail';
 export default React.createClass({
     render(){
 
-        const {filtered, filterCondition, filter, clear}=this.props;
+        const {filtered, filterCondition, filter, clear, checkDetail, current}=this.props;
 
         return (
             <div className="logger-view">
                 <div className="logger-left">
                     <Filter condition={filterCondition} filter={filter}/>
-                    <Console logList={filtered} clear={clear}/>
+                    <Console logList={filtered} clear={clear} checkDetail={checkDetail}/>
                 </div>
                 <div className="logger-right">
-                    <Detail/>
+                    <Detail current={current}/>
                 </div>
             </div>
         );
