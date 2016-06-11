@@ -261,7 +261,7 @@ body {
 }
 
 .logger-right {
-    flex: 1;
+    flex: 1.5;
     box-sizing: border-box;
     padding: 15px;
     overflow: hidden;
@@ -367,6 +367,10 @@ body {
     color: #d9534f;
 }
 
+.listview-container {
+    overflow: auto
+}
+
 .listview-item-wrap.active, .listview-item-wrap.active:hover {
     background: #428bca;
 }
@@ -414,7 +418,7 @@ body {
     border: none;
     resize: none;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     height: auto;
 }
 

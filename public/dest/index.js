@@ -88,7 +88,7 @@
 
 	var _LoggerView2 = _interopRequireDefault(_LoggerView);
 
-	var _socket = __webpack_require__(264);
+	var _socket = __webpack_require__(267);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
@@ -32203,7 +32203,6 @@
 	exports.exportHostList = exportHostList;
 	exports.getServerByIp = getServerByIp;
 	exports.formatRuleList = formatRuleList;
-	exports.parseJSON = parseJSON;
 
 	var _underscore = __webpack_require__(247);
 
@@ -32515,11 +32514,6 @@
 
 	        return generatedRule;
 	    });
-	}
-
-	function parseJSON(obj) {
-
-	    return JSON.stringify(obj, null, 4).replace(/\s/g, '&nbsp;').replace(/[\n\r]/g, '<br/>');
 	}
 	//# sourceMappingURL=utils.js.map
 
@@ -35381,7 +35375,7 @@
 	                    height: itemHeight + "px",
 	                    top: item.top + "px",
 	                    left: 0,
-	                    right: 0
+	                    minWidth: "100%"
 	                },
 	                key: item.index },
 	            renderRow(item)
@@ -35475,11 +35469,10 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { onScroll: this._onScroll, className: 'js-listview-container', ref: 'container', style: {
+	                { onScroll: this._onScroll, className: 'listview-container js-listview-container', ref: 'container',
+	                    style: {
 	                        position: 'relative',
-	                        height: containerHeight + 'px',
-	                        "overflowY": 'auto',
-	                        "overflowX": "hidden"
+	                        height: containerHeight + 'px'
 	                    }, className: 'listview-container' },
 	                _react2.default.createElement(
 	                    'ul',
@@ -35590,24 +35583,24 @@
 
 	var _Overview2 = _interopRequireDefault(_Overview);
 
-	var _Request = __webpack_require__(266);
+	var _Request = __webpack_require__(265);
 
 	var _Request2 = _interopRequireDefault(_Request);
 
+	var _fixTextarea = __webpack_require__(268);
+
+	var _fixTextarea2 = _interopRequireDefault(_fixTextarea);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * Created by Ellery1 on 16/6/7.
+	 */
 	exports.default = _react2.default.createClass({
 	    displayName: 'Detail',
 	    componentDidMount: function componentDidMount() {
 
-	        $(document.body).on('click', "#request-tablink", function () {
-
-	            setTimeout(function () {
-
-	                var bodyTextArea = $(".body-textarea").not(".adjusted");
-	                bodyTextArea.addClass("adjusted").css("height", bodyTextArea.prop("scrollHeight"), 10);
-	            }, 100);
-	        });
+	        $(document.body).on('click', "#request-tablink", _fixTextarea2.default);
 	    },
 	    render: function render() {
 	        var current = this.props.current;
@@ -35636,9 +35629,9 @@
 	                        { role: 'presentation' },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { href: '#request-panel', id: 'request-tablink', 'aria-controls': 'request-panel', role: 'tab',
+	                            { href: '#response-panel', id: 'response-tablink', 'aria-controls': 'response-panel', role: 'tab',
 	                                'data-toggle': 'tab' },
-	                            'Request'
+	                            'Response'
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -35646,9 +35639,9 @@
 	                        { role: 'presentation' },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { href: '#response-panel', id: 'response-tablink', 'aria-controls': 'response-panel', role: 'tab',
+	                            { href: '#request-panel', id: 'request-tablink', 'aria-controls': 'request-panel', role: 'tab',
 	                                'data-toggle': 'tab' },
-	                            'Response'
+	                            'Request'
 	                        )
 	                    )
 	                ),
@@ -35660,19 +35653,17 @@
 	                        { role: 'tabpanel', className: 'tab-pane overview-panel active', id: 'overview-panel' },
 	                        _react2.default.createElement(_Overview2.default, { current: current })
 	                    ),
+	                    _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane', id: 'response-panel' }),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { role: 'tabpanel', className: 'tab-pane', id: 'request-panel' },
 	                        _react2.default.createElement(_Request2.default, { requestData: current.request })
-	                    ),
-	                    _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane', id: 'response-panel' })
+	                    )
 	                )
 	            )
 	        ) : null;
 	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/7.
-	     */
+	});
 	//# sourceMappingURL=index.js.map
 
 
@@ -35690,7 +35681,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _InfoItem = __webpack_require__(265);
+	var _InfoItem = __webpack_require__(264);
 
 	var _InfoItem2 = _interopRequireDefault(_InfoItem);
 
@@ -35774,7 +35765,7 @@
 	                            current.response ? Object.keys(current.response.headers).map(function (key) {
 
 	                                var value = current.response.headers[key];
-	                                return _react2.default.createElement(_InfoItem2.default, { key: "response-header" + key, name: key, value: value });
+	                                return _react2.default.createElement(_InfoItem2.default, { key: "response-header-" + key, name: key, value: value });
 	                            }) : null
 	                        )
 	                    )
@@ -35810,7 +35801,7 @@
 	                            current.request ? Object.keys(current.request.headers).map(function (key) {
 
 	                                var value = current.request.headers[key];
-	                                return _react2.default.createElement(_InfoItem2.default, { key: "response-header" + key, name: key, value: value });
+	                                return _react2.default.createElement(_InfoItem2.default, { key: "request-header-" + key, name: key, value: value });
 	                            }) : null
 	                        )
 	                    )
@@ -35824,6 +35815,241 @@
 
 /***/ },
 /* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _react2.default.createClass({
+	    displayName: "InfoItem",
+	    render: function render() {
+	        var _props = this.props;
+	        var name = _props.name;
+	        var value = _props.value;
+
+	        return value ? _react2.default.createElement(
+	            "div",
+	            { className: "form-group" },
+	            _react2.default.createElement(
+	                "label",
+	                { className: "control-label name" },
+	                name.toUpperCase(),
+	                ":"
+	            ),
+	            _react2.default.createElement(
+	                "span",
+	                { className: "value" },
+	                value
+	            )
+	        ) : null;
+	    }
+	}); /**
+	     * Created by Ellery1 on 16/6/10.
+	     */
+	//# sourceMappingURL=InfoItem.js.map
+
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _InfoItem = __webpack_require__(264);
+
+	var _InfoItem2 = _interopRequireDefault(_InfoItem);
+
+	var _BodyContainer = __webpack_require__(266);
+
+	var _BodyContainer2 = _interopRequireDefault(_BodyContainer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _react2.default.createClass({
+	    displayName: 'Request',
+	    render: function render() {
+	        var requestData = this.props.requestData;
+
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'log-request' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'request-query-panel' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panel panel-default' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-heading', role: 'tab' },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            { className: 'panel-title' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#request-query-panel',
+	                                    href: '#query-accordion-content', id: 'query-accordion-control',
+	                                    'aria-expanded': 'false', 'aria-controls': 'query-accordion-content' },
+	                                'Query String Parameters'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { id: 'query-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
+	                            'aria-labelledby': 'query-accordion-control' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel-body' },
+	                            !$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(function (key) {
+
+	                                return _react2.default.createElement(_InfoItem2.default, { key: "query-string-parameter-" + key, name: key,
+	                                    value: requestData.query[key] });
+	                            }) : "无"
+	                        )
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'request-body-panel' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panel panel-default' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-heading', role: 'tab' },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            { className: 'panel-title' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#request-body-panel',
+	                                    href: '#request-body-accordion-content', id: 'request-body-accordion-control',
+	                                    'aria-expanded': 'false', 'aria-controls': 'request-body-accordion-content' },
+	                                'JSON Body'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { id: 'request-body-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
+	                            'aria-labelledby': 'request-body-accordion-control' },
+	                        _react2.default.createElement(_BodyContainer2.default, { body: requestData.body })
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'request-raw-panel' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panel panel-default' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-heading', role: 'tab' },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            { className: 'panel-title' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#request-raw-panel',
+	                                    href: '#request-raw-accordion-content', id: 'body-accordion-control',
+	                                    'aria-expanded': 'false', 'aria-controls': 'request-raw-accordion-content' },
+	                                'Raw Body'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { id: 'request-raw-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
+	                            'aria-labelledby': 'request-raw-accordion-control' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel-body' },
+	                            requestData.raw ? requestData.raw : "无"
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	}); /**
+	     * Created by Ellery1 on 16/6/9.
+	     */
+	//# sourceMappingURL=Request.js.map
+
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _fixTextarea = __webpack_require__(268);
+
+	var _fixTextarea2 = _interopRequireDefault(_fixTextarea);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Created by Ellery1 on 16/6/10.
+	 */
+	exports.default = _react2.default.createClass({
+	    displayName: 'BodyContainer',
+	    componentDidUpdate: function componentDidUpdate() {
+
+	        (0, _fixTextarea2.default)();
+	    },
+	    render: function render() {
+	        var _this = this;
+
+	        var body = this.props.body;
+
+	        return body ? _react2.default.createElement('textarea', {
+	            ref: function ref(component) {
+	                return _this.textarea = component;
+	            },
+	            resize: false,
+	            disabled: true,
+	            value: JSON.stringify(body, null, 4),
+	            className: 'body-textarea panel-body' }) : _react2.default.createElement(
+	            'div',
+	            { className: 'panel-body' },
+	            '无'
+	        );
+	    }
+	});
+	//# sourceMappingURL=BodyContainer.js.map
+
+
+/***/ },
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;var require;/* WEBPACK VAR INJECTION */(function(global) {(function(f){if(true){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.io = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return require(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -43082,8 +43308,8 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
+/* 268 */
+/***/ function(module, exports) {
 
 	"use strict";
 
@@ -43091,219 +43317,15 @@
 	    value: true
 	});
 
-	var _react = __webpack_require__(22);
+	exports.default = function () {
 
-	var _react2 = _interopRequireDefault(_react);
+	    setTimeout(function () {
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	    displayName: "InfoItem",
-	    render: function render() {
-	        var _props = this.props;
-	        var name = _props.name;
-	        var value = _props.value;
-
-	        return value ? _react2.default.createElement(
-	            "div",
-	            { className: "form-group" },
-	            _react2.default.createElement(
-	                "label",
-	                { className: "control-label name" },
-	                name.toUpperCase(),
-	                ":"
-	            ),
-	            _react2.default.createElement(
-	                "span",
-	                { className: "value" },
-	                value
-	            )
-	        ) : null;
-	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/10.
-	     */
-	//# sourceMappingURL=InfoItem.js.map
-
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(22);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _InfoItem = __webpack_require__(265);
-
-	var _InfoItem2 = _interopRequireDefault(_InfoItem);
-
-	var _BodyContainer = __webpack_require__(267);
-
-	var _BodyContainer2 = _interopRequireDefault(_BodyContainer);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	    displayName: 'Request',
-	    render: function render() {
-	        var requestData = this.props.requestData;
-
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'log-request' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'request-query-panel' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'panel panel-default' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'panel-heading', role: 'tab' },
-	                        _react2.default.createElement(
-	                            'h4',
-	                            { className: 'panel-title' },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#request-query-panel',
-	                                    href: '#query-accordion-content', id: 'query-accordion-control',
-	                                    'aria-expanded': 'false', 'aria-controls': 'query-accordion-content' },
-	                                'Query String Parameters'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { id: 'query-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
-	                            'aria-labelledby': 'query-accordion-control' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'panel-body' },
-	                            !$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(function (key) {
-
-	                                return _react2.default.createElement(_InfoItem2.default, { name: key, value: requestData.query[key] });
-	                            }) : "无"
-	                        )
-	                    )
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'request-body-panel' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'panel panel-default' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'panel-heading', role: 'tab' },
-	                        _react2.default.createElement(
-	                            'h4',
-	                            { className: 'panel-title' },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#request-body-panel',
-	                                    href: '#request-body-accordion-content', id: 'request-body-accordion-control',
-	                                    'aria-expanded': 'false', 'aria-controls': 'request-body-accordion-content' },
-	                                'JSON Body'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { id: 'request-body-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
-	                            'aria-labelledby': 'request-body-accordion-control' },
-	                        _react2.default.createElement(_BodyContainer2.default, { body: requestData.body })
-	                    )
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'request-raw-panel' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'panel panel-default' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'panel-heading', role: 'tab' },
-	                        _react2.default.createElement(
-	                            'h4',
-	                            { className: 'panel-title' },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#request-raw-panel',
-	                                    href: '#request-raw-accordion-content', id: 'body-accordion-control',
-	                                    'aria-expanded': 'false', 'aria-controls': 'request-raw-accordion-content' },
-	                                'Raw Body'
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { id: 'request-raw-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
-	                            'aria-labelledby': 'request-raw-accordion-control' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'panel-body' },
-	                            requestData.raw ? requestData.raw : "无"
-	                        )
-	                    )
-	                )
-	            )
-	        );
-	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/9.
-	     */
-	//# sourceMappingURL=Request.js.map
-
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(22);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	    displayName: "BodyContainer",
-	    render: function render() {
-	        var _this = this;
-
-	        var body = this.props.body;
-
-	        return body ? _react2.default.createElement("textarea", {
-	            ref: function ref(component) {
-	                return _this.textarea = component;
-	            },
-	            resize: false,
-	            disabled: true,
-	            defaultValue: JSON.stringify(body, null, 4),
-	            className: "body-textarea panel-body" }) : _react2.default.createElement(
-	            "div",
-	            { className: "panel-body" },
-	            "无"
-	        );
-	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/10.
-	     */
-	//# sourceMappingURL=BodyContainer.js.map
+	        var bodyTextArea = $(".body-textarea");
+	        bodyTextArea.css("height", bodyTextArea.prop("scrollHeight"), 10);
+	    }, 100);
+	};
+	//# sourceMappingURL=fixTextarea.js.map
 
 
 /***/ }

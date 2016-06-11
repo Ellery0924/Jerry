@@ -299,10 +299,3 @@ export function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
         return generatedRule;
     });
 }
-
-export function parseJSON(obj) {
-
-    return JSON.stringify(obj, null, 4)
-        .replace(/\s/g, '&nbsp;')
-        .replace(/[\n\r]/g, '<br/>');
-}

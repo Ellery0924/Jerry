@@ -28,7 +28,8 @@ export default React.createClass({
                             <div className="panel-body">
                                 {!$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(key=> {
 
-                                    return <InfoItem name={key} value={requestData.query[key]}/>
+                                    return <InfoItem key={"query-string-parameter-"+key} name={key}
+                                                     value={requestData.query[key]}/>
                                 }) : "无"}
                             </div>
                         </div>

@@ -31,7 +31,7 @@ var ListItem = React.createClass({
                     height:itemHeight+"px",
                     top:item.top+"px",
                     left:0,
-                    right:0
+                    minWidth:"100%"
                 }}
                 key={item.index}>
                 {renderRow(item)}
@@ -121,11 +121,10 @@ export default React.createClass({
         if (visibleItemList) {
 
             return (
-                <div onScroll={this._onScroll} className="js-listview-container" ref="container" style={{
+                <div onScroll={this._onScroll} className="listview-container js-listview-container" ref="container"
+                     style={{
                     position:'relative',
-                    height:containerHeight+'px',
-                    "overflowY":'auto',
-                    "overflowX":"hidden"
+                    height:containerHeight+'px'
                 }} className="listview-container">
                     <ul ref="content" style={{
                         height:contentHeight+"px",

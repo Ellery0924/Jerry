@@ -4,20 +4,12 @@
 import React from 'react';
 import Overview from './Overview';
 import Request from './Request';
+import fixTextarea from './fixTextarea';
 
 export default React.createClass({
     componentDidMount(){
 
-        $(document.body).on('click', "#request-tablink", ()=> {
-
-            setTimeout(()=> {
-
-                var bodyTextArea = $(".body-textarea").not(".adjusted");
-                bodyTextArea
-                    .addClass("adjusted")
-                    .css("height", bodyTextArea.prop("scrollHeight"), 10);
-            }, 100);
-        });
+        $(document.body).on('click', "#request-tablink", fixTextarea);
     },
     render(){
 
@@ -34,15 +26,15 @@ export default React.createClass({
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="#request-panel" id="request-tablink" aria-controls="request-panel" role="tab"
-                               data-toggle="tab">
-                                Request
-                            </a>
-                        </li>
-                        <li role="presentation">
                             <a href="#response-panel" id="response-tablink" aria-controls="response-panel" role="tab"
                                data-toggle="tab">
                                 Response
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#request-panel" id="request-tablink" aria-controls="request-panel" role="tab"
+                               data-toggle="tab">
+                                Request
                             </a>
                         </li>
                     </ul>
@@ -50,11 +42,11 @@ export default React.createClass({
                         <div role="tabpanel" className="tab-pane overview-panel active" id="overview-panel">
                             <Overview current={current}/>
                         </div>
-                        <div role="tabpanel" className="tab-pane" id="request-panel">
-                            <Request requestData={current.request}/>
-                        </div>
                         <div role="tabpanel" className="tab-pane" id="response-panel">
 
+                        </div>
+                        <div role="tabpanel" className="tab-pane" id="request-panel">
+                            <Request requestData={current.request}/>
                         </div>
                     </div>
                 </div>

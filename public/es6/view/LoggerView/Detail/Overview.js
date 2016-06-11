@@ -50,7 +50,7 @@ export default React.createClass({
                                 {current.response ? Object.keys(current.response.headers).map(key=> {
 
                                     var value = current.response.headers[key];
-                                    return <InfoItem key={"response-header"+key} name={key} value={value}/>
+                                    return <InfoItem key={"response-header-"+key} name={key} value={value}/>
                                 }) : null}
                             </div>
                         </div>
@@ -72,7 +72,7 @@ export default React.createClass({
                                 {current.request ? Object.keys(current.request.headers).map(key=> {
 
                                     var value = current.request.headers[key];
-                                    return <InfoItem key={"response-header"+key} name={key} value={value}/>
+                                    return <InfoItem key={"request-header-"+key} name={key} value={value}/>
                                 }) : null}
                             </div>
                         </div>

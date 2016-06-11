@@ -2,8 +2,13 @@
  * Created by Ellery1 on 16/6/10.
  */
 import React from 'react';
+import fixTextarea from './fixTextarea';
 
 export default React.createClass({
+    componentDidUpdate(){
+
+        fixTextarea();
+    },
     render(){
 
         const {body}=this.props;
@@ -14,7 +19,7 @@ export default React.createClass({
                     ref={component=>this.textarea=component}
                     resize={false}
                     disabled={true}
-                    defaultValue={JSON.stringify(body, null, 4)}
+                    value={JSON.stringify(body, null, 4)}
                     className="body-textarea panel-body">
                 </textarea> :
                 <div className="panel-body">无</div>
