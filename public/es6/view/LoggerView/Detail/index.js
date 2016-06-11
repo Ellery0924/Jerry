@@ -13,7 +13,7 @@ export default React.createClass({
     },
     render(){
 
-        const {current}=this.props;
+        const {current, closeDetail}=this.props;
 
         return !$.isEmptyObject(current) ? (
             <div className="logger-right">
@@ -28,15 +28,20 @@ export default React.createClass({
                         <li role="presentation">
                             <a href="#response-panel" id="response-tablink" aria-controls="response-panel" role="tab"
                                data-toggle="tab">
-                                Response
+                                Response Body
                             </a>
                         </li>
                         <li role="presentation">
                             <a href="#request-panel" id="request-tablink" aria-controls="request-panel" role="tab"
                                data-toggle="tab">
-                                Request
+                                Request Body
                             </a>
                         </li>
+                        <button
+                            onClick={()=>{closeDetail()}}
+                            type="button"
+                            className="btn btn-default glyphicon glyphicon-remove clear-detail"
+                        />
                     </ul>
                     <div className="tab-content">
                         <div role="tabpanel" className="tab-pane overview-panel active" id="overview-panel">

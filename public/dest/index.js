@@ -1137,6 +1137,7 @@
 	exports.checkDetail = checkDetail;
 	exports.filter = filter;
 	exports.clear = clear;
+	exports.closeDetail = closeDetail;
 	/**
 	 * Created by Ellery1 on 16/6/6.
 	 */
@@ -1144,6 +1145,7 @@
 	var CHECK_DETAIL = exports.CHECK_DETAIL = 'CHECK_DETAIL';
 	var FILTER = exports.FILTER = 'FILTER';
 	var CLEAR = exports.CLEAR = 'CLEAR';
+	var CLOSE_DETAIL = exports.CLOSE_DETAIL = 'CLOSE_DETAIL';
 
 	function pushLog(logData) {
 	    return { type: PUSH_LOG, logData: logData };
@@ -1159,6 +1161,10 @@
 
 	function clear() {
 	    return { type: CLEAR };
+	}
+
+	function closeDetail() {
+	    return { type: CLOSE_DETAIL };
 	}
 	//# sourceMappingURL=action.js.map
 
@@ -6543,6 +6549,9 @@
 	        case _action.CLEAR:
 	            return (0, _log.clear)(logState);
 
+	        case _action.CLOSE_DETAIL:
+	            return (0, _log.closeDetail)(logState);
+
 	        default:
 	            return logState;
 	    }
@@ -6567,6 +6576,7 @@
 	exports.checkDetail = checkDetail;
 	exports.filter = filter;
 	exports.clear = clear;
+	exports.closeDetail = closeDetail;
 
 	var _immutable = __webpack_require__(17);
 
@@ -6623,11 +6633,18 @@
 
 	function clear(logState) {
 
-	    return logState.updateIn(['filtered'], function (_) {
+	    return logState.updateIn(['filtered'], function () {
 	        return _immutable2.default.fromJS([]);
-	    }).updateIn(['list'], function (_) {
+	    }).updateIn(['list'], function () {
 	        return _immutable2.default.fromJS([]);
-	    }).updateIn(['current'], function (_) {
+	    }).updateIn(['current'], function () {
+	        return _immutable2.default.fromJS({});
+	    });
+	}
+
+	function closeDetail(logState) {
+
+	    return logState.updateIn(['current'], function () {
 	        return _immutable2.default.fromJS({});
 	    });
 	}
@@ -34971,6 +34988,9 @@
 	                },
 	                clear: function clear() {
 	                    dispatch((0, _action.clear)());
+	                },
+	                closeDetail: function closeDetail() {
+	                    dispatch((0, _action.closeDetail)());
 	                }
 	            }))
 	        );
@@ -35026,6 +35046,7 @@
 	        var filter = _props.filter;
 	        var clear = _props.clear;
 	        var checkDetail = _props.checkDetail;
+	        var closeDetail = _props.closeDetail;
 	        var current = _props.current;
 
 	        return _react2.default.createElement(
@@ -35037,7 +35058,7 @@
 	                _react2.default.createElement(_Filter2.default, { condition: filterCondition, filter: filter }),
 	                _react2.default.createElement(_Console2.default, { current: current, logList: filtered, clear: clear, checkDetail: checkDetail })
 	            ),
-	            _react2.default.createElement(_Detail2.default, { current: current })
+	            _react2.default.createElement(_Detail2.default, { current: current, closeDetail: closeDetail })
 	        );
 	    }
 	});
@@ -35290,8 +35311,11 @@
 	                    'h3',
 	                    { className: 'panel-title' },
 	                    '日志(最多保留1000条,单击查看详情)',
-	                    _react2.default.createElement('button', { onClick: this._clearConsole, type: 'button',
-	                        className: 'btn btn-default glyphicon glyphicon-ban-circle clear-console' })
+	                    _react2.default.createElement('button', {
+	                        onClick: this._clearConsole,
+	                        type: 'button',
+	                        className: 'btn btn-default glyphicon glyphicon-ban-circle clear-console'
+	                    })
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -35603,7 +35627,9 @@
 	        $(document.body).on('click', "#request-tablink", _fixTextarea2.default);
 	    },
 	    render: function render() {
-	        var current = this.props.current;
+	        var _props = this.props;
+	        var current = _props.current;
+	        var closeDetail = _props.closeDetail;
 
 	        return !$.isEmptyObject(current) ? _react2.default.createElement(
 	            'div',
@@ -35631,7 +35657,7 @@
 	                            'a',
 	                            { href: '#response-panel', id: 'response-tablink', 'aria-controls': 'response-panel', role: 'tab',
 	                                'data-toggle': 'tab' },
-	                            'Response'
+	                            'Response Body'
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -35641,9 +35667,16 @@
 	                            'a',
 	                            { href: '#request-panel', id: 'request-tablink', 'aria-controls': 'request-panel', role: 'tab',
 	                                'data-toggle': 'tab' },
-	                            'Request'
+	                            'Request Body'
 	                        )
-	                    )
+	                    ),
+	                    _react2.default.createElement('button', {
+	                        onClick: function onClick() {
+	                            closeDetail();
+	                        },
+	                        type: 'button',
+	                        className: 'btn btn-default glyphicon glyphicon-remove clear-detail'
+	                    })
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -35695,6 +35728,8 @@
 	    render: function render() {
 	        var current = this.props.current;
 
+	        var requestData = current.request;
+
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'log-overview' },
@@ -35736,6 +35771,43 @@
 	            ),
 	            _react2.default.createElement(
 	                'div',
+	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'overview-query-panel' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panel panel-default' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-heading', role: 'tab' },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            { className: 'panel-title' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#overview-query-panel',
+	                                    href: '#overview-query-accordion-content', id: 'overview-query-accordion-control',
+	                                    'aria-expanded': 'false', 'aria-controls': 'overview-query-accordion-content' },
+	                                'Query String Parameters'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { id: 'overview-query-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
+	                            'aria-labelledby': 'overview-query-accordion-control' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel-body' },
+	                            !$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(function (key) {
+
+	                                return _react2.default.createElement(_InfoItem2.default, { key: "query-string-parameter-" + key, name: key,
+	                                    value: requestData.query[key] });
+	                            }) : "无"
+	                        )
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
 	                { className: 'panel-group', id: 'overview-response-panel', role: 'tablist', 'aria-multiselectable': 'true' },
 	                _react2.default.createElement(
 	                    'div',
@@ -35748,7 +35820,8 @@
 	                            { className: 'panel-title' },
 	                            _react2.default.createElement(
 	                                'a',
-	                                { className: 'collapsed', role: 'button', 'data-toggle': 'collapse', 'data-parent': '#overview-response-panel',
+	                                { className: 'collapsed', role: 'button', 'data-toggle': 'collapse',
+	                                    'data-parent': '#overview-response-panel',
 	                                    href: '#response-accordion-content', 'aria-expanded': 'true',
 	                                    'aria-controls': 'collapseThree' },
 	                                'Response Headers'
@@ -35785,8 +35858,10 @@
 	                            { className: 'panel-title' },
 	                            _react2.default.createElement(
 	                                'a',
-	                                { className: 'collapsed', role: 'button', 'data-toggle': 'collapse', 'data-parent': '#overview-request-panel',
-	                                    href: '#request-accordion-content', 'aria-expanded': 'true', 'aria-controls': 'request-accordion-content' },
+	                                { className: 'collapsed', role: 'button', 'data-toggle': 'collapse',
+	                                    'data-parent': '#overview-request-panel',
+	                                    href: '#request-accordion-content', 'aria-expanded': 'true',
+	                                    'aria-controls': 'request-accordion-content' },
 	                                'Request Headers'
 	                            )
 	                        )

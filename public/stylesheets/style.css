@@ -426,3 +426,9 @@ body {
     border: none;
     outline: none;
 }
+
+.clear-detail {
+    float: right;
+    padding: 0 3px;
+    margin-top: 8px;
+}

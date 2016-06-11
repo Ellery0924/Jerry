@@ -5,6 +5,7 @@ export const PUSH_LOG = 'PUSH_LOG';
 export const CHECK_DETAIL = 'CHECK_DETAIL';
 export const FILTER = 'FILTER';
 export const CLEAR = 'CLEAR';
+export const CLOSE_DETAIL = 'CLOSE_DETAIL';
 
 export function pushLog(logData) {
     return {type: PUSH_LOG, logData};
@@ -20,5 +21,9 @@ export function filter(condition) {
 
 export function clear() {
     return {type: CLEAR};
+}
+
+export function closeDetail() {
+    return {type: CLOSE_DETAIL};
 }
 

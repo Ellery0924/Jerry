@@ -1,8 +1,8 @@
 /**
  * Created by Ellery1 on 16/6/6.
  */
-import {FILTER, CHECK_DETAIL, PUSH_LOG, CLEAR} from './action';
-import {filter, checkDetail, pushLog, clear} from './log';
+import {FILTER, CHECK_DETAIL, PUSH_LOG, CLEAR, CLOSE_DETAIL} from './action';
+import {filter, checkDetail, pushLog, clear, closeDetail} from './log';
 
 export default function (state, action) {
 
@@ -20,6 +20,9 @@ export default function (state, action) {
 
         case CLEAR:
             return clear(logState);
+
+        case CLOSE_DETAIL:
+            return closeDetail(logState);
 
         default:
             return logState;

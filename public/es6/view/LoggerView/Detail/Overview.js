@@ -8,6 +8,7 @@ export default React.createClass({
     render(){
 
         const {current}=this.props;
+        const requestData = current.request;
 
         return (
             <div className="log-overview">
@@ -33,11 +34,35 @@ export default React.createClass({
                         </div>
                     </div>
                 </div>
+                <div className="panel-group" role="tablist" aria-multiselectable="true" id="overview-query-panel">
+                    <div className="panel panel-default">
+                        <div className="panel-heading" role="tab">
+                            <h4 className="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#overview-query-panel"
+                                   href="#overview-query-accordion-content" id="overview-query-accordion-control"
+                                   aria-expanded="false" aria-controls="overview-query-accordion-content">
+                                    Query String Parameters
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="overview-query-accordion-content" className="panel-collapse collapse in" role="tabpanel"
+                             aria-labelledby="overview-query-accordion-control">
+                            <div className="panel-body">
+                                {!$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(key=> {
+
+                                    return <InfoItem key={"query-string-parameter-"+key} name={key}
+                                                     value={requestData.query[key]}/>
+                                }) : "无"}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="panel-group" id="overview-response-panel" role="tablist" aria-multiselectable="true">
                     <div className="panel panel-default">
                         <div className="panel-heading" role="tab" id="response-accordion-control">
                             <h4 className="panel-title">
-                                <a className="collapsed" role="button" data-toggle="collapse" data-parent="#overview-response-panel"
+                                <a className="collapsed" role="button" data-toggle="collapse"
+                                   data-parent="#overview-response-panel"
                                    href="#response-accordion-content" aria-expanded="true"
                                    aria-controls="collapseThree">
                                     Response Headers
@@ -60,8 +85,10 @@ export default React.createClass({
                     <div className="panel panel-default">
                         <div className="panel-heading" role="tab" id="response-accordion-control">
                             <h4 className="panel-title">
-                                <a className="collapsed" role="button" data-toggle="collapse" data-parent="#overview-request-panel"
-                                   href="#request-accordion-content" aria-expanded="true" aria-controls="request-accordion-content">
+                                <a className="collapsed" role="button" data-toggle="collapse"
+                                   data-parent="#overview-request-panel"
+                                   href="#request-accordion-content" aria-expanded="true"
+                                   aria-controls="request-accordion-content">
                                     Request Headers
                                 </a>
                             </h4>

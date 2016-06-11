@@ -9,7 +9,7 @@ import Detail from './Detail';
 export default React.createClass({
     render(){
 
-        const {filtered, filterCondition, filter, clear, checkDetail, current}=this.props;
+        const {filtered, filterCondition, filter, clear, checkDetail, closeDetail, current}=this.props;
 
         return (
             <div className="logger-view">
@@ -17,7 +17,7 @@ export default React.createClass({
                     <Filter condition={filterCondition} filter={filter}/>
                     <Console current={current} logList={filtered} clear={clear} checkDetail={checkDetail}/>
                 </div>
-                <Detail current={current}/>
+                <Detail current={current} closeDetail={closeDetail}/>
             </div>
         );
     }
