@@ -37,7 +37,7 @@ import {setPattern, insertPattern, deletePattern} from './rewriteManage';
 
 export default function (state, action) {
 
-    var subState = state.get('qproxy');
+    var subState = state.qproxy;
 
     switch (action.type) {
 

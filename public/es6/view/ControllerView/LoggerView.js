@@ -29,7 +29,7 @@ var LoggerView = React.createClass({
 
 function select(state) {
 
-    return state.get('logger').toJS();
+    return state.logger.toJS();
 }
 
 export default connect(select)(LoggerView);

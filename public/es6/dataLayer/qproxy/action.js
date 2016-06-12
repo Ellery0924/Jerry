@@ -101,7 +101,7 @@ export function fetchConfig() {
 
 function updateConfig(getState) {
 
-    var source = getState().toJS().qproxy,
+    var source = getState().qproxy.toJS(),
         config = source.config;
 
     //删除临时状态

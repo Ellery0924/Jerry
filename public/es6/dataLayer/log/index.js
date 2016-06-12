@@ -6,7 +6,7 @@ import {filter, checkDetail, pushLog, clear, closeDetail} from './log';
 
 export default function (state, action) {
 
-    var logState = state.get('logger');
+    var logState = state.logger;
 
     switch (action.type) {
         case FILTER:

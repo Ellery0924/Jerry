@@ -29,7 +29,7 @@ var RewriteManageView = React.createClass({
 
 function select(state) {
 
-    return state.get('qproxy').toJS();
+    return state.qproxy.toJS();
 }
 
 export default connect(select)(RewriteManageView);

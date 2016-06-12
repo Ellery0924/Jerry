@@ -3,16 +3,16 @@ import loggerReducer from './log';
 
 import Immutable from 'immutable';
 
-var initialState = Immutable.fromJS({
-    qproxy: {
+var initialState = {
+    qproxy: Immutable.fromJS({
         config: {
             group: {},
             activated: '',
             rewrite: []
         },
         server: {}
-    },
-    logger: {
+    }),
+    logger: Immutable.fromJS({
         filterCondition: {
             method: 'ALL',
             regex: ''
@@ -20,13 +20,13 @@ var initialState = Immutable.fromJS({
         current: {},
         list: [],
         filtered: []
-    }
-});
+    })
+};
 
 export default function (state = initialState, action) {
 
-    return Immutable.fromJS({
+    return {
         qproxy: qproxyReducer(state, action),
         logger: loggerReducer(state, action)
-    });
+    };
 }
