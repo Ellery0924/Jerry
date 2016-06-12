@@ -35626,7 +35626,11 @@
 	    displayName: 'Detail',
 	    componentDidMount: function componentDidMount() {
 
-	        $(document.body).on('click', ".js-body-tablink", _fixTextarea2.default);
+	        $(document.body).on('click', ".js-body-tablink", function () {
+
+	            (0, _fixTextarea2.default)();
+	            $('#response-raw-accordion-content').removeClass('in');
+	        });
 	    },
 	    render: function render() {
 	        var _props = this.props;
@@ -35657,7 +35661,8 @@
 	                        { role: 'presentation' },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { href: '#response-panel', className: 'js-body-tablink', id: 'response-tablink', 'aria-controls': 'response-panel', role: 'tab',
+	                            { href: '#response-panel', className: 'js-body-tablink', id: 'response-tablink',
+	                                'aria-controls': 'response-panel', role: 'tab',
 	                                'data-toggle': 'tab' },
 	                            'Response Body'
 	                        )
@@ -35667,7 +35672,8 @@
 	                        { role: 'presentation' },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { href: '#request-panel', className: 'js-body-tablink', id: 'request-tablink', 'aria-controls': 'request-panel', role: 'tab',
+	                            { href: '#request-panel', className: 'js-body-tablink', id: 'request-tablink',
+	                                'aria-controls': 'request-panel', role: 'tab',
 	                                'data-toggle': 'tab' },
 	                            'Request Body'
 	                        )
@@ -43464,6 +43470,39 @@
 	                        { id: 'response-body-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
 	                            'aria-labelledby': 'response-body-accordion-control' },
 	                        _react2.default.createElement(_BodyContainer2.default, { body: responseData.body })
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'response-raw-panel' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panel panel-default' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-heading', role: 'tab' },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            { className: 'panel-title' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#response-raw-panel',
+	                                    href: '#response-raw-accordion-content', id: 'response-raw-accordion-control',
+	                                    'aria-expanded': 'false', 'aria-controls': 'response-raw-accordion-content' },
+	                                'Raw Body'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { id: 'response-raw-accordion-content', className: 'panel-collapse collapse', role: 'tabpanel',
+	                            'aria-labelledby': 'response-raw-accordion-control' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel-body' },
+	                            responseData.raw ? responseData.raw : "无"
+	                        )
 	                    )
 	                )
 	            )

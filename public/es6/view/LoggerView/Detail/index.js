@@ -10,7 +10,11 @@ import fixTextarea from './fixTextarea';
 export default React.createClass({
     componentDidMount(){
 
-        $(document.body).on('click', ".js-body-tablink", fixTextarea);
+        $(document.body).on('click', ".js-body-tablink", ()=> {
+
+            fixTextarea();
+            $('#response-raw-accordion-content').removeClass('in');
+        });
     },
     render(){
 
@@ -27,13 +31,15 @@ export default React.createClass({
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="#response-panel" className="js-body-tablink" id="response-tablink" aria-controls="response-panel" role="tab"
+                            <a href="#response-panel" className="js-body-tablink" id="response-tablink"
+                               aria-controls="response-panel" role="tab"
                                data-toggle="tab">
                                 Response Body
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="#request-panel" className="js-body-tablink" id="request-tablink" aria-controls="request-panel" role="tab"
+                            <a href="#request-panel" className="js-body-tablink" id="request-tablink"
+                               aria-controls="request-panel" role="tab"
                                data-toggle="tab">
                                 Request Body
                             </a>

@@ -28,6 +28,25 @@ export default React.createClass({
                         </div>
                     </div>
                 </div>
+                <div className="panel-group" role="tablist" aria-multiselectable="true" id="response-raw-panel">
+                    <div className="panel panel-default">
+                        <div className="panel-heading" role="tab">
+                            <h4 className="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#response-raw-panel"
+                                   href="#response-raw-accordion-content" id="response-raw-accordion-control"
+                                   aria-expanded="false" aria-controls="response-raw-accordion-content">
+                                    Raw Body
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="response-raw-accordion-content" className="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="response-raw-accordion-control">
+                            <div className="panel-body">
+                                {responseData.raw ? responseData.raw : "无"}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
