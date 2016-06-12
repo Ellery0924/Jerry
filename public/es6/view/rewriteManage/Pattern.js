@@ -35,6 +35,7 @@ export default React.createClass({
                         type="text"
                         className="form-control pattern_input"
                         value={pattern}
+                        placeholder="输入正则表达式(请使用\.和\?代替.和?,其他正则表达式元字符以此类推)"
                         onChange={this.onPatternChange}
                     />
                 </td>
@@ -44,6 +45,7 @@ export default React.createClass({
                         type="text"
                         className="form-control responder_input"
                         value={responder}
+                        placeholder="可以使用$1,$2来表示pattern中正则表达式的匹配分组"
                         onChange={this.onPatternChange}
                     />
                 </td>

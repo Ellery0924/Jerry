@@ -48,11 +48,13 @@ export default React.createClass({
                             <div className="form-group">
                                 <label htmlFor="newRule_domain">Pattern:</label>
                                 <input ref="newPatternInput" type="text" className="form-control" id="new_pattern_input"
+                                       placeholder="输入正则表达式(请使用\.和\?代替.和?,其他正则表达式元字符以此类推)"
                                        autofocus/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="newRule_domain">Responder:</label>
                                 <input ref="newResponderInput" type="text" className="form-control"
+                                       placeholder="可以使用$1,$2来表示pattern中正则表达式的匹配分组"
                                        id="new_responder_input" autofocus/>
                             </div>
                         </div>
