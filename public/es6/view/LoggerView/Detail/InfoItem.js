@@ -11,7 +11,7 @@ export default React.createClass({
         return value ? (
             <div className="form-group">
                 <label className="control-label name">{name.toUpperCase()}:</label>
-                <span className="value">{value}</span>
+                <span className="value">{decodeURIComponent(value)}</span>
             </div>
         ) : null;
     }
