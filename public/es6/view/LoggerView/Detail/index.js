@@ -12,10 +12,10 @@ export default React.createClass({
 
         $(document.body).on('click', ".js-body-tablink", ()=> {
 
-            fixTextarea();
             $('.body-textarea').each((i, ta)=> {
                 $(ta).css('height', 'auto');
             });
+            fixTextarea();
             $('#response-raw-accordion-content').removeClass('in');
         });
     },
