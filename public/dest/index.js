@@ -88,7 +88,7 @@
 
 	var _LoggerView2 = _interopRequireDefault(_LoggerView);
 
-	var _socket = __webpack_require__(267);
+	var _socket = __webpack_require__(268);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
@@ -35293,6 +35293,7 @@
 	    _onItemClick: function _onItemClick(item, evt) {
 
 	        this.props.checkDetail(item);
+	        $('.js-overview-tablink').find('a').trigger('click');
 	        $('.listview-item-wrap').removeClass('active');
 	        $(evt.currentTarget).addClass('active');
 	    },
@@ -35611,20 +35612,21 @@
 
 	var _Request2 = _interopRequireDefault(_Request);
 
-	var _fixTextarea = __webpack_require__(268);
+	var _Response = __webpack_require__(269);
+
+	var _Response2 = _interopRequireDefault(_Response);
+
+	var _fixTextarea = __webpack_require__(267);
 
 	var _fixTextarea2 = _interopRequireDefault(_fixTextarea);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/**
-	 * Created by Ellery1 on 16/6/7.
-	 */
 	exports.default = _react2.default.createClass({
 	    displayName: 'Detail',
 	    componentDidMount: function componentDidMount() {
 
-	        $(document.body).on('click', "#request-tablink", _fixTextarea2.default);
+	        $(document.body).on('click', ".js-body-tablink", _fixTextarea2.default);
 	    },
 	    render: function render() {
 	        var _props = this.props;
@@ -35642,7 +35644,7 @@
 	                    { className: 'nav nav-tabs', role: 'tablist' },
 	                    _react2.default.createElement(
 	                        'li',
-	                        { role: 'presentation', className: 'log-detail-first-tab active' },
+	                        { role: 'presentation', className: 'js-overview-tablink log-detail-first-tab active' },
 	                        _react2.default.createElement(
 	                            'a',
 	                            { href: '#overview-panel', 'aria-controls': 'overview-panel', role: 'tab',
@@ -35655,7 +35657,7 @@
 	                        { role: 'presentation' },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { href: '#response-panel', id: 'response-tablink', 'aria-controls': 'response-panel', role: 'tab',
+	                            { href: '#response-panel', className: 'js-body-tablink', id: 'response-tablink', 'aria-controls': 'response-panel', role: 'tab',
 	                                'data-toggle': 'tab' },
 	                            'Response Body'
 	                        )
@@ -35665,7 +35667,7 @@
 	                        { role: 'presentation' },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { href: '#request-panel', id: 'request-tablink', 'aria-controls': 'request-panel', role: 'tab',
+	                            { href: '#request-panel', className: 'js-body-tablink', id: 'request-tablink', 'aria-controls': 'request-panel', role: 'tab',
 	                                'data-toggle': 'tab' },
 	                            'Request Body'
 	                        )
@@ -35686,7 +35688,11 @@
 	                        { role: 'tabpanel', className: 'tab-pane overview-panel active', id: 'overview-panel' },
 	                        _react2.default.createElement(_Overview2.default, { current: current })
 	                    ),
-	                    _react2.default.createElement('div', { role: 'tabpanel', className: 'tab-pane', id: 'response-panel' }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { role: 'tabpanel', className: 'tab-pane', id: 'response-panel' },
+	                        _react2.default.createElement(_Response2.default, { responseData: current.response })
+	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { role: 'tabpanel', className: 'tab-pane', id: 'request-panel' },
@@ -35696,7 +35702,9 @@
 	            )
 	        ) : null;
 	    }
-	});
+	}); /**
+	     * Created by Ellery1 on 16/6/7.
+	     */
 	//# sourceMappingURL=index.js.map
 
 
@@ -36086,7 +36094,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _fixTextarea = __webpack_require__(268);
+	var _fixTextarea = __webpack_require__(267);
 
 	var _fixTextarea2 = _interopRequireDefault(_fixTextarea);
 
@@ -36125,6 +36133,29 @@
 
 /***/ },
 /* 267 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	exports.default = function () {
+
+	    setTimeout(function () {
+
+	        var bodyTextArea = $(".body-textarea"),
+	            scrollHeight = bodyTextArea.prop('scrollHeight');
+
+	        bodyTextArea.css("height", scrollHeight === 0 ? "auto" : scrollHeight);
+	    }, 100);
+	};
+	//# sourceMappingURL=fixTextarea.js.map
+
+
+/***/ },
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;var require;/* WEBPACK VAR INJECTION */(function(global) {(function(f){if(true){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.io = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return require(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -43383,24 +43414,69 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 268 */
-/***/ function(module, exports) {
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
-	exports.default = function () {
+	var _react = __webpack_require__(22);
 
-	    setTimeout(function () {
+	var _react2 = _interopRequireDefault(_react);
 
-	        var bodyTextArea = $(".body-textarea");
-	        bodyTextArea.css("height", bodyTextArea.prop("scrollHeight"), 10);
-	    }, 100);
-	};
-	//# sourceMappingURL=fixTextarea.js.map
+	var _BodyContainer = __webpack_require__(266);
+
+	var _BodyContainer2 = _interopRequireDefault(_BodyContainer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Created by Ellery1 on 16/6/9.
+	 */
+	exports.default = _react2.default.createClass({
+	    displayName: 'Response',
+	    render: function render() {
+	        var responseData = this.props.responseData;
+
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'log-response' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-group', role: 'tablist', 'aria-multiselectable': 'true', id: 'response-body-panel' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panel panel-default' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-heading', role: 'tab' },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            { className: 'panel-title' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { role: 'button', 'data-toggle': 'collapse', 'data-parent': '#response-body-panel',
+	                                    href: '#response-body-accordion-content', id: 'request-body-accordion-control',
+	                                    'aria-expanded': 'false', 'aria-controls': 'response-body-accordion-content' },
+	                                'JSON Body'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { id: 'response-body-accordion-content', className: 'panel-collapse collapse in', role: 'tabpanel',
+	                            'aria-labelledby': 'response-body-accordion-control' },
+	                        _react2.default.createElement(_BodyContainer2.default, { body: responseData.body })
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+	//# sourceMappingURL=Response.js.map
 
 
 /***/ }

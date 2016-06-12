@@ -43,6 +43,7 @@ export default React.createClass({
     _onItemClick(item, evt){
 
         this.props.checkDetail(item);
+        $('.js-overview-tablink').find('a').trigger('click');
         $('.listview-item-wrap').removeClass('active');
         $(evt.currentTarget).addClass('active');
     },
@@ -56,8 +57,8 @@ export default React.createClass({
                 <div className="panel-heading">
                     <h3 className="panel-title">
                         日志(最多保留1000条,单击查看详情)
-                        <button 
-                            onClick={this._clearConsole} 
+                        <button
+                            onClick={this._clearConsole}
                             type="button"
                             className="btn btn-default glyphicon glyphicon-ban-circle clear-console"
                         />

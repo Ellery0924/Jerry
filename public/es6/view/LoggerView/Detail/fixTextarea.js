@@ -5,7 +5,9 @@ export default function () {
 
     setTimeout(()=> {
 
-        var bodyTextArea = $(".body-textarea");
-        bodyTextArea.css("height", bodyTextArea.prop("scrollHeight"), 10);
+        var bodyTextArea = $(".body-textarea"),
+            scrollHeight = bodyTextArea.prop('scrollHeight');
+
+        bodyTextArea.css("height", scrollHeight === 0 ? "auto" : scrollHeight);
     }, 100);
 }

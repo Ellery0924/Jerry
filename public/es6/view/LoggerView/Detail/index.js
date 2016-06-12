@@ -4,12 +4,13 @@
 import React from 'react';
 import Overview from './Overview';
 import Request from './Request';
+import Response from './Response';
 import fixTextarea from './fixTextarea';
 
 export default React.createClass({
     componentDidMount(){
 
-        $(document.body).on('click', "#request-tablink", fixTextarea);
+        $(document.body).on('click', ".js-body-tablink", fixTextarea);
     },
     render(){
 
@@ -19,20 +20,20 @@ export default React.createClass({
             <div className="logger-right">
                 <div className="logger-right-content">
                     <ul className="nav nav-tabs" role="tablist">
-                        <li role="presentation" className="log-detail-first-tab active">
+                        <li role="presentation" className="js-overview-tablink log-detail-first-tab active">
                             <a href="#overview-panel" aria-controls="overview-panel" role="tab"
                                data-toggle="tab">
                                 Overview
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="#response-panel" id="response-tablink" aria-controls="response-panel" role="tab"
+                            <a href="#response-panel" className="js-body-tablink" id="response-tablink" aria-controls="response-panel" role="tab"
                                data-toggle="tab">
                                 Response Body
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="#request-panel" id="request-tablink" aria-controls="request-panel" role="tab"
+                            <a href="#request-panel" className="js-body-tablink" id="request-tablink" aria-controls="request-panel" role="tab"
                                data-toggle="tab">
                                 Request Body
                             </a>
@@ -48,7 +49,7 @@ export default React.createClass({
                             <Overview current={current}/>
                         </div>
                         <div role="tabpanel" className="tab-pane" id="response-panel">
-
+                            <Response responseData={current.response}/>
                         </div>
                         <div role="tabpanel" className="tab-pane" id="request-panel">
                             <Request requestData={current.request}/>
