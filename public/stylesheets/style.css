@@ -398,12 +398,18 @@ body {
     margin-left: 5px;
 }
 
+.logger-left .panel-title {
+    position: relative;
+}
+
 .clear-console {
-    float: right;
+    position: absolute;
     padding: 3px 8px;
     margin-left: 5px;
     margin-top: -6px;
     margin-right: -10px;
+    left: 265px;
+    top: 0;
 }
 
 .clear-console:hover, .clear-console:focus, .clear-console:active {

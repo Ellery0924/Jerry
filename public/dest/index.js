@@ -35565,7 +35565,7 @@
 	    },
 	    getContentHeight: function getContentHeight() {
 
-	        return this.dataSrc.length * this.itemHeight;
+	        return this.dataSrc.length * this.itemHeight + 20;
 	    },
 	    getMaxScrollTop: function getMaxScrollTop() {
 
@@ -36084,7 +36084,7 @@
 /* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -36094,40 +36094,31 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _fixTextarea = __webpack_require__(267);
-
-	var _fixTextarea2 = _interopRequireDefault(_fixTextarea);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/**
-	 * Created by Ellery1 on 16/6/10.
-	 */
 	exports.default = _react2.default.createClass({
-	    displayName: 'BodyContainer',
-	    componentDidUpdate: function componentDidUpdate() {
-
-	        (0, _fixTextarea2.default)();
-	    },
+	    displayName: "BodyContainer",
 	    render: function render() {
 	        var _this = this;
 
 	        var body = this.props.body;
 
-	        return body ? _react2.default.createElement('textarea', {
+	        return body ? _react2.default.createElement("textarea", {
 	            ref: function ref(component) {
 	                return _this.textarea = component;
 	            },
 	            resize: false,
 	            disabled: true,
 	            value: JSON.stringify(body, null, 4),
-	            className: 'body-textarea panel-body' }) : _react2.default.createElement(
-	            'div',
-	            { className: 'panel-body' },
-	            '无'
+	            className: "body-textarea panel-body" }) : _react2.default.createElement(
+	            "div",
+	            { className: "panel-body" },
+	            "无"
 	        );
 	    }
-	});
+	}); /**
+	     * Created by Ellery1 on 16/6/10.
+	     */
 	//# sourceMappingURL=BodyContainer.js.map
 
 
@@ -36145,10 +36136,13 @@
 
 	    setTimeout(function () {
 
-	        var bodyTextArea = $(".body-textarea"),
-	            scrollHeight = bodyTextArea.prop('scrollHeight');
+	        var bodyTextArea = $(".body-textarea");
 
-	        bodyTextArea.css("height", scrollHeight === 0 ? "auto" : scrollHeight);
+	        bodyTextArea.each(function (i, ta) {
+
+	            var scrollHeight = $(ta).prop('scrollHeight');
+	            $(ta).css("height", scrollHeight === 0 ? "auto" : scrollHeight);
+	        });
 	    }, 100);
 	};
 	//# sourceMappingURL=fixTextarea.js.map

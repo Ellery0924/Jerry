@@ -26,8 +26,8 @@ DataSource.prototype = {
         return [].slice.apply(this.dataSrc, this.visibleRange);
     },
     getContentHeight(){
-
-        return this.dataSrc.length * this.itemHeight;
+        
+        return this.dataSrc.length * this.itemHeight + 20;
     },
     getMaxScrollTop(){
 

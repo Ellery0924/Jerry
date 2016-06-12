@@ -2,13 +2,8 @@
  * Created by Ellery1 on 16/6/10.
  */
 import React from 'react';
-import fixTextarea from './fixTextarea';
 
 export default React.createClass({
-    componentDidUpdate(){
-
-        fixTextarea();
-    },
     render(){
 
         const {body}=this.props;

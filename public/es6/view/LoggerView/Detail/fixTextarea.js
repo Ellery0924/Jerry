@@ -5,9 +5,12 @@ export default function () {
 
     setTimeout(()=> {
 
-        var bodyTextArea = $(".body-textarea"),
-            scrollHeight = bodyTextArea.prop('scrollHeight');
+        var bodyTextArea = $(".body-textarea");
 
-        bodyTextArea.css("height", scrollHeight === 0 ? "auto" : scrollHeight);
+        bodyTextArea.each((i, ta)=> {
+
+            var scrollHeight = $(ta).prop('scrollHeight');
+            $(ta).css("height", scrollHeight === 0 ? "auto" : scrollHeight);
+        });
     }, 100);
 }
