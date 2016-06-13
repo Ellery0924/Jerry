@@ -23,6 +23,20 @@ var LogItem = React.createClass({
 });
 
 export default React.createClass({
+    shouldComponentUpdate(nextProp){
+
+        if (window.qproxy.shouldRefreshConsole) {
+
+            window.qproxy.shouldRefreshConsole = false;
+            return true;
+        }
+        return nextProp.logList !== this.props.logList;
+    },
+    componentWillUnmount(){
+
+        //在退出日志页面时设置一个全局变量,再次进入时刷新console
+        window.qproxy.shouldRefreshConsole = true;
+    },
     _renderRow(item){
 
         return (
@@ -49,7 +63,7 @@ export default React.createClass({
     },
     render(){
 
-        const {logList}=this.props;
+        const logList = this.props.logList.toJS();
         const vh = $(window).height();
 
         return (

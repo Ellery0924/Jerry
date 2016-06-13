@@ -10,13 +10,15 @@ import {filter, checkDetail, clear, closeDetail} from '../../dataLayer/log/actio
 var LoggerView = React.createClass({
     render(){
 
-        const {dispatch}=this.props;
+        const {dispatch, state}=this.props;
 
         return (
             <div className="logger">
                 <Navigator/>
                 <Logger
-                    {...this.props}
+                    current={state.get('current').toJS()}
+                    filtered={state.get('filtered')}
+                    filterCondition={state.get('filterCondition').toJS()}
                     filter={(condition)=>{dispatch(filter(condition))}}
                     checkDetail={(item)=>{dispatch(checkDetail(item))}}
                     clear={()=>{dispatch(clear())}}
@@ -29,7 +31,7 @@ var LoggerView = React.createClass({
 
 function select(state) {
 
-    return state.logger.toJS();
+    return {state: state.logger};
 }
 
 export default connect(select)(LoggerView);

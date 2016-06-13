@@ -17,8 +17,11 @@ import io from 'socket.io-client/socket.io';
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducer);
 
-var socket = io('http://127.0.0.1:3000');
+window.qproxy = {
+    shouldRefreshConsole: false
+};
 
+var socket = io('http://127.0.0.1:3000');
 socket.on('log', function (logData) {
 
     store.dispatch(pushLog(logData));
