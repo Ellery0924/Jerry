@@ -18,7 +18,7 @@ var LoggerView = React.createClass({
                 <Logger
                     {...this.props}
                     filter={(condition)=>{dispatch(filter(condition))}}
-                    checkDetail={(index)=>{dispatch(checkDetail(index))}}
+                    checkDetail={(item)=>{dispatch(checkDetail(item))}}
                     clear={()=>{dispatch(clear())}}
                     closeDetail={()=>{dispatch(closeDetail())}}
                 />
