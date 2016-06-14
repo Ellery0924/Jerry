@@ -5,7 +5,7 @@ import React from 'react';
 import Overview from './Overview';
 import Request from './Request';
 import Response from './Response';
-import fixTextarea from './fixTextarea';
+import {fixTextarea} from './util';
 
 export default React.createClass({
     componentDidMount(){
@@ -37,14 +37,14 @@ export default React.createClass({
                             <a href="#response-panel" className="js-body-tablink" id="response-tablink"
                                aria-controls="response-panel" role="tab"
                                data-toggle="tab">
-                                Response Body
+                                Response
                             </a>
                         </li>
                         <li role="presentation">
                             <a href="#request-panel" className="js-body-tablink" id="request-tablink"
                                aria-controls="request-panel" role="tab"
                                data-toggle="tab">
-                                Request Body
+                                Request
                             </a>
                         </li>
                         <button

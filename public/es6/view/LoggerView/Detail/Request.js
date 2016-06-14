@@ -4,11 +4,14 @@
 import React from 'react';
 import InfoItem from './InfoItem';
 import BodyContainer from './BodyContainer';
+import {parseCookie} from './util';
 
 export default React.createClass({
     render(){
 
         const {requestData}=this.props;
+        const cookieStr = requestData.headers.cookie || null,
+            cookieList = cookieStr ? parseCookie(cookieStr) : null;
 
         return (
             <div className="log-request">
@@ -26,11 +29,9 @@ export default React.createClass({
                         <div id="query-accordion-content" className="panel-collapse collapse in" role="tabpanel"
                              aria-labelledby="query-accordion-control">
                             <div className="panel-body">
-                                {!$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(key=> {
-
-                                    return <InfoItem key={"query-string-parameter-"+key} name={key}
-                                                     value={requestData.query[key]}/>
-                                }) : "无"}
+                                {!$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(key=>
+                                    <InfoItem key={"query-string-parameter-"+key} name={key}
+                                              value={requestData.query[key]}/>) : "无"}
                             </div>
                         </div>
                     </div>
@@ -57,7 +58,7 @@ export default React.createClass({
                         <div className="panel-heading" role="tab">
                             <h4 className="panel-title">
                                 <a role="button" data-toggle="collapse" data-parent="#request-raw-panel"
-                                   href="#request-raw-accordion-content" id="body-accordion-control"
+                                   href="#request-raw-accordion-content" id="request-raw-accordion-control"
                                    aria-expanded="false" aria-controls="request-raw-accordion-content">
                                     Raw Body
                                 </a>
@@ -67,6 +68,28 @@ export default React.createClass({
                              aria-labelledby="request-raw-accordion-control">
                             <div className="panel-body">
                                 {requestData.raw ? requestData.raw : "无"}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="panel-group" role="tablist" aria-multiselectable="true" id="request-cookie-panel">
+                    <div className="panel panel-default">
+                        <div className="panel-heading" role="tab">
+                            <h4 className="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#request-cookie-panel"
+                                   href="#request-cookie-accordion-content" id="request-cookie-accordion-control"
+                                   aria-expanded="false" aria-controls="request-cookie-accordion-content">
+                                    Cookie
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="request-cookie-accordion-content" className="panel-collapse collapse in"
+                             role="tabpanel"
+                             aria-labelledby="request-cookie-accordion-control">
+                            <div className="panel-body">
+                                {cookieList ? Object.keys(cookieList).map(key=>
+                                    <InfoItem key={"request-cookie-"+key} name={key} value={cookieList[key]}/>
+                                ) : "无"}
                             </div>
                         </div>
                     </div>
