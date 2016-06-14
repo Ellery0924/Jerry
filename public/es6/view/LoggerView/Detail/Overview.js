@@ -3,12 +3,15 @@
  */
 import React from 'react';
 import InfoItem from './InfoItem';
+import {parseCookie} from './util';
 
 export default React.createClass({
     render(){
 
         const {current}=this.props;
         const requestData = current.request;
+        const cookieStr = requestData.headers.cookie || null,
+            cookieList = cookieStr ? parseCookie(cookieStr) : null;
 
         return (
             <div className="log-overview">
@@ -101,6 +104,28 @@ export default React.createClass({
                                     var value = current.request.headers[key];
                                     return <InfoItem key={"request-header-"+key} name={key} value={value}/>
                                 }) : null}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="panel-group" role="tablist" aria-multiselectable="true" id="request-cookie-panel">
+                    <div className="panel panel-default">
+                        <div className="panel-heading" role="tab">
+                            <h4 className="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#request-cookie-panel"
+                                   href="#request-cookie-accordion-content" id="request-cookie-accordion-control"
+                                   aria-expanded="false" aria-controls="request-cookie-accordion-content">
+                                    Cookie
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="request-cookie-accordion-content" className="panel-collapse collapse in"
+                             role="tabpanel"
+                             aria-labelledby="request-cookie-accordion-control">
+                            <div className="panel-body">
+                                {cookieList ? Object.keys(cookieList).map(key=>
+                                    <InfoItem key={"request-cookie-"+key} name={key} value={cookieList[key]}/>
+                                ) : "无"}
                             </div>
                         </div>
                     </div>
