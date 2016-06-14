@@ -47,7 +47,7 @@ export function insertGroup(state, groupName) {
             ['config', 'group'],
             group=>group.set(groupName, Immutable.fromJS([]))
         )
-        .updateIn(['config', 'activated'], _=>groupName);
+        .updateIn(['config', 'activated'], ()=>groupName);
 }
 
 export function deleteRule(state, groupName, ruleIndex) {

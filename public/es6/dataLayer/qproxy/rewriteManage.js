@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 
 export function setPattern(state, index, pattern) {
 
-    return state.updateIn(['config', 'rewrite', index], _=>pattern)
+    return state.updateIn(['config', 'rewrite', index], ()=>pattern)
 }
 
 export function insertPattern(state, pattern) {

@@ -2,8 +2,8 @@
  * Created by Ellery1 on 16/1/1.
  */
 import React from 'react';
-import GroupNavigator from './GroupNavigator/index';
-import RuleTable from './RuleTable/index';
+import GroupNavigator from './GroupNavigator';
+import RuleTable from './RuleTable';
 
 export default React.createClass({
     render(){
