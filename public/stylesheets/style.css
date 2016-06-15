@@ -261,7 +261,7 @@ body {
 }
 
 .logger-right {
-    flex: 1.5;
+    flex: 1;
     box-sizing: border-box;
     padding: 15px;
     overflow: hidden;
