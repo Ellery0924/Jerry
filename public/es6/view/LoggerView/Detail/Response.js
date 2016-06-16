@@ -15,7 +15,7 @@ export default React.createClass({
                 <InfoPanel id="log-response-body" title="JSON Body">
                     <BodyContainer body={responseData.body}/>
                 </InfoPanel>
-                <InfoPanel id="log-response-raw" title="Raw Body">
+                <InfoPanel id="log-response-raw" isCollapsed={true} title="Raw Body">
                     {responseData.raw ? responseData.raw : "无"}
                 </InfoPanel>
             </div>

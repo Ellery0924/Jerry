@@ -35928,7 +35928,7 @@
 	            ),
 	            _react2.default.createElement(
 	                _InfoPanel2.default,
-	                { id: 'log-request-raw-body', title: 'Raw Body' },
+	                { id: 'log-request-raw-body', isCollapsed: true, title: 'Raw Body' },
 	                requestData.raw ? requestData.raw : "无"
 	            )
 	        );
@@ -35977,7 +35977,7 @@
 	            ),
 	            _react2.default.createElement(
 	                _InfoPanel2.default,
-	                { id: 'log-response-raw', title: 'Raw Body' },
+	                { id: 'log-response-raw', isCollapsed: true, title: 'Raw Body' },
 	                responseData.raw ? responseData.raw : "无"
 	            )
 	        );
@@ -43315,6 +43315,7 @@
 	        var _props = this.props;
 	        var id = _props.id;
 	        var title = _props.title;
+	        var isCollapsed = _props.isCollapsed;
 
 	        var panelName = id + "-panel",
 	            controlId = id + "-accordion-control",
@@ -43343,7 +43344,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { id: contentId, className: "panel-collapse collapse in", role: "tabpanel",
+	                    { id: contentId, className: "panel-collapse collapse " + (!isCollapsed ? "in" : ""), role: "tabpanel",
 	                        "aria-labelledby": controlId },
 	                    _react2.default.createElement(
 	                        "div",

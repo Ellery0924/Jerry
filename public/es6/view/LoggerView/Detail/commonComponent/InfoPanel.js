@@ -6,7 +6,7 @@ import React from 'react';
 export default React.createClass({
     render(){
 
-        const {id,title}=this.props;
+        const {id, title, isCollapsed}=this.props;
         const panelName = id + "-panel",
             controlId = id + "-accordion-control",
             contentId = id + "-accordion-content";
@@ -23,7 +23,7 @@ export default React.createClass({
                             </a>
                         </h4>
                     </div>
-                    <div id={contentId} className="panel-collapse collapse in" role="tabpanel"
+                    <div id={contentId} className={"panel-collapse collapse "+(!isCollapsed?"in":"")} role="tabpanel"
                          aria-labelledby={controlId}>
                         <div className="panel-body">
                             {this.props.children}
