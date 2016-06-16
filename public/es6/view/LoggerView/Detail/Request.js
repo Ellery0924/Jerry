@@ -18,7 +18,7 @@ export default React.createClass({
                         <InfoItem key={"query-string-parameter-"+key} name={key}
                                   value={requestData.query[key]}/>) : "无"}
                 </InfoPanel>
-                <InfoPanel id="log-request-body" title="body">
+                <InfoPanel id="log-request-body" title="Request Body">
                     <BodyContainer body={requestData.body}/>
                 </InfoPanel>
                 <InfoPanel id="log-request-raw-body" isCollapsed={true} title="Raw Body">
