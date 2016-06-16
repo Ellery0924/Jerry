@@ -35923,7 +35923,7 @@
 	            ),
 	            _react2.default.createElement(
 	                _InfoPanel2.default,
-	                { id: 'log-request-body', title: 'body' },
+	                { id: 'log-request-body', title: 'Request Body' },
 	                _react2.default.createElement(_BodyContainer2.default, { body: requestData.body })
 	            ),
 	            _react2.default.createElement(

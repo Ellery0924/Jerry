@@ -43,7 +43,7 @@ export default React.createClass({
                         <div className="input-group-btn">
                             <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                {methodText}<span className="caret"></span>
+                                {methodText}<span className="caret"/>
                             </button>
                             <ul className="dropdown-menu">
                                 <li><a ref="allSelect" onClick={()=>this._onSelectMethod('ALL')} data-method='ALL'
