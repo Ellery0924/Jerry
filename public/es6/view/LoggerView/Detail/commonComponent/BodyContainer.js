@@ -15,9 +15,9 @@ export default React.createClass({
                     resize={false}
                     disabled={true}
                     value={JSON.stringify(body, null, 4)}
-                    className="body-textarea panel-body">
+                    className="body-textarea">
                 </textarea> :
-                <div className="panel-body">无</div>
+                <span>无</span>
         )
     }
 });

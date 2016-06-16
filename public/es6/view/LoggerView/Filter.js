@@ -65,6 +65,7 @@ export default React.createClass({
                     </div>
                 </div>
                 <button type="button" onClick={this._onResetFilter} className="btn btn-danger reset-btn">重置</button>
+                <button type="button" onClick={()=>{}} className="btn btn-primary block-btn">断点配置</button>
             </div>
         );
     }

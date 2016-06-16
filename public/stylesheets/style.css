@@ -317,7 +317,7 @@ body {
     flex: 1;
 }
 
-.filter-btn, .reset-btn {
+.filter-btn, .reset-btn, .block-btn {
     margin-left: 5px;
     width: 100px;
 }
