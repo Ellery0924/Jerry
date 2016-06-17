@@ -88,7 +88,7 @@
 
 	var _LoggerView2 = _interopRequireDefault(_LoggerView);
 
-	var _socket = __webpack_require__(269);
+	var _socket = __webpack_require__(270);
 
 	var _socket2 = _interopRequireDefault(_socket);
 
@@ -1416,7 +1416,7 @@
 	        });
 
 	        return _immutable2.default.fromJS(newGroup);
-	    }).updateIn(['config', 'activated'], function (_) {
+	    }).updateIn(['config', 'activated'], function () {
 	        return 'default';
 	    });
 	}
@@ -6472,7 +6472,7 @@
 	 */
 	function setServer(state, server) {
 
-	  return state.updateIn(['server'], function (_) {
+	  return state.updateIn(['server'], function () {
 	    return server;
 	  });
 	}
@@ -35266,10 +35266,32 @@
 
 	        return false;
 	    },
+	    _getStatusColor: function _getStatusColor(statusCode) {
+
+	        console.log(statusCode[0]);
+	        switch (statusCode.toString()[0]) {
+
+	            case "2":
+	                return "success";
+
+	            case "3":
+	                return "redirect";
+
+	            case "4":
+	                return "client-error";
+
+	            case "5":
+	                return "server-error";
+
+	            default:
+	                return "others";
+	        }
+	    },
 	    render: function render() {
 	        var _props$item = this.props.item;
 	        var method = _props$item.method;
 	        var url = _props$item.url;
+	        var statusCode = _props$item.statusCode;
 
 	        return _react2.default.createElement(
 	            'a',
@@ -35278,6 +35300,11 @@
 	                'span',
 	                { className: "log-item-method " + (method === 'GET' ? 'get' : 'post') },
 	                method
+	            ),
+	            _react2.default.createElement(
+	                'span',
+	                { className: "log-item-status " + this._getStatusColor(statusCode) },
+	                statusCode
 	            ),
 	            _react2.default.createElement(
 	                'span',
@@ -35637,15 +35664,15 @@
 
 	var _Overview2 = _interopRequireDefault(_Overview);
 
-	var _Request = __webpack_require__(266);
+	var _Request = __webpack_require__(267);
 
 	var _Request2 = _interopRequireDefault(_Request);
 
-	var _Response = __webpack_require__(268);
+	var _Response = __webpack_require__(269);
 
 	var _Response2 = _interopRequireDefault(_Response);
 
-	var _util = __webpack_require__(265);
+	var _util = __webpack_require__(266);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35758,15 +35785,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _InfoItem = __webpack_require__(271);
+	var _InfoItem = __webpack_require__(264);
 
 	var _InfoItem2 = _interopRequireDefault(_InfoItem);
 
-	var _InfoPanel = __webpack_require__(272);
+	var _InfoPanel = __webpack_require__(265);
 
 	var _InfoPanel2 = _interopRequireDefault(_InfoPanel);
 
-	var _util = __webpack_require__(265);
+	var _util = __webpack_require__(266);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35834,8 +35861,120 @@
 
 
 /***/ },
-/* 264 */,
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _react2.default.createClass({
+	    displayName: "InfoItem",
+	    render: function render() {
+	        var _props = this.props;
+	        var name = _props.name;
+	        var value = _props.value;
+
+	        return value ? _react2.default.createElement(
+	            "div",
+	            { className: "form-group" },
+	            _react2.default.createElement(
+	                "label",
+	                { className: "control-label name" },
+	                name.toUpperCase(),
+	                ":"
+	            ),
+	            _react2.default.createElement(
+	                "span",
+	                { className: "value" },
+	                value
+	            )
+	        ) : null;
+	    }
+	}); /**
+	     * Created by Ellery1 on 16/6/10.
+	     */
+	//# sourceMappingURL=InfoItem.js.map
+
+
+/***/ },
 /* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _react2.default.createClass({
+	    displayName: "InfoPanel",
+	    render: function render() {
+	        var _props = this.props;
+	        var id = _props.id;
+	        var title = _props.title;
+	        var isCollapsed = _props.isCollapsed;
+
+	        var panelName = id + "-panel",
+	            controlId = id + "-accordion-control",
+	            contentId = id + "-accordion-content";
+
+	        return _react2.default.createElement(
+	            "div",
+	            { className: "panel-group", role: "tablist", "aria-multiselectable": "true", id: panelName },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "panel panel-default" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "panel-heading", role: "tab" },
+	                    _react2.default.createElement(
+	                        "h4",
+	                        { className: "panel-title" },
+	                        _react2.default.createElement(
+	                            "a",
+	                            { role: "button", "data-toggle": "collapse", "data-parent": panelName,
+	                                href: "#" + contentId, id: controlId,
+	                                "aria-expanded": "false", "aria-controls": contentId },
+	                            title
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { id: contentId, className: "panel-collapse collapse " + (!isCollapsed ? "in" : ""), role: "tabpanel",
+	                        "aria-labelledby": controlId },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "panel-body" },
+	                        this.props.children
+	                    )
+	                )
+	            )
+	        );
+	    }
+	}); /**
+	     * Created by Ellery1 on 16/6/16.
+	     */
+	//# sourceMappingURL=InfoPanel.js.map
+
+
+/***/ },
+/* 266 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -35875,7 +36014,7 @@
 
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35888,15 +36027,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _InfoItem = __webpack_require__(271);
+	var _InfoItem = __webpack_require__(264);
 
 	var _InfoItem2 = _interopRequireDefault(_InfoItem);
 
-	var _InfoPanel = __webpack_require__(272);
+	var _InfoPanel = __webpack_require__(265);
 
 	var _InfoPanel2 = _interopRequireDefault(_InfoPanel);
 
-	var _BodyContainer = __webpack_require__(273);
+	var _BodyContainer = __webpack_require__(268);
 
 	var _BodyContainer2 = _interopRequireDefault(_BodyContainer);
 
@@ -35938,8 +36077,49 @@
 
 
 /***/ },
-/* 267 */,
 /* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(22);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _react2.default.createClass({
+	    displayName: "BodyContainer",
+	    render: function render() {
+	        var _this = this;
+
+	        var body = this.props.body;
+
+	        return body ? _react2.default.createElement("textarea", {
+	            ref: function ref(component) {
+	                return _this.textarea = component;
+	            },
+	            resize: false,
+	            disabled: true,
+	            value: JSON.stringify(body, null, 4),
+	            className: "body-textarea" }) : _react2.default.createElement(
+	            "span",
+	            null,
+	            "无"
+	        );
+	    }
+	}); /**
+	     * Created by Ellery1 on 16/6/10.
+	     */
+	//# sourceMappingURL=BodyContainer.js.map
+
+
+/***/ },
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35952,11 +36132,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _InfoPanel = __webpack_require__(272);
+	var _InfoPanel = __webpack_require__(265);
 
 	var _InfoPanel2 = _interopRequireDefault(_InfoPanel);
 
-	var _BodyContainer = __webpack_require__(273);
+	var _BodyContainer = __webpack_require__(268);
 
 	var _BodyContainer2 = _interopRequireDefault(_BodyContainer);
 
@@ -35989,7 +36169,7 @@
 
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;var require;/* WEBPACK VAR INJECTION */(function(global) {(function(f){if(true){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.io = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return require(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -43246,162 +43426,6 @@
 	});
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 270 */,
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(22);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	    displayName: "InfoItem",
-	    render: function render() {
-	        var _props = this.props;
-	        var name = _props.name;
-	        var value = _props.value;
-
-	        return value ? _react2.default.createElement(
-	            "div",
-	            { className: "form-group" },
-	            _react2.default.createElement(
-	                "label",
-	                { className: "control-label name" },
-	                name.toUpperCase(),
-	                ":"
-	            ),
-	            _react2.default.createElement(
-	                "span",
-	                { className: "value" },
-	                decodeURIComponent(value)
-	            )
-	        ) : null;
-	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/10.
-	     */
-	//# sourceMappingURL=InfoItem.js.map
-
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(22);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	    displayName: "InfoPanel",
-	    render: function render() {
-	        var _props = this.props;
-	        var id = _props.id;
-	        var title = _props.title;
-	        var isCollapsed = _props.isCollapsed;
-
-	        var panelName = id + "-panel",
-	            controlId = id + "-accordion-control",
-	            contentId = id + "-accordion-content";
-
-	        return _react2.default.createElement(
-	            "div",
-	            { className: "panel-group", role: "tablist", "aria-multiselectable": "true", id: panelName },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "panel panel-default" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "panel-heading", role: "tab" },
-	                    _react2.default.createElement(
-	                        "h4",
-	                        { className: "panel-title" },
-	                        _react2.default.createElement(
-	                            "a",
-	                            { role: "button", "data-toggle": "collapse", "data-parent": panelName,
-	                                href: "#" + contentId, id: controlId,
-	                                "aria-expanded": "false", "aria-controls": contentId },
-	                            title
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { id: contentId, className: "panel-collapse collapse " + (!isCollapsed ? "in" : ""), role: "tabpanel",
-	                        "aria-labelledby": controlId },
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "panel-body" },
-	                        this.props.children
-	                    )
-	                )
-	            )
-	        );
-	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/16.
-	     */
-	//# sourceMappingURL=InfoPanel.js.map
-
-
-/***/ },
-/* 273 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _react = __webpack_require__(22);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = _react2.default.createClass({
-	    displayName: "BodyContainer",
-	    render: function render() {
-	        var _this = this;
-
-	        var body = this.props.body;
-
-	        return body ? _react2.default.createElement("textarea", {
-	            ref: function ref(component) {
-	                return _this.textarea = component;
-	            },
-	            resize: false,
-	            disabled: true,
-	            value: JSON.stringify(body, null, 4),
-	            className: "body-textarea" }) : _react2.default.createElement(
-	            "span",
-	            null,
-	            "无"
-	        );
-	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/10.
-	     */
-	//# sourceMappingURL=BodyContainer.js.map
-
 
 /***/ }
 /******/ ]);

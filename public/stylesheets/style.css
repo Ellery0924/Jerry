@@ -375,7 +375,8 @@ body {
     background: #428bca;
 }
 
-.listview-item-wrap.active a {
+.listview-item-wrap.active a ,.listview-item-wrap.active .log-item-url,
+.listview-item-wrap.active .log-item-method, .listview-item-wrap.active .log-item-status{
     color: white;
 }
 
@@ -386,7 +387,7 @@ body {
     cursor: pointer;
 }
 
-.log-item:active, .log-item:visited, .log-item:focus {
+.log-item:active, .log-item:visited, .log-item:focus, .log-item:hover {
     text-decoration: none;
 }
 
@@ -394,8 +395,20 @@ body {
     display: inline-block;
 }
 
-.log-item-url {
+.log-item-url, .log-item-status {
     margin-left: 5px;
+}
+
+.log-item .success {
+    color: #337ab7;
+}
+
+.log-item .redirect {
+    color: #dac146;
+}
+
+.log-item .server-error, .log-item .client-error {
+    color: #d43f3a;
 }
 
 .logger-left .panel-title {

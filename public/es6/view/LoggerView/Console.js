@@ -9,13 +9,35 @@ var LogItem = React.createClass({
 
         return false;
     },
+    _getStatusColor(statusCode){
+
+        console.log(statusCode[0]);
+        switch (statusCode.toString()[0]) {
+
+            case "2":
+                return "success";
+
+            case "3":
+                return "redirect";
+
+            case "4":
+                return "client-error";
+
+            case "5":
+                return "server-error";
+
+            default:
+                return "others";
+        }
+    },
     render(){
 
-        const {method, url}=this.props.item;
+        const {method, url, statusCode}=this.props.item;
 
         return (
             <a href="javascript:void 0;" className="log-item" title={url}>
                 <span className={"log-item-method "+(method==='GET'?'get':'post')}>{method}</span>
+                <span className={"log-item-status "+this._getStatusColor(statusCode)}>{statusCode}</span>
                 <span className="log-item-url">{url}</span>
             </a>
         );

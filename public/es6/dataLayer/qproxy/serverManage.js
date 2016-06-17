@@ -3,5 +3,5 @@
  */
 export function setServer(state, server) {
 
-    return state.updateIn(['server'], _=>server);
+    return state.updateIn(['server'], ()=>server);
 }

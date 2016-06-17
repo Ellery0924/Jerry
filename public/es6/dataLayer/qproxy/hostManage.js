@@ -76,7 +76,7 @@ export function deleteGroup(state, groupName) {
                 return Immutable.fromJS(newGroup);
             }
         )
-        .updateIn(['config', 'activated'], _=>'default');
+        .updateIn(['config', 'activated'], ()=>'default');
 }
 
 export function editDomain(state, groupName, ruleIndex, domain) {
