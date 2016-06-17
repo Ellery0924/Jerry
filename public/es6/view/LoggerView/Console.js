@@ -11,7 +11,6 @@ var LogItem = React.createClass({
     },
     _getStatusColor(statusCode){
 
-        console.log(statusCode[0]);
         switch (statusCode.toString()[0]) {
 
             case "2":
