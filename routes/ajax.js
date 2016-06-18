@@ -31,7 +31,7 @@ router
     });
 
 router
-    .router('/qproxy/blockPointSetting')
+    .route('/qproxy/blockPointSetting')
     .get(function (req, res) {
 
         res.send(service.getBlockPointSetting());
