@@ -30,4 +30,16 @@ router
         });
     });
 
+router
+    .router('/qproxy/blockPointSetting')
+    .get(function (req, res) {
+
+        res.send(service.getBlockPointSetting());
+    })
+    .put(function (req, res) {
+
+        service.setBlockPointSetting(req.body.setting);
+        res.send({ret: 1});
+    });
+
 module.exports = router;
