@@ -1,6 +1,6 @@
 {
   "name": "qfproxy",
-  "version": "0.4.74",
+  "version": "0.4.75",
   "private": false,
   "dependencies": {
     "bluebird": "^3.4.0",
