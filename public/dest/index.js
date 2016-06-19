@@ -32283,6 +32283,10 @@
 	exports.exportHostList = exportHostList;
 	exports.getServerByIp = getServerByIp;
 	exports.formatRuleList = formatRuleList;
+	exports.isFunction = isFunction;
+	exports.isNumber = isNumber;
+	exports.isString = isString;
+	exports.isObject = isObject;
 
 	var _underscore = __webpack_require__(247);
 
@@ -32594,6 +32598,26 @@
 
 	        return generatedRule;
 	    });
+	}
+
+	function isFunction(arg) {
+	    return typeof arg === 'function';
+	}
+
+	function isNumber(arg) {
+	    return typeof arg === 'number';
+	}
+
+	function isString(arg) {
+	    return typeof arg === 'string';
+	}
+
+	function isObject(arg) {
+	    return (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && arg !== null;
+	}
+
+	function isUndefined(arg) {
+	    return arg === void 0;
 	}
 	//# sourceMappingURL=utils.js.map
 
@@ -35781,6 +35805,7 @@
 	        var _props = this.props;
 	        var current = _props.current;
 	        var closeDetail = _props.closeDetail;
+	        var isBlocked = _props.isBlocked;
 
 	        return !$.isEmptyObject(current) ? _react2.default.createElement(
 	            'div',
@@ -35842,7 +35867,7 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { role: 'tabpanel', className: 'tab-pane', id: 'response-panel' },
-	                        _react2.default.createElement(_Response2.default, { responseData: current.response })
+	                        _react2.default.createElement(_Response2.default, { isBlocked: isBlocked, responseData: current.response })
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -36168,7 +36193,7 @@
 /* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -36178,31 +36203,36 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _utils = __webpack_require__(246);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * Created by Ellery1 on 16/6/10.
+	 */
 	exports.default = _react2.default.createClass({
-	    displayName: "BodyContainer",
+	    displayName: 'BodyContainer',
 	    render: function render() {
 	        var _this = this;
 
 	        var body = this.props.body;
 
-	        return body ? _react2.default.createElement("textarea", {
+	        var isValidJSON = (0, _utils.isObject)(body) || Array.isArray(body);
+
+	        return body ? _react2.default.createElement('textarea', {
 	            ref: function ref(component) {
 	                return _this.textarea = component;
 	            },
 	            resize: false,
 	            disabled: true,
-	            value: JSON.stringify(body, null, 4),
-	            className: "body-textarea" }) : _react2.default.createElement(
-	            "span",
+	            value: isValidJSON ? JSON.stringify(body, null, 4) : body,
+	            className: 'body-textarea' }) : _react2.default.createElement(
+	            'span',
 	            null,
-	            "无"
+	            '无'
 	        );
 	    }
-	}); /**
-	     * Created by Ellery1 on 16/6/10.
-	     */
+	});
 	//# sourceMappingURL=BodyContainer.js.map
 
 
@@ -36233,17 +36263,19 @@
 	exports.default = _react2.default.createClass({
 	    displayName: 'Response',
 	    render: function render() {
-	        var responseData = this.props.responseData;
+	        var _props = this.props;
+	        var responseData = _props.responseData;
+	        var isBlocked = _props.isBlocked;
 
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'log-response' },
 	            _react2.default.createElement(
 	                _InfoPanel2.default,
-	                { id: 'log-response-body', title: 'JSON Body' },
-	                _react2.default.createElement(_BodyContainer2.default, { body: responseData.body })
+	                { id: 'log-response-body', title: isBlocked ? "Body" : "JSON Body" },
+	                _react2.default.createElement(_BodyContainer2.default, { isBlocked: isBlocked, body: responseData.body, raw: responseData.raw })
 	            ),
-	            _react2.default.createElement(
+	            isBlocked ? null : _react2.default.createElement(
 	                _InfoPanel2.default,
 	                { id: 'log-response-raw', isCollapsed: true, title: 'Raw Body' },
 	                responseData.raw ? responseData.raw : "无"

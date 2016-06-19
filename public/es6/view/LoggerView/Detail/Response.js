@@ -8,16 +8,17 @@ import BodyContainer from './commonComponent/BodyContainer';
 export default React.createClass({
     render(){
 
-        const {responseData}=this.props;
+        const {responseData, isBlocked}=this.props;
 
         return (
             <div className="log-response">
-                <InfoPanel id="log-response-body" title="JSON Body">
-                    <BodyContainer body={responseData.body}/>
+                <InfoPanel id="log-response-body" title={isBlocked?"Body":"JSON Body"}>
+                    <BodyContainer isBlocked={isBlocked} body={responseData.body} raw={responseData.raw}/>
                 </InfoPanel>
-                <InfoPanel id="log-response-raw" isCollapsed={true} title="Raw Body">
-                    {responseData.raw ? responseData.raw : "无"}
-                </InfoPanel>
+                {isBlocked ? null :
+                    <InfoPanel id="log-response-raw" isCollapsed={true} title="Raw Body">
+                        {responseData.raw ? responseData.raw : "无"}
+                    </InfoPanel>}
             </div>
         );
     }

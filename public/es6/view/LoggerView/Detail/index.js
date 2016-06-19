@@ -21,7 +21,7 @@ export default React.createClass({
     },
     render(){
 
-        const {current, closeDetail}=this.props;
+        const {current, closeDetail, isBlocked}=this.props;
 
         return !$.isEmptyObject(current) ? (
             <div className="logger-right">
@@ -58,7 +58,7 @@ export default React.createClass({
                             <Overview current={current}/>
                         </div>
                         <div role="tabpanel" className="tab-pane" id="response-panel">
-                            <Response responseData={current.response}/>
+                            <Response isBlocked={isBlocked} responseData={current.response}/>
                         </div>
                         <div role="tabpanel" className="tab-pane" id="request-panel">
                             <Request requestData={current.request}/>

@@ -299,3 +299,23 @@ export function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
         return generatedRule;
     });
 }
+
+export function isFunction(arg) {
+    return typeof arg === 'function';
+}
+
+export function isNumber(arg) {
+    return typeof arg === 'number';
+}
+
+export function isString(arg) {
+    return typeof arg === 'string';
+}
+
+export function isObject(arg) {
+    return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+    return arg === void 0;
+}
