@@ -19,6 +19,14 @@ export default React.createClass({
             $('#response-raw-accordion-content').removeClass('in');
         });
     },
+    _onBlockPointContinue(){
+
+        var bodyVal = $('#log-response-body-accordion-content').find('textarea').val(),
+            {current, blockPointContinue}=this.props;
+
+        current.response.body = bodyVal;
+        blockPointContinue(current);
+    },
     render(){
 
         const {current, closeDetail, isBlocked, blockPointContinue}=this.props;
@@ -49,7 +57,7 @@ export default React.createClass({
                         </li>
                         {isBlocked ?
                             <button
-                                onClick={()=>{blockPointContinue(current)}}
+                                onClick={()=>{this._onBlockPointContinue()}}
                                 type="button"
                                 className="btn btn-default block-point-btn block-point-continue"
                             >Continue</button> : null

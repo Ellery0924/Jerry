@@ -105,6 +105,7 @@
 	    store.dispatch((0, _action2.pushLog)(logData));
 	}).on('blockpoint', function (logData) {
 
+	    console.log(logData);
 	    store.dispatch((0, _action2.pushBlockPoint)(logData));
 	});
 
@@ -35854,12 +35855,23 @@
 	            $('#response-raw-accordion-content').removeClass('in');
 	        });
 	    },
-	    render: function render() {
+	    _onBlockPointContinue: function _onBlockPointContinue() {
+	        var bodyVal = $('#log-response-body-accordion-content').find('textarea').val();
 	        var _props = this.props;
 	        var current = _props.current;
-	        var closeDetail = _props.closeDetail;
-	        var isBlocked = _props.isBlocked;
 	        var blockPointContinue = _props.blockPointContinue;
+
+	        current.response.body = bodyVal;
+	        blockPointContinue(current);
+	    },
+	    render: function render() {
+	        var _this = this;
+
+	        var _props2 = this.props;
+	        var current = _props2.current;
+	        var closeDetail = _props2.closeDetail;
+	        var isBlocked = _props2.isBlocked;
+	        var blockPointContinue = _props2.blockPointContinue;
 
 	        return !$.isEmptyObject(current) ? _react2.default.createElement(
 	            'div',
@@ -35906,7 +35918,7 @@
 	                        'button',
 	                        {
 	                            onClick: function onClick() {
-	                                blockPointContinue(current);
+	                                _this._onBlockPointContinue();
 	                            },
 	                            type: 'button',
 	                            className: 'btn btn-default block-point-btn block-point-continue'
@@ -36347,7 +36359,12 @@
 	            _react2.default.createElement(
 	                _InfoPanel2.default,
 	                { id: 'log-response-body', title: isBlocked ? "Body" : "JSON Body" },
-	                _react2.default.createElement(_BodyContainer2.default, { isBlocked: isBlocked, body: responseData.body, raw: responseData.raw })
+	                _react2.default.createElement(_BodyContainer2.default, {
+	                    isBlocked: isBlocked,
+	                    jsonp: responseData.jsonp,
+	                    body: responseData.body,
+	                    raw: responseData.raw
+	                })
 	            ),
 	            isBlocked ? null : _react2.default.createElement(
 	                _InfoPanel2.default,

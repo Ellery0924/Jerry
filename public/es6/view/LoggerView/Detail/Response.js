@@ -13,7 +13,12 @@ export default React.createClass({
         return (
             <div className="log-response">
                 <InfoPanel id="log-response-body" title={isBlocked?"Body":"JSON Body"}>
-                    <BodyContainer isBlocked={isBlocked} body={responseData.body} raw={responseData.raw}/>
+                    <BodyContainer
+                        isBlocked={isBlocked}
+                        jsonp={responseData.jsonp}
+                        body={responseData.body}
+                        raw={responseData.raw}
+                    />
                 </InfoPanel>
                 {isBlocked ? null :
                     <InfoPanel id="log-response-raw" isCollapsed={true} title="Raw Body">
