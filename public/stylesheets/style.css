@@ -388,7 +388,7 @@ body {
 .listview-item-wrap.active .log-item-url,
 .listview-item-wrap.active .log-item-method,
 .listview-item-wrap.active .log-item-status,
-.listview-item-wrap.active .log-item-blockpoint{
+.listview-item-wrap.active .log-item-blockpoint {
     color: white;
 }
 
@@ -462,4 +462,9 @@ body {
     float: right;
     padding: 0 3px;
     margin-top: 8px;
+}
+
+.block-point-btn {
+    padding: 3px 5px;
+    margin-top: 3px;
 }

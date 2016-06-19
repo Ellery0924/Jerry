@@ -21,7 +21,7 @@ export default React.createClass({
     },
     render(){
 
-        const {current, closeDetail, isBlocked}=this.props;
+        const {current, closeDetail, isBlocked, blockPointContinue}=this.props;
 
         return !$.isEmptyObject(current) ? (
             <div className="logger-right">
@@ -47,6 +47,20 @@ export default React.createClass({
                                 Request
                             </a>
                         </li>
+                        {isBlocked ?
+                            <button
+                                onClick={()=>{blockPointContinue(current)}}
+                                type="button"
+                                className="btn btn-default block-point-btn block-point-continue"
+                            >Continue</button> : null
+                        }
+                        {isBlocked ?
+                            <button
+                                onClick={()=>{}}
+                                type="button"
+                                className="btn btn-default block-point-btn block-point-abort"
+                            >Abort</button> : null
+                        }
                         <button
                             onClick={()=>{closeDetail()}}
                             type="button"

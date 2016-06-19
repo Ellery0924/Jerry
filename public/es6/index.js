@@ -27,7 +27,6 @@ wsClient
     })
     .on('blockpoint', function (logData) {
 
-        console.log(logData);
         store.dispatch(pushBlockPoint(logData));
     });
 

@@ -25,10 +25,12 @@ export function blockPointContinue(blockPoint) {
 
 export function blockPointContinueAsync(blockPoint) {
 
-    return function (dispatch) {
+    return function (dispatch, getState) {
 
         dispatch(blockPointContinue(blockPoint));
-        wsClient.emit('blockPointContinue', blockPoint.guid, blockPoint.response.body);
+        let isBlocked = getState().logger.get('isBlocked');
+        console.log(isBlocked);
+        wsClient.emit('blockPointContinue', blockPoint, isBlocked);
     }
 }
 

@@ -9,7 +9,17 @@ import Detail from './Detail';
 export default React.createClass({
     render(){
 
-        const {filtered, isBlocked, filterCondition, filter, clear, checkDetail, closeDetail, current}=this.props;
+        const {
+            filtered,
+            isBlocked,
+            filterCondition,
+            filter,
+            clear,
+            checkDetail,
+            closeDetail,
+            current,
+            blockPointContinue
+        }=this.props;
 
         return (
             <div className="logger-view">
@@ -31,6 +41,7 @@ export default React.createClass({
                     current={current}
                     closeDetail={closeDetail}
                     isBlocked={isBlocked}
+                    blockPointContinue={blockPointContinue}
                 />
             </div>
         );

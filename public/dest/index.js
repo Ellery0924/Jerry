@@ -105,7 +105,6 @@
 	    store.dispatch((0, _action2.pushLog)(logData));
 	}).on('blockpoint', function (logData) {
 
-	    console.log(logData);
 	    store.dispatch((0, _action2.pushBlockPoint)(logData));
 	});
 
@@ -1179,10 +1178,12 @@
 
 	function blockPointContinueAsync(blockPoint) {
 
-	    return function (dispatch) {
+	    return function (dispatch, getState) {
 
 	        dispatch(blockPointContinue(blockPoint));
-	        _wsClient2.default.emit('blockPointContinue', blockPoint.guid, blockPoint.response.body);
+	        var isBlocked = getState().logger.get('isBlocked');
+	        console.log(isBlocked);
+	        _wsClient2.default.emit('blockPointContinue', blockPoint, isBlocked);
 	    };
 	}
 
@@ -6591,6 +6592,9 @@
 	        case _action.PUSH_BLOCK_POINT:
 	            return (0, _log.pushBlockPoint)(logState, action.logData);
 
+	        case _action.BLOCK_POINT_CONTINUE:
+	            return (0, _log.blockPointContinue)(logState, action.blockPoint);
+
 	        default:
 	            return logState;
 	    }
@@ -6617,6 +6621,7 @@
 	exports.clear = clear;
 	exports.closeDetail = closeDetail;
 	exports.pushBlockPoint = pushBlockPoint;
+	exports.blockPointContinue = blockPointContinue;
 
 	var _immutable = __webpack_require__(17);
 
@@ -6718,14 +6723,57 @@
 	        return list.concat(_renderLogData(logData));
 	    }).updateIn(['isBlocked'], function () {
 	        return true;
+	    }).updateIn(['filterCondition'], function () {
+	        return _immutable2.default.fromJS({});
 	    });
 
 	    return newState.updateIn(['filtered'], function () {
 
-	        return newState.get('list').filter(function (log) {
+	        var ret = newState.get('list').filter(function (log) {
+
+	            var logJs = log.toJS();
+	            return logJs.type === 'blockpoint' && !logJs.isProposed;
+	        });
+
+	        return ret;
+	    });
+	}
+
+	function blockPointContinue(logState, blockPoint) {
+
+	    var guid = blockPoint.guid;
+
+	    var newState = logState.updateIn(['filtered'], function (filtered) {
+
+	        var ret = filtered.filter(function (log) {
+
+	            return log.toJS().guid !== guid;
+	        });
+
+	        return ret;
+	    }).updateIn(['list'], function (list) {
+
+	        return list.filter(function (log) {
+
+	            return log.toJS().guid !== guid;
+	        });
+	    }).updateIn(['current'], function () {
+	        return _immutable2.default.fromJS({});
+	    });
+
+	    return newState.updateIn(['isBlocked'], function () {
+
+	        return newState.get('list').some(function (log) {
 
 	            return log.toJS().type === 'blockpoint';
 	        });
+	    }).updateIn(['filtered'], function (filtered) {
+
+	        if (!filtered.size) {
+
+	            return newState.get('list');
+	        }
+	        return filtered;
 	    });
 	}
 	//# sourceMappingURL=log.js.map
@@ -35084,6 +35132,9 @@
 	                },
 	                closeDetail: function closeDetail() {
 	                    dispatch((0, _action.closeDetail)());
+	                },
+	                blockPointContinue: function blockPointContinue(blockPoint) {
+	                    return dispatch((0, _action.blockPointContinueAsync)(blockPoint));
 	                }
 	            })
 	        );
@@ -35144,6 +35195,7 @@
 	        var checkDetail = _props.checkDetail;
 	        var closeDetail = _props.closeDetail;
 	        var current = _props.current;
+	        var blockPointContinue = _props.blockPointContinue;
 
 	        return _react2.default.createElement(
 	            'div',
@@ -35167,7 +35219,8 @@
 	            _react2.default.createElement(_Detail2.default, {
 	                current: current,
 	                closeDetail: closeDetail,
-	                isBlocked: isBlocked
+	                isBlocked: isBlocked,
+	                blockPointContinue: blockPointContinue
 	            })
 	        );
 	    }
@@ -35806,6 +35859,7 @@
 	        var current = _props.current;
 	        var closeDetail = _props.closeDetail;
 	        var isBlocked = _props.isBlocked;
+	        var blockPointContinue = _props.blockPointContinue;
 
 	        return !$.isEmptyObject(current) ? _react2.default.createElement(
 	            'div',
@@ -35848,6 +35902,26 @@
 	                            'Request'
 	                        )
 	                    ),
+	                    isBlocked ? _react2.default.createElement(
+	                        'button',
+	                        {
+	                            onClick: function onClick() {
+	                                blockPointContinue(current);
+	                            },
+	                            type: 'button',
+	                            className: 'btn btn-default block-point-btn block-point-continue'
+	                        },
+	                        'Continue'
+	                    ) : null,
+	                    isBlocked ? _react2.default.createElement(
+	                        'button',
+	                        {
+	                            onClick: function onClick() {},
+	                            type: 'button',
+	                            className: 'btn btn-default block-point-btn block-point-abort'
+	                        },
+	                        'Abort'
+	                    ) : null,
 	                    _react2.default.createElement('button', {
 	                        onClick: function onClick() {
 	                            closeDetail();

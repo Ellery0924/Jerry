@@ -85,13 +85,58 @@ export function pushBlockPoint(logState, logData) {
 
             return list.concat(_renderLogData(logData));
         })
-        .updateIn(['isBlocked'], ()=>true);
+        .updateIn(['isBlocked'], ()=>true)
+        .updateIn(['filterCondition'], ()=>Immutable.fromJS({}));
 
     return newState.updateIn(['filtered'], ()=> {
 
-        return newState.get('list').filter(log=> {
+        var ret = newState.get('list').filter(log=> {
 
-            return log.toJS().type === 'blockpoint';
+            var logJs = log.toJS();
+            return logJs.type === 'blockpoint' && !logJs.isProposed;
         });
+
+        return ret;
     });
+}
+
+export function blockPointContinue(logState, blockPoint) {
+
+    var guid = blockPoint.guid;
+
+    var newState = logState
+        .updateIn(['filtered'], filtered=> {
+
+            var ret = filtered.filter(log=> {
+
+                return log.toJS().guid !== guid;
+            });
+
+            return ret;
+        })
+        .updateIn(['list'], list=> {
+
+            return list.filter(log=> {
+
+                return log.toJS().guid !== guid;
+            });
+        })
+        .updateIn(['current'], ()=> Immutable.fromJS({}));
+
+    return newState
+        .updateIn(['isBlocked'], ()=> {
+
+            return newState.get('list').some(log=> {
+
+                return log.toJS().type === 'blockpoint';
+            });
+        })
+        .updateIn(['filtered'], filtered=> {
+
+            if (!filtered.size) {
+
+                return newState.get('list');
+            }
+            return filtered;
+        });
 }
