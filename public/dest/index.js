@@ -88,9 +88,9 @@
 
 	var _LoggerView2 = _interopRequireDefault(_LoggerView);
 
-	var _socket = __webpack_require__(270);
+	var _wsClient = __webpack_require__(271);
 
-	var _socket2 = _interopRequireDefault(_socket);
+	var _wsClient2 = _interopRequireDefault(_wsClient);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -101,10 +101,11 @@
 	    shouldRefreshConsole: false
 	};
 
-	var socket = (0, _socket2.default)('http://127.0.0.1:3000');
-	socket.on('log', function (logData) {
+	_wsClient2.default.on('log', function (logData) {
 	    store.dispatch((0, _action2.pushLog)(logData));
 	}).on('blockpoint', function (logData) {
+
+	    console.log(logData);
 	    store.dispatch((0, _action2.pushBlockPoint)(logData));
 	});
 
@@ -1130,24 +1131,33 @@
 
 /***/ },
 /* 13 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
 	exports.pushLog = pushLog;
 	exports.pushBlockPoint = pushBlockPoint;
 	exports.blockPointContinue = blockPointContinue;
+	exports.blockPointContinueAsync = blockPointContinueAsync;
 	exports.checkDetail = checkDetail;
 	exports.filter = filter;
 	exports.clear = clear;
 	exports.closeDetail = closeDetail;
-	/**
-	 * Created by Ellery1 on 16/6/6.
-	 */
-	var PUSH_LOG = exports.PUSH_LOG = 'PUSH_LOG';
+
+	var _wsClient = __webpack_require__(271);
+
+	var _wsClient2 = _interopRequireDefault(_wsClient);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PUSH_LOG = exports.PUSH_LOG = 'PUSH_LOG'; /**
+	                                               * Created by Ellery1 on 16/6/6.
+	                                               */
+
 	var PUSH_BLOCK_POINT = exports.PUSH_BLOCK_POINT = 'PUSH_BLOCK_POINT';
 	var BLOCK_POINT_CONTINUE = exports.BLOCK_POINT_CONTINUE = 'BLOCK_POINT_CONTINUE';
 	var CHECK_DETAIL = exports.CHECK_DETAIL = 'CHECK_DETAIL';
@@ -1165,6 +1175,15 @@
 
 	function blockPointContinue(blockPoint) {
 	    return { type: BLOCK_POINT_CONTINUE, blockPoint: blockPoint };
+	}
+
+	function blockPointContinueAsync(blockPoint) {
+
+	    return function (dispatch) {
+
+	        dispatch(blockPointContinue(blockPoint));
+	        _wsClient2.default.emit('blockPointContinue', blockPoint.guid, blockPoint.response.body);
+	    };
 	}
 
 	function checkDetail(current) {
@@ -43495,6 +43514,28 @@
 	});
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _socket = __webpack_require__(270);
+
+	var _socket2 = _interopRequireDefault(_socket);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = (0, _socket2.default)('http://127.0.0.1:3000'); /**
+	                                                                   * Created by Ellery1 on 16/6/19.
+	                                                                   */
+	//# sourceMappingURL=wsClient.js.map
+
 
 /***/ }
 /******/ ]);

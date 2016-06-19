@@ -12,7 +12,6 @@ import HostManageView from './view/ControllerView/HostManageView';
 import ServerManageView from './view/ControllerView/ServerManageView';
 import PatternManageView from './view/ControllerView/PatternManageView';
 import LoggerView from './view/ControllerView/LoggerView';
-import io from 'socket.io-client/socket.io';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducer);
@@ -21,12 +20,14 @@ window.qproxy = {
     shouldRefreshConsole: false
 };
 
-var socket = io('http://127.0.0.1:3000');
-socket
+import wsClient from './wsClient';
+wsClient
     .on('log', function (logData) {
         store.dispatch(pushLog(logData));
     })
     .on('blockpoint', function (logData) {
+
+        console.log(logData);
         store.dispatch(pushBlockPoint(logData));
     });
 

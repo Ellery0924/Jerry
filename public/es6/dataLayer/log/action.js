@@ -1,6 +1,8 @@
 /**
  * Created by Ellery1 on 16/6/6.
  */
+import wsClient from '../../wsClient';
+
 export const PUSH_LOG = 'PUSH_LOG';
 export const PUSH_BLOCK_POINT = 'PUSH_BLOCK_POINT';
 export const BLOCK_POINT_CONTINUE = 'BLOCK_POINT_CONTINUE';
@@ -19,6 +21,15 @@ export function pushBlockPoint(logData) {
 
 export function blockPointContinue(blockPoint) {
     return {type: BLOCK_POINT_CONTINUE, blockPoint};
+}
+
+export function blockPointContinueAsync(blockPoint) {
+
+    return function (dispatch) {
+
+        dispatch(blockPointContinue(blockPoint));
+        wsClient.emit('blockPointContinue', blockPoint.guid, blockPoint.response.body);
+    }
 }
 
 export function checkDetail(current) {
