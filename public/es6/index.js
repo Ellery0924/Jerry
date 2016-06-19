@@ -22,10 +22,13 @@ window.qproxy = {
 };
 
 var socket = io('http://127.0.0.1:3000');
-socket.on('log', function (logData) {
-
-    store.dispatch(pushLog(logData));
-});
+socket
+    .on('log', function (logData) {
+        store.dispatch(pushLog(logData));
+    })
+    .on('blockpoint', function (logData) {
+        console.log(logData);
+    });
 
 store.dispatch(fetchConfig());
 
