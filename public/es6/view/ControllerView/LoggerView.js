@@ -19,6 +19,7 @@ var LoggerView = React.createClass({
                     current={state.get('current').toJS()}
                     filtered={state.get('filtered')}
                     filterCondition={state.get('filterCondition').toJS()}
+                    isBlocked={state.get('isBlocked')}
                     filter={(condition)=>{dispatch(filter(condition))}}
                     checkDetail={(item)=>{dispatch(checkDetail(item))}}
                     clear={()=>{dispatch(clear())}}

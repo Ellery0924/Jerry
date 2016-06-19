@@ -9,15 +9,29 @@ import Detail from './Detail';
 export default React.createClass({
     render(){
 
-        const {filtered, filterCondition, filter, clear, checkDetail, closeDetail, current}=this.props;
+        const {filtered, isBlocked, filterCondition, filter, clear, checkDetail, closeDetail, current}=this.props;
 
         return (
             <div className="logger-view">
                 <div className="logger-left">
-                    <Filter condition={filterCondition} filter={filter}/>
-                    <Console current={current} logList={filtered} clear={clear} checkDetail={checkDetail}/>
+                    <Filter
+                        isBlocked={isBlocked}
+                        condition={filterCondition}
+                        filter={filter}
+                    />
+                    <Console
+                        isBlocked={isBlocked}
+                        current={current}
+                        logList={filtered}
+                        clear={clear}
+                        checkDetail={checkDetail}
+                    />
                 </div>
-                <Detail current={current} closeDetail={closeDetail}/>
+                <Detail
+                    current={current}
+                    closeDetail={closeDetail}
+                    isBlocked={isBlocked}
+                />
             </div>
         );
     }

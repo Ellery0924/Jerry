@@ -105,7 +105,7 @@
 	socket.on('log', function (logData) {
 	    store.dispatch((0, _action2.pushLog)(logData));
 	}).on('blockpoint', function (logData) {
-	    console.log(logData);
+	    store.dispatch((0, _action2.pushBlockPoint)(logData));
 	});
 
 	store.dispatch((0, _action.fetchConfig)());
@@ -1138,6 +1138,8 @@
 	    value: true
 	});
 	exports.pushLog = pushLog;
+	exports.pushBlockPoint = pushBlockPoint;
+	exports.blockPointContinue = blockPointContinue;
 	exports.checkDetail = checkDetail;
 	exports.filter = filter;
 	exports.clear = clear;
@@ -1146,6 +1148,8 @@
 	 * Created by Ellery1 on 16/6/6.
 	 */
 	var PUSH_LOG = exports.PUSH_LOG = 'PUSH_LOG';
+	var PUSH_BLOCK_POINT = exports.PUSH_BLOCK_POINT = 'PUSH_BLOCK_POINT';
+	var BLOCK_POINT_CONTINUE = exports.BLOCK_POINT_CONTINUE = 'BLOCK_POINT_CONTINUE';
 	var CHECK_DETAIL = exports.CHECK_DETAIL = 'CHECK_DETAIL';
 	var FILTER = exports.FILTER = 'FILTER';
 	var CLEAR = exports.CLEAR = 'CLEAR';
@@ -1153,6 +1157,14 @@
 
 	function pushLog(logData) {
 	    return { type: PUSH_LOG, logData: logData };
+	}
+
+	function pushBlockPoint(logData) {
+	    return { type: PUSH_BLOCK_POINT, logData: logData };
+	}
+
+	function blockPointContinue(blockPoint) {
+	    return { type: BLOCK_POINT_CONTINUE, blockPoint: blockPoint };
 	}
 
 	function checkDetail(current) {
@@ -1221,6 +1233,7 @@
 	            method: 'ALL',
 	            regex: ''
 	        },
+	        isBlocked: false,
 	        current: {},
 	        list: [],
 	        filtered: []
@@ -6556,6 +6569,9 @@
 	        case _action.CLOSE_DETAIL:
 	            return (0, _log.closeDetail)(logState);
 
+	        case _action.PUSH_BLOCK_POINT:
+	            return (0, _log.pushBlockPoint)(logState, action.logData);
+
 	        default:
 	            return logState;
 	    }
@@ -6581,6 +6597,7 @@
 	exports.filter = filter;
 	exports.clear = clear;
 	exports.closeDetail = closeDetail;
+	exports.pushBlockPoint = pushBlockPoint;
 
 	var _immutable = __webpack_require__(17);
 
@@ -6594,13 +6611,35 @@
 
 	var guid = -1;
 
-	function pushLog(logState, logData) {
+	function _renderLogData(logData) {
 
-	    var renderedLogData = _immutable2.default.fromJS(logData.map(function (log) {
+	    return _immutable2.default.fromJS(logData.map(function (log) {
 
 	        var index = ++guid;
 	        return Object.assign({}, log, { index: index });
 	    }));
+	}
+
+	function _filterSingleLog(logData, condition) {
+
+	    var method = condition.method || 'ALL',
+	        regex = condition.regex === '' ? null : condition.regex;
+
+	    if (method === 'ALL' || logData.method === method) {
+
+	        if (regex !== null) {
+
+	            var r = new RegExp(regex);
+	            return r.test(logData.url);
+	        }
+	        return true;
+	    }
+	    return false;
+	}
+
+	function pushLog(logState, logData) {
+
+	    var renderedLogData = _renderLogData(logData);
 
 	    return logState.updateIn(['list'], function (list) {
 
@@ -6653,21 +6692,22 @@
 	    });
 	}
 
-	function _filterSingleLog(logData, condition) {
+	function pushBlockPoint(logState, logData) {
 
-	    var method = condition.method || 'ALL',
-	        regex = condition.regex === '' ? null : condition.regex;
+	    var newState = logState.updateIn(['list'], function (list) {
 
-	    if (method === 'ALL' || logData.method === method) {
-
-	        if (regex !== null) {
-
-	            var r = new RegExp(regex);
-	            return r.test(logData.url);
-	        }
+	        return list.concat(_renderLogData(logData));
+	    }).updateIn(['isBlocked'], function () {
 	        return true;
-	    }
-	    return false;
+	    });
+
+	    return newState.updateIn(['filtered'], function () {
+
+	        return newState.get('list').filter(function (log) {
+
+	            return log.toJS().type === 'blockpoint';
+	        });
+	    });
 	}
 	//# sourceMappingURL=log.js.map
 
@@ -34989,6 +35029,7 @@
 	                current: state.get('current').toJS(),
 	                filtered: state.get('filtered'),
 	                filterCondition: state.get('filterCondition').toJS(),
+	                isBlocked: state.get('isBlocked'),
 	                filter: function filter(condition) {
 	                    dispatch((0, _action.filter)(condition));
 	                },
@@ -35053,6 +35094,7 @@
 	    render: function render() {
 	        var _props = this.props;
 	        var filtered = _props.filtered;
+	        var isBlocked = _props.isBlocked;
 	        var filterCondition = _props.filterCondition;
 	        var filter = _props.filter;
 	        var clear = _props.clear;
@@ -35066,10 +35108,24 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'logger-left' },
-	                _react2.default.createElement(_Filter2.default, { condition: filterCondition, filter: filter }),
-	                _react2.default.createElement(_Console2.default, { current: current, logList: filtered, clear: clear, checkDetail: checkDetail })
+	                _react2.default.createElement(_Filter2.default, {
+	                    isBlocked: isBlocked,
+	                    condition: filterCondition,
+	                    filter: filter
+	                }),
+	                _react2.default.createElement(_Console2.default, {
+	                    isBlocked: isBlocked,
+	                    current: current,
+	                    logList: filtered,
+	                    clear: clear,
+	                    checkDetail: checkDetail
+	                })
 	            ),
-	            _react2.default.createElement(_Detail2.default, { current: current, closeDetail: closeDetail })
+	            _react2.default.createElement(_Detail2.default, {
+	                current: current,
+	                closeDetail: closeDetail,
+	                isBlocked: isBlocked
+	            })
 	        );
 	    }
 	});
@@ -35127,6 +35183,7 @@
 	        var _props$condition = this.props.condition;
 	        var method = _props$condition.method;
 	        var regex = _props$condition.regex;
+	        var isBlocked = this.props.isBlocked;
 
 	        var methodText = method === 'ALL' ? '不限 ' : method;
 
@@ -35144,7 +35201,8 @@
 	                        { className: 'input-group-btn' },
 	                        _react2.default.createElement(
 	                            'button',
-	                            { type: 'button', className: 'btn btn-default dropdown-toggle', 'data-toggle': 'dropdown',
+	                            { disabled: isBlocked, type: 'button', className: 'btn btn-default dropdown-toggle',
+	                                'data-toggle': 'dropdown',
 	                                'aria-haspopup': 'true', 'aria-expanded': 'false' },
 	                            methodText,
 	                            _react2.default.createElement('span', { className: 'caret' })
@@ -35214,19 +35272,21 @@
 	                            )
 	                        )
 	                    ),
-	                    _react2.default.createElement('input', { onChange: this._onRegexChange, value: regex, ref: 'regexInput', type: 'text',
+	                    _react2.default.createElement('input', { disabled: isBlocked, onChange: this._onRegexChange, value: regex, ref: 'regexInput',
+	                        type: 'text',
 	                        placeholder: '输入正则表达式(请使用\\.和\\?代替.和?,其他正则表达式元字符以此类推)',
 	                        className: 'form-control' })
 	                )
 	            ),
 	            _react2.default.createElement(
 	                'button',
-	                { type: 'button', onClick: this._onResetFilter, className: 'btn btn-danger reset-btn' },
+	                { type: 'button', disabled: isBlocked, onClick: this._onResetFilter,
+	                    className: 'btn btn-danger reset-btn' },
 	                '重置'
 	            ),
 	            _react2.default.createElement(
 	                'button',
-	                { type: 'button', onClick: function onClick() {}, className: 'btn btn-primary block-btn' },
+	                { type: 'button', disabled: isBlocked, onClick: function onClick() {}, className: 'btn btn-primary block-btn' },
 	                '断点配置'
 	            )
 	        );
@@ -35289,6 +35349,7 @@
 	    },
 	    render: function render() {
 	        var _props$item = this.props.item;
+	        var type = _props$item.type;
 	        var method = _props$item.method;
 	        var url = _props$item.url;
 	        var statusCode = _props$item.statusCode;
@@ -35296,6 +35357,11 @@
 	        return _react2.default.createElement(
 	            'a',
 	            { href: 'javascript:void 0;', className: 'log-item', title: url },
+	            type === 'blockpoint' ? _react2.default.createElement(
+	                'span',
+	                { className: 'log-item-blockpoint' },
+	                'BLOCKPOINT'
+	            ) : null,
 	            _react2.default.createElement(
 	                'span',
 	                { className: "log-item-method " + (method === 'GET' ? 'get' : 'post') },
@@ -35356,6 +35422,8 @@
 	    render: function render() {
 
 	        var logList = this.props.logList.toJS();
+	        var isBlocked = this.props.isBlocked;
+
 	        var vh = $(window).height();
 
 	        return _react2.default.createElement(
@@ -35369,6 +35437,7 @@
 	                    { className: 'panel-title' },
 	                    '日志(最多保留1000条,单击查看详情)',
 	                    _react2.default.createElement('button', {
+	                        disabled: isBlocked,
 	                        onClick: this._clearConsole,
 	                        type: 'button',
 	                        className: 'btn btn-default glyphicon glyphicon-ban-circle clear-console'

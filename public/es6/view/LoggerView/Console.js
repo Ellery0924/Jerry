@@ -31,10 +31,11 @@ var LogItem = React.createClass({
     },
     render(){
 
-        const {method, url, statusCode}=this.props.item;
+        const {type, method, url, statusCode}=this.props.item;
 
         return (
             <a href="javascript:void 0;" className="log-item" title={url}>
+                {type === 'blockpoint' ? <span className="log-item-blockpoint">BLOCKPOINT</span> : null}
                 <span className={"log-item-method "+(method==='GET'?'get':'post')}>{method}</span>
                 <span className={"log-item-status "+this._getStatusColor(statusCode)}>{statusCode}</span>
                 <span className="log-item-url">{url}</span>
@@ -85,6 +86,7 @@ export default React.createClass({
     render(){
 
         const logList = this.props.logList.toJS();
+        const {isBlocked}=this.props;
         const vh = $(window).height();
 
         return (
@@ -93,6 +95,7 @@ export default React.createClass({
                     <h3 className="panel-title">
                         日志(最多保留1000条,单击查看详情)
                         <button
+                            disabled={isBlocked}
                             onClick={this._clearConsole}
                             type="button"
                             className="btn btn-default glyphicon glyphicon-ban-circle clear-console"

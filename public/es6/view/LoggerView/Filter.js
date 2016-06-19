@@ -34,6 +34,7 @@ export default React.createClass({
     render(){
 
         const {method, regex}=this.props.condition;
+        const {isBlocked}=this.props;
         var methodText = method === 'ALL' ? '不限 ' : method;
 
         return (
@@ -41,7 +42,8 @@ export default React.createClass({
                 <div className="filter-input">
                     <div className="input-group">
                         <div className="input-group-btn">
-                            <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            <button disabled={isBlocked} type="button" className="btn btn-default dropdown-toggle"
+                                    data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                 {methodText}<span className="caret"/>
                             </button>
@@ -59,13 +61,17 @@ export default React.createClass({
                                        href="javascript:void 0">DELETE</a></li>
                             </ul>
                         </div>
-                        <input onChange={this._onRegexChange} value={regex} ref="regexInput" type="text"
+                        <input disabled={isBlocked} onChange={this._onRegexChange} value={regex} ref="regexInput"
+                               type="text"
                                placeholder="输入正则表达式(请使用\.和\?代替.和?,其他正则表达式元字符以此类推)"
                                className="form-control"/>
                     </div>
                 </div>
-                <button type="button" onClick={this._onResetFilter} className="btn btn-danger reset-btn">重置</button>
-                <button type="button" onClick={()=>{}} className="btn btn-primary block-btn">断点配置</button>
+                <button type="button" disabled={isBlocked} onClick={this._onResetFilter}
+                        className="btn btn-danger reset-btn">重置
+                </button>
+                <button type="button" disabled={isBlocked} onClick={()=>{}} className="btn btn-primary block-btn">断点配置
+                </button>
             </div>
         );
     }

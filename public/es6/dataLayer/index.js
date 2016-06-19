@@ -17,6 +17,7 @@ var initialState = {
             method: 'ALL',
             regex: ''
         },
+        isBlocked: false,
         current: {},
         list: [],
         filtered: []

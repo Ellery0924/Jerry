@@ -1,8 +1,8 @@
 /**
  * Created by Ellery1 on 16/6/6.
  */
-import {FILTER, CHECK_DETAIL, PUSH_LOG, CLEAR, CLOSE_DETAIL} from './action';
-import {filter, checkDetail, pushLog, clear, closeDetail} from './log';
+import {FILTER, CHECK_DETAIL, PUSH_LOG, PUSH_BLOCK_POINT, CLEAR, CLOSE_DETAIL} from './action';
+import {filter, checkDetail, pushLog, pushBlockPoint, clear, closeDetail} from './log';
 
 export default function (state, action) {
 
@@ -23,6 +23,9 @@ export default function (state, action) {
 
         case CLOSE_DETAIL:
             return closeDetail(logState);
+
+        case PUSH_BLOCK_POINT:
+            return pushBlockPoint(logState, action.logData);
 
         default:
             return logState;

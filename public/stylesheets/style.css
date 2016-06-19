@@ -322,8 +322,8 @@ body {
     width: 100px;
 }
 
-.block-btn{
-    display:none;
+.block-btn {
+    display: none;
 }
 
 .log-detail-panel {
@@ -363,6 +363,11 @@ body {
     text-overflow: ellipsis;
 }
 
+.log-item-blockpoint {
+    color: #d9534f;
+    margin-right: 5px;
+}
+
 .log-item-method.get {
     color: #5cb85c;
 }
@@ -379,8 +384,11 @@ body {
     background: #428bca;
 }
 
-.listview-item-wrap.active a ,.listview-item-wrap.active .log-item-url,
-.listview-item-wrap.active .log-item-method, .listview-item-wrap.active .log-item-status{
+.listview-item-wrap.active a,
+.listview-item-wrap.active .log-item-url,
+.listview-item-wrap.active .log-item-method,
+.listview-item-wrap.active .log-item-status,
+.listview-item-wrap.active .log-item-blockpoint{
     color: white;
 }
 

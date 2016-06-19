@@ -6,13 +6,35 @@ import Immutable from 'immutable';
 const MAX_LOG_NUM = 1000;
 var guid = -1;
 
-export function pushLog(logState, logData) {
+function _renderLogData(logData) {
 
-    var renderedLogData = Immutable.fromJS(logData.map(log=> {
+    return Immutable.fromJS(logData.map(log=> {
 
         var index = ++guid;
         return Object.assign({}, log, {index});
     }));
+}
+
+function _filterSingleLog(logData, condition) {
+
+    var method = condition.method || 'ALL',
+        regex = condition.regex === '' ? null : condition.regex;
+
+    if ((method === 'ALL' || logData.method === method)) {
+
+        if (regex !== null) {
+
+            let r = new RegExp(regex);
+            return r.test(logData.url);
+        }
+        return true;
+    }
+    return false;
+}
+
+export function pushLog(logState, logData) {
+
+    var renderedLogData = _renderLogData(logData);
 
     return logState
         .updateIn(['list'], list=> {
@@ -56,19 +78,20 @@ export function closeDetail(logState) {
     return logState.updateIn(['current'], ()=>Immutable.fromJS({}));
 }
 
-function _filterSingleLog(logData, condition) {
+export function pushBlockPoint(logState, logData) {
 
-    var method = condition.method || 'ALL',
-        regex = condition.regex === '' ? null : condition.regex;
+    var newState = logState
+        .updateIn(['list'], list=> {
 
-    if ((method === 'ALL' || logData.method === method)) {
+            return list.concat(_renderLogData(logData));
+        })
+        .updateIn(['isBlocked'], ()=>true);
 
-        if (regex !== null) {
+    return newState.updateIn(['filtered'], ()=> {
 
-            let r = new RegExp(regex);
-            return r.test(logData.url);
-        }
-        return true;
-    }
-    return false;
+        return newState.get('list').filter(log=> {
+
+            return log.toJS().type === 'blockpoint';
+        });
+    });
 }
