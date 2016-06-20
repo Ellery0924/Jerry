@@ -28,7 +28,6 @@ export default React.createClass({
                     ref={component=>this.textarea=component}
                     resize={false}
                     disabled={!editable}
-                    defaultValue={isValidJSON?(JSON.stringify(body,null,4)):body}
                     className="body-textarea">
                 </textarea> :
                 <span>无</span>
