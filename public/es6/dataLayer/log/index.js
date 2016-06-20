@@ -1,7 +1,16 @@
 /**
  * Created by Ellery1 on 16/6/6.
  */
-import {FILTER, CHECK_DETAIL, PUSH_LOG, PUSH_BLOCK_POINT, CLEAR, CLOSE_DETAIL, BLOCK_POINT_CONTINUE} from './action';
+import {
+    FILTER,
+    CHECK_DETAIL,
+    PUSH_LOG,
+    PUSH_BLOCK_POINT,
+    CLEAR,
+    CLOSE_DETAIL,
+    BLOCK_POINT_CONTINUE,
+    BLOCK_POINT_ABORT
+} from './action';
 import {filter, checkDetail, pushLog, pushBlockPoint, clear, closeDetail, blockPointHandle} from './log';
 
 export default function (state, action) {
@@ -28,6 +37,9 @@ export default function (state, action) {
             return pushBlockPoint(logState, action.logData);
 
         case BLOCK_POINT_CONTINUE:
+            return blockPointHandle(logState, action.blockPoint);
+
+        case BLOCK_POINT_ABORT:
             return blockPointHandle(logState, action.blockPoint);
 
         default:

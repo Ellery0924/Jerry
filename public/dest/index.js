@@ -13893,6 +13893,9 @@
 	        case _action.BLOCK_POINT_CONTINUE:
 	            return (0, _log.blockPointHandle)(logState, action.blockPoint);
 
+	        case _action.BLOCK_POINT_ABORT:
+	            return (0, _log.blockPointHandle)(logState, action.blockPoint);
+
 	        default:
 	            return logState;
 	    }
