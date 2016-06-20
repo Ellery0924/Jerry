@@ -39489,14 +39489,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _EnvSelect = __webpack_require__(245);
-
-	var _EnvSelect2 = _interopRequireDefault(_EnvSelect);
-
-	var _HostSelect = __webpack_require__(246);
-
-	var _HostSelect2 = _interopRequireDefault(_HostSelect);
-
 	var _utils = __webpack_require__(248);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
