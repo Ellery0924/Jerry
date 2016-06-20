@@ -14025,7 +14025,7 @@
 	    }).updateIn(['isBlocked'], function () {
 	        return true;
 	    }).updateIn(['filterCondition'], function () {
-	        return _immutable2.default.fromJS({});
+	        return _immutable2.default.fromJS({ method: "ALL", regex: "" });
 	    });
 
 	    return newState.updateIn(['filtered'], function () {

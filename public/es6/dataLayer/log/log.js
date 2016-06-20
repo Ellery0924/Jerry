@@ -79,14 +79,14 @@ export function closeDetail(logState) {
 }
 
 export function pushBlockPoint(logState, logData) {
-    
+
     var newState = logState
         .updateIn(['list'], list=> {
 
             return list.concat(_renderLogData(logData));
         })
         .updateIn(['isBlocked'], ()=>true)
-        .updateIn(['filterCondition'], ()=>Immutable.fromJS({}));
+        .updateIn(['filterCondition'], ()=>Immutable.fromJS({method: "ALL", regex: ""}));
 
     return newState.updateIn(['filtered'], ()=> {
 
