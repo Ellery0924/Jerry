@@ -14030,13 +14030,11 @@
 
 	    return newState.updateIn(['filtered'], function () {
 
-	        var ret = newState.get('list').filter(function (log) {
+	        return newState.get('list').filter(function (log) {
 
 	            var logJs = log.toJS();
 	            return logJs.type === 'blockpoint' && !logJs.isProposed;
 	        });
-
-	        return ret;
 	    });
 	}
 

@@ -90,13 +90,11 @@ export function pushBlockPoint(logState, logData) {
 
     return newState.updateIn(['filtered'], ()=> {
 
-        var ret = newState.get('list').filter(log=> {
+        return newState.get('list').filter(log=> {
 
             var logJs = log.toJS();
             return logJs.type === 'blockpoint' && !logJs.isProposed;
         });
-
-        return ret;
     });
 }
 
