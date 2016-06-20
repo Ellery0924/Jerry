@@ -42588,7 +42588,6 @@
 	        var isBlocked = this.props.isBlocked;
 
 	        var methodText = method === 'ALL' ? '不限 ' : method;
-	        console.log(isBlocked);
 
 	        return _react2.default.createElement(
 	            'div',

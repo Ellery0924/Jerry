@@ -20,7 +20,7 @@ function _filterSingleLog(logData, condition) {
     var method = condition.method || 'ALL',
         regex = condition.regex === '' ? null : condition.regex;
 
-    if ((method === 'ALL' || logData.method === method)) {
+    if (method === 'ALL' || logData.method === method) {
 
         if (regex !== null) {
 
