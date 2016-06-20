@@ -102,10 +102,10 @@
 	};
 
 	_wsClient2.default.on('log', function (logData) {
+
 	    store.dispatch((0, _action2.pushLog)(logData));
 	}).on('blockpoint', function (logData) {
 
-	    console.log(logData);
 	    store.dispatch((0, _action2.pushBlockPoint)(logData));
 	});
 
