@@ -43605,6 +43605,17 @@
 	 */
 	exports.default = _react2.default.createClass({
 	    displayName: 'BodyContainer',
+	    componentWillUpdate: function componentWillUpdate() {
+	        var body = this.props.body;
+
+	        var isValidJSON = (0, _utils.isObject)(body) || Array.isArray(body),
+	            value = isValidJSON ? JSON.stringify(body, null, 4) : body;
+
+	        if (this.textarea) {
+
+	            $(this.textarea).val(value);
+	        }
+	    },
 	    render: function render() {
 	        var _this = this;
 
