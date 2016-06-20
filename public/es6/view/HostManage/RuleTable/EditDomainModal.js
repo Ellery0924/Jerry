@@ -2,8 +2,6 @@
  * Created by Ellery1 on 16/1/2.
  */
 import React from 'react';
-import EnvSelect from './EnvSelect';
-import HostSelect from './HostSelect';
 import {validateDomain} from '../../../utils';
 
 export default React.createClass({
