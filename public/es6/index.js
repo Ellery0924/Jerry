@@ -23,11 +23,11 @@ window.qproxy = {
 import wsClient from './wsClient';
 wsClient
     .on('log', function (logData) {
+
         store.dispatch(pushLog(logData));
     })
     .on('blockpoint', function (logData) {
 
-        console.log(logData);
         store.dispatch(pushBlockPoint(logData));
     });
 
