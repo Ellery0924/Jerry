@@ -79,7 +79,7 @@ export function closeDetail(logState) {
 }
 
 export function pushBlockPoint(logState, logData) {
-
+    
     var newState = logState
         .updateIn(['list'], list=> {
 

@@ -5,22 +5,27 @@ import React from 'react';
 import {isObject} from '../../../../utils';
 
 export default React.createClass({
-    componentWillUpdate(){
+    _setTextareaValue(){
 
         const {body}=this.props;
-        var isValidJSON = isObject(body) || Array.isArray(body),
-            value = isValidJSON ? JSON.stringify(body, null, 4) : body;
+        var isValidJSON = isObject(body) || Array.isArray(body);
 
         if (this.textarea) {
 
-            $(this.textarea).val(value);
+            $(this.textarea).val(isValidJSON ? JSON.stringify(body, null, 4) : body);
         }
+    },
+    componentDidMount(){
+
+        this._setTextareaValue();
+    },
+    componentDidUpdate(){
+
+        this._setTextareaValue();
     },
     render(){
 
         const {body, editable}=this.props;
-
-        var isValidJSON = isObject(body) || Array.isArray(body);
 
         return (
             body ?

@@ -42588,6 +42588,7 @@
 	        var isBlocked = this.props.isBlocked;
 
 	        var methodText = method === 'ALL' ? '不限 ' : method;
+	        console.log(isBlocked);
 
 	        return _react2.default.createElement(
 	            'div',
@@ -43605,16 +43606,23 @@
 	 */
 	exports.default = _react2.default.createClass({
 	    displayName: 'BodyContainer',
-	    componentWillUpdate: function componentWillUpdate() {
+	    _setTextareaValue: function _setTextareaValue() {
 	        var body = this.props.body;
 
-	        var isValidJSON = (0, _utils.isObject)(body) || Array.isArray(body),
-	            value = isValidJSON ? JSON.stringify(body, null, 4) : body;
+	        var isValidJSON = (0, _utils.isObject)(body) || Array.isArray(body);
 
 	        if (this.textarea) {
 
-	            $(this.textarea).val(value);
+	            $(this.textarea).val(isValidJSON ? JSON.stringify(body, null, 4) : body);
 	        }
+	    },
+	    componentDidMount: function componentDidMount() {
+
+	        this._setTextareaValue();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+
+	        this._setTextareaValue();
 	    },
 	    render: function render() {
 	        var _this = this;
@@ -43623,15 +43631,12 @@
 	        var body = _props.body;
 	        var editable = _props.editable;
 
-	        var isValidJSON = (0, _utils.isObject)(body) || Array.isArray(body);
-
 	        return body ? _react2.default.createElement('textarea', {
 	            ref: function ref(component) {
 	                return _this.textarea = component;
 	            },
 	            resize: false,
 	            disabled: !editable,
-	            defaultValue: isValidJSON ? JSON.stringify(body, null, 4) : body,
 	            className: 'body-textarea' }) : _react2.default.createElement(
 	            'span',
 	            null,
