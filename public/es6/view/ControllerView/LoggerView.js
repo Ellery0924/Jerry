@@ -5,7 +5,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Navigator from '../Common/Navigator';
 import Logger from '../LoggerView';
-import {filter, checkDetail, clear, closeDetail, blockPointContinueAsync} from '../../dataLayer/log/action';
+import {
+    filter,
+    checkDetail,
+    clear,
+    closeDetail,
+    blockPointContinueAsync,
+    blockPointAbortAsync
+} from '../../dataLayer/log/action';
 
 var LoggerView = React.createClass({
     render(){
@@ -25,6 +32,7 @@ var LoggerView = React.createClass({
                     clear={()=>{dispatch(clear())}}
                     closeDetail={()=>{dispatch(closeDetail())}}
                     blockPointContinue={blockPoint=>dispatch(blockPointContinueAsync(blockPoint))}
+                    blockPointAbort={blockPoint=>dispatch(blockPointAbortAsync(blockPoint))}
                 />
             </div>
         );

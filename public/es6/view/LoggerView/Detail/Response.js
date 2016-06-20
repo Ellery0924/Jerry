@@ -14,6 +14,7 @@ export default React.createClass({
             <div className="log-response">
                 <InfoPanel id="log-response-body" title={isBlocked?"Body":"JSON Body"}>
                     <BodyContainer
+                        editable={isBlocked}
                         isBlocked={isBlocked}
                         jsonp={responseData.jsonp}
                         body={responseData.body}

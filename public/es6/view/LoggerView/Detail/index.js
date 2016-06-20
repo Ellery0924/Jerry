@@ -23,13 +23,12 @@ export default React.createClass({
 
         var bodyVal = $('#log-response-body-accordion-content').find('textarea').val(),
             {current, blockPointContinue}=this.props;
-
         current.response.body = bodyVal;
         blockPointContinue(current);
     },
     render(){
 
-        const {current, closeDetail, isBlocked, blockPointContinue}=this.props;
+        const {current, closeDetail, isBlocked, blockPointAbort}=this.props;
 
         return !$.isEmptyObject(current) ? (
             <div className="logger-right">
@@ -64,7 +63,7 @@ export default React.createClass({
                         }
                         {isBlocked ?
                             <button
-                                onClick={()=>{}}
+                                onClick={()=>{blockPointAbort(current)}}
                                 type="button"
                                 className="btn btn-default block-point-btn block-point-abort"
                             >Abort</button> : null

@@ -18,7 +18,8 @@ export default React.createClass({
             checkDetail,
             closeDetail,
             current,
-            blockPointContinue
+            blockPointContinue,
+            blockPointAbort
         }=this.props;
 
         return (
@@ -42,6 +43,7 @@ export default React.createClass({
                     closeDetail={closeDetail}
                     isBlocked={isBlocked}
                     blockPointContinue={blockPointContinue}
+                    blockPointAbort={blockPointAbort}
                 />
             </div>
         );

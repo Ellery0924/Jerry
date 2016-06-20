@@ -7,7 +7,7 @@ import {isObject} from '../../../../utils';
 export default React.createClass({
     render(){
 
-        const {body}=this.props;
+        const {body, editable}=this.props;
 
         var isValidJSON = isObject(body) || Array.isArray(body);
 
@@ -16,8 +16,8 @@ export default React.createClass({
                 <textarea
                     ref={component=>this.textarea=component}
                     resize={false}
-                    disabled={true}
-                    value={isValidJSON?(JSON.stringify(body,null,4)):body}
+                    disabled={!editable}
+                    defaultValue={isValidJSON?(JSON.stringify(body,null,4)):body}
                     className="body-textarea">
                 </textarea> :
                 <span>无</span>

@@ -100,7 +100,7 @@ export function pushBlockPoint(logState, logData) {
     });
 }
 
-export function blockPointContinue(logState, blockPoint) {
+export function blockPointHandle(logState, blockPoint) {
 
     var guid = blockPoint.guid;
 
