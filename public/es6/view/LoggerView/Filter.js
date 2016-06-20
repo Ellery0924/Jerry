@@ -36,7 +36,6 @@ export default React.createClass({
         const {method, regex}=this.props.condition;
         const {isBlocked}=this.props;
         var methodText = method === 'ALL' ? '不限 ' : method;
-        console.log(isBlocked)
 
         return (
             <div className="filter">
