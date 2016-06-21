@@ -104,6 +104,7 @@ export default React.createClass({
                 </div>
                 <div className="panel-body">
                     <ListView
+                        name="console"
                         dataSrc={logList}
                         itemHeight={30}
                         containerHeight={0.75 * vh-68}

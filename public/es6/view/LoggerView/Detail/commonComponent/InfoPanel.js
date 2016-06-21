@@ -25,9 +25,9 @@ export default React.createClass({
                     </div>
                     <div id={contentId} className={"panel-collapse collapse "+(!isCollapsed?"in":"")} role="tabpanel"
                          aria-labelledby={controlId}>
-                        <div className="panel-body">
+                        <ul className="panel-body">
                             {this.props.children}
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>

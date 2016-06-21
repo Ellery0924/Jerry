@@ -112,7 +112,7 @@ export default React.createClass({
     },
     render(){
 
-        const {renderRow, containerHeight, itemHeight}=this.props;
+        const {renderRow, containerHeight, itemHeight, name}=this.props;
         const visibleItemList = this.state.visibleItemList;
         const contentHeight = this.state.contentHeight;
         const onItemClick = this.props.onItemClick || noop;
@@ -137,7 +137,7 @@ export default React.createClass({
                                 onItemClick={onItemClick}
                                 onItemLayout={onItemLayout}
                                 renderRow={renderRow}
-                                key={item.index}
+                                key={name+'-list-item-'+item.index}
                             />
                         ))}
                     </ul>

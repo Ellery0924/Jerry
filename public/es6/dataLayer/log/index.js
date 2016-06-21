@@ -29,7 +29,10 @@ import {
     pushBlockPoint,
     clear,
     closeDetail,
-    blockPointHandle,
+    blockPointHandle
+} from './log';
+
+import {
     initBlockPointList,
     insertBlockPoint,
     removeBlockPoint,
@@ -41,7 +44,7 @@ import {
     removeSelectedBlockPoint,
     removeBlockPointByUrl,
     modifyBlockPointRegex
-} from './log';
+} from './blockPointManage';
 
 export default function (state, action) {
 

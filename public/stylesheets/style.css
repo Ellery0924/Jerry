@@ -358,6 +358,10 @@ body {
     border-top: none;
 }
 
+.info-item {
+    list-style: none;
+}
+
 .log-item {
     display: block;
     height: 100%;

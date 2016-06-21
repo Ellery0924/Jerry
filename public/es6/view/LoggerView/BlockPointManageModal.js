@@ -44,7 +44,7 @@ export default React.createClass({
                                 {blockPointList.map((setting, i)=> {
 
                                     return (
-                                        <tr key={"block-point-list-item-"+i}>
+                                        <tr key={"block-point-list-item-"+setting.id}>
                                             <td>
                                                 <input type="checkbox" className="block-point-select"
                                                        checked={setting.selected}/>

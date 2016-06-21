@@ -24,9 +24,10 @@ export default React.createClass({
             onSelectRule,
             onDeselectRule,
             onMultiDeleteRule,
-            onInsertRule}=this.props;
+            onInsertRule
+        }=this.props;
 
-        var currentGroup =group[activated],
+        var currentGroup = group[activated],
             isAllSelected = currentGroup && currentGroup.length && currentGroup.every(rule=>rule.selected);
 
         return (
@@ -78,7 +79,7 @@ export default React.createClass({
                             {currentGroup ?
                                 currentGroup.map((groupData, i)=>
                                     <Rule
-                                        key={groupData.domain}
+                                        key={activated+groupData.domain}
                                         ruleIndex={i}
                                         {...groupData}
                                         server={server}
@@ -112,7 +113,7 @@ export default React.createClass({
     },
     toggleSelectAll(evt){
 
-        var {group,activated,onSelectRule,onDeselectRule}=this.props,
+        var {group, activated, onSelectRule, onDeselectRule}=this.props,
             ruleList = group[activated];
 
         ruleList.forEach(function (rule, index) {
@@ -131,7 +132,7 @@ export default React.createClass({
     },
     deleteGroup(){
 
-        const {onDeleteGroup,activated}=this.props;
+        const {onDeleteGroup, activated}=this.props;
 
         if (confirm('确定删除吗?')) {
             onDeleteGroup(activated);
@@ -139,7 +140,7 @@ export default React.createClass({
     },
     multiDeleteRule(){
 
-        const {onMultiDeleteRule,activated}=this.props;
+        const {onMultiDeleteRule, activated}=this.props;
 
         if (confirm('确定删除吗?')) {
 

@@ -9,13 +9,13 @@ import BodyContainer from './commonComponent/BodyContainer';
 export default React.createClass({
     render(){
 
-        const {requestData}=this.props;
+        const {requestData, keyTail}=this.props;
 
         return (
             <div className="log-request">
                 <InfoPanel id="log-request-query-string" title="Query String Parameters">
                     {!$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(key=>
-                        <InfoItem key={"query-string-parameter-"+key} name={key}
+                        <InfoItem key={"query-string-parameter-"+key+keyTail} name={key}
                                   value={requestData.query[key]}/>) : "无"}
                 </InfoPanel>
                 <InfoPanel id="log-request-body" title="Request Body">

@@ -9,10 +9,10 @@ export default React.createClass({
         const {name, value}=this.props;
 
         return value ? (
-            <div className="form-group">
+            <li className="form-group info-item">
                 <label className="control-label name">{name.toUpperCase()}:</label>
                 <span className="value">{value}</span>
-            </div>
+            </li>
         ) : null;
     }
 });

@@ -25,7 +25,7 @@ export default React.createClass({
                 <InfoPanel id="log-overview-query-string" title="Query String Parameters">
                     {!$.isEmptyObject(requestData.query) ? Object.keys(requestData.query).map(key=> {
 
-                        return <InfoItem key={"query-string-parameter-"+key} name={key}
+                        return <InfoItem key={"query-string-parameter-"+key+current.index} name={key}
                                          value={requestData.query[key]}/>
                     }) : "无"}
                 </InfoPanel>
@@ -33,19 +33,19 @@ export default React.createClass({
                     {current.response ? Object.keys(current.response.headers).map(key=> {
 
                         var value = current.response.headers[key];
-                        return <InfoItem key={"response-header-"+key} name={key} value={value}/>
+                        return <InfoItem key={"response-header-"+key+current.index} name={key} value={value}/>
                     }) : null}
                 </InfoPanel>
                 <InfoPanel id="log-overview-request-header" title="Request Headers">
                     {current.request ? Object.keys(current.request.headers).map(key=> {
 
                         var value = current.request.headers[key];
-                        return <InfoItem key={"request-header-"+key} name={key} value={value}/>
+                        return <InfoItem key={"request-header-"+key+current.index} name={key} value={value}/>
                     }) : null}
                 </InfoPanel>
                 <InfoPanel id="log-overview-cookie" title="Cookie">
                     {cookieList ? Object.keys(cookieList).map(key=>
-                        <InfoItem key={"request-cookie-"+key} name={key} value={cookieList[key]}/>
+                        <InfoItem key={"request-cookie-"+key+current.index} name={key} value={cookieList[key]}/>
                     ) : "无"}
                 </InfoPanel>
             </div>

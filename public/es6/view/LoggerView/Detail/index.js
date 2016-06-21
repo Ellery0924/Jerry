@@ -68,12 +68,12 @@ export default React.createClass({
                                 className="btn btn-default block-point-btn block-point-abort"
                             >Abort</button> : null
                         }
-                        {!isBlocked?
+                        {!isBlocked ?
                             <button
                                 onClick={()=>{blockPointAbort(current)}}
                                 type="button"
                                 className="btn btn-default block-point-btn block-point-abort"
-                            >设置断点</button>:null
+                            >设置断点</button> : null
                         }
                         <button
                             onClick={()=>{closeDetail()}}
@@ -89,7 +89,8 @@ export default React.createClass({
                             <Response isBlocked={isBlocked} responseData={current.response}/>
                         </div>
                         <div role="tabpanel" className="tab-pane" id="request-panel">
-                            <Request requestData={current.request}/>
+                            <Request keyTail={current.index}
+                                     requestData={current.request}/>
                         </div>
                     </div>
                 </div>
