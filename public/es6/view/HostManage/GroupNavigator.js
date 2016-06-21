@@ -29,7 +29,7 @@ export default React.createClass({
     render(){
 
         const {onSwitchHttps, httpsOn}=this.props;
-        const httpsOnTxt = httpsOn === undefined ? '' : httpsOn ? '开启' : '关闭';
+        const httpsOnTxt = httpsOn === undefined || httpsOn === null ? '' : httpsOn ? '开启' : '关闭';
 
         return (
             <div className="col-sm-3 col-md-2 sidebar">
