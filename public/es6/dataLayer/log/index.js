@@ -13,7 +13,12 @@ import {
     INIT_BLOCK_POINT_LIST,
     INSERT_BLOCK_POINT,
     REMOVE_BLOCK_POINT,
-    SWITCH_BLOCK_POINT
+    SWITCH_BLOCK_POINT,
+    SELECT_BLOCK_POINT,
+    DESELECT_BLOCK_POINT,
+    SELECT_ALL_BLOCK_POINT,
+    DESELECT_ALL_BLOCK_POINT,
+    REMOVE_SELECTED_BLOCK_POINT
 } from './action';
 import {
     filter,
@@ -26,7 +31,12 @@ import {
     initBlockPointList,
     insertBlockPoint,
     removeBlockPoint,
-    switchBlockPoint
+    switchBlockPoint,
+    selectBlockPoint,
+    deselectBlockPoint,
+    selectAllBlockPoint,
+    deselectAllBlockPoint,
+    removeSelectedBlockPoint
 } from './log';
 
 export default function (state, action) {
@@ -69,6 +79,21 @@ export default function (state, action) {
 
         case SWITCH_BLOCK_POINT:
             return switchBlockPoint(logState, action.index, action.isOn);
+
+        case SELECT_BLOCK_POINT:
+            return selectBlockPoint(logState, action.index);
+
+        case DESELECT_BLOCK_POINT:
+            return deselectBlockPoint(logState, action.index);
+
+        case SELECT_ALL_BLOCK_POINT:
+            return selectAllBlockPoint(logState);
+
+        case DESELECT_ALL_BLOCK_POINT:
+            return deselectAllBlockPoint(logState);
+
+        case REMOVE_SELECTED_BLOCK_POINT:
+            return removeSelectedBlockPoint(logState);
 
         default:
             return logState;

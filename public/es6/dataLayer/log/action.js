@@ -16,6 +16,11 @@ export const INIT_BLOCK_POINT_LIST = 'INIT_BLOCK_POINT_LIST';
 export const INSERT_BLOCK_POINT = 'INSERT_BLOCK_POINT';
 export const REMOVE_BLOCK_POINT = 'REMOVE_BLOCK_POINT';
 export const SWITCH_BLOCK_POINT = 'SWITCH_BLOCK_POINT';
+export const REMOVE_SELECTED_BLOCK_POINT = 'REMOVE_SELECTED_BLOCK_POINT';
+export const SELECT_BLOCK_POINT = 'SELECT_BLOCK_POINT';
+export const DESELECT_BLOCK_POINT = 'DESELECT_BLOCK_POINT';
+export const SELECT_ALL_BLOCK_POINT = 'SELECT_ALL_BLOCK_POINT';
+export const DESELECT_ALL_BLOCK_POINT = 'DESELECT_ALL_BLOCK_POINT';
 
 export function pushLog(logData) {
     return {type: PUSH_LOG, logData};
@@ -98,4 +103,76 @@ export function removeBlockPoint(index) {
 
 export function switchBlockPoint(index, isOn) {
     return {type: SWITCH_BLOCK_POINT, index, isOn};
+}
+
+export function removeSelectedBlockPoint() {
+    return {type: REMOVE_SELECTED_BLOCK_POINT};
+}
+
+export function selectBlockPoint(index) {
+    return {type: SELECT_BLOCK_POINT, index};
+}
+
+export function deselectBlockPoint(index) {
+    return {type: DESELECT_BLOCK_POINT, index};
+}
+
+export function selectAllBlockPoint() {
+    return {type: SELECT_ALL_BLOCK_POINT};
+}
+
+export function deselectAllBlockPoint() {
+    return {type: DESELECT_ALL_BLOCK_POINT};
+}
+
+function updateBlockPointSetting(getState) {
+
+    var settingList = getState().logger.get('blockPoint').toJS().map(setting=>({
+        regex: setting.regex,
+        isOn: setting.isOn
+    }));
+
+    fetch('/qproxy/blockPoint', {
+        method: 'put',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(settingList.toJS())
+    })
+}
+
+export function insertBlockPointAndSave(regex) {
+
+    return function (dispatch, getState) {
+
+        dispatch(insertBlockPoint(regex));
+        updateBlockPointSetting(getState);
+    }
+}
+
+export function removeBlockPointAndSave(index) {
+
+    return function (dispatch, getState) {
+
+        dispatch(removeBlockPoint(index));
+        updateBlockPointSetting(getState);
+    }
+}
+
+export function switchBlockPointAndSave(index, isOn) {
+
+    return function (dispatch, getState) {
+
+        dispatch(switchBlockPoint(index, isOn));
+        updateBlockPointSetting(getState);
+    }
+}
+
+export function removeSelectedBlockPointAndSave(index) {
+
+    return function (dispatch, getState) {
+
+        dispatch(removeSelectedBlockPoint());
+        updateBlockPointSetting(getState);
+    }
 }

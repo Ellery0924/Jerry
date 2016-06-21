@@ -20,6 +20,13 @@ textarea {
     overflow: hidden;
 }
 
+.fade {
+    opacity: 0;
+    -webkit-transition: opacity .1s linear;
+    -o-transition: opacity .1s linear;
+    transition: opacity .1s linear;
+}
+
 /*
  * Base structure
  */
@@ -470,4 +477,13 @@ body {
 
 .block-point-abort {
     margin-left: 3px;
+}
+
+.block-point-insert-input {
+    display: flex;
+}
+
+.block-point-insert-input .insert-btn {
+    margin-left: 5px;
+    width: 80px;
 }

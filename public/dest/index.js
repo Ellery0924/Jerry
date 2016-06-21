@@ -1139,7 +1139,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.SWITCH_BLOCK_POINT = exports.REMOVE_BLOCK_POINT = exports.INSERT_BLOCK_POINT = exports.INIT_BLOCK_POINT_LIST = exports.FETCH_BLOCK_POINT = exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_ABORT = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
+	exports.DESELECT_ALL_BLOCK_POINT = exports.SELECT_ALL_BLOCK_POINT = exports.DESELECT_BLOCK_POINT = exports.SELECT_BLOCK_POINT = exports.REMOVE_SELECTED_BLOCK_POINT = exports.SWITCH_BLOCK_POINT = exports.REMOVE_BLOCK_POINT = exports.INSERT_BLOCK_POINT = exports.INIT_BLOCK_POINT_LIST = exports.FETCH_BLOCK_POINT = exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_ABORT = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
 	exports.pushLog = pushLog;
 	exports.pushBlockPoint = pushBlockPoint;
 	exports.blockPointContinue = blockPointContinue;
@@ -1155,6 +1155,15 @@
 	exports.insertBlockPoint = insertBlockPoint;
 	exports.removeBlockPoint = removeBlockPoint;
 	exports.switchBlockPoint = switchBlockPoint;
+	exports.removeSelectedBlockPoint = removeSelectedBlockPoint;
+	exports.selectBlockPoint = selectBlockPoint;
+	exports.deselectBlockPoint = deselectBlockPoint;
+	exports.selectAllBlockPoint = selectAllBlockPoint;
+	exports.deselectAllBlockPoint = deselectAllBlockPoint;
+	exports.insertBlockPointAndSave = insertBlockPointAndSave;
+	exports.removeBlockPointAndSave = removeBlockPointAndSave;
+	exports.switchBlockPointAndSave = switchBlockPointAndSave;
+	exports.removeSelectedBlockPointAndSave = removeSelectedBlockPointAndSave;
 
 	var _wsClient = __webpack_require__(271);
 
@@ -1178,6 +1187,11 @@
 	var INSERT_BLOCK_POINT = exports.INSERT_BLOCK_POINT = 'INSERT_BLOCK_POINT';
 	var REMOVE_BLOCK_POINT = exports.REMOVE_BLOCK_POINT = 'REMOVE_BLOCK_POINT';
 	var SWITCH_BLOCK_POINT = exports.SWITCH_BLOCK_POINT = 'SWITCH_BLOCK_POINT';
+	var REMOVE_SELECTED_BLOCK_POINT = exports.REMOVE_SELECTED_BLOCK_POINT = 'REMOVE_SELECTED_BLOCK_POINT';
+	var SELECT_BLOCK_POINT = exports.SELECT_BLOCK_POINT = 'SELECT_BLOCK_POINT';
+	var DESELECT_BLOCK_POINT = exports.DESELECT_BLOCK_POINT = 'DESELECT_BLOCK_POINT';
+	var SELECT_ALL_BLOCK_POINT = exports.SELECT_ALL_BLOCK_POINT = 'SELECT_ALL_BLOCK_POINT';
+	var DESELECT_ALL_BLOCK_POINT = exports.DESELECT_ALL_BLOCK_POINT = 'DESELECT_ALL_BLOCK_POINT';
 
 	function pushLog(logData) {
 	    return { type: PUSH_LOG, logData: logData };
@@ -1260,6 +1274,80 @@
 
 	function switchBlockPoint(index, isOn) {
 	    return { type: SWITCH_BLOCK_POINT, index: index, isOn: isOn };
+	}
+
+	function removeSelectedBlockPoint() {
+	    return { type: REMOVE_SELECTED_BLOCK_POINT };
+	}
+
+	function selectBlockPoint(index) {
+	    return { type: SELECT_BLOCK_POINT, index: index };
+	}
+
+	function deselectBlockPoint(index) {
+	    return { type: DESELECT_BLOCK_POINT, index: index };
+	}
+
+	function selectAllBlockPoint() {
+	    return { type: SELECT_ALL_BLOCK_POINT };
+	}
+
+	function deselectAllBlockPoint() {
+	    return { type: DESELECT_ALL_BLOCK_POINT };
+	}
+
+	function updateBlockPointSetting(getState) {
+
+	    var settingList = getState().logger.get('blockPoint').toJS().map(function (setting) {
+	        return {
+	            regex: setting.regex,
+	            isOn: setting.isOn
+	        };
+	    });
+
+	    fetch('/qproxy/blockPoint', {
+	        method: 'put',
+	        headers: {
+	            'content-type': 'application/json'
+	        },
+	        body: JSON.stringify(settingList.toJS())
+	    });
+	}
+
+	function insertBlockPointAndSave(regex) {
+
+	    return function (dispatch, getState) {
+
+	        dispatch(insertBlockPoint(regex));
+	        updateBlockPointSetting(getState);
+	    };
+	}
+
+	function removeBlockPointAndSave(index) {
+
+	    return function (dispatch, getState) {
+
+	        dispatch(removeBlockPoint(index));
+	        updateBlockPointSetting(getState);
+	    };
+	}
+
+	function switchBlockPointAndSave(index, isOn) {
+
+	    return function (dispatch, getState) {
+
+	        dispatch(switchBlockPoint(index, isOn));
+	        updateBlockPointSetting(getState);
+	    };
+	}
+
+	function removeSelectedBlockPointAndSave(index) {
+
+	    return function (dispatch, getState) {
+
+	        dispatch(removeSelectedBlockPoint());
+	        updateBlockPointSetting(getState);
+	    };
 	}
 	//# sourceMappingURL=action.js.map
 
@@ -6670,6 +6758,21 @@
 	        case _action.SWITCH_BLOCK_POINT:
 	            return (0, _log.switchBlockPoint)(logState, action.index, action.isOn);
 
+	        case _action.SELECT_BLOCK_POINT:
+	            return (0, _log.selectBlockPoint)(logState, action.index);
+
+	        case _action.DESELECT_BLOCK_POINT:
+	            return (0, _log.deselectBlockPoint)(logState, action.index);
+
+	        case _action.SELECT_ALL_BLOCK_POINT:
+	            return (0, _log.selectAllBlockPoint)(logState);
+
+	        case _action.DESELECT_ALL_BLOCK_POINT:
+	            return (0, _log.deselectAllBlockPoint)(logState);
+
+	        case _action.REMOVE_SELECTED_BLOCK_POINT:
+	            return (0, _log.removeSelectedBlockPoint)(logState);
+
 	        default:
 	            return logState;
 	    }
@@ -6701,6 +6804,11 @@
 	exports.insertBlockPoint = insertBlockPoint;
 	exports.removeBlockPoint = removeBlockPoint;
 	exports.switchBlockPoint = switchBlockPoint;
+	exports.selectBlockPoint = selectBlockPoint;
+	exports.deselectBlockPoint = deselectBlockPoint;
+	exports.selectAllBlockPoint = selectAllBlockPoint;
+	exports.deselectAllBlockPoint = deselectAllBlockPoint;
+	exports.removeSelectedBlockPoint = removeSelectedBlockPoint;
 
 	var _immutable = __webpack_require__(17);
 
@@ -6855,7 +6963,9 @@
 	function initBlockPointList(logState, list) {
 
 	    return logState.updateIn(['blockPoint'], function () {
-	        return _immutable2.default.fromJS(list);
+	        return _immutable2.default.fromJS(list.map(function (setting) {
+	            return Object.assign(setting, { selected: false });
+	        }));
 	    });
 	}
 
@@ -6864,7 +6974,8 @@
 	    return logState.updateIn(['blockPoint'], function (list) {
 	        return list.push(_immutable2.default.fromJS({
 	            regex: regex,
-	            isOn: true
+	            isOn: true,
+	            selected: false
 	        }));
 	    });
 	}
@@ -6876,11 +6987,54 @@
 	    });
 	}
 
+	function _updateSetting(logState, index, attr) {
+
+	    var targetSetting = logState.get('blockPoint').get(index).toJS(),
+	        modifiedSetting = Object.assign(targetSetting, attr);
+	    return logState.updateIn(['blockPoint'], function (list) {
+	        return list.set(index, _immutable2.default.fromJS(modifiedSetting));
+	    });
+	}
+
 	function switchBlockPoint(logState, index, isOn) {
 
-	    var targetSetting = logState.get('blockPoint').get(index).toJS();
+	    return _updateSetting(logState, index, { isOn: isOn });
+	}
+
+	function selectBlockPoint(logState, index) {
+
+	    return _updateSetting(logState, index, { selected: true });
+	}
+
+	function deselectBlockPoint(logState, index) {
+
+	    return _updateSetting(logState, index, { selected: false });
+	}
+
+	function selectAllBlockPoint(logState) {
+
 	    return logState.updateIn(['blockPoint'], function (list) {
-	        return list.set(index, _immutable2.default.fromJS(Object.assign(targetSetting, { isOn: isOn })));
+	        return list.map(function (setting) {
+	            return _immutable2.default.fromJS(Object.assign(setting.toJS(), { selected: true }));
+	        });
+	    });
+	}
+
+	function deselectAllBlockPoint(logState) {
+
+	    return logState.updateIn(['blockPoint'], function (list) {
+	        return list.map(function (setting) {
+	            return _immutable2.default.fromJS(Object.assign(setting.toJS(), { selected: false }));
+	        });
+	    });
+	}
+
+	function removeSelectedBlockPoint(logState) {
+
+	    return logState.updateIn(['blockPoint'], function (list) {
+	        return list.filter(function (setting) {
+	            return !setting.selected;
+	        });
 	    });
 	}
 	//# sourceMappingURL=log.js.map
@@ -43819,7 +43973,7 @@
 /* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -43832,53 +43986,69 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = _react2.default.createClass({
-	    displayName: "BlockPointManageModal",
+	    displayName: 'BlockPointManageModal',
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+
+	        $(this.refs.modal).on('shown.bs.modal', function () {
+
+	            $(_this.refs.blockPointInsertInput).focus();
+	        });
+	    },
 	    render: function render() {
 
 	        return _react2.default.createElement(
-	            "div",
-	            { id: "blockPointManageModal", role: "dialog", className: "modal", "aria-labelledby": "openBlockPointManageModal" },
+	            'div',
+	            { ref: 'modal', id: 'blockPointManageModal', role: 'dialog', className: 'modal',
+	                'aria-labelledby': 'openBlockPointManageModal' },
 	            _react2.default.createElement(
-	                "div",
-	                { className: "modal-dialog" },
+	                'div',
+	                { className: 'modal-dialog' },
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "modal-content" },
+	                    'div',
+	                    { className: 'modal-content' },
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "modal-header" },
+	                        'div',
+	                        { className: 'modal-header' },
 	                        _react2.default.createElement(
-	                            "button",
-	                            { type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
+	                            'button',
+	                            { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
 	                            _react2.default.createElement(
-	                                "span",
+	                                'span',
 	                                {
-	                                    "aria-hidden": "true" },
-	                                "×"
+	                                    'aria-hidden': 'true' },
+	                                '×'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
-	                            "h4",
-	                            { className: "modal-title" },
-	                            "断点配置"
+	                            'h4',
+	                            { className: 'modal-title' },
+	                            '断点配置'
 	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "modal-body" },
+	                        'div',
+	                        { className: 'modal-body' },
 	                        _react2.default.createElement(
-	                            "p",
-	                            null,
-	                            "One fine body…"
-	                        )
+	                            'div',
+	                            { className: 'block-point-insert-input' },
+	                            _react2.default.createElement('input', { ref: 'blockPointInsertInput', className: 'form-control', type: 'text',
+	                                placeholder: '请输入正则表达式(请使用\\.和\\?代替.和?,其他元字符以此类推' }),
+	                            _react2.default.createElement(
+	                                'button',
+	                                { className: 'btn btn-primary insert-btn' },
+	                                '添加'
+	                            )
+	                        ),
+	                        _react2.default.createElement('table', { 'class': 'table table-striped' })
 	                    ),
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "modal-footer" },
+	                        'div',
+	                        { className: 'modal-footer' },
 	                        _react2.default.createElement(
-	                            "button",
-	                            { type: "button", className: "btn btn-default", "data-dismiss": "modal" },
-	                            "关闭"
+	                            'button',
+	                            { type: 'button', className: 'btn btn-default', 'data-dismiss': 'modal' },
+	                            '关闭'
 	                        )
 	                    )
 	                )
