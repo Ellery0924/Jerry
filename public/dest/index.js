@@ -110,6 +110,7 @@
 	});
 
 	store.dispatch((0, _action.fetchConfig)());
+	store.dispatch((0, _action2.fetchBlockPoint)());
 
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRedux.Provider,
@@ -1138,7 +1139,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_ABORT = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
+	exports.SWITCH_BLOCK_POINT = exports.REMOVE_BLOCK_POINT = exports.INSERT_BLOCK_POINT = exports.INIT_BLOCK_POINT_LIST = exports.FETCH_BLOCK_POINT = exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_ABORT = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
 	exports.pushLog = pushLog;
 	exports.pushBlockPoint = pushBlockPoint;
 	exports.blockPointContinue = blockPointContinue;
@@ -1149,6 +1150,11 @@
 	exports.filter = filter;
 	exports.clear = clear;
 	exports.closeDetail = closeDetail;
+	exports.fetchBlockPoint = fetchBlockPoint;
+	exports.initBlockPointList = initBlockPointList;
+	exports.insertBlockPoint = insertBlockPoint;
+	exports.removeBlockPoint = removeBlockPoint;
+	exports.switchBlockPoint = switchBlockPoint;
 
 	var _wsClient = __webpack_require__(271);
 
@@ -1167,6 +1173,11 @@
 	var FILTER = exports.FILTER = 'FILTER';
 	var CLEAR = exports.CLEAR = 'CLEAR';
 	var CLOSE_DETAIL = exports.CLOSE_DETAIL = 'CLOSE_DETAIL';
+	var FETCH_BLOCK_POINT = exports.FETCH_BLOCK_POINT = 'FETCH_BLOCK_POINT';
+	var INIT_BLOCK_POINT_LIST = exports.INIT_BLOCK_POINT_LIST = 'INIT_BLOCK_POINT_LIST';
+	var INSERT_BLOCK_POINT = exports.INSERT_BLOCK_POINT = 'INSERT_BLOCK_POINT';
+	var REMOVE_BLOCK_POINT = exports.REMOVE_BLOCK_POINT = 'REMOVE_BLOCK_POINT';
+	var SWITCH_BLOCK_POINT = exports.SWITCH_BLOCK_POINT = 'SWITCH_BLOCK_POINT';
 
 	function pushLog(logData) {
 	    return { type: PUSH_LOG, logData: logData };
@@ -1218,6 +1229,37 @@
 
 	function closeDetail() {
 	    return { type: CLOSE_DETAIL };
+	}
+
+	function fetchBlockPoint() {
+
+	    return function (dispatch, getState) {
+
+	        return fetch('/qproxy/blockPointSetting', {
+	            method: 'get'
+	        }).then(function (res) {
+	            return res.json();
+	        }).then(function (res) {
+
+	            dispatch(initBlockPointList(res.list));
+	        });
+	    };
+	}
+
+	function initBlockPointList(list) {
+	    return { type: INIT_BLOCK_POINT_LIST, list: list };
+	}
+
+	function insertBlockPoint(regex) {
+	    return { type: INIT_BLOCK_POINT_LIST, regex: regex };
+	}
+
+	function removeBlockPoint(index) {
+	    return { type: REMOVE_BLOCK_POINT, index: index };
+	}
+
+	function switchBlockPoint(index, isOn) {
+	    return { type: SWITCH_BLOCK_POINT, index: index, isOn: isOn };
 	}
 	//# sourceMappingURL=action.js.map
 
@@ -1273,7 +1315,8 @@
 	        isBlocked: false,
 	        current: {},
 	        list: [],
-	        filtered: []
+	        filtered: [],
+	        blockPoint: []
 	    })
 	};
 	//# sourceMappingURL=index.js.map
@@ -6615,6 +6658,18 @@
 	        case _action.BLOCK_POINT_ABORT:
 	            return (0, _log.blockPointHandle)(logState, action.blockPoint);
 
+	        case _action.INIT_BLOCK_POINT_LIST:
+	            return (0, _log.initBlockPointList)(logState, action.list);
+
+	        case _action.INSERT_BLOCK_POINT:
+	            return (0, _log.insertBlockPoint)(logState, action.regex);
+
+	        case _action.REMOVE_BLOCK_POINT:
+	            return (0, _log.removeBlockPoint)(logState, action.index);
+
+	        case _action.SWITCH_BLOCK_POINT:
+	            return (0, _log.switchBlockPoint)(logState, action.index, action.isOn);
+
 	        default:
 	            return logState;
 	    }
@@ -6642,6 +6697,10 @@
 	exports.closeDetail = closeDetail;
 	exports.pushBlockPoint = pushBlockPoint;
 	exports.blockPointHandle = blockPointHandle;
+	exports.initBlockPointList = initBlockPointList;
+	exports.insertBlockPoint = insertBlockPoint;
+	exports.removeBlockPoint = removeBlockPoint;
+	exports.switchBlockPoint = switchBlockPoint;
 
 	var _immutable = __webpack_require__(17);
 
@@ -6763,12 +6822,10 @@
 
 	    var newState = logState.updateIn(['filtered'], function (filtered) {
 
-	        var ret = filtered.filter(function (log) {
+	        return filtered.filter(function (log) {
 
 	            return log.toJS().guid !== guid;
 	        });
-
-	        return ret;
 	    }).updateIn(['list'], function (list) {
 
 	        return list.filter(function (log) {
@@ -6792,6 +6849,38 @@
 	            return newState.get('list');
 	        }
 	        return filtered;
+	    });
+	}
+
+	function initBlockPointList(logState, list) {
+
+	    return logState.updateIn(['blockPoint'], function () {
+	        return _immutable2.default.fromJS(list);
+	    });
+	}
+
+	function insertBlockPoint(logState, regex) {
+
+	    return logState.updateIn(['blockPoint'], function (list) {
+	        return list.push(_immutable2.default.fromJS({
+	            regex: regex,
+	            isOn: true
+	        }));
+	    });
+	}
+
+	function removeBlockPoint(logState, index) {
+
+	    return logState.updateIn(['blockPoint'], function (list) {
+	        return list.delete(index);
+	    });
+	}
+
+	function switchBlockPoint(logState, index, isOn) {
+
+	    var targetSetting = logState.get('blockPoint').get(index).toJS();
+	    return logState.updateIn(['blockPoint'], function (list) {
+	        return list.set(index, _immutable2.default.fromJS(Object.assign(targetSetting, { isOn: isOn })));
 	    });
 	}
 	//# sourceMappingURL=log.js.map

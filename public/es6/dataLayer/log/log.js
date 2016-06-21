@@ -105,12 +105,10 @@ export function blockPointHandle(logState, blockPoint) {
     var newState = logState
         .updateIn(['filtered'], filtered=> {
 
-            var ret = filtered.filter(log=> {
+            return filtered.filter(log=> {
 
                 return log.toJS().guid !== guid;
             });
-
-            return ret;
         })
         .updateIn(['list'], list=> {
 
@@ -137,4 +135,28 @@ export function blockPointHandle(logState, blockPoint) {
             }
             return filtered;
         });
+}
+
+export function initBlockPointList(logState, list) {
+
+    return logState.updateIn(['blockPoint'], ()=>Immutable.fromJS(list));
+}
+
+export function insertBlockPoint(logState, regex) {
+
+    return logState.updateIn(['blockPoint'], list=>list.push(Immutable.fromJS({
+        regex,
+        isOn: true
+    })));
+}
+
+export function removeBlockPoint(logState, index) {
+
+    return logState.updateIn(['blockPoint'], list=>list.delete(index));
+}
+
+export function switchBlockPoint(logState, index, isOn) {
+
+    var targetSetting = logState.get('blockPoint').get(index).toJS();
+    return logState.updateIn(['blockPoint'], list=>list.set(index, Immutable.fromJS(Object.assign(targetSetting, {isOn}))));
 }

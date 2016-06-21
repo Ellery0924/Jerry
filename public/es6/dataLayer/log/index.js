@@ -9,9 +9,25 @@ import {
     CLEAR,
     CLOSE_DETAIL,
     BLOCK_POINT_CONTINUE,
-    BLOCK_POINT_ABORT
+    BLOCK_POINT_ABORT,
+    INIT_BLOCK_POINT_LIST,
+    INSERT_BLOCK_POINT,
+    REMOVE_BLOCK_POINT,
+    SWITCH_BLOCK_POINT
 } from './action';
-import {filter, checkDetail, pushLog, pushBlockPoint, clear, closeDetail, blockPointHandle} from './log';
+import {
+    filter,
+    checkDetail,
+    pushLog,
+    pushBlockPoint,
+    clear,
+    closeDetail,
+    blockPointHandle,
+    initBlockPointList,
+    insertBlockPoint,
+    removeBlockPoint,
+    switchBlockPoint
+} from './log';
 
 export default function (state, action) {
 
@@ -41,6 +57,18 @@ export default function (state, action) {
 
         case BLOCK_POINT_ABORT:
             return blockPointHandle(logState, action.blockPoint);
+
+        case INIT_BLOCK_POINT_LIST:
+            return initBlockPointList(logState, action.list);
+
+        case INSERT_BLOCK_POINT:
+            return insertBlockPoint(logState, action.regex);
+
+        case REMOVE_BLOCK_POINT:
+            return removeBlockPoint(logState, action.index);
+
+        case SWITCH_BLOCK_POINT:
+            return switchBlockPoint(logState, action.index, action.isOn);
 
         default:
             return logState;

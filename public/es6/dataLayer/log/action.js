@@ -11,6 +11,11 @@ export const CHECK_DETAIL = 'CHECK_DETAIL';
 export const FILTER = 'FILTER';
 export const CLEAR = 'CLEAR';
 export const CLOSE_DETAIL = 'CLOSE_DETAIL';
+export const FETCH_BLOCK_POINT = 'FETCH_BLOCK_POINT';
+export const INIT_BLOCK_POINT_LIST = 'INIT_BLOCK_POINT_LIST';
+export const INSERT_BLOCK_POINT = 'INSERT_BLOCK_POINT';
+export const REMOVE_BLOCK_POINT = 'REMOVE_BLOCK_POINT';
+export const SWITCH_BLOCK_POINT = 'SWITCH_BLOCK_POINT';
 
 export function pushLog(logData) {
     return {type: PUSH_LOG, logData};
@@ -64,3 +69,33 @@ export function closeDetail() {
     return {type: CLOSE_DETAIL};
 }
 
+export function fetchBlockPoint() {
+
+    return function (dispatch, getState) {
+
+        return fetch('/qproxy/blockPointSetting', {
+            method: 'get'
+        })
+            .then(res=>res.json())
+            .then(res=> {
+
+                dispatch(initBlockPointList(res.list));
+            });
+    }
+}
+
+export function initBlockPointList(list) {
+    return {type: INIT_BLOCK_POINT_LIST, list};
+}
+
+export function insertBlockPoint(regex) {
+    return {type: INIT_BLOCK_POINT_LIST, regex};
+}
+
+export function removeBlockPoint(index) {
+    return {type: REMOVE_BLOCK_POINT, index};
+}
+
+export function switchBlockPoint(index, isOn) {
+    return {type: SWITCH_BLOCK_POINT, index, isOn};
+}

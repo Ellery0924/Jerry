@@ -20,7 +20,8 @@ var initialState = {
         isBlocked: false,
         current: {},
         list: [],
-        filtered: []
+        filtered: [],
+        blockPoint: []
     })
 };
 

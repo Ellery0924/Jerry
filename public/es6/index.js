@@ -1,7 +1,7 @@
 import thunkMiddleware from 'redux-thunk'
 import {createStore, applyMiddleware} from 'redux'
 import {fetchConfig} from './dataLayer/qproxy/action'
-import {pushLog, pushBlockPoint} from './dataLayer/log/action';
+import {pushLog, pushBlockPoint, fetchBlockPoint} from './dataLayer/log/action';
 import reducer from './dataLayer/index'
 import React from 'react';
 import ReactDom from 'react-dom';
@@ -32,6 +32,7 @@ wsClient
     });
 
 store.dispatch(fetchConfig());
+store.dispatch(fetchBlockPoint());
 
 ReactDom.render(
     <Provider store={store}>
