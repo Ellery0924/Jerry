@@ -37,7 +37,7 @@ export default React.createClass({
                 <div className="btn-group https-switch">
                     <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                        Https代理:{httpsOnTxt} <span className="caret"></span>
+                        Https代理:{httpsOnTxt} <span className="caret"/>
                     </button>
                     <ul className="dropdown-menu">
                         <li><a onClick={()=>onSwitchHttps(true)} href="javascript:void 0;">开启</a></li>
