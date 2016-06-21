@@ -68,6 +68,13 @@ export default React.createClass({
                                 className="btn btn-default block-point-btn block-point-abort"
                             >Abort</button> : null
                         }
+                        {!isBlocked?
+                            <button
+                                onClick={()=>{blockPointAbort(current)}}
+                                type="button"
+                                className="btn btn-default block-point-btn block-point-abort"
+                            >设置断点</button>:null
+                        }
                         <button
                             onClick={()=>{closeDetail()}}
                             type="button"

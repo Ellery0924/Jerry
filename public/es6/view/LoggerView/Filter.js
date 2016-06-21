@@ -27,6 +27,10 @@ export default React.createClass({
         var regex = this.refs.regexInput.value;
         filter({method: this.currentMethod, regex});
     },
+    _onOpenBlockPointManageModal(){
+
+        $('#blockPointManageModal').modal('show');
+    },
     componentWillMount(){
 
         this.currentMethod = 'ALL';
@@ -67,10 +71,23 @@ export default React.createClass({
                                className="form-control"/>
                     </div>
                 </div>
-                <button type="button" disabled={isBlocked} onClick={this._onResetFilter}
-                        className="btn btn-danger reset-btn">重置
+                <button
+                    type="button"
+                    disabled={isBlocked}
+                    onClick={this._onResetFilter}
+                    className="btn btn-danger reset-btn"
+                >
+                    重置
                 </button>
-                <button type="button" disabled={isBlocked} onClick={()=>{}} className="btn btn-primary block-btn">断点配置
+                <button type="button"
+                        id="openBlockPointManageModal"
+                        disabled={isBlocked}
+                        onClick={()=>{this._onOpenBlockPointManageModal()}}
+                        className="btn btn-primary block-btn"
+                        data-toogle="modal"
+                        data-target="#blockPointManageModal"
+                >
+                    断点配置
                 </button>
             </div>
         );

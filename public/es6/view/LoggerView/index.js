@@ -5,6 +5,7 @@ import React from 'react';
 import Filter from './Filter';
 import Console from './Console';
 import Detail from './Detail';
+import BlockPointManageModal from './BlockPointManageModal';
 
 export default React.createClass({
     render(){
@@ -45,6 +46,7 @@ export default React.createClass({
                     blockPointContinue={blockPointContinue}
                     blockPointAbort={blockPointAbort}
                 />
+                <BlockPointManageModal/>
             </div>
         );
     }
