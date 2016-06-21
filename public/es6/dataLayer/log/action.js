@@ -15,6 +15,7 @@ export const FETCH_BLOCK_POINT = 'FETCH_BLOCK_POINT';
 export const INIT_BLOCK_POINT_LIST = 'INIT_BLOCK_POINT_LIST';
 export const INSERT_BLOCK_POINT = 'INSERT_BLOCK_POINT';
 export const REMOVE_BLOCK_POINT = 'REMOVE_BLOCK_POINT';
+export const REMOVE_BLOCK_POINT_BY_URL = 'REMOVE_BLOCK_POINT_BY_URL';
 export const SWITCH_BLOCK_POINT = 'SWITCH_BLOCK_POINT';
 export const REMOVE_SELECTED_BLOCK_POINT = 'REMOVE_SELECTED_BLOCK_POINT';
 export const SELECT_BLOCK_POINT = 'SELECT_BLOCK_POINT';
@@ -125,6 +126,10 @@ export function deselectAllBlockPoint() {
     return {type: DESELECT_ALL_BLOCK_POINT};
 }
 
+export function removeBlockPointByUrl(url) {
+    return {type: REMOVE_BLOCK_POINT_BY_URL, url};
+}
+
 function updateBlockPointSetting(getState) {
 
     var settingList = getState().logger.get('blockPoint').toJS().map(setting=>({
@@ -173,6 +178,15 @@ export function removeSelectedBlockPointAndSave() {
     return function (dispatch, getState) {
 
         dispatch(removeSelectedBlockPoint());
+        updateBlockPointSetting(getState);
+    }
+}
+
+export function removeBlockPointByUrlAndSave(url) {
+
+    return function (dispatch, getState) {
+
+        dispatch(removeBlockPointByUrl(url));
         updateBlockPointSetting(getState);
     }
 }

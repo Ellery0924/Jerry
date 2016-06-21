@@ -29,8 +29,17 @@ export default React.createClass({
                                        placeholder="请输入正则表达式(请使用\.和\?代替.和?,其他元字符以此类推"/>
                                 <button className="btn btn-primary insert-btn">添加</button>
                             </div>
-                            <table class="table table-striped">
-
+                            <table className="block-point-setting table-hover table table-striped">
+                                <tbody>
+                                <tr>
+                                    <th className="block-point-setting-select-all" ref="selectAll">
+                                        <input type="checkbox"/>
+                                    </th>
+                                    <th className="block-point-setting-regex">表达式</th>
+                                    <th className="block-point-setting-is-on">是否开启</th>
+                                    <th className="block-point-setting-del-btn">删除</th>
+                                </tr>
+                                </tbody>
                             </table>
                         </div>
                         <div className="modal-footer">

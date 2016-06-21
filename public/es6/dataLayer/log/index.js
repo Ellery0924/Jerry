@@ -18,7 +18,8 @@ import {
     DESELECT_BLOCK_POINT,
     SELECT_ALL_BLOCK_POINT,
     DESELECT_ALL_BLOCK_POINT,
-    REMOVE_SELECTED_BLOCK_POINT
+    REMOVE_SELECTED_BLOCK_POINT,
+    REMOVE_BLOCK_POINT_BY_URL
 } from './action';
 import {
     filter,
@@ -36,7 +37,8 @@ import {
     deselectBlockPoint,
     selectAllBlockPoint,
     deselectAllBlockPoint,
-    removeSelectedBlockPoint
+    removeSelectedBlockPoint,
+    removeBlockPointByUrl
 } from './log';
 
 export default function (state, action) {
@@ -94,6 +96,9 @@ export default function (state, action) {
 
         case REMOVE_SELECTED_BLOCK_POINT:
             return removeSelectedBlockPoint(logState);
+
+        case REMOVE_BLOCK_POINT_BY_URL:
+            return removeBlockPointByUrl(logState, action.url);
 
         default:
             return logState;

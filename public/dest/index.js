@@ -1139,7 +1139,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.DESELECT_ALL_BLOCK_POINT = exports.SELECT_ALL_BLOCK_POINT = exports.DESELECT_BLOCK_POINT = exports.SELECT_BLOCK_POINT = exports.REMOVE_SELECTED_BLOCK_POINT = exports.SWITCH_BLOCK_POINT = exports.REMOVE_BLOCK_POINT = exports.INSERT_BLOCK_POINT = exports.INIT_BLOCK_POINT_LIST = exports.FETCH_BLOCK_POINT = exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_ABORT = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
+	exports.DESELECT_ALL_BLOCK_POINT = exports.SELECT_ALL_BLOCK_POINT = exports.DESELECT_BLOCK_POINT = exports.SELECT_BLOCK_POINT = exports.REMOVE_SELECTED_BLOCK_POINT = exports.SWITCH_BLOCK_POINT = exports.REMOVE_BLOCK_POINT_BY_URL = exports.REMOVE_BLOCK_POINT = exports.INSERT_BLOCK_POINT = exports.INIT_BLOCK_POINT_LIST = exports.FETCH_BLOCK_POINT = exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_ABORT = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
 	exports.pushLog = pushLog;
 	exports.pushBlockPoint = pushBlockPoint;
 	exports.blockPointContinue = blockPointContinue;
@@ -1160,10 +1160,12 @@
 	exports.deselectBlockPoint = deselectBlockPoint;
 	exports.selectAllBlockPoint = selectAllBlockPoint;
 	exports.deselectAllBlockPoint = deselectAllBlockPoint;
+	exports.removeBlockPointByUrl = removeBlockPointByUrl;
 	exports.insertBlockPointAndSave = insertBlockPointAndSave;
 	exports.removeBlockPointAndSave = removeBlockPointAndSave;
 	exports.switchBlockPointAndSave = switchBlockPointAndSave;
 	exports.removeSelectedBlockPointAndSave = removeSelectedBlockPointAndSave;
+	exports.removeBlockPointByUrlAndSave = removeBlockPointByUrlAndSave;
 
 	var _wsClient = __webpack_require__(271);
 
@@ -1186,6 +1188,7 @@
 	var INIT_BLOCK_POINT_LIST = exports.INIT_BLOCK_POINT_LIST = 'INIT_BLOCK_POINT_LIST';
 	var INSERT_BLOCK_POINT = exports.INSERT_BLOCK_POINT = 'INSERT_BLOCK_POINT';
 	var REMOVE_BLOCK_POINT = exports.REMOVE_BLOCK_POINT = 'REMOVE_BLOCK_POINT';
+	var REMOVE_BLOCK_POINT_BY_URL = exports.REMOVE_BLOCK_POINT_BY_URL = 'REMOVE_BLOCK_POINT_BY_URL';
 	var SWITCH_BLOCK_POINT = exports.SWITCH_BLOCK_POINT = 'SWITCH_BLOCK_POINT';
 	var REMOVE_SELECTED_BLOCK_POINT = exports.REMOVE_SELECTED_BLOCK_POINT = 'REMOVE_SELECTED_BLOCK_POINT';
 	var SELECT_BLOCK_POINT = exports.SELECT_BLOCK_POINT = 'SELECT_BLOCK_POINT';
@@ -1296,6 +1299,10 @@
 	    return { type: DESELECT_ALL_BLOCK_POINT };
 	}
 
+	function removeBlockPointByUrl(url) {
+	    return { type: REMOVE_BLOCK_POINT_BY_URL, url: url };
+	}
+
 	function updateBlockPointSetting(getState) {
 
 	    var settingList = getState().logger.get('blockPoint').toJS().map(function (setting) {
@@ -1346,6 +1353,15 @@
 	    return function (dispatch, getState) {
 
 	        dispatch(removeSelectedBlockPoint());
+	        updateBlockPointSetting(getState);
+	    };
+	}
+
+	function removeBlockPointByUrlAndSave(url) {
+
+	    return function (dispatch, getState) {
+
+	        dispatch(removeBlockPointByUrl(url));
 	        updateBlockPointSetting(getState);
 	    };
 	}
@@ -6773,6 +6789,9 @@
 	        case _action.REMOVE_SELECTED_BLOCK_POINT:
 	            return (0, _log.removeSelectedBlockPoint)(logState);
 
+	        case _action.REMOVE_BLOCK_POINT_BY_URL:
+	            return (0, _log.removeBlockPointByUrl)(logState, action.url);
+
 	        default:
 	            return logState;
 	    }
@@ -6809,6 +6828,7 @@
 	exports.selectAllBlockPoint = selectAllBlockPoint;
 	exports.deselectAllBlockPoint = deselectAllBlockPoint;
 	exports.removeSelectedBlockPoint = removeSelectedBlockPoint;
+	exports.removeBlockPointByUrl = removeBlockPointByUrl;
 
 	var _immutable = __webpack_require__(17);
 
@@ -6841,7 +6861,7 @@
 	        if (regex !== null) {
 
 	            var r = new RegExp(regex);
-	            return r.test(logData.url);
+	            return r.test(logData.url.replace(/\?.+/, ''));
 	        }
 	        return true;
 	    }
@@ -7035,6 +7055,15 @@
 	        return list.filter(function (setting) {
 	            return !setting.selected;
 	        });
+	    });
+	}
+
+	function removeBlockPointByUrl(logState, url) {
+
+	    return logState.updateIn(['blockPoint'], function (list) {
+	        return list.delete(list.findIndex(function (setting) {
+	            return url === setting.get('regex');
+	        }));
 	    });
 	}
 	//# sourceMappingURL=log.js.map
@@ -35411,10 +35440,13 @@
 	                    return dispatch((0, _action.selectAllBlockPoint)());
 	                },
 	                deselectBlockPoint: function deselectBlockPoint(index) {
-	                    return (0, _action.deselectBlockPoint)(index);
+	                    return dispatch((0, _action.deselectBlockPoint)(index));
 	                },
 	                deselectAllBlockPoint: function deselectAllBlockPoint() {
-	                    return (0, _action.deselectAllBlockPoint)();
+	                    return dispatch((0, _action.deselectAllBlockPoint)());
+	                },
+	                removeBlockPointByUrl: function removeBlockPointByUrl(url) {
+	                    return dispatch((0, _action.removeBlockPointByUrl)(url));
 	                }
 	            })
 	        );
@@ -44064,7 +44096,38 @@
 	                                '添加'
 	                            )
 	                        ),
-	                        _react2.default.createElement('table', { 'class': 'table table-striped' })
+	                        _react2.default.createElement(
+	                            'table',
+	                            { className: 'block-point-setting table-hover table table-striped' },
+	                            _react2.default.createElement(
+	                                'tbody',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { className: 'block-point-setting-select-all', ref: 'selectAll' },
+	                                        _react2.default.createElement('input', { type: 'checkbox' })
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { className: 'block-point-setting-regex' },
+	                                        '表达式'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { className: 'block-point-setting-is-on' },
+	                                        '是否开启'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { className: 'block-point-setting-del-btn' },
+	                                        '删除'
+	                                    )
+	                                )
+	                            )
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',

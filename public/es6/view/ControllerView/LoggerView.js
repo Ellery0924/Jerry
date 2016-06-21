@@ -19,7 +19,8 @@ import {
     selectBlockPoint,
     selectAllBlockPoint,
     deselectBlockPoint,
-    deselectAllBlockPoint
+    deselectAllBlockPoint,
+    removeBlockPointByUrl
 } from '../../dataLayer/log/action';
 
 var LoggerView = React.createClass({
@@ -47,8 +48,9 @@ var LoggerView = React.createClass({
                     switchBlockPointAndSave={(index,isOn)=>dispatch(switchBlockPointAndSave(index,isOn))}
                     selectBlockPoint={index=>dispatch(selectBlockPoint(index))}
                     selectAllBlockPoint={()=>dispatch(selectAllBlockPoint())}
-                    deselectBlockPoint={index=>deselectBlockPoint(index)}
-                    deselectAllBlockPoint={()=>deselectAllBlockPoint()}
+                    deselectBlockPoint={index=>dispatch(deselectBlockPoint(index))}
+                    deselectAllBlockPoint={()=>dispatch(deselectAllBlockPoint())}
+                    removeBlockPointByUrl={url=>dispatch(removeBlockPointByUrl(url))}
                 />
             </div>
         );

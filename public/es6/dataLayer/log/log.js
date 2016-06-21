@@ -25,7 +25,7 @@ function _filterSingleLog(logData, condition) {
         if (regex !== null) {
 
             let r = new RegExp(regex);
-            return r.test(logData.url);
+            return r.test(logData.url.replace(/\?.+/, ''));
         }
         return true;
     }
@@ -204,5 +204,14 @@ export function removeSelectedBlockPoint(logState) {
 
     return logState.updateIn(['blockPoint'], list=>
         list.filter(setting=>!setting.selected)
+    );
+}
+
+export function removeBlockPointByUrl(logState, url) {
+
+    return logState.updateIn(['blockPoint'], list=>
+        list.delete(list.findIndex(setting=>
+            url === setting.get('regex')
+        ))
     );
 }
