@@ -483,7 +483,24 @@ body {
     display: flex;
 }
 
+.block-point-setting {
+    margin-top: 10px;
+}
+
 .block-point-insert-input .insert-btn {
     margin-left: 5px;
+    width: 90px;
+}
+
+.block-point-setting-select-all {
+    width: 28px;
+}
+
+.block-point-setting-is-on, .block-point-setting-del-btn {
     width: 80px;
+    text-align: center;
+}
+
+input[type=checkbox].block-point-select {
+    margin-top: 11px;
 }

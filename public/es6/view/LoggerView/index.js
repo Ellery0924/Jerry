@@ -20,7 +20,8 @@ export default React.createClass({
             closeDetail,
             current,
             blockPointContinue,
-            blockPointAbort
+            blockPointAbort,
+            blockPointList
         }=this.props;
 
         return (
@@ -46,7 +47,9 @@ export default React.createClass({
                     blockPointContinue={blockPointContinue}
                     blockPointAbort={blockPointAbort}
                 />
-                <BlockPointManageModal/>
+                <BlockPointManageModal
+                    blockPointList={blockPointList}
+                />
             </div>
         );
     }

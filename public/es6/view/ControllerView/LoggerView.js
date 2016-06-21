@@ -20,7 +20,8 @@ import {
     selectAllBlockPoint,
     deselectBlockPoint,
     deselectAllBlockPoint,
-    removeBlockPointByUrl
+    removeBlockPointByUrlAndSave,
+    modifyBlockPointRegexAndSave
 } from '../../dataLayer/log/action';
 
 var LoggerView = React.createClass({
@@ -36,6 +37,7 @@ var LoggerView = React.createClass({
                     filtered={state.get('filtered')}
                     filterCondition={state.get('filterCondition').toJS()}
                     isBlocked={state.get('isBlocked')}
+                    blockPointList={state.get('blockPoint')}
                     filter={condition=>{dispatch(filter(condition))}}
                     checkDetail={item=>{dispatch(checkDetail(item))}}
                     clear={()=>{dispatch(clear())}}
@@ -50,7 +52,8 @@ var LoggerView = React.createClass({
                     selectAllBlockPoint={()=>dispatch(selectAllBlockPoint())}
                     deselectBlockPoint={index=>dispatch(deselectBlockPoint(index))}
                     deselectAllBlockPoint={()=>dispatch(deselectAllBlockPoint())}
-                    removeBlockPointByUrl={url=>dispatch(removeBlockPointByUrl(url))}
+                    removeBlockPointByUrlAndSave={url=>dispatch(removeBlockPointByUrlAndSave(url))}
+                    modifyBlockPointRegexAndSave={(index,regex)=>dispatch(modifyBlockPointRegexAndSave(index,regex))}
                 />
             </div>
         );

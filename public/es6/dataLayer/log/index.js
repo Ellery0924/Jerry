@@ -19,7 +19,8 @@ import {
     SELECT_ALL_BLOCK_POINT,
     DESELECT_ALL_BLOCK_POINT,
     REMOVE_SELECTED_BLOCK_POINT,
-    REMOVE_BLOCK_POINT_BY_URL
+    REMOVE_BLOCK_POINT_BY_URL,
+    MODIFY_BLOCK_POINT_REGEX
 } from './action';
 import {
     filter,
@@ -38,7 +39,8 @@ import {
     selectAllBlockPoint,
     deselectAllBlockPoint,
     removeSelectedBlockPoint,
-    removeBlockPointByUrl
+    removeBlockPointByUrl,
+    modifyBlockPointRegex
 } from './log';
 
 export default function (state, action) {
@@ -99,6 +101,9 @@ export default function (state, action) {
 
         case REMOVE_BLOCK_POINT_BY_URL:
             return removeBlockPointByUrl(logState, action.url);
+
+        case MODIFY_BLOCK_POINT_REGEX:
+            return modifyBlockPointRegex(logState, action.index, action.regex);
 
         default:
             return logState;

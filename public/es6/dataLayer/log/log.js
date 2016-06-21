@@ -215,3 +215,8 @@ export function removeBlockPointByUrl(logState, url) {
         ))
     );
 }
+
+export function modifyBlockPointRegex(logState, index, regex) {
+
+    return _updateSetting(logState, index, {regex});
+}

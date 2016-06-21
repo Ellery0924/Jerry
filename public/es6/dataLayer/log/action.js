@@ -22,6 +22,7 @@ export const SELECT_BLOCK_POINT = 'SELECT_BLOCK_POINT';
 export const DESELECT_BLOCK_POINT = 'DESELECT_BLOCK_POINT';
 export const SELECT_ALL_BLOCK_POINT = 'SELECT_ALL_BLOCK_POINT';
 export const DESELECT_ALL_BLOCK_POINT = 'DESELECT_ALL_BLOCK_POINT';
+export const MODIFY_BLOCK_POINT_REGEX = 'MODIFY_BLOCK_POINT_REGEX';
 
 export function pushLog(logData) {
     return {type: PUSH_LOG, logData};
@@ -130,6 +131,10 @@ export function removeBlockPointByUrl(url) {
     return {type: REMOVE_BLOCK_POINT_BY_URL, url};
 }
 
+export function modifyBlockPointRegex(index, regex) {
+    return {type: MODIFY_BLOCK_POINT_REGEX, index, regex};
+}
+
 function updateBlockPointSetting(getState) {
 
     var settingList = getState().logger.get('blockPoint').toJS().map(setting=>({
@@ -187,6 +192,15 @@ export function removeBlockPointByUrlAndSave(url) {
     return function (dispatch, getState) {
 
         dispatch(removeBlockPointByUrl(url));
+        updateBlockPointSetting(getState);
+    }
+}
+
+export function modifyBlockPointRegexAndSave(index, regex) {
+
+    return function (dispatch, getState) {
+
+        dispatch(modifyBlockPointRegex(index, regex));
         updateBlockPointSetting(getState);
     }
 }
