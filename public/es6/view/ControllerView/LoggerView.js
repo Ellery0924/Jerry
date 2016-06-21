@@ -11,7 +11,15 @@ import {
     clear,
     closeDetail,
     blockPointContinueAsync,
-    blockPointAbortAsync
+    blockPointAbortAsync,
+    insertBlockPointAndSave,
+    removeBlockPointAndSave,
+    removeSelectedBlockPointAndSave,
+    switchBlockPointAndSave,
+    selectBlockPoint,
+    selectAllBlockPoint,
+    deselectBlockPoint,
+    deselectAllBlockPoint
 } from '../../dataLayer/log/action';
 
 var LoggerView = React.createClass({
@@ -33,6 +41,14 @@ var LoggerView = React.createClass({
                     closeDetail={()=>{dispatch(closeDetail())}}
                     blockPointContinue={blockPoint=>dispatch(blockPointContinueAsync(blockPoint))}
                     blockPointAbort={blockPoint=>dispatch(blockPointAbortAsync(blockPoint))}
+                    insertBlockPointAndSave={regex=>dispatch(insertBlockPointAndSave(regex))}
+                    removeBlockPointAndSave={index=>dispatch(removeBlockPointAndSave(index))}
+                    removeSelectedBlockPointAndSave={()=>dispatch(removeSelectedBlockPointAndSave())}
+                    switchBlockPointAndSave={(index,isOn)=>dispatch(switchBlockPointAndSave(index,isOn))}
+                    selectBlockPoint={index=>dispatch(selectBlockPoint(index))}
+                    selectAllBlockPoint={()=>dispatch(selectAllBlockPoint())}
+                    deselectBlockPoint={index=>deselectBlockPoint(index)}
+                    deselectAllBlockPoint={()=>deselectAllBlockPoint()}
                 />
             </div>
         );

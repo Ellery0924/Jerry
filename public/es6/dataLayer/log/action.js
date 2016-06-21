@@ -76,7 +76,7 @@ export function closeDetail() {
 
 export function fetchBlockPoint() {
 
-    return function (dispatch, getState) {
+    return function (dispatch) {
 
         return fetch('/qproxy/blockPointSetting', {
             method: 'get'
@@ -168,7 +168,7 @@ export function switchBlockPointAndSave(index, isOn) {
     }
 }
 
-export function removeSelectedBlockPointAndSave(index) {
+export function removeSelectedBlockPointAndSave() {
 
     return function (dispatch, getState) {
 

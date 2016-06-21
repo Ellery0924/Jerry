@@ -1247,7 +1247,7 @@
 
 	function fetchBlockPoint() {
 
-	    return function (dispatch, getState) {
+	    return function (dispatch) {
 
 	        return fetch('/qproxy/blockPointSetting', {
 	            method: 'get'
@@ -1341,7 +1341,7 @@
 	    };
 	}
 
-	function removeSelectedBlockPointAndSave(index) {
+	function removeSelectedBlockPointAndSave() {
 
 	    return function (dispatch, getState) {
 
@@ -35391,6 +35391,30 @@
 	                },
 	                blockPointAbort: function blockPointAbort(blockPoint) {
 	                    return dispatch((0, _action.blockPointAbortAsync)(blockPoint));
+	                },
+	                insertBlockPointAndSave: function insertBlockPointAndSave(regex) {
+	                    return dispatch((0, _action.insertBlockPointAndSave)(regex));
+	                },
+	                removeBlockPointAndSave: function removeBlockPointAndSave(index) {
+	                    return dispatch((0, _action.removeBlockPointAndSave)(index));
+	                },
+	                removeSelectedBlockPointAndSave: function removeSelectedBlockPointAndSave() {
+	                    return dispatch((0, _action.removeSelectedBlockPointAndSave)());
+	                },
+	                switchBlockPointAndSave: function switchBlockPointAndSave(index, isOn) {
+	                    return dispatch((0, _action.switchBlockPointAndSave)(index, isOn));
+	                },
+	                selectBlockPoint: function selectBlockPoint(index) {
+	                    return dispatch((0, _action.selectBlockPoint)(index));
+	                },
+	                selectAllBlockPoint: function selectAllBlockPoint() {
+	                    return dispatch((0, _action.selectAllBlockPoint)());
+	                },
+	                deselectBlockPoint: function deselectBlockPoint(index) {
+	                    return (0, _action.deselectBlockPoint)(index);
+	                },
+	                deselectAllBlockPoint: function deselectAllBlockPoint() {
+	                    return (0, _action.deselectAllBlockPoint)();
 	                }
 	            })
 	        );
