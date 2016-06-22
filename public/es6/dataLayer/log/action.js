@@ -6,8 +6,6 @@ import wsClient from '../../wsClient';
 export const PUSH_LOG = 'PUSH_LOG';
 export const PUSH_BLOCK_POINT = 'PUSH_BLOCK_POINT';
 export const BLOCK_POINT_CONTINUE = 'BLOCK_POINT_CONTINUE';
-export const ALL_BLOCK_POINT_CONTINUE = 'ALL_BLOCK_POINT_CONTINUE';
-export const ALL_BLOCK_POINT_ABORT = 'ALL_BLOCK_POINT_ABORT';
 export const BLOCK_POINT_ABORT = 'BLOCK_POINT_ABORT';
 export const CHECK_DETAIL = 'CHECK_DETAIL';
 export const FILTER = 'FILTER';
@@ -74,17 +72,27 @@ export function allBlockPointContinueAsync() {
 
     return function (dispatch, getState) {
 
-        dispatch(allBlockPointContinue());
-        wsClient.emit('allBlockPointContinue');
+        getState().logger.get('list').toJS().forEach((log)=> {
+
+            if (log.type === 'blockpoint') {
+
+                dispatch(blockPointContinueAsync(log));
+            }
+        });
     }
 }
 
 export function allBlockPointAbortAsync() {
 
-    return function (dispatch) {
+    return function (dispatch, getState) {
 
-        dispatch(allBlockPointAbort());
-        wsClient.emit('allBlockPointAbort');
+        getState().logger.get('list').toJS().forEach(log=> {
+
+            if (log.type === 'blockpoint') {
+
+                dispatch(blockPointAbortAsync(log));
+            }
+        });
     }
 }
 

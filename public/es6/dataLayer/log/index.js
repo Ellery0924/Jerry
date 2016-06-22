@@ -8,11 +8,9 @@ import {
     PUSH_BLOCK_POINT,
     CLEAR,
     CLOSE_DETAIL,
+    INIT_BLOCK_POINT_LIST,
     BLOCK_POINT_CONTINUE,
     BLOCK_POINT_ABORT,
-    ALL_BLOCK_POINT_CONTINUE,
-    ALL_BLOCK_POINT_ABORT,
-    INIT_BLOCK_POINT_LIST,
     INSERT_BLOCK_POINT,
     REMOVE_BLOCK_POINT,
     SWITCH_BLOCK_POINT,
@@ -31,8 +29,7 @@ import {
     pushBlockPoint,
     clear,
     closeDetail,
-    blockPointHandle,
-    allBlockPointHandle
+    blockPointHandle
 } from './log';
 
 import {
@@ -77,12 +74,6 @@ export default function (state, action) {
 
         case BLOCK_POINT_ABORT:
             return blockPointHandle(logState, action.blockPoint);
-
-        case ALL_BLOCK_POINT_CONTINUE:
-            return allBlockPointHandle(logState);
-
-        case ALL_BLOCK_POINT_ABORT:
-            return allBlockPointHandle(logState);
 
         case INIT_BLOCK_POINT_LIST:
             return initBlockPointList(logState, action.list);

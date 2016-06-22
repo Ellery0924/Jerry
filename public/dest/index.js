@@ -1139,7 +1139,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.MODIFY_BLOCK_POINT_REGEX = exports.DESELECT_ALL_BLOCK_POINT = exports.SELECT_ALL_BLOCK_POINT = exports.DESELECT_BLOCK_POINT = exports.SELECT_BLOCK_POINT = exports.REMOVE_SELECTED_BLOCK_POINT = exports.SWITCH_BLOCK_POINT = exports.REMOVE_BLOCK_POINT_BY_URL = exports.REMOVE_BLOCK_POINT = exports.INSERT_BLOCK_POINT = exports.INIT_BLOCK_POINT_LIST = exports.FETCH_BLOCK_POINT = exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_ABORT = exports.ALL_BLOCK_POINT_ABORT = exports.ALL_BLOCK_POINT_CONTINUE = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
+	exports.MODIFY_BLOCK_POINT_REGEX = exports.DESELECT_ALL_BLOCK_POINT = exports.SELECT_ALL_BLOCK_POINT = exports.DESELECT_BLOCK_POINT = exports.SELECT_BLOCK_POINT = exports.REMOVE_SELECTED_BLOCK_POINT = exports.SWITCH_BLOCK_POINT = exports.REMOVE_BLOCK_POINT_BY_URL = exports.REMOVE_BLOCK_POINT = exports.INSERT_BLOCK_POINT = exports.INIT_BLOCK_POINT_LIST = exports.FETCH_BLOCK_POINT = exports.CLOSE_DETAIL = exports.CLEAR = exports.FILTER = exports.CHECK_DETAIL = exports.BLOCK_POINT_ABORT = exports.BLOCK_POINT_CONTINUE = exports.PUSH_BLOCK_POINT = exports.PUSH_LOG = undefined;
 	exports.pushLog = pushLog;
 	exports.pushBlockPoint = pushBlockPoint;
 	exports.blockPointContinue = blockPointContinue;
@@ -1185,8 +1185,6 @@
 
 	var PUSH_BLOCK_POINT = exports.PUSH_BLOCK_POINT = 'PUSH_BLOCK_POINT';
 	var BLOCK_POINT_CONTINUE = exports.BLOCK_POINT_CONTINUE = 'BLOCK_POINT_CONTINUE';
-	var ALL_BLOCK_POINT_CONTINUE = exports.ALL_BLOCK_POINT_CONTINUE = 'ALL_BLOCK_POINT_CONTINUE';
-	var ALL_BLOCK_POINT_ABORT = exports.ALL_BLOCK_POINT_ABORT = 'ALL_BLOCK_POINT_ABORT';
 	var BLOCK_POINT_ABORT = exports.BLOCK_POINT_ABORT = 'BLOCK_POINT_ABORT';
 	var CHECK_DETAIL = exports.CHECK_DETAIL = 'CHECK_DETAIL';
 	var FILTER = exports.FILTER = 'FILTER';
@@ -1253,17 +1251,27 @@
 
 	    return function (dispatch, getState) {
 
-	        dispatch(allBlockPointContinue());
-	        _wsClient2.default.emit('allBlockPointContinue');
+	        getState().logger.get('list').toJS().forEach(function (log) {
+
+	            if (log.type === 'blockpoint') {
+
+	                dispatch(blockPointContinueAsync(log));
+	            }
+	        });
 	    };
 	}
 
 	function allBlockPointAbortAsync() {
 
-	    return function (dispatch) {
+	    return function (dispatch, getState) {
 
-	        dispatch(allBlockPointAbort());
-	        _wsClient2.default.emit('allBlockPointAbort');
+	        getState().logger.get('list').toJS().forEach(function (log) {
+
+	            if (log.type === 'blockpoint') {
+
+	                dispatch(blockPointAbortAsync(log));
+	            }
+	        });
 	    };
 	}
 
@@ -14091,12 +14099,6 @@
 	        case _action.BLOCK_POINT_ABORT:
 	            return (0, _log.blockPointHandle)(logState, action.blockPoint);
 
-	        case _action.ALL_BLOCK_POINT_CONTINUE:
-	            return (0, _log.allBlockPointHandle)(logState);
-
-	        case _action.ALL_BLOCK_POINT_ABORT:
-	            return (0, _log.allBlockPointHandle)(logState);
-
 	        case _action.INIT_BLOCK_POINT_LIST:
 	            return (0, _blockPointManage.initBlockPointList)(logState, action.list);
 
@@ -14159,7 +14161,6 @@
 	exports.closeDetail = closeDetail;
 	exports.pushBlockPoint = pushBlockPoint;
 	exports.blockPointHandle = blockPointHandle;
-	exports.allBlockPointHandle = allBlockPointHandle;
 
 	var _immutable = __webpack_require__(19);
 
@@ -14308,23 +14309,6 @@
 	            return newState.get('list');
 	        }
 	        return filtered;
-	    });
-	}
-
-	function allBlockPointHandle(logState) {
-
-	    var newState = logState.updateIn(['list'], function (list) {
-	        return list.filter(function (log) {
-	            return log.toJS().type !== 'blockpoint';
-	        });
-	    });
-
-	    return newState.updateIn(['isBlocked'], function () {
-	        return false;
-	    }).updateIn(['current'], function () {
-	        return _immutable2.default.fromJS({});
-	    }).updateIn(['filtered'], function (filtered) {
-	        return newState.get('list');
 	    });
 	}
 	//# sourceMappingURL=log.js.map
