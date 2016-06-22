@@ -38,7 +38,6 @@ router
     })
     .put(function (req, res) {
 
-        console.log(req.body);
         service.setBlockPointSetting(req.body.setting);
         res.send({ret: 1});
     });
