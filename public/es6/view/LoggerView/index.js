@@ -55,8 +55,10 @@ export default React.createClass({
                 </div>
                 <Detail
                     current={current}
+                    blockPointList={blockPointList}
                     closeDetail={closeDetail}
                     isBlocked={isBlocked}
+                    insertBlockPointAndSave={insertBlockPointAndSave}
                     blockPointContinue={blockPointContinue}
                     blockPointAbort={blockPointAbort}
                 />

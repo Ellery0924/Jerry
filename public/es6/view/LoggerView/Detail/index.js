@@ -21,15 +21,17 @@ export default React.createClass({
     },
     _onBlockPointContinue(){
 
-        var bodyVal = $('#log-response-body-accordion-content').find('textarea').val().replace(/[\s\r\n]/g, ''),
+        var bodyVal = $('#log-response-body-accordion-content').find('textarea').val(),
             {current, blockPointContinue}=this.props;
-        
+
         current.response.body = bodyVal;
         blockPointContinue(current);
     },
     render(){
 
-        const {current, closeDetail, isBlocked, blockPointAbort}=this.props;
+        const {current, closeDetail, isBlocked, blockPointAbort, blockPointList, insertBlockPointAndSave}=this.props;
+        const clippedUrl = current.url ? current.url.replace(/\?.+/, '') : null;
+        const isCurrentInBlockPointList = current.url ? blockPointList.toJS().some(setting=>clippedUrl.search(setting.regex) !== -1) : false;
 
         return !$.isEmptyObject(current) ? (
             <div className="logger-right">
@@ -71,7 +73,8 @@ export default React.createClass({
                         }
                         {!isBlocked ?
                             <button
-                                onClick={()=>{blockPointAbort(current)}}
+                                onClick={()=>{insertBlockPointAndSave(clippedUrl)}}
+                                disabled={isCurrentInBlockPointList}
                                 type="button"
                                 className="btn btn-default block-point-btn block-point-abort"
                             >设置断点</button> : null

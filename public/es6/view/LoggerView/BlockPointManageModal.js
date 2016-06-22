@@ -81,7 +81,7 @@ export default React.createClass({
         return (
             <div ref="modal" id="blockPointManageModal" role="dialog" className="modal"
                  aria-labelledby="openBlockPointManageModal">
-                <div className="modal-dialog">
+                <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span

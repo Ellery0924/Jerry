@@ -526,4 +526,5 @@ input[type=checkbox].block-point-select {
 
 .block-point-list-item .block-point-list-regex {
     vertical-align: middle;
+    word-break: break-all;
 }
