@@ -21,8 +21,9 @@ export default React.createClass({
     },
     _onBlockPointContinue(){
 
-        var bodyVal = $('#log-response-body-accordion-content').find('textarea').val(),
+        var bodyVal = $('#log-response-body-accordion-content').find('textarea').val().replace(/[\s\r\n]/g, ''),
             {current, blockPointContinue}=this.props;
+        
         current.response.body = bodyVal;
         blockPointContinue(current);
     },

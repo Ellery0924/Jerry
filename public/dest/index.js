@@ -1144,8 +1144,6 @@
 	exports.pushBlockPoint = pushBlockPoint;
 	exports.blockPointContinue = blockPointContinue;
 	exports.blockPointAbort = blockPointAbort;
-	exports.allBlockPointContinue = allBlockPointContinue;
-	exports.allBlockPointAbort = allBlockPointAbort;
 	exports.blockPointContinueAsync = blockPointContinueAsync;
 	exports.blockPointAbortAsync = blockPointAbortAsync;
 	exports.allBlockPointContinueAsync = allBlockPointContinueAsync;
@@ -1219,14 +1217,6 @@
 	    return { type: BLOCK_POINT_ABORT, blockPoint: blockPoint };
 	}
 
-	function allBlockPointContinue() {
-	    return { type: ALL_BLOCK_POINT_CONTINUE };
-	}
-
-	function allBlockPointAbort() {
-	    return { type: ALL_BLOCK_POINT_ABORT };
-	}
-
 	function blockPointContinueAsync(blockPoint) {
 
 	    return function (dispatch, getState) {
@@ -1255,6 +1245,7 @@
 
 	            if (log.type === 'blockpoint') {
 
+	                log.response.body = log.response.raw;
 	                dispatch(blockPointContinueAsync(log));
 	            }
 	        });
@@ -43615,7 +43606,7 @@
 	        });
 	    },
 	    _onBlockPointContinue: function _onBlockPointContinue() {
-	        var bodyVal = $('#log-response-body-accordion-content').find('textarea').val();
+	        var bodyVal = $('#log-response-body-accordion-content').find('textarea').val().replace(/[\s\r\n]/g, '');
 	        var _props = this.props;
 	        var current = _props.current;
 	        var blockPointContinue = _props.blockPointContinue;

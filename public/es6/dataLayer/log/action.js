@@ -40,14 +40,6 @@ export function blockPointAbort(blockPoint) {
     return {type: BLOCK_POINT_ABORT, blockPoint};
 }
 
-export function allBlockPointContinue() {
-    return {type: ALL_BLOCK_POINT_CONTINUE};
-}
-
-export function allBlockPointAbort() {
-    return {type: ALL_BLOCK_POINT_ABORT};
-}
-
 export function blockPointContinueAsync(blockPoint) {
 
     return function (dispatch, getState) {
@@ -76,6 +68,7 @@ export function allBlockPointContinueAsync() {
 
             if (log.type === 'blockpoint') {
 
+                log.response.body = log.response.raw;
                 dispatch(blockPointContinueAsync(log));
             }
         });
