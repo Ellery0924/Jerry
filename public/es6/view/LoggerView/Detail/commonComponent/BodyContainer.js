@@ -31,7 +31,9 @@ export default React.createClass({
             body ?
                 <textarea
                     ref={component=>this.textarea=component}
-                    resize={false}
+                    style={{
+                        resize:editable?'vertical':'none'
+                    }}
                     disabled={!editable}
                     className="body-textarea">
                 </textarea> :
