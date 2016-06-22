@@ -21,7 +21,16 @@ export default React.createClass({
             current,
             blockPointContinue,
             blockPointAbort,
-            blockPointList
+            blockPointList,
+            insertBlockPointAndSave,
+            removeBlockPointAndSave,
+            switchBlockPointAndSave,
+            modifyBlockPointRegexAndSave,
+            selectBlockPoint,
+            deselectBlockPoint,
+            selectAllBlockPoint,
+            deselectAllBlockPoint,
+            removeSelectedBlockPointAndSave
         }=this.props;
 
         return (
@@ -49,6 +58,15 @@ export default React.createClass({
                 />
                 <BlockPointManageModal
                     blockPointList={blockPointList}
+                    insertBlockPointAndSave={insertBlockPointAndSave}
+                    removeBlockPointAndSave={removeBlockPointAndSave}
+                    switchBlockPointAndSave={switchBlockPointAndSave}
+                    modifyBlockPointRegexAndSave={modifyBlockPointRegexAndSave}
+                    selectBlockPoint={selectBlockPoint}
+                    deselectBlockPoint={deselectBlockPoint}
+                    selectAllBlockPoint={selectAllBlockPoint}
+                    deselectAllBlockPoint={deselectAllBlockPoint}
+                    removeSelectedBlockPointAndSave={removeSelectedBlockPointAndSave}
                 />
             </div>
         );

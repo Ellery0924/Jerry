@@ -491,7 +491,7 @@ body {
     margin-top: 10px;
 }
 
-.block-point-insert-input .insert-btn {
+.block-point-insert-input .insert-btn, .multi-del-btn {
     margin-left: 5px;
     width: 90px;
 }
@@ -507,4 +507,8 @@ body {
 
 input[type=checkbox].block-point-select {
     margin-top: 11px;
+}
+
+.block-point-list-item .block-point-list-regex {
+    vertical-align: middle;
 }

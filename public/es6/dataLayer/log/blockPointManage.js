@@ -72,7 +72,7 @@ export function deselectAllBlockPoint(logState) {
 export function removeSelectedBlockPoint(logState) {
 
     return logState.updateIn(['blockPoint'], list=>
-        list.filter(setting=>!setting.selected)
+        list.filter(setting=>!setting.get('selected'))
     );
 }
 

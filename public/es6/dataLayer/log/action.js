@@ -96,7 +96,7 @@ export function initBlockPointList(list) {
 }
 
 export function insertBlockPoint(regex) {
-    return {type: INIT_BLOCK_POINT_LIST, regex};
+    return {type: INSERT_BLOCK_POINT, regex};
 }
 
 export function removeBlockPoint(index) {
@@ -142,12 +142,12 @@ function updateBlockPointSetting(getState) {
         isOn: setting.isOn
     }));
 
-    fetch('/qproxy/blockPoint', {
+    fetch('/qproxy/blockPointSetting', {
         method: 'put',
         headers: {
             'content-type': 'application/json'
         },
-        body: JSON.stringify(settingList.toJS())
+        body: JSON.stringify({setting: settingList})
     })
 }
 
