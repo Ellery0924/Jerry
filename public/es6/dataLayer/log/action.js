@@ -40,13 +40,13 @@ export function blockPointAbort(blockPoint) {
     return {type: BLOCK_POINT_ABORT, blockPoint};
 }
 
-export function blockPointContinueAsync(blockPoint) {
+export function blockPointContinueAsync(blockPoint, noJsonp) {
 
     return function (dispatch, getState) {
 
         dispatch(blockPointContinue(blockPoint));
         let isBlocked = getState().logger.get('isBlocked');
-        wsClient.emit('blockPointContinue', blockPoint, isBlocked);
+        wsClient.emit('blockPointContinue', blockPoint, isBlocked, noJsonp);
     }
 }
 
@@ -69,7 +69,7 @@ export function allBlockPointContinueAsync() {
             if (log.type === 'blockpoint') {
 
                 log.response.body = log.response.raw;
-                dispatch(blockPointContinueAsync(log));
+                dispatch(blockPointContinueAsync(log, true));
             }
         });
     }

@@ -1217,13 +1217,13 @@
 	    return { type: BLOCK_POINT_ABORT, blockPoint: blockPoint };
 	}
 
-	function blockPointContinueAsync(blockPoint) {
+	function blockPointContinueAsync(blockPoint, noJsonp) {
 
 	    return function (dispatch, getState) {
 
 	        dispatch(blockPointContinue(blockPoint));
 	        var isBlocked = getState().logger.get('isBlocked');
-	        _wsClient2.default.emit('blockPointContinue', blockPoint, isBlocked);
+	        _wsClient2.default.emit('blockPointContinue', blockPoint, isBlocked, noJsonp);
 	    };
 	}
 
@@ -1246,7 +1246,7 @@
 	            if (log.type === 'blockpoint') {
 
 	                log.response.body = log.response.raw;
-	                dispatch(blockPointContinueAsync(log));
+	                dispatch(blockPointContinueAsync(log, true));
 	            }
 	        });
 	    };
