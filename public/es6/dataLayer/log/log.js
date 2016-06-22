@@ -137,3 +137,19 @@ export function blockPointHandle(logState, blockPoint) {
         });
 }
 
+export function allBlockPointHandle(logState) {
+
+    var newState = logState
+        .updateIn(['list'], list=>
+            list.filter(log=>
+                log.toJS().type !== 'blockpoint'
+            )
+        );
+
+    return newState
+        .updateIn(['isBlocked'], ()=>false)
+        .updateIn(['current'], ()=>Immutable.fromJS({}))
+        .updateIn(['filtered'], filtered=>newState.get('list'));
+}
+
+

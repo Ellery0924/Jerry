@@ -437,6 +437,13 @@ body {
     position: relative;
 }
 
+.clear-console, .all-continue, .all-abort {
+    padding: 3px 8px;
+    margin-left: 5px;
+    margin-top: -6px;
+    position: absolute;;
+}
+
 .clear-console {
     position: absolute;
     padding: 3px 8px;
@@ -449,6 +456,14 @@ body {
 
 .clear-console:hover, .clear-console:focus, .clear-console:active {
     text-decoration: none;
+}
+
+.all-continue {
+    left: 300px;
+}
+
+.all-abort {
+    left: 405px;
 }
 
 .clear-console:hover {

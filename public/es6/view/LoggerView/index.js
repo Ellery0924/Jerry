@@ -21,6 +21,8 @@ export default React.createClass({
             current,
             blockPointContinue,
             blockPointAbort,
+            allBlockPointContinue,
+            allBlockPointAbort,
             blockPointList,
             insertBlockPointAndSave,
             removeBlockPointAndSave,
@@ -47,6 +49,8 @@ export default React.createClass({
                         logList={filtered}
                         clear={clear}
                         checkDetail={checkDetail}
+                        allBlockPointContinue={allBlockPointContinue}
+                        allBlockPointAbort={allBlockPointAbort}
                     />
                 </div>
                 <Detail

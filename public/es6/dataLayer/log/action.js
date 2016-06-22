@@ -6,6 +6,8 @@ import wsClient from '../../wsClient';
 export const PUSH_LOG = 'PUSH_LOG';
 export const PUSH_BLOCK_POINT = 'PUSH_BLOCK_POINT';
 export const BLOCK_POINT_CONTINUE = 'BLOCK_POINT_CONTINUE';
+export const ALL_BLOCK_POINT_CONTINUE = 'ALL_BLOCK_POINT_CONTINUE';
+export const ALL_BLOCK_POINT_ABORT = 'ALL_BLOCK_POINT_ABORT';
 export const BLOCK_POINT_ABORT = 'BLOCK_POINT_ABORT';
 export const CHECK_DETAIL = 'CHECK_DETAIL';
 export const FILTER = 'FILTER';
@@ -40,6 +42,14 @@ export function blockPointAbort(blockPoint) {
     return {type: BLOCK_POINT_ABORT, blockPoint};
 }
 
+export function allBlockPointContinue() {
+    return {type: ALL_BLOCK_POINT_CONTINUE};
+}
+
+export function allBlockPointAbort() {
+    return {type: ALL_BLOCK_POINT_ABORT};
+}
+
 export function blockPointContinueAsync(blockPoint) {
 
     return function (dispatch, getState) {
@@ -57,6 +67,24 @@ export function blockPointAbortAsync(blockPoint) {
         dispatch(blockPointAbort(blockPoint));
         let isBlocked = getState().logger.get('isBlocked');
         wsClient.emit('blockPointAbort', blockPoint, isBlocked);
+    }
+}
+
+export function allBlockPointContinueAsync() {
+
+    return function (dispatch, getState) {
+
+        dispatch(allBlockPointContinue());
+        wsClient.emit('allBlockPointContinue');
+    }
+}
+
+export function allBlockPointAbortAsync() {
+
+    return function (dispatch) {
+
+        dispatch(allBlockPointAbort());
+        wsClient.emit('allBlockPointAbort');
     }
 }
 

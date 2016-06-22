@@ -86,7 +86,7 @@ export default React.createClass({
     render(){
 
         const logList = this.props.logList.toJS();
-        const {isBlocked}=this.props;
+        const {isBlocked, allBlockPointContinue, allBlockPointAbort}=this.props;
         const vh = $(window).height();
 
         return (
@@ -100,6 +100,22 @@ export default React.createClass({
                             type="button"
                             className="btn btn-default glyphicon glyphicon-ban-circle clear-console"
                         />
+                        {isBlocked ?
+                            <button
+                                onClick={allBlockPointContinue}
+                                className="btn btn-default all-continue"
+                            >
+                                All Continue
+                            </button> : null
+                        }
+                        {isBlocked ?
+                            <button
+                                onClick={allBlockPointAbort}
+                                className="btn btn-default all-abort"
+                            >
+                                All Abort
+                            </button> : null
+                        }
                     </h3>
                 </div>
                 <div className="panel-body">

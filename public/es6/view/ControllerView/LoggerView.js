@@ -12,6 +12,8 @@ import {
     closeDetail,
     blockPointContinueAsync,
     blockPointAbortAsync,
+    allBlockPointContinueAsync,
+    allBlockPointAbortAsync,
     insertBlockPointAndSave,
     removeBlockPointAndSave,
     removeSelectedBlockPointAndSave,
@@ -44,6 +46,8 @@ var LoggerView = React.createClass({
                     closeDetail={()=>{dispatch(closeDetail())}}
                     blockPointContinue={blockPoint=>dispatch(blockPointContinueAsync(blockPoint))}
                     blockPointAbort={blockPoint=>dispatch(blockPointAbortAsync(blockPoint))}
+                    allBlockPointContinue={()=>dispatch(allBlockPointContinueAsync())}
+                    allBlockPointAbort={()=>dispatch(allBlockPointAbortAsync())}
                     insertBlockPointAndSave={regex=>dispatch(insertBlockPointAndSave(regex))}
                     removeBlockPointAndSave={index=>dispatch(removeBlockPointAndSave(index))}
                     removeSelectedBlockPointAndSave={()=>dispatch(removeSelectedBlockPointAndSave())}
