@@ -64,7 +64,7 @@ export function allBlockPointContinueAsync() {
 
     return function (dispatch, getState) {
 
-        getState().logger.get('list').toJS().forEach((log)=> {
+        getState().logger.get('list').toJS().forEach(log=> {
 
             if (log.type === 'blockpoint') {
 
