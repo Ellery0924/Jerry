@@ -3,8 +3,13 @@
  */
 import React, {Component} from 'react'
 import {Link} from 'react-router';
+import wsClient from '../../wsClient';
 
 export default React.createClass({
+    _onLogNavClick(){
+
+        wsClient.emit('refreshLog');
+    },
     render(){
         return <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">
@@ -16,7 +21,7 @@ export default React.createClass({
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    <a className="navbar-brand" href="javascript:void 0;">QProxy</a>
+                    <a className="navbar-brand" href="javascript:void 0;">Jerry</a>
                 </div>
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul className="nav navbar-nav">
@@ -28,7 +33,8 @@ export default React.createClass({
                                 代理面板
                             </Link>
                         </li>
-                        <li nav-hash="#logger"><Link activeClassName="active" to="logger">请求/响应日志</Link></li>
+                        <li nav-hash="#logger" onClick={this._onLogNavClick}><Link activeClassName="active" to="logger">请求/响应日志</Link>
+                        </li>
                         <li nav-hash="#rewrite"><Link activeClassName="active" to="rewrite">URL MAP</Link></li>
                         <li nav-hash="#server"><Link activeClassName="active" to="server">服务器组配置</Link></li>
                     </ul>

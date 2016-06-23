@@ -1,6 +1,6 @@
 {
-  "name": "qfproxy",
-  "version": "0.4.88",
+  "name": "jerryproxy",
+  "version": "0.1.3",
   "private": false,
   "dependencies": {
     "bluebird": "^3.4.0",
@@ -34,7 +34,7 @@
     "url": "https://github.com/Ellery0924/qproxy_github"
   },
   "bin": {
-    "qproxy": "qproxy"
+    "jerry": "jerry"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
