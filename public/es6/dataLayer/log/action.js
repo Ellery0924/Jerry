@@ -171,13 +171,13 @@ function updateBlockPointSetting(getState) {
         isOn: setting.isOn
     }));
 
-    fetch('/qproxy/blockPointSetting', {
+    return fetch('/qproxy/blockPointSetting', {
         method: 'put',
         headers: {
             'content-type': 'application/json'
         },
         body: JSON.stringify({setting: settingList})
-    })
+    });
 }
 
 export function insertBlockPointAndSave(regex) {
