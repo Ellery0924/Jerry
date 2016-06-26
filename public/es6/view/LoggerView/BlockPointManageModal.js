@@ -113,6 +113,9 @@ export default React.createClass({
                             <table className="block-point-setting table-hover table table-striped">
                                 <tbody>
                                 <tr>
+                                    <th className="block-point-setting-regex">表达式</th>
+                                    <th className="block-point-setting-is-on">是否开启</th>
+                                    <th className="block-point-setting-del-btn">删除</th>
                                     <th className="block-point-setting-select-all">
                                         <input
                                             onChange={this._onSelectAllChange}
@@ -122,23 +125,11 @@ export default React.createClass({
                                             ref="selectAllCheckBox"
                                         />
                                     </th>
-                                    <th className="block-point-setting-regex">表达式</th>
-                                    <th className="block-point-setting-is-on">是否开启</th>
-                                    <th className="block-point-setting-del-btn">删除</th>
                                 </tr>
                                 {blockPointList.map((setting, i)=> {
 
                                     return (
                                         <tr className="block-point-list-item" key={"block-point-list-item-"+setting.id}>
-                                            <td>
-                                                <input
-                                                    data-blockpointindex={i}
-                                                    onChange={this._onSelectCheckBoxChange}
-                                                    type="checkbox"
-                                                    className="block-point-select"
-                                                    checked={setting.selected}
-                                                />
-                                            </td>
                                             <td className="block-point-list-regex">
                                                 {setting.regex}
                                             </td>
@@ -162,6 +153,15 @@ export default React.createClass({
                                                 >
                                                     删除
                                                 </button>
+                                            </td>
+                                            <td>
+                                                <input
+                                                    data-blockpointindex={i}
+                                                    onChange={this._onSelectCheckBoxChange}
+                                                    type="checkbox"
+                                                    className="block-point-select"
+                                                    checked={setting.selected}
+                                                />
                                             </td>
                                         </tr>
                                     )
