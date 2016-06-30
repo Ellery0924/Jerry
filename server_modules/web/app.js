@@ -12,18 +12,19 @@ var routes = require('./routes/'),
 var app = express();
 
 var server = http.createServer(app);
+var publicPath = path.resolve(__dirname, '..', '..', 'public');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join('public', 'favicon.ico')));
+app.use(favicon(path.join(publicPath, 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static('public', {maxage: 1000 * 60 * 60 * 30}));
+app.use(express.static(publicPath, {maxage: 1000 * 60 * 60 * 30}));
 
 app.use('/', routes);
 app.use(ajax);
