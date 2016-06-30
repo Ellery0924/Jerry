@@ -1,6 +1,6 @@
 var express = require('express'),
     router = express.Router(),
-    service = require('../server_modules/service');
+    service = require('../../service');
 
 router
     .route('/proxy/config')

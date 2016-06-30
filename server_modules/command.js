@@ -11,7 +11,7 @@ var fs = require('fs'),
 var HOME = process.env.HOME,
     qpconfigPath = HOME + '/.qpconfig';
 
-var app = require('../app'),
+var app = require('./web/app'),
     qproxy = require('./proxy'),
     setConfig = require('./service').setConfig,
     qpconfig = JSON.parse(fs.readFileSync(qpconfigPath)),

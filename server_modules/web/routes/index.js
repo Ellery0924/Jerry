@@ -1,7 +1,7 @@
 var express = require('express'),
     router = express.Router();
 
-var ver = require('../ver.json');
+var ver = require('../../../ver.json');
 
 router.get('/qproxy', function (req, res) {
 
