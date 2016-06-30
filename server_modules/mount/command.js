@@ -6,14 +6,14 @@ require('./beforeStart')();
 var fs = require('fs'),
     spawn = require('child_process').spawn,
     execSync = require('child_process').execSync,
-    logServer = require('./logServer').wsServer;
+    logServer = require('../logServer').wsServer;
 
 var HOME = process.env.HOME,
     qpconfigPath = HOME + '/.qpconfig';
 
-var app = require('./web/app'),
-    qproxy = require('./proxy'),
-    setConfig = require('./service').setConfig,
+var app = require('../web/app'),
+    qproxy = require('../proxy'),
+    setConfig = require('../service').setConfig,
     qpconfig = JSON.parse(fs.readFileSync(qpconfigPath)),
     qport = qpconfig.qport || 999,
     aport = qpconfig.aport || 1000,
