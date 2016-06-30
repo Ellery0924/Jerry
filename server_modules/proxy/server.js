@@ -8,7 +8,7 @@ var HOME = process.env.HOME,
     CRT_FILE_PATH = HOME + '/server.crt',
     CA_FILE_PATH = HOME + '/ca.pem';
 
-var httpsTunnel = require('./middleman/tunnel');
+var tunnel = require('./middleman/tunnel');
 
 module.exports = {
     listen: function (port) {
@@ -16,7 +16,7 @@ module.exports = {
         http
             .createServer(middleMan('http'))
             .listen(port)
-            .on('connect', httpsTunnel);
+            .on('connect', tunnel);
 
         https
             .createServer({
