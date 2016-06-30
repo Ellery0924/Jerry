@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 require('colors');
 var cluster = require('cluster'),
-    startQProxy = require('./lib/start.js');
+    startQProxy = require('./server_modules/start.js');
 
 if (cluster.isMaster) {
 
