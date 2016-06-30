@@ -75,6 +75,6 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('default', ['babel','watch']);
     grunt.registerTask('build', ['concat:js', 'concat:css', 'uglify', 'cssmin']);
 };
