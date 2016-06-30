@@ -1,8 +1,7 @@
 var http = require('http'),
     https = require('https'),
     fs = require('fs'),
-    mwHttp = require('./middleman/httpMiddleMan.js'),
-    mwHttps = require('./middleman/httpsMiddleMan.js');
+    middleMan = require('./middleman/middleMan');
 
 var HOME = process.env.HOME,
     KEY_FILE_PATH = HOME + '/server.key',
@@ -15,7 +14,7 @@ module.exports = {
     listen: function (port) {
 
         http
-            .createServer(mwHttp)
+            .createServer(middleMan('http'))
             .listen(port)
             .on('connect', httpsTunnel);
 
@@ -24,7 +23,7 @@ module.exports = {
                 key: fs.readFileSync(KEY_FILE_PATH),
                 cert: fs.readFileSync(CRT_FILE_PATH),
                 ca: [fs.readFileSync(CA_FILE_PATH)]
-            }, mwHttps)
+            }, middleMan('https'))
             .listen(1001);
     }
 };
