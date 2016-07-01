@@ -120,7 +120,7 @@ function _extractJSON(jsonStr) {
         return {parsed: null, jsonp: null};
     }
 
-    var rjson = /(^|^\s*[\w\d_\$]+\()\s*(\{(?:.|[\n\r])*}|\[(?:.|[\n\r])*])(?:\s*$|\))/,
+    var rjson = /(^|^\s*[\w\d_\$\.]+\()\s*(\{(?:.|[\n\r])*}|\[(?:.|[\n\r])*])(?:\s*$|\))/,
         mjson = jsonStr.match(rjson),
         rquery = /^\s*([\w\d_\$]+=[^&]*&?)+\s*$/;
 
