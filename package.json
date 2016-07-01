@@ -1,6 +1,6 @@
 {
   "name": "jerryproxy",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "private": false,
   "dependencies": {
     "bluebird": "^3.4.0",
@@ -26,7 +26,8 @@
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "prepublish": "sh ./build.sh"
+    "prepublish": "sh ./build.sh",
+    "start":"grunt && nohup webpack --watch"
   },
   "author": {
     "name": "Ellery Shen",

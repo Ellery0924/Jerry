@@ -26,7 +26,7 @@ DataSource.prototype = {
         return [].slice.apply(this.dataSrc, this.visibleRange);
     },
     getContentHeight(){
-        
+
         return this.dataSrc.length * this.itemHeight + 20;
     },
     getMaxScrollTop(){
@@ -35,8 +35,8 @@ DataSource.prototype = {
     },
     configureVisibleRange(offsetY){
 
-        var startY = offsetY - this.containerHeight,
-            endY = offsetY + 2 * this.containerHeight,
+        var startY = offsetY - this.containerHeight / 4,
+            endY = offsetY + (5 / 4) * this.containerHeight,
             startIndex = Math.ceil(startY / this.itemHeight),
             endIndex = Math.floor(endY / this.itemHeight);
 
