@@ -16,11 +16,8 @@ import LoggerView from './view/ControllerView/LoggerView';
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
 const store = createStoreWithMiddleware(reducer);
 
-window.qproxy = {
-    shouldRefreshConsole: false
-};
-
 import wsClient from './wsClient';
+
 wsClient
     .on('log', function (logData) {
 
@@ -30,6 +27,10 @@ wsClient
 
         store.dispatch(pushBlockPoint(logData));
     });
+
+window.qproxy = {
+    shouldRefreshConsole: false
+};
 
 store.dispatch(fetchConfig());
 store.dispatch(fetchBlockPoint());

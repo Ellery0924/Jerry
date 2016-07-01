@@ -27,7 +27,7 @@
   },
   "scripts": {
     "prepublish": "sh ./build.sh",
-    "start":"grunt && nohup webpack --watch"
+    "start":"sh ./start.sh"
   },
   "author": {
     "name": "Ellery Shen",
