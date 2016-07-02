@@ -9,19 +9,10 @@ module.exports = function (type) {
     return function (sreq, sres) {
 
         var opts;
-
-        if (type === 'https') {
-
-            sreq.url = 'https://' + sreq.headers.host + sreq.url;
-        }
-
+        sreq.url = type === 'https' ? 'https://' + sreq.headers.host + sreq.url : sreq.url;
         opts = redirect(sreq, sres);
-
-        if (type === 'https') {
-
-            opts.rejectUnauthorized = false;
-        }
-
+        opts.rejectUnauthorized = type === 'https' ? false : null;
+        
         if (opts) {
 
             sendRequest(opts, opts.protocol, sreq, sres);
