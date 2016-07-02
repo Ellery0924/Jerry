@@ -6,7 +6,7 @@ var fs = require('fs'),
     configPath = HOME + "/.qpconfig",
     serverConfigPath = HOME + '/.qsconfig',
     _ = require('underscore'),
-    service = require('../../service');
+    service = require('../../../service');
 
 function rewrite(url, context) {
 

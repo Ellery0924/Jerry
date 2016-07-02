@@ -1,8 +1,8 @@
 /**
  * Created by Ellery1 on 16/6/30.
  */
-var redirect = require('./redirect'),
-    sendRequest = require('./sendRequest');
+var redirect = require('./core/redirect'),
+    sendRequest = require('./core/sendRequest');
 
 module.exports = function (type) {
 

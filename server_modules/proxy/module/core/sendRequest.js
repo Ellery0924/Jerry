@@ -1,7 +1,7 @@
 /**
  * Created by Ellery1 on 15/9/23.
  */
-var Logger = require('../../logServer').Logger;
+var Logger = require('../../../logServer').Logger;
 
 module.exports = function (opts, clientType, sreq, sres) {
 
