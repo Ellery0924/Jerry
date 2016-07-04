@@ -24,7 +24,7 @@ router
     })
     .put(function (req, res) {
 
-        service.setServerInfo(req.body.server);
+        service.setServerInfo(req.body);
         res.send({
             ret: 1
         });

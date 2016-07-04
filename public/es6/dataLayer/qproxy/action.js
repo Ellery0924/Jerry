@@ -204,7 +204,7 @@ export function setServerAndSave(server) {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(getState().toJS())
+            body: JSON.stringify(getState().qproxy.toJS().server)
         });
     }
 }
