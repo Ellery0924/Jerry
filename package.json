@@ -1,6 +1,6 @@
 {
-  "name": "jerryproxy",
-  "version": "0.1.15",
+  "name": "qfproxy",
+  "version": "1.0.0",
   "private": false,
   "dependencies": {
     "bluebird": "^3.4.0",

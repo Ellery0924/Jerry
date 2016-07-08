@@ -27,7 +27,7 @@ export default React.createClass({
                     </tr>
                     {patternList.map((pattern, index)=>
                         <Pattern
-                            key={pattern.pattern}
+                            key={index}
                             index={index}
                             onSetPattern={onSetPattern}
                             onDeletePattern={onDeletePattern}

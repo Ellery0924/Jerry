@@ -2,7 +2,6 @@
  * Created by Ellery1 on 16/1/11.
  */
 import React from 'react';
-
 export default React.createClass({
     onPatternChange(){
 
