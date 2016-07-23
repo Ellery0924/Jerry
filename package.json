@@ -1,5 +1,5 @@
 {
-  "name": "qfproxy",
+  "name": "jerryproxy",
   "version": "1.0.0",
   "private": false,
   "dependencies": {
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "prepublish": "sh ./build.sh",
-    "start":"sh ./start.sh"
+    "start": "sh ./start.sh"
   },
   "author": {
     "name": "Ellery Shen",

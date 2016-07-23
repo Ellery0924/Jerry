@@ -14,11 +14,15 @@ module.exports = function () {
             break;
 
         case '-f':
-            command.startWithFekit();
+            command.startWithDevServer('fekit');
+            break;
+
+        case '-y':
+            command.startWithDevServer('ykit');
             break;
 
         case '-s':
-            command.setFekitWorkPath();
+            command.setWorkPath();
             break;
 
         default:

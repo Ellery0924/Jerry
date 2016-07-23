@@ -60,21 +60,21 @@ function setRunningPort() {
     process.send('exit');
 }
 
-function startWithFekit() {
+function startWithDevServer(serverName) {
 
     fekitArgs = Array.prototype.slice.call(process.argv, 3);
     workPath = qpconfig.fekitWorkPath;
     fekitArgs.length &&
-    console.log('fekit server已启动,参数为:' + fekitArgs.join(','));
-    console.log('当前fekit工作目录为: ' + workPath);
+    console.log(serverName + ' server已启动,参数为:' + fekitArgs.join(','));
+    console.log('当前' + serverName + '工作目录为: ' + workPath);
 
     if (!workPath || !fs.existsSync(workPath)) {
 
-        throw new Error('请设置一个合法的fekit工作目录!' + workPath);
+        throw new Error('请设置一个合法的' + serverName + '工作目录!' + workPath);
     }
 
     start(function () {
-        spawn('fekit', ['server'].concat(fekitArgs), {
+        spawn(serverName, ['server'].concat(fekitArgs), {
             cwd: workPath,
             env: process.env,
             customFds: [0, 1, 2]
@@ -82,7 +82,7 @@ function startWithFekit() {
     });
 }
 
-function setFekitWorkPath() {
+function setWorkPath() {
 
     fekitConfigPath = process.argv[3];
 
@@ -103,7 +103,7 @@ function setFekitWorkPath() {
 
 module.exports = {
     setRunningPort: setRunningPort,
-    startWithFekit: startWithFekit,
+    startWithDevServer: startWithDevServer,
     start: start,
-    setFekitWorkPath: setFekitWorkPath
+    setWorkPath: setWorkPath
 };
