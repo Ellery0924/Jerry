@@ -13,7 +13,7 @@ if (cluster.isMaster) {
 
         if (++count < MAX_COUNT) {
 
-            console.log('[WARN]'['yellow'] + ':qproxy出现异常,重启进程');
+            console.log('[WARN]'['yellow'] + ':jerry出现异常,重启进程');
             worker = cluster.fork();
         }
         else {
