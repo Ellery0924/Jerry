@@ -1,37 +1,41 @@
-#!/usr/bin/env node
 require('colors');
+
 var cluster = require('cluster'),
     startQProxy = require('./server_modules/mount/start.js');
 
-if (cluster.isMaster) {
+module.exports = function(){
 
-    var worker = cluster.fork(),
-        MAX_COUNT = 5,
-        count = 0;
+    if (cluster.isMaster) {
 
-    cluster.on('exit', function () {
+        var worker = cluster.fork(),
+            MAX_COUNT = 5,
+            count = 0;
 
-        if (++count < MAX_COUNT) {
+        cluster.on('exit', function () {
 
-            console.log('[WARN]'['yellow'] + ':jerry出现异常,重启进程');
-            worker = cluster.fork();
-        }
-        else {
+            if (++count < MAX_COUNT) {
 
-            console.log('异常次数已达' + MAX_COUNT + '次,退出进程.');
-            process.exit(1);
-        }
-    });
+                console.log('[WARN]'['yellow'] + ':jerry出现异常,重启进程');
+                worker = cluster.fork();
+            }
+            else {
 
-    worker.on('message', function (code) {
+                console.log('异常次数已达' + MAX_COUNT + '次,退出进程.');
+                process.exit(1);
+            }
+        });
 
-        if (code === 'exit') {
+        worker.on('message', function (code) {
 
-            process.exit(1);
-        }
-    });
-}
-else {
+            if (code === 'exit') {
 
-    startQProxy();
+                process.exit(1);
+            }
+        });
+    }
+
+    else {
+
+        startQProxy();
+    }
 }
