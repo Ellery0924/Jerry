@@ -8,7 +8,8 @@ var HOST_FILE_NAME = 'ykit.hosts',
     exportHostList = require('./hostUtils').exportHostList;
 
 var rignore = /^\./,
-    rykit = /\_ykit$/;
+    rykit = /\_ykit$/,
+    rykitconfig = /ykit\.[\w\d]+\.js/;
 
 function fetchGroupConfigFromYkitFolder(serverInfo) {
 
@@ -42,14 +43,13 @@ function writeSettingToYkitHosts(groupname, setting, serverInfo) {
 
     if (rykit.test(groupname)) {
 
-        var folederPath = Path.resolve(process.cwd(), groupname.replace(/\_ykit$/, '')),
-            hyConfigPath = Path.resolve(folederPath, 'ykit.hy.js'),
-            hostsPath = Path.resolve(folederPath, 'ykit.hosts'),
+        var folderPath = Path.resolve(process.cwd(), groupname.replace(/\_ykit$/, '')),
+            hostsPath = Path.resolve(folderPath, 'ykit.hosts'),
             renderedHostList = exportHostList(setting, serverInfo);
 
         try {
 
-            if (fs.existsSync(folederPath) && fs.existsSync(hyConfigPath)) {
+            if (fs.existsSync(folderPath) && isYKitFolder(folderPath)) {
 
                 fs.writeFileSync(hostsPath, renderedHostList, 'utf8');
                 fs.chmodSync(hostsPath, '777');
@@ -62,11 +62,21 @@ function writeSettingToYkitHosts(groupname, setting, serverInfo) {
     }
 }
 
+function isYKitFolder(folderPath) {
+
+    return fs.existsSync(folderPath) && fs.readdirSync(folderPath).some(function (path) {
+
+            return rykitconfig.test(path) && fs.statSync(Path.resolve(folderPath, path)).isFile();
+        });
+}
+
 function iterateFolder(path, operate) {
 
     var folders = fs.readdirSync(path).filter(function (item) {
 
-        return fs.statSync(item).isDirectory() && !rignore.test(item) && fs.existsSync(Path.resolve(process.cwd(), item, 'ykit.hy.js'));
+        return fs.statSync(item).isDirectory()
+            && !rignore.test(item)
+            && isYKitFolder(Path.resolve(process.cwd(), item));
     });
 
     folders.forEach(function (folder) {
