@@ -2,10 +2,11 @@
  * Created by Ellery1 on 15/7/30.
  */
 var fs = require('fs'),
+    Path = require('path'),
     HOME = process.env.HOME,
-    configPath = HOME + "/.qpconfig",
-    serverConfigPath = HOME + '/.qsconfig',
-    blockPointSettingPath = HOME + '/.qbconfig',
+    configPath = Path.resolve(HOME, '.qpconfig'),
+    serverConfigPath = Path.resolve(HOME, '.qsconfig'),
+    blockPointSettingPath = Path.resolve(HOME, '.qbconfig'),
     _ = require('underscore'),
     ykitAdapter = require('./ykitAdapter');
 

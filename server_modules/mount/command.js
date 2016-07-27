@@ -5,11 +5,13 @@ require('./beforeStart')();
 
 var fs = require('fs'),
     spawn = require('child_process').spawn,
+    os = require('os'),
     execSync = require('child_process').execSync,
+    Path = require('path'),
     logServer = require('../logServer').wsServer;
 
 var HOME = process.env.HOME,
-    qpconfigPath = HOME + '/.qpconfig';
+    qpconfigPath = Path.resolve(HOME, '.qpconfig');
 
 var app = require('../web/app'),
     qproxy = require('../proxy'),
@@ -46,7 +48,11 @@ function start(callback) {
         console.log('按CTRL+C退出');
         callback && callback();
         qproxy.server.listen(qport);
-        execSync('open http://127.0.0.1:' + aport + '/qproxy');
+
+        if (os.platform() !== 'win32') {
+
+            execSync('open http://127.0.0.1:' + aport + '/qproxy');
+        }
     });
 }
 

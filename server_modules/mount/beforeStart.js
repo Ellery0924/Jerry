@@ -1,15 +1,16 @@
 module.exports = function () {
 
     var fs = require('fs'),
+        Path = require('path'),
         HOME = process.env.HOME,
-        configPath = HOME + "/.qpconfig",
-        blockConfigPath = HOME + "/.qbconfig",
-        serverConfigPath = HOME + '/.qsconfig',
+        configPath = Path.resolve(HOME, ".qpconfig"),
+        blockConfigPath = Path.resolve(HOME, ".qbconfig"),
+        serverConfigPath = Path.resolve(HOME, '.qsconfig'),
         defaultConfig = require('../../defaultConfig/defaultConfig.json'),
         defaultServer = require('../../defaultConfig/defaultServer.json'),
-        privateKeyPath = HOME + '/server.key',
-        certificatePath = HOME + '/server.crt',
-        caPath = HOME + '/ca.pem',
+        privateKeyPath = Path.resolve(HOME, 'server.key'),
+        certificatePath = Path.resolve(HOME, 'server.crt'),
+        caPath = Path.resolve(HOME, 'ca.pem'),
         key = require('../../defaultConfig/serverkey.js'),
         crt = require('../../defaultConfig/servercrt.js'),
         ca = require('../../defaultConfig/ca.js'),
@@ -20,9 +21,8 @@ module.exports = function () {
 
         if (!fs.existsSync(path)) {
 
-            execSync('touch ' + path);
-            execSync('chmod 777 ' + path);
             fs.writeFileSync(path, stringify ? JSON.stringify(content) : content);
+            fs.chmodSync(path, '777');
 
             console.log(msg);
         }
