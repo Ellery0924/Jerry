@@ -49,7 +49,7 @@ function writeSettingToYkitHosts(groupname, setting, serverInfo) {
 
         try {
 
-            if (fs.existsSync(folederPath) && fs.existsSync(hyConfigPath) && renderedHostList.length) {
+            if (fs.existsSync(folederPath) && fs.existsSync(hyConfigPath)) {
 
                 fs.writeFileSync(hostsPath, renderedHostList, 'utf8');
                 fs.chmodSync(hostsPath, '777');
