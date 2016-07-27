@@ -17,7 +17,7 @@ function fetchGroupConfigFromYkitFolder(serverInfo) {
     iterateFolder(process.cwd(), function (folder) {
 
         var realPath = Path.resolve(process.cwd(), folder),
-            renderedHosts = extractHostFile(realPath + HOST_FILE_NAME, serverInfo);
+            renderedHosts = extractHostFile(Path.resolve(realPath, HOST_FILE_NAME), serverInfo);
 
         if (renderedHosts) {
 
@@ -49,7 +49,7 @@ function writeSettingToYkitHosts(groupname, setting, serverInfo) {
 
         try {
 
-            if (fs.existsSync(folederPath) && fs.existsSync(hyConfigPath)) {
+            if (fs.existsSync(folederPath) && fs.existsSync(hyConfigPath) && renderedHostList.length) {
 
                 fs.writeFileSync(hostsPath, renderedHostList, 'utf8');
                 fs.chmodSync(hostsPath, '777');
