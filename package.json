@@ -1,6 +1,6 @@
 {
   "name": "jerryproxy",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "private": false,
   "dependencies": {
     "bluebird": "^3.4.0",
@@ -35,9 +35,9 @@
     "url": "https://github.com/Ellery0924/qproxy_github"
   },
   "bin": {
-    "jerry": "./bin/jerry"
+    "jerry": "./bin/jerry.js"
   },
-  "main": "./jerry",
+  "main": "./jerry.js",
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
