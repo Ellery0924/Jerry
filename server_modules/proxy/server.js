@@ -1,12 +1,13 @@
 var http = require('http'),
     https = require('https'),
     fs = require('fs'),
+    Path = require('path'),
     middleMan = require('./module/middleMan');
 
 var HOME = process.env.HOME,
-    KEY_FILE_PATH = HOME + '/server.key',
-    CRT_FILE_PATH = HOME + '/server.crt',
-    CA_FILE_PATH = HOME + '/ca.pem';
+    KEY_FILE_PATH = Path.resolve(HOME, 'server.key'),
+    CRT_FILE_PATH = Path.resolve(HOME, 'server.crt'),
+    CA_FILE_PATH = Path.resolve(HOME, 'ca.pem');
 
 var tunnel = require('./module/tunnel');
 
