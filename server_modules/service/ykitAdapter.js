@@ -13,20 +13,18 @@ var rignore = /^\./,
 
 function fetchGroupConfigFromYkitFolder(serverInfo) {
 
-    var ret = {};
-
-    iterateFolder(process.cwd(), function (folder) {
+    return iterateFolder(process.cwd(), function (acc, folder) {
 
         var realPath = Path.resolve(process.cwd(), folder),
             renderedHosts = extractHostFile(Path.resolve(realPath, HOST_FILE_NAME), serverInfo);
 
         if (renderedHosts) {
 
-            ret[folder + '_ykit'] = renderedHosts;
+            acc[folder + '_ykit'] = renderedHosts;
         }
-    });
 
-    return ret;
+        return acc;
+    }, {});
 }
 
 function syncGroupConfigToYkitFolder(config, serverInfo) {
@@ -70,7 +68,7 @@ function isYKitFolder(folderPath) {
         });
 }
 
-function iterateFolder(path, operate) {
+function iterateFolder(path, operate, acc) {
 
     var folders = fs.readdirSync(path).filter(function (item) {
 
@@ -79,10 +77,10 @@ function iterateFolder(path, operate) {
             && isYKitFolder(Path.resolve(process.cwd(), item));
     });
 
-    folders.forEach(function (folder) {
+    return folders.reduce(function (acc, folder) {
 
-        operate(folder);
-    });
+        return operate(acc, folder);
+    }, acc);
 }
 
 function extractHostFile(filepath, serverInfo) {
