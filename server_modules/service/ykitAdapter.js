@@ -16,7 +16,7 @@ function fetchGroupConfigFromYkitFolder(serverInfo) {
 
     iterateFolder(process.cwd(), function (folder) {
 
-        var realPath = process.cwd() + '/' + folder + '/',
+        var realPath = Path.resolve(process.cwd(), folder),
             renderedHosts = extractHostFile(realPath + HOST_FILE_NAME, serverInfo);
 
         if (renderedHosts) {
