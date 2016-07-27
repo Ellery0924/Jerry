@@ -256,7 +256,7 @@ export function getServerByIp(ip, serverInfo) {
     };
 }
 
-export function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
+export function formatRuleList(ruleListStr, serverInfo, existedRuleList, isNode) {
 
     var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
         ruleList = ruleListRaw.reduce((acc, ruleStr)=> {
@@ -276,12 +276,15 @@ export function formatRuleList(ruleListStr, serverInfo, existedRuleList) {
             return acc;
         }, []);
 
-    var validated = validateMultiDomain(ruleList, existedRuleList);
+    if (!isNode) {
 
-    if (!validated.result) {
+        var validated = validateMultiDomain(ruleList, existedRuleList);
 
-        alert(validated.message);
-        return null;
+        if (!validated.result) {
+
+            alert(validated.message);
+            return null;
+        }
     }
 
     return ruleList.map((rule)=> {

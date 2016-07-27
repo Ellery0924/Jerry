@@ -6,11 +6,16 @@ var fs = require('fs'),
     configPath = HOME + "/.qpconfig",
     serverConfigPath = HOME + '/.qsconfig',
     blockPointSettingPath = HOME + '/.qbconfig',
-    _ = require('underscore');
+    _ = require('underscore'),
+    ykitAdapter = require('./ykitAdapter');
 
 function getConfig() {
 
-    return JSON.parse(fs.readFileSync(configPath));
+    var ret = JSON.parse(fs.readFileSync(configPath));
+
+    ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
+
+    return ret;
 }
 
 function getServerInfo() {
@@ -19,6 +24,8 @@ function getServerInfo() {
 }
 
 function setConfig(config) {
+
+    ykitAdapter.syncGroupConfig(config, getServerInfo());
 
     fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
 
@@ -51,7 +58,7 @@ function getBlockPointSetting() {
 
 function setBlockPointSetting(setting) {
 
-    fs.writeFile(blockPointSettingPath, JSON.stringify({list:setting}).trim(), function (err) {
+    fs.writeFile(blockPointSettingPath, JSON.stringify({list: setting}).trim(), function (err) {
 
         if (err) {
 
