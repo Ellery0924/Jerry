@@ -7,7 +7,8 @@ var HOST_FILE_NAME = 'ykit.hosts',
     formatRuleList = require('./hostUtils').formatRuleList,
     exportHostList = require('./hostUtils').exportHostList;
 
-var rignore = /^\./;
+var rignore = /^\./,
+    rykit = /\_ykit$/;
 
 function fetchGroupConfigFromYkitFolder(serverInfo) {
 
@@ -20,7 +21,7 @@ function fetchGroupConfigFromYkitFolder(serverInfo) {
 
         if (renderedHosts) {
 
-            ret[folder] = renderedHosts;
+            ret[folder + '_ykit'] = renderedHosts;
         }
     });
 
@@ -39,21 +40,25 @@ function syncGroupConfigToYkitFolder(config, serverInfo) {
 
 function writeSettingToYkitHosts(groupname, setting, serverInfo) {
 
-    var folederPath = Path.resolve(process.cwd(), groupname),
-        hostsPath = Path.resolve(folederPath, 'ykit.hosts'),
-        renderedHostList = exportHostList(setting, serverInfo);
+    if (rykit.test(groupname)) {
 
-    try {
+        var folederPath = Path.resolve(process.cwd(), groupname.replace(/\_ykit$/, '')),
+            hyConfigPath = Path.resolve(folederPath, 'ykit.hy.js'),
+            hostsPath = Path.resolve(folederPath, 'ykit.hosts'),
+            renderedHostList = exportHostList(setting, serverInfo);
 
-        if (fs.existsSync(folederPath)) {
+        try {
 
-            fs.writeFileSync(hostsPath, renderedHostList, 'utf8');
-            fs.chmodSync(hostsPath, '777');
+            if (fs.existsSync(folederPath) && fs.existsSync(hyConfigPath)) {
+
+                fs.writeFileSync(hostsPath, renderedHostList, 'utf8');
+                fs.chmodSync(hostsPath, '777');
+            }
         }
-    }
-    catch (e) {
+        catch (e) {
 
-        console.log(e.stack);
+            console.log(e.stack);
+        }
     }
 }
 

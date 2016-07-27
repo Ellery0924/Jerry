@@ -30,12 +30,15 @@ export default React.createClass({
         var currentGroup = group[activated],
             isAllSelected = currentGroup && currentGroup.length && currentGroup.every(rule=>rule.selected);
 
+        const rykitGroup = /\_ykit$/,
+            isYkitGroup = rykitGroup.test(activated);
+
         return (
             <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <div id="groupView">
                     <div className="page-header">
-                        <h1>当前分组:{activated}</h1>
-                        {activated !== 'default' ?
+                        <h1>当前分组:{activated + (isYkitGroup ? '(yKit分组,无法删除)' : '')}</h1>
+                        {activated !== 'default' && !isYkitGroup ?
                             <button
                                 className="btn btn-danger rm_group"
                                 onClick={this.deleteGroup}
@@ -56,7 +59,8 @@ export default React.createClass({
                         >
                             添加规则
                         </button>
-                        <button disabled={multiDeleteDisabled?'disabled':null} className="btn btn-danger multi-delete"
+                        <button disabled={multiDeleteDisabled ? 'disabled' : null}
+                                className="btn btn-danger multi-delete"
                                 onClick={this.multiDeleteRule}>批量删除
                         </button>
                         <button className="btn btn-info export_host" data-target="#exportHostModal" data-toggle="modal">
@@ -79,7 +83,7 @@ export default React.createClass({
                             {currentGroup ?
                                 currentGroup.map((groupData, i)=>
                                     <Rule
-                                        key={activated+groupData.domain}
+                                        key={activated + groupData.domain}
                                         ruleIndex={i}
                                         {...groupData}
                                         server={server}
@@ -106,7 +110,7 @@ export default React.createClass({
                     groupName={activated}
                 />
                 <ExportHostListModal
-                    hostList={exportHostList(currentGroup,server)}
+                    hostList={exportHostList(currentGroup, server)}
                 />
             </div>
         );
