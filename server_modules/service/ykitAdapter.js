@@ -11,11 +11,13 @@ var rignore = /^\./,
     rykit = /\_ykit$/,
     rykitconfig = /ykit\.[\w\_\d]+\.js/;
 
+var CWD = process.cwd();
+
 function fetchGroupConfigFromYkitFolder(serverInfo) {
 
-    return iterateFolder(process.cwd(), function (acc, folder) {
+    return iterateFolder(CWD, function (acc, folder) {
 
-        var realPath = Path.resolve(process.cwd(), folder),
+        var realPath = Path.resolve(CWD, folder),
             renderedHosts = extractHostFile(Path.resolve(realPath, HOST_FILE_NAME), serverInfo);
 
         if (renderedHosts) {
@@ -41,7 +43,7 @@ function writeSettingToYkitHosts(groupname, setting, serverInfo) {
 
     if (rykit.test(groupname)) {
 
-        var folderPath = Path.resolve(process.cwd(), groupname.replace(/\_ykit$/, '')),
+        var folderPath = Path.resolve(CWD, groupname.replace(/\_ykit$/, '')),
             hostsPath = Path.resolve(folderPath, 'ykit.hosts'),
             renderedHostList = exportHostList(setting, serverInfo);
 
@@ -74,7 +76,7 @@ function iterateFolder(path, operate, acc) {
 
         return fs.statSync(item).isDirectory()
             && !rignore.test(item)
-            && isYKitFolder(Path.resolve(process.cwd(), item));
+            && isYKitFolder(Path.resolve(CWD, item));
     });
 
     return folders.reduce(function (acc, folder) {
