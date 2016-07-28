@@ -2,9 +2,6 @@
  * Created by Ellery1 on 15/7/30.
  */
 var fs = require('fs'),
-    HOME = process.env.HOME,
-    configPath = HOME + "/.qpconfig",
-    serverConfigPath = HOME + '/.qsconfig',
     _ = require('underscore'),
     service = require('../../../service');
 
