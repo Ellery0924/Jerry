@@ -95,5 +95,6 @@ function extractHostFile(filepath, serverInfo) {
 
 module.exports = {
     fetchGroupConfig: fetchGroupConfigFromYkitFolder,
-    syncGroupConfig: syncGroupConfigToYkitFolder
+    syncGroupConfig: syncGroupConfigToYkitFolder,
+    rykit: rykit
 };

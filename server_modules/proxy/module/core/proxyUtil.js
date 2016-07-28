@@ -103,8 +103,8 @@ function rewrite(url, context) {
 
 function filter(host) {
 
-    var config = JSON.parse(fs.readFileSync(configPath)),
-        serverInfo = JSON.parse(fs.readFileSync(serverConfigPath));
+    var config = service.getConfig(),
+        serverInfo = service.getServerInfo();
 
     var rport = /:(\s*\d+)/,
         port = (host && host.match(rport)) ? host.match(rport)[1] : null;

@@ -28,6 +28,14 @@ function setConfig(config) {
 
     ykitAdapter.syncGroupConfig(config, getServerInfo());
 
+    Object.keys(config.group).forEach(function (key) {
+
+        if (ykitAdapter.rykit.test(key)) {
+
+            delete config.group[key];
+        }
+    });
+
     fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
 
         if (err) {
