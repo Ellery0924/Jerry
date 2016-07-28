@@ -125,7 +125,7 @@ export default React.createClass({
                      style={{
                     position:'relative',
                     height:containerHeight+'px'
-                }} className="listview-container">
+                }}>
                     <ul ref="content" style={{
                         height:contentHeight+"px",
                         marginBottom:0
