@@ -11,22 +11,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.initConfig({
-        requirejs: {
-            index: {
-                options: {
-                    baseUrl: './public',
-                    mainConfigFile: './public/scripts/app.js',
-                    include: ['/scripts/app.js'],
-                    out: "./public/dest/app.js"
-                }
-            }
-        },
-        watch: {
-            babel: {
-                files: ['public/es6/**/*.js'],
-                tasks: ['babel']
-            }
-        },
         babel: {
             options: {
                 sourceMap: true,
