@@ -9,7 +9,7 @@ var fs = require('fs'),
     execSync = require('child_process').execSync,
     Path = require('path'),
     logServer = require('../logServer').wsServer,
-    CONST=require('../constant');
+    CONST = require('../constant');
 
 var HOME = CONST.HOME,
     qpconfigPath = Path.resolve(HOME, '.qpconfig');
@@ -52,7 +52,7 @@ function start(callback) {
 
         if (os.platform() !== 'win32') {
 
-            execSync('open http://127.0.0.1:' + aport + '/qproxy');
+            execSync((os.platform() !== 'win32' ? 'open' : 'start') + ' http://127.0.0.1:' + aport + '/qproxy');
         }
     });
 }
