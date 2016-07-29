@@ -77,43 +77,59 @@ function getServerByIp(ip, serverInfo) {
     };
 }
 
-function formatRuleList(ruleListStr, serverInfo) {
+function formatRuleListGenerator(validator) {
 
-    var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
-        ruleList = ruleListRaw.reduce(function (acc, ruleStr) {
+    return function (ruleListStr, serverInfo, existedRuleList) {
 
-            var ruleArr = ruleStr.trim().split(/\s+/),
-                ip = ruleArr.shift(),
-                domain = ruleArr.join(' ');
+        var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
+            ruleList = ruleListRaw.reduce(function (acc, ruleStr) {
 
-            if (ip && domain) {
+                var ruleArr = ruleStr.trim().split(/\s+/),
+                    ip = ruleArr.shift(),
+                    domain = ruleArr.join(' ');
 
-                acc.push({
-                    ip: ip,
-                    domain: domain
-                });
+                if (ip && domain) {
+
+                    acc.push({
+                        ip: ip,
+                        domain: domain
+                    });
+                }
+
+                return acc;
+            }, []);
+
+        if (validator) {
+
+            var validated = validator(ruleList, existedRuleList);
+
+            if (!validated.result) {
+
+                alert(validated.message);
+                return null;
             }
+        }
 
-            return acc;
-        }, []);
+        return ruleList.map(function (rule) {
 
-    return ruleList.map(function (rule) {
+            var targetServer = getServerByIp(rule.ip, serverInfo),
+                domain = rule.domain,
+                generatedRule = {
+                    domain: domain,
+                    current: targetServer.groupName,
+                    cache: {}
+                };
 
-        var targetServer = getServerByIp(rule.ip, serverInfo),
-            domain = rule.domain,
-            generatedRule = {
-                domain: domain,
-                current: targetServer.groupName,
-                cache: {}
-            };
+            generatedRule.cache[targetServer.groupName] = targetServer.ipIndex;
 
-        generatedRule.cache[targetServer.groupName] = targetServer.ipIndex;
-
-        return generatedRule;
-    });
+            return generatedRule;
+        });
+    }
 }
 
 module.exports = {
-    formatRuleList: formatRuleList,
-    exportHostList: exportHostList
+    formatRuleListGenerator: formatRuleListGenerator,
+    formatRuleList: formatRuleListGenerator(),
+    exportHostList: exportHostList,
+    getServerByIp: getServerByIp
 };
