@@ -25,8 +25,7 @@
     "underscore": "^1.8.3"
   },
   "scripts": {
-    "prepublish": "sh ./build.sh",
-    "start": "sh ./start.sh"
+    "prepublish": "sh ./build.sh"
   },
   "author": {
     "name": "Ellery Shen",
