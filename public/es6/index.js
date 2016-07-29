@@ -21,6 +21,7 @@ import wsClient from './wsClient';
 wsClient
     .on('log', function (logData) {
 
+        console.log('log')
         store.dispatch(pushLog(logData));
     })
     .on('blockpoint', function (logData) {

@@ -121,7 +121,7 @@ export default React.createClass({
         if (visibleItemList) {
 
             return (
-                <div onScroll={this._onScroll} className="listview-container js-listview-container" ref="container"
+                <div onScroll={this._onScroll} className="listview-container" ref="container"
                      style={{
                     position:'relative',
                     height:containerHeight+'px'
