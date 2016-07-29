@@ -11,8 +11,6 @@
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
     "express": "~4.13.1",
-    "grunt": "*",
-    "grunt-contrib-requirejs": "*",
     "history": "^1.17.0",
     "morgan": "~1.6.1",
     "react": "^0.14.5",
@@ -22,7 +20,6 @@
     "redux": "^3.0.5",
     "redux-thunk": "^1.0.3",
     "serve-favicon": "~2.3.0",
-    "shelljs": "^0.5.1",
     "socket.io": "^1.4.6",
     "underscore": "^1.8.3"
   },
