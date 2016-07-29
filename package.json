@@ -1,6 +1,6 @@
 {
   "name": "jerryproxy",
-  "version": "1.0.12",
+  "version": "1.0.14",
   "private": false,
   "dependencies": {
     "babel-polyfill": "^6.9.1",

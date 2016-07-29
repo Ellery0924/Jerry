@@ -35,6 +35,11 @@ DataSource.prototype = {
     },
     configureVisibleRange(offsetY){
 
+        if (offsetY < 0) {
+
+            offsetY = 0;
+        }
+
         var startY = offsetY - this.containerHeight / 4,
             endY = offsetY + (5 / 4) * this.containerHeight,
             startIndex = Math.ceil(startY / this.itemHeight),
