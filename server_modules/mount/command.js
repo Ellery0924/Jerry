@@ -69,15 +69,10 @@ function setRunningPort() {
 function startWithDevServer(serverName) {
 
     fekitArgs = Array.prototype.slice.call(process.argv, 3);
-    workPath = qpconfig.fekitWorkPath;
+    workPath = fs.existsSync(qpconfig.fekitWorkPath) ? qpconfig.fekitWorkPath : process.cwd();
     fekitArgs.length &&
     console.log(serverName + ' server已启动,参数为:' + fekitArgs.join(','));
     console.log('当前' + serverName + '工作目录为: ' + workPath);
-
-    if (!workPath || !fs.existsSync(workPath)) {
-
-        throw new Error('请设置一个合法的' + serverName + '工作目录!' + workPath);
-    }
 
     start(function () {
         spawn(serverName, ['server'].concat(fekitArgs), {
