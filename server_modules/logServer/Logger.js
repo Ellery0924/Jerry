@@ -151,7 +151,7 @@ Logger.prototype = {
                 }
                 catch (e) {
 
-                    console.log(JSON.stringify(e));
+                    console.log(e.stack);
                 }
             })
             .catch(function (msg) {

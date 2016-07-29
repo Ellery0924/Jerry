@@ -27,8 +27,10 @@ function _filterSingleLog(logData, condition) {
             let r = new RegExp(regex);
             return r.test(logData.url.replace(/\?.+/, ''));
         }
+
         return true;
     }
+
     return false;
 }
 
