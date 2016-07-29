@@ -37,7 +37,7 @@ export default React.createClass({
             <div className="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <div id="groupView">
                     <div className="page-header">
-                        <h1>当前分组:{activated + (isYkitGroup ? '(yKit分组,无法删除)' : '')}</h1>
+                        <h1>当前分组:{activated}</h1>
                         {activated !== 'default' && !isYkitGroup ?
                             <button
                                 className="btn btn-danger rm_group"
