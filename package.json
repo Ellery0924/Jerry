@@ -1,8 +1,9 @@
 {
   "name": "jerryproxy",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": false,
   "dependencies": {
+    "babel-polyfill": "^6.9.1",
     "bluebird": "^3.4.0",
     "body-parser": "~1.13.2",
     "colors": "*",

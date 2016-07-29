@@ -13,7 +13,9 @@ function exportHostList(ruleList, serverInfo) {
 
         if (!isOnline) {
 
-            result = result.concat(domainArr.map(domain=>ip + ' ' + domain));
+            result = result.concat(domainArr.map(function (domain) {
+                return ip + ' ' + domain
+            }));
         }
 
         return result;
@@ -33,7 +35,9 @@ function getServerByIp(ip, serverInfo) {
 
         if (targetGroup !== undefined) {
 
-            if (Object.keys(targetGroup).some(serverIndex=>serverIndex === insertIpIndex)) {
+            if (Object.keys(targetGroup).some(function (serverIndex) {
+                    return serverIndex === insertIpIndex
+                })) {
 
                 return {
                     groupName: insertGroupName,
@@ -76,7 +80,7 @@ function getServerByIp(ip, serverInfo) {
 function formatRuleList(ruleListStr, serverInfo) {
 
     var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
-        ruleList = ruleListRaw.reduce((acc, ruleStr)=> {
+        ruleList = ruleListRaw.reduce(function (acc, ruleStr) {
 
             var ruleArr = ruleStr.trim().split(/\s+/),
                 ip = ruleArr.shift(),
@@ -93,7 +97,7 @@ function formatRuleList(ruleListStr, serverInfo) {
             return acc;
         }, []);
 
-    return ruleList.map((rule)=> {
+    return ruleList.map(function (rule) {
 
         var targetServer = getServerByIp(rule.ip, serverInfo),
             domain = rule.domain,

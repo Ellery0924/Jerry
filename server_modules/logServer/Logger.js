@@ -126,7 +126,7 @@ Logger.prototype = {
             Logger.instances.push(this);
         }
     },
-    setBlockPromise(sres){
+    setBlockPromise: function (sres) {
 
         var self = this;
 
@@ -175,7 +175,7 @@ Logger.prototype = {
         wsServer.sockets.emit('blockpoint', [Object.assign(this.logData, {type: 'blockpoint'})]);
         return this;
     },
-    _checkIfInBlackList(){
+    _checkIfInBlackList: function () {
 
         var url = this.req.url;
 
