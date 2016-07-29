@@ -8,9 +8,10 @@ var fs = require('fs'),
     os = require('os'),
     execSync = require('child_process').execSync,
     Path = require('path'),
-    logServer = require('../logServer').wsServer;
+    logServer = require('../logServer').wsServer,
+    CONST=require('../constant');
 
-var HOME = process.env.HOME,
+var HOME = CONST.HOME,
     qpconfigPath = Path.resolve(HOME, '.qpconfig');
 
 var app = require('../web/app'),

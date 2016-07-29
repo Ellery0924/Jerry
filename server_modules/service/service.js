@@ -3,7 +3,8 @@
  */
 var fs = require('fs'),
     Path = require('path'),
-    HOME = process.env.HOME,
+    CONST = require('../constant'),
+    HOME = CONST.HOME,
     configPath = Path.resolve(HOME, '.qpconfig'),
     serverConfigPath = Path.resolve(HOME, '.qsconfig'),
     blockPointSettingPath = Path.resolve(HOME, '.qbconfig'),

@@ -2,7 +2,8 @@ module.exports = function () {
 
     var fs = require('fs'),
         Path = require('path'),
-        HOME = process.env.HOME,
+        CONST=require('../constant'),
+        HOME = CONST.HOME,
         configPath = Path.resolve(HOME, ".qpconfig"),
         blockConfigPath = Path.resolve(HOME, ".qbconfig"),
         serverConfigPath = Path.resolve(HOME, '.qsconfig'),
