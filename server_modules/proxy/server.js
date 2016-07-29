@@ -1,14 +1,12 @@
 var http = require('http'),
     https = require('https'),
     fs = require('fs'),
-    Path = require('path'),
     middleMan = require('./module/middleMan'),
     CONST = require('../constant');
 
-var HOME = CONST.HOME,
-    KEY_FILE_PATH = Path.resolve(HOME, 'server.key'),
-    CRT_FILE_PATH = Path.resolve(HOME, 'server.crt'),
-    CA_FILE_PATH = Path.resolve(HOME, 'ca.pem');
+var KEY_FILE_PATH = CONST.SERVER_KEY,
+    CRT_FILE_PATH = CONST.SERVER_CRT,
+    CA_FILE_PATH = CONST.CA;
 
 var tunnel = require('./module/tunnel');
 

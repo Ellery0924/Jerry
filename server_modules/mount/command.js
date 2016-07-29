@@ -7,17 +7,13 @@ var fs = require('fs'),
     spawn = require('child_process').spawn,
     os = require('os'),
     execSync = require('child_process').execSync,
-    Path = require('path'),
     logServer = require('../logServer').wsServer,
-    CONST = require('../constant');
-
-var HOME = CONST.HOME,
-    qpconfigPath = Path.resolve(HOME, '.qpconfig');
+    service = require('../service');
 
 var app = require('../web/app'),
     qproxy = require('../proxy'),
-    setConfig = require('../service').setConfig,
-    qpconfig = JSON.parse(fs.readFileSync(qpconfigPath)),
+    setConfig = service.setConfig,
+    qpconfig = service.getConfig(),
     qport = qpconfig.qport || 999,
     aport = qpconfig.aport || 1000,
     fekitConfigPath,

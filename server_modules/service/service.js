@@ -3,12 +3,10 @@
  */
 require('babel-polyfill');
 var fs = require('fs'),
-    Path = require('path'),
     CONST = require('../constant'),
-    HOME = CONST.HOME,
-    configPath = Path.resolve(HOME, '.qpconfig'),
-    serverConfigPath = Path.resolve(HOME, '.qsconfig'),
-    blockPointSettingPath = Path.resolve(HOME, '.qbconfig'),
+    configPath = CONST.QP_PATH,
+    serverConfigPath = CONST.QS_PATH,
+    blockPointSettingPath = CONST.QB_PATH,
     _ = require('underscore'),
     ykitAdapter = require('./ykitAdapter');
 
