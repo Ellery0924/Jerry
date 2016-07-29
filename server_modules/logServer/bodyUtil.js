@@ -25,28 +25,14 @@ function zipBody(headers, str) {
 
             zlib.gzip(buf, function (err, result) {
 
-                if (!err) {
-
-                    resolve(result);
-                }
-                else {
-
-                    reject(err);
-                }
+                !err ? resolve(result) : reject(err);
             });
         }
         else if (encoding === 'deflate') {
 
             zlib.deflate(buf, function (err, result) {
 
-                if (!err) {
-
-                    resolve(result);
-                }
-                else {
-
-                    reject(err);
-                }
+                !err ? resolve(result) : reject(err);
             });
         }
         else {
@@ -76,28 +62,14 @@ function unzipBody(stream) {
 
                     zlib.gunzip(buf, function (err, data) {
 
-                        if (!err) {
-
-                            resolve(data.toString());
-                        }
-                        else {
-
-                            reject(err);
-                        }
+                        !err ? resolve(data.toString()) : reject(err);
                     });
                 }
                 else if (encoding === 'deflate') {
 
                     zlib.inflate(buf, function (err, data) {
 
-                        if (!err) {
-
-                            resolve(data.toString());
-                        }
-                        else {
-
-                            reject(err);
-                        }
+                        !err ? resolve(data.toString()) : reject(err);
                     });
                 }
                 else {
