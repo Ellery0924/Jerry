@@ -1,6 +1,6 @@
 {
   "name": "jerryproxy",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "private": false,
   "dependencies": {
     "babel-polyfill": "^6.9.1",
@@ -12,6 +12,7 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "history": "^1.17.0",
+    "immutable": "^3.8.1",
     "morgan": "~1.6.1",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
