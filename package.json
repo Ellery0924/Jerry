@@ -38,8 +38,11 @@
   },
   "main": "./jerry.js",
   "devDependencies": {
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
     "grunt": "^0.4.5",
     "grunt-babel": "^6.0.0",
     "grunt-contrib-clean": "^1.0.0",
@@ -47,6 +50,7 @@
     "grunt-contrib-cssmin": "^1.0.1",
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-contrib-watch": "^0.6.1",
-    "load-grunt-tasks": "^3.3.0"
+    "load-grunt-tasks": "^3.3.0",
+    "webpack": "^1.13.1"
   }
 }
