@@ -13,8 +13,7 @@ module.exports = function () {
         key = require('../../defaultConfig/serverkey.js'),
         crt = require('../../defaultConfig/servercrt.js'),
         ca = require('../../defaultConfig/ca.js'),
-        execSync = require('child_process').execSync,
-        service = require('../service');
+        execSync = require('child_process').execSync;
 
     function createFileIfNotExists(path, content, msg, stringify) {
 
