@@ -1,4 +1,5 @@
 require('colors');
+require('babel-polyfill');
 
 var cluster = require('cluster'),
     startQProxy = require('./server_modules/mount/start.js');
