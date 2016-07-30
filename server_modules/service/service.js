@@ -7,7 +7,6 @@ var fs = require('fs'),
     configPath = CONST.QP_PATH,
     serverConfigPath = CONST.QS_PATH,
     blockPointSettingPath = CONST.QB_PATH,
-    _ = require('underscore'),
     ykitAdapter = require('./ykitAdapter');
 
 function getConfig() {

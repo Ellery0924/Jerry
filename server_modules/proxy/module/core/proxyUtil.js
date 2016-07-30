@@ -2,7 +2,6 @@
  * Created by Ellery1 on 15/7/30.
  */
 var fs = require('fs'),
-    _ = require('underscore'),
     service = require('../../../service');
 
 function rewrite(url, context) {
@@ -31,7 +30,7 @@ function rewrite(url, context) {
     //如果有异常就直接返回原url
     try {
 
-        matchedRules = _.filter(rules, function (rule) {
+        matchedRules = rules.filter(function (rule) {
 
             return rule.pattern && rule.isOn && (new RegExp(rule.pattern).test(url));
         });
@@ -51,7 +50,7 @@ function rewrite(url, context) {
                     mresponder[f[1]] = f;
                 });
 
-                _.each(murl, function (matched, i) {
+                murl.forEach(function (matched, i) {
 
                     var flag;
 
@@ -137,7 +136,7 @@ function filter(host) {
             domainArr[i] = val.trim();
         });
 
-        if (_.contains(domainArr, host)) {
+        if (domainArr.find(item=>item === host)) {
 
             env = activatedGrpInfo.current;
             serverIndex = activatedGrpInfo.cache[env];

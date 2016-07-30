@@ -8,7 +8,6 @@ var wsServer = require('./wsServer'),
     zipBody = require('./bodyUtil').zipBody,
     fixJsonp = require('./bodyUtil').fixJsonp,
     service = require('../service'),
-    _ = require('underscore'),
     blackList = require('./blacklist.json');
 
 var logPool = [],
