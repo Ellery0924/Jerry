@@ -22,11 +22,12 @@ textarea {
 
 .fade {
     opacity: 0;
-    -webkit-transition: opacity .1s linear;
-    -o-transition: opacity .1s linear;
-    transition: opacity .1s linear;
+    transition: opacity .15s linear;
 }
 
+.modal.fade .modal-dialog{
+    transition: transform .15s ease-out
+}
 /*
  * Base structure
  */
