@@ -5,8 +5,9 @@ var http = require('http'),
     CONST = require('../constant');
 
 var KEY_FILE_PATH = CONST.SERVER_KEY,
-    CRT_FILE_PATH = CONST.SERVER_CRT,
-    CA_FILE_PATH = CONST.CA;
+    CRT_FILE_PATH = CONST.SERVER_CRT;
+
+var path = require('path');
 
 var tunnel = require('./module/tunnel');
 
@@ -21,8 +22,7 @@ module.exports = {
         https
             .createServer({
                 key: fs.readFileSync(KEY_FILE_PATH),
-                cert: fs.readFileSync(CRT_FILE_PATH),
-                ca: [fs.readFileSync(CA_FILE_PATH)]
+                cert: fs.readFileSync(CRT_FILE_PATH)
             }, middleMan('https'))
             .listen(1001);
     }
