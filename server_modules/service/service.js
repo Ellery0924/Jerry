@@ -1,7 +1,6 @@
 /**
  * Created by Ellery1 on 15/7/30.
  */
-require('babel-polyfill');
 var fs = require('fs'),
     CONST = require('../constant'),
     configPath = CONST.QP_PATH,
