@@ -8,13 +8,27 @@ var fs = require('fs'),
     blockPointSettingPath = CONST.QB_PATH,
     ykitAdapter = require('./ykitAdapter');
 
+function checkActivatedGroupExist(config) {
+
+    var groupConfig = config.group,
+        activatedGroupExist = Object.keys(groupConfig).some(function (key) {
+            return key === config.activated;
+        });
+
+    if (!activatedGroupExist) {
+
+        config.activated = 'default';
+    }
+
+    return config;
+}
+
 function getConfig() {
 
     var ret = JSON.parse(fs.readFileSync(configPath));
 
     ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
-
-    return ret;
+    return checkActivatedGroupExist(ret);
 }
 
 function getServerInfo() {

@@ -5,7 +5,9 @@ import Immutable from 'immutable';
 
 export function receiveConfig(config, server) {
 
-    return Immutable.fromJS({config, server}).updateIn(['config', 'multiDeleteDisabled'], ()=>true);
+    return Immutable.fromJS({config, server})
+        .updateIn(['config', 'multiDeleteDisabled'], ()=>true)
+        .updateIn(['config', 'activated'], activated=>activated ? activated : 'default');
 }
 
 export function selectEnv(state, groupName, ruleIndex, env) {
