@@ -1,14 +1,14 @@
 /**
  * Created by Ellery1 on 16/6/7.
  */
-function DataSource(opt) {
 
-    this.currentY = 0;
-    this.visibleRange = [0, opt.visibleRange];
-}
+export default class {
+    constructor(opt) {
+        this.currentY = 0;
+        this.visibleRange = [0, opt.visibleRange];
+    }
 
-DataSource.prototype = {
-    refresh(opt){
+    refresh(opt) {
 
         var self = this;
         this.itemHeight = opt.itemHeight;
@@ -16,24 +16,29 @@ DataSource.prototype = {
         this.containerHeight = opt.containerHeight;
         this.currentY = this.currentY > this.getMaxScrollTop() ? this.getMaxScrollTop() : this.currentY;
         this.configureVisibleRange(this.currentY);
-    },
-    setVisibleRage(start, end){
+    }
+
+    setVisibleRage(start, end) {
 
         this.visibleRange = [start, end];
-    },
-    getVisibleItems(){
+    }
+
+    getVisibleItems() {
 
         return [].slice.apply(this.dataSrc, this.visibleRange);
-    },
-    getContentHeight(){
+    }
+
+    getContentHeight() {
 
         return this.dataSrc.length * this.itemHeight + 20;
-    },
-    getMaxScrollTop(){
+    }
+
+    getMaxScrollTop() {
 
         return Math.ceil(this.getContentHeight() - this.containerHeight);
-    },
-    configureVisibleRange(offsetY){
+    }
+
+    configureVisibleRange(offsetY) {
 
         if (offsetY < 0) {
 
@@ -51,6 +56,4 @@ DataSource.prototype = {
 
         this.setVisibleRage(startIndex, endIndex);
     }
-};
-
-export default DataSource;
+}
