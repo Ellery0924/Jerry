@@ -136,7 +136,9 @@ function filter(host) {
             domainArr[i] = val.trim();
         });
 
-        if (domainArr.find(item=>item === host)) {
+        if (domainArr.find(function (item) {
+                return item === host
+            })) {
 
             env = activatedGrpInfo.current;
             serverIndex = activatedGrpInfo.cache[env];
