@@ -1,26 +1,26 @@
 module.exports="Certificate:\n"+
 "    Data:\n"+
 "        Version: 3 (0x2)\n"+
-"        Serial Number: 6 (0x6)\n"+
-"        Signature Algorithm: sha1WithRSAEncryption\n"+
-"        Issuer: C=CN, ST=Beijing, O=Qunar, OU=Common BU, CN=jerryproxy/emailAddress=jiao.shen@qunar.com\n"+
+"        Serial Number: 3 (0x3)\n"+
+"        Signature Algorithm: sha256WithRSAEncryption\n"+
+"        Issuer: C=CN, ST=Beijing, O=www.qunar.com, CN=www.qunar.com/emailAddress=jiao.shen@qunar.com\n"+
 "        Validity\n"+
-"            Not Before: Jul 30 17:37:56 2016 GMT\n"+
-"            Not After : Jul 30 17:37:56 2017 GMT\n"+
-"        Subject: C=CN, ST=Beijing, O=Qunar, OU=Common BU, CN=*.qunar.com/emailAddress=jiao.shen@qunar.com\n"+
+"            Not Before: Jul 31 14:01:23 2016 GMT\n"+
+"            Not After : Jul 31 14:01:23 2017 GMT\n"+
+"        Subject: C=CN, ST=Beijing, O=QNR, CN=qunar.com\n"+
 "        Subject Public Key Info:\n"+
 "            Public Key Algorithm: rsaEncryption\n"+
 "            RSA Public Key: (1024 bit)\n"+
 "                Modulus (1024 bit):\n"+
-"                    00:b7:ab:ce:6c:b9:39:19:13:df:1b:e1:34:9f:47:\n"+
-"                    14:11:4b:52:75:83:12:54:dd:6d:78:f9:d7:1d:f7:\n"+
-"                    d5:3b:24:21:e0:ea:11:4d:f5:97:0d:9a:01:fc:ca:\n"+
-"                    94:33:f6:16:88:b4:1d:6f:d3:81:d0:45:e5:7e:42:\n"+
-"                    b0:d8:73:d5:92:c3:cd:0f:00:d2:80:d0:89:9a:95:\n"+
-"                    8f:3b:e6:5d:71:ba:17:54:2a:0f:30:8a:d7:68:fd:\n"+
-"                    d6:66:5a:29:6e:9a:08:62:2a:ae:e1:ba:8b:71:4c:\n"+
-"                    20:61:9e:12:be:07:94:e8:bd:29:8f:84:34:92:f1:\n"+
-"                    ab:ba:28:fc:55:48:0b:c3:33\n"+
+"                    00:d1:04:a9:f6:70:c1:0a:ee:ef:43:f7:9f:53:56:\n"+
+"                    31:5c:b3:bd:fd:fe:7a:ac:e0:57:24:f9:df:5d:67:\n"+
+"                    4f:e5:a1:9b:6e:79:f5:b6:46:8c:9c:77:e4:71:1c:\n"+
+"                    4a:39:fe:1a:65:ae:aa:97:13:7c:e2:d5:f1:96:e4:\n"+
+"                    8a:c5:a1:6a:11:bb:3e:3e:01:7e:94:8d:1e:ab:84:\n"+
+"                    16:88:a5:b0:c0:e4:a4:93:35:52:4c:60:c4:08:38:\n"+
+"                    e9:f5:94:34:9b:44:f4:37:75:d3:18:c2:76:d0:f9:\n"+
+"                    37:f2:6e:9b:16:f8:e9:05:5f:d1:3a:78:04:71:7c:\n"+
+"                    b1:af:0e:ac:c7:42:30:94:1b\n"+
 "                Exponent: 65537 (0x10001)\n"+
 "        X509v3 extensions:\n"+
 "            X509v3 Basic Constraints: \n"+
@@ -29,40 +29,38 @@ module.exports="Certificate:\n"+
 "                Digital Signature, Non Repudiation, Key Encipherment\n"+
 "            X509v3 Subject Alternative Name: \n"+
 "                DNS:*.qunar.com, DNS:*.qunarzz.com, DNS:qunarzz.com\n"+
-"    Signature Algorithm: sha1WithRSAEncryption\n"+
-"        2c:0c:9f:40:44:86:ad:dd:07:b1:56:b5:57:df:7c:b2:49:72:\n"+
-"        70:b2:f7:d7:3c:e4:01:d6:ee:a7:4d:37:92:6c:97:fd:c9:e5:\n"+
-"        49:c8:27:e0:d3:cf:61:20:d3:2d:af:28:4a:3c:80:8e:e4:6b:\n"+
-"        e0:b4:22:b8:e0:1c:81:d8:c0:78:6c:c8:f2:cc:7e:6c:a0:79:\n"+
-"        60:a4:53:2b:02:6f:a9:70:d5:51:3b:4d:b0:f1:54:86:47:fe:\n"+
-"        d0:c2:b8:00:f8:45:a9:85:f0:b9:fa:63:52:a5:66:f2:83:7e:\n"+
-"        fb:39:9b:fe:65:f8:ac:7e:9b:0b:9f:5a:4f:e4:66:87:97:97:\n"+
-"        bc:0e:10:3f:cf:b9:51:7d:81:6b:eb:31:d7:e4:03:ca:37:9e:\n"+
-"        94:1c:f6:ae:44:23:9a:a4:8b:29:50:bf:b9:b8:ac:e7:d7:fe:\n"+
-"        6a:21:9e:e5:bf:b2:e4:fd:40:c0:6f:25:4f:1d:b3:10:74:e2:\n"+
-"        b2:99:82:24:64:60:2f:ee:28:82:24:cc:ca:89:2e:c9:18:12:\n"+
-"        f8:85:fd:f7:72:3c:7c:67:30:b7:af:2b:31:de:36:b7:a9:18:\n"+
-"        71:ba:11:74:12:5d:94:d5:f7:76:d6:21:4a:d6:d4:11:6a:c7:\n"+
-"        de:a7:42:35:7f:f5:17:e4:13:d9:66:3a:2b:4b:c5:09:a5:8b:\n"+
-"        f1:67:17:b3\n"+
+"    Signature Algorithm: sha256WithRSAEncryption\n"+
+"        58:3e:20:59:f6:a2:4d:7e:49:b1:72:56:a6:e9:54:3c:83:0a:\n"+
+"        0b:c5:87:20:14:1d:25:46:7a:f4:73:31:30:e9:38:16:78:82:\n"+
+"        b8:39:69:ab:d1:56:46:37:c1:f9:5a:8f:0b:7f:cd:1d:be:7b:\n"+
+"        c0:f2:5e:fa:a7:28:7e:33:88:f2:1f:d1:91:e8:54:74:a6:df:\n"+
+"        d6:ed:f9:1a:25:c7:bc:7e:0c:74:38:35:de:3e:f4:10:54:86:\n"+
+"        04:e5:6c:7f:d7:b5:90:e7:65:6f:89:b1:af:01:fa:d1:7d:c1:\n"+
+"        e9:93:a9:b1:75:ce:fe:2e:20:cd:bd:81:61:6f:8f:a7:bf:cf:\n"+
+"        78:73:be:ff:ca:b4:6b:34:3c:bc:d8:f6:30:2c:ca:83:73:d2:\n"+
+"        17:b5:29:0f:92:04:a6:c0:27:83:f4:bc:d8:32:e5:b0:d1:c4:\n"+
+"        70:cb:31:5f:7c:5d:8c:68:f3:07:7c:88:09:dc:2c:9b:c3:4f:\n"+
+"        2a:1c:b9:0e:5b:fe:ed:dd:bc:7f:e9:f0:8c:ad:f3:ae:70:91:\n"+
+"        fb:d2:92:30:02:18:1d:34:a9:9a:50:c3:d6:3e:87:b2:f3:ec:\n"+
+"        2e:83:56:98:cf:72:07:4f:ab:75:62:86:10:6c:55:48:7b:56:\n"+
+"        10:55:00:5b:43:d1:ce:3a:8d:2e:8d:32:2c:6a:4c:13:cf:a9:\n"+
+"        d4:86:a0:79\n"+
 "-----BEGIN CERTIFICATE-----\n"+
-"MIIDPjCCAiagAwIBAgIBBjANBgkqhkiG9w0BAQUFADB8MQswCQYDVQQGEwJDTjEQ\n"+
-"MA4GA1UECAwHQmVpamluZzEOMAwGA1UECgwFUXVuYXIxEjAQBgNVBAsMCUNvbW1v\n"+
-"biBCVTETMBEGA1UEAwwKamVycnlwcm94eTEiMCAGCSqGSIb3DQEJARYTamlhby5z\n"+
-"aGVuQHF1bmFyLmNvbTAeFw0xNjA3MzAxNzM3NTZaFw0xNzA3MzAxNzM3NTZaMH0x\n"+
-"CzAJBgNVBAYTAkNOMRAwDgYDVQQIEwdCZWlqaW5nMQ4wDAYDVQQKEwVRdW5hcjES\n"+
-"MBAGA1UECxMJQ29tbW9uIEJVMRQwEgYDVQQDFAsqLnF1bmFyLmNvbTEiMCAGCSqG\n"+
-"SIb3DQEJARYTamlhby5zaGVuQHF1bmFyLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOB\n"+
-"jQAwgYkCgYEAt6vObLk5GRPfG+E0n0cUEUtSdYMSVN1tePnXHffVOyQh4OoRTfWX\n"+
-"DZoB/MqUM/YWiLQdb9OB0EXlfkKw2HPVksPNDwDSgNCJmpWPO+ZdcboXVCoPMIrX\n"+
-"aP3WZlopbpoIYiqu4bqLcUwgYZ4SvgeU6L0pj4Q0kvGruij8VUgLwzMCAwEAAaNO\n"+
-"MEwwCQYDVR0TBAIwADALBgNVHQ8EBAMCBeAwMgYDVR0RBCswKYILKi5xdW5hci5j\n"+
-"b22CDSoucXVuYXJ6ei5jb22CC3F1bmFyenouY29tMA0GCSqGSIb3DQEBBQUAA4IB\n"+
-"AQAsDJ9ARIat3QexVrVX33yySXJwsvfXPOQB1u6nTTeSbJf9yeVJyCfg089hINMt\n"+
-"ryhKPICO5GvgtCK44ByB2MB4bMjyzH5soHlgpFMrAm+pcNVRO02w8VSGR/7QwrgA\n"+
-"+EWphfC5+mNSpWbyg377OZv+ZfisfpsLn1pP5GaHl5e8DhA/z7lRfYFr6zHX5APK\n"+
-"N56UHPauRCOapIspUL+5uKzn1/5qIZ7lv7Lk/UDAbyVPHbMQdOKymYIkZGAv7iiC\n"+
-"JMzKiS7JGBL4hf33cjx8ZzC3rysx3ja3qRhxuhF0El2U1fd21iFK1tQRasfep0I1\n"+
-"f/UX5BPZZjorS8UJpYvxZxez\n"+
+"MIIC+TCCAeGgAwIBAgIBAzANBgkqhkiG9w0BAQsFADBzMQswCQYDVQQGEwJDTjEQ\n"+
+"MA4GA1UECBMHQmVpamluZzEWMBQGA1UEChMNd3d3LnF1bmFyLmNvbTEWMBQGA1UE\n"+
+"AxMNd3d3LnF1bmFyLmNvbTEiMCAGCSqGSIb3DQEJARYTamlhby5zaGVuQHF1bmFy\n"+
+"LmNvbTAeFw0xNjA3MzExNDAxMjNaFw0xNzA3MzExNDAxMjNaMEExCzAJBgNVBAYT\n"+
+"AkNOMRAwDgYDVQQIEwdCZWlqaW5nMQwwCgYDVQQKEwNRTlIxEjAQBgNVBAMTCXF1\n"+
+"bmFyLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0QSp9nDBCu7vQ/ef\n"+
+"U1YxXLO9/f56rOBXJPnfXWdP5aGbbnn1tkaMnHfkcRxKOf4aZa6qlxN84tXxluSK\n"+
+"xaFqEbs+PgF+lI0eq4QWiKWwwOSkkzVSTGDECDjp9ZQ0m0T0N3XTGMJ20Pk38m6b\n"+
+"FvjpBV/ROngEcXyxrw6sx0IwlBsCAwEAAaNOMEwwCQYDVR0TBAIwADALBgNVHQ8E\n"+
+"BAMCBeAwMgYDVR0RBCswKYILKi5xdW5hci5jb22CDSoucXVuYXJ6ei5jb22CC3F1\n"+
+"bmFyenouY29tMA0GCSqGSIb3DQEBCwUAA4IBAQBYPiBZ9qJNfkmxclam6VQ8gwoL\n"+
+"xYcgFB0lRnr0czEw6TgWeIK4OWmr0VZGN8H5Wo8Lf80dvnvA8l76pyh+M4jyH9GR\n"+
+"6FR0pt/W7fkaJce8fgx0ODXePvQQVIYE5Wx/17WQ52VvibGvAfrRfcHpk6mxdc7+\n"+
+"LiDNvYFhb4+nv894c77/yrRrNDy82PYwLMqDc9IXtSkPkgSmwCeD9LzYMuWw0cRw\n"+
+"yzFffF2MaPMHfIgJ3Cybw08qHLkOW/7t3bx/6fCMrfOucJH70pIwAhgdNKmaUMPW\n"+
+"Poey8+wug1aYz3IHT6t1YoYQbFVIe1YQVQBbQ9HOOo0ujTIsakwTz6nUhqB5\n"+
 "-----END CERTIFICATE-----\n"+
 "";

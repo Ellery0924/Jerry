@@ -2,14 +2,11 @@ var http = require('http'),
     https = require('https'),
     fs = require('fs'),
     middleMan = require('./module/middleMan'),
+    tunnel = require('./module/tunnel'),
     CONST = require('../constant');
 
 var KEY_FILE_PATH = CONST.SERVER_KEY,
     CRT_FILE_PATH = CONST.SERVER_CRT;
-
-var path = require('path');
-
-var tunnel = require('./module/tunnel');
 
 module.exports = {
     listen: function (port) {
