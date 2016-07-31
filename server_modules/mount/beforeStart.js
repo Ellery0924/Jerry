@@ -9,10 +9,8 @@ module.exports = function () {
         defaultServer = require('../../defaultConfig/defaultServer.json'),
         privateKeyPath = CONST.SERVER_KEY,
         certificatePath = CONST.SERVER_CRT,
-        caPath = CONST.CA,
         key = require('../../defaultConfig/serverkey.js'),
         crt = require('../../defaultConfig/servercrt.js'),
-        ca = require('../../defaultConfig/ca.js'),
         execSync = require('child_process').execSync;
 
     function createFileIfNotExists(path, content, msg, stringify) {
@@ -38,5 +36,4 @@ module.exports = function () {
     createFileIfNotExists(serverConfigPath, defaultServer, "服务器配置文件已更新,你可以在~/.qsconfig中手动编辑", true);
     createFileIfNotExists(privateKeyPath, key, "key已创建在~/server.key");
     createFileIfNotExists(certificatePath, crt, "certificate已创建在~/server.crt");
-    createFileIfNotExists(caPath, ca, 'CA证书已创建在~/ca.pem');
 };

@@ -8,8 +8,7 @@ var HOME = process.env.HOME || process.env.APPDATA,
     QS_PATH = Path.resolve(HOME, '.qsconfig'),
     QP_PATH = Path.resolve(HOME, '.qpconfig'),
     SERVER_CRT = Path.resolve(HOME, 'server.crt'),
-    SERVER_KEY = Path.resolve(HOME, 'server.key'),
-    CA = Path.resolve(HOME, 'ca.pem');
+    SERVER_KEY = Path.resolve(HOME, 'server.key');
 
 module.exports = {
     HOME: HOME,
@@ -17,6 +16,5 @@ module.exports = {
     QS_PATH: QS_PATH,
     QP_PATH: QP_PATH,
     SERVER_CRT: SERVER_CRT,
-    SERVER_KEY: SERVER_KEY,
-    CA: CA
+    SERVER_KEY: SERVER_KEY
 };
