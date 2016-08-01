@@ -1,7 +1,8 @@
 /**
  * Created by Ellery1 on 15/9/23.
  */
-var Logger = require('../../../logServer').Logger;
+var Logger = require('../../../logServer').Logger,
+    connectionManager = require('./throttle');
 
 module.exports = function (opts, clientType, sreq, sres) {
 
@@ -48,13 +49,15 @@ module.exports = function (opts, clientType, sreq, sres) {
                         })
                         .catch(function () {
 
-                            cres.pipe(sres);
+                            //cres.pipe(sres);
+                            connectionManager.createConnection(cres,sres);
                             logger.collect(cres, 'res');
                         });
                 }
                 else {
 
-                    cres.pipe(sres);
+                    //cres.pipe(sres);
+                    connectionManager.createConnection(cres,sres);
                     logger.collect(cres, 'res');
                 }
             }
