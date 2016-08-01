@@ -41311,9 +41311,6 @@
 
 	            result = result.concat((isOnline ? 'online' : ip) + ' ' + domainArr.join(' '));
 	        }
-	        console.log(ip, domainArr);
-
-	        console.log(result);
 
 	        return result;
 	    }, []).join('\n') : '';
