@@ -11,10 +11,10 @@ module.exports = function (type) {
         var opts;
         sreq.url = type === 'https' ? 'https://' + sreq.headers.host + sreq.url : sreq.url;
         opts = redirect(sreq, sres);
-        opts.rejectUnauthorized = type === 'https' ? false : null;
-        
+
         if (opts) {
 
+            opts.rejectUnauthorized = type === 'https' ? false : null;
             sendRequest(opts, opts.protocol, sreq, sres);
         }
     }
