@@ -257,7 +257,7 @@ function handler(blockPoint, type, isBlocked, noJsonp) {
                 setTimeout(function () {
 
                     blockPointCount = 0;
-                }, 200);
+                }, 400);
             }
         }
         else if (type === 'abort') {
@@ -271,7 +271,7 @@ function handler(blockPoint, type, isBlocked, noJsonp) {
                 setTimeout(function () {
 
                     blockPointCount = 0;
-                }, 200);
+                }, 400);
             }
         }
     }

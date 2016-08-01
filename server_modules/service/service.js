@@ -7,7 +7,7 @@ var fs = require('fs'),
     serverConfigPath = CONST.QS_PATH,
     blockPointSettingPath = CONST.QB_PATH,
     ykitAdapter = require('./ykitAdapter'),
-    _=require('lodash');
+    _ = require('lodash');
 
 var currentConfig = null,
     currentServerInfo = null,
@@ -32,7 +32,7 @@ function getConfig() {
 
     if (!currentConfig) {
 
-        var ret = JSON.parse(fs.readFileSync(configPath));
+        var ret = JSON.parse(fs.readFileSync(configPath, 'utf8'));
         ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
         currentConfig = ret;
     }
@@ -45,7 +45,7 @@ function getServerInfo() {
 
     if (!currentServerInfo) {
 
-        currentServerInfo = JSON.parse(fs.readFileSync(serverConfigPath));
+        currentServerInfo = JSON.parse(fs.readFileSync(serverConfigPath, 'utf8'));
     }
 
     return currentServerInfo;
@@ -95,7 +95,7 @@ function getBlockPointSetting() {
 
     if (!currentBlockPointSetting) {
 
-        currentBlockPointSetting = JSON.parse(fs.readFileSync(blockPointSettingPath));
+        currentBlockPointSetting = JSON.parse(fs.readFileSync(blockPointSettingPath, 'utf8'));
     }
 
     return currentBlockPointSetting;
@@ -103,7 +103,9 @@ function getBlockPointSetting() {
 
 function setBlockPointSetting(setting) {
 
-    fs.writeFile(blockPointSettingPath, JSON.stringify({list: setting}).trim(), function (err) {
+    var blockSetting = {list: setting};
+    
+    fs.writeFile(blockPointSettingPath, JSON.stringify(blockSetting).trim(), function (err) {
 
         if (err) {
 
@@ -113,7 +115,7 @@ function setBlockPointSetting(setting) {
         console.log('~/.qbconfig updated.');
     });
 
-    currentBlockPointSetting = setting;
+    currentBlockPointSetting = blockSetting;
 }
 
 module.exports = {
