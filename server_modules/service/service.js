@@ -34,8 +34,6 @@ function getConfig() {
         var ret = JSON.parse(fs.readFileSync(configPath));
         ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
         currentConfig = checkActivatedGroupExist(ret);
-
-        return currentConfig;
     }
 
     return currentConfig;
