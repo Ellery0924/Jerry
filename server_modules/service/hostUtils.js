@@ -1,4 +1,4 @@
-function exportHostList(ruleList, serverInfo) {
+function exportHostList(ruleList, serverInfo, shouldNotShowOnlineHosts) {
 
     return ruleList && ruleList.length ? ruleList.reduce(function (result, rule) {
 
@@ -11,12 +11,20 @@ function exportHostList(ruleList, serverInfo) {
                 cache.custom :
                 serverInfo[current][selectedServerIndex];
 
-        if (!isOnline) {
+        if (shouldNotShowOnlineHosts) {
 
-            result = result.concat(domainArr.map(function (domain) {
-                return ip + ' ' + domain
-            }));
+            if (!isOnline) {
+
+                result = result.concat(ip + ' ' + domainArr.join(' '));
+            }
         }
+        else {
+
+            result = result.concat((isOnline ? 'online' : ip) + ' ' + domainArr.join(' '));
+        }
+        console.log(ip, domainArr);
+
+        console.log(result)
 
         return result;
     }, []).join('\n') : '';
@@ -71,9 +79,11 @@ function getServerByIp(ip, serverInfo) {
         }
     }
 
-    return {
+    return ip !== 'online' ? {
         groupName: 'custom',
         ipIndex: ip
+    } : {
+        groupName: 'online'
     };
 }
 
@@ -120,7 +130,10 @@ function formatRuleListGenerator(validator) {
                     cache: {}
                 };
 
-            generatedRule.cache[targetServer.groupName] = targetServer.ipIndex;
+            if (targetServer.groupName !== 'online') {
+
+                generatedRule.cache[targetServer.groupName] = targetServer.ipIndex;
+            }
 
             return generatedRule;
         });

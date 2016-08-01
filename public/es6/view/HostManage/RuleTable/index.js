@@ -110,7 +110,7 @@ export default React.createClass({
                     groupName={activated}
                 />
                 <ExportHostListModal
-                    hostList={exportHostList(currentGroup, server)}
+                    hostList={exportHostList(currentGroup, server, true)}
                 />
             </div>
         );
