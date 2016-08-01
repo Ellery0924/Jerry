@@ -6,7 +6,8 @@ var fs = require('fs'),
     configPath = CONST.QP_PATH,
     serverConfigPath = CONST.QS_PATH,
     blockPointSettingPath = CONST.QB_PATH,
-    ykitAdapter = require('./ykitAdapter');
+    ykitAdapter = require('./ykitAdapter'),
+    _=require('lodash');
 
 var currentConfig = null,
     currentServerInfo = null,
@@ -33,9 +34,10 @@ function getConfig() {
 
         var ret = JSON.parse(fs.readFileSync(configPath));
         ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
-        currentConfig = checkActivatedGroupExist(ret);
+        currentConfig = ret;
     }
 
+    currentConfig = checkActivatedGroupExist(currentConfig);
     return currentConfig;
 }
 
@@ -51,6 +53,8 @@ function getServerInfo() {
 
 function setConfig(config) {
 
+    currentConfig = _.cloneDeep(config);
+
     ykitAdapter.syncGroupConfig(config, getServerInfo());
 
     Object.keys(config.group).forEach(function (key) {
@@ -60,8 +64,6 @@ function setConfig(config) {
             delete config.group[key];
         }
     });
-
-    currentConfig = config;
 
     fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
 
