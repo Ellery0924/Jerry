@@ -8,6 +8,10 @@ var fs = require('fs'),
     blockPointSettingPath = CONST.QB_PATH,
     ykitAdapter = require('./ykitAdapter');
 
+var currentConfig = null,
+    currentServerInfo = null,
+    currentBlockPointSetting = null;
+
 function checkActivatedGroupExist(config) {
 
     var groupConfig = config.group,
@@ -25,15 +29,26 @@ function checkActivatedGroupExist(config) {
 
 function getConfig() {
 
-    var ret = JSON.parse(fs.readFileSync(configPath));
+    if (!currentConfig) {
 
-    ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
-    return checkActivatedGroupExist(ret);
+        var ret = JSON.parse(fs.readFileSync(configPath));
+        ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
+        currentConfig = checkActivatedGroupExist(ret);
+
+        return currentConfig;
+    }
+
+    return currentConfig;
 }
 
 function getServerInfo() {
 
-    return JSON.parse(fs.readFileSync(serverConfigPath));
+    if (!currentServerInfo) {
+
+        currentServerInfo = JSON.parse(fs.readFileSync(serverConfigPath));
+    }
+
+    return currentServerInfo;
 }
 
 function setConfig(config) {
@@ -47,6 +62,8 @@ function setConfig(config) {
             delete config.group[key];
         }
     });
+
+    currentConfig = config;
 
     fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
 
@@ -70,11 +87,18 @@ function setServerInfo(serverInfo) {
 
         console.log('~/.qsconfig updated.');
     });
+
+    currentServerInfo = serverInfo;
 }
 
 function getBlockPointSetting() {
 
-    return JSON.parse(fs.readFileSync(blockPointSettingPath));
+    if (!currentBlockPointSetting) {
+
+        currentBlockPointSetting = JSON.parse(fs.readFileSync(blockPointSettingPath));
+    }
+
+    return currentBlockPointSetting;
 }
 
 function setBlockPointSetting(setting) {
@@ -88,6 +112,8 @@ function setBlockPointSetting(setting) {
 
         console.log('~/.qbconfig updated.');
     });
+
+    currentBlockPointSetting = setting;
 }
 
 module.exports = {
