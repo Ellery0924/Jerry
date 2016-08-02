@@ -254,7 +254,7 @@ body {
 }
 
 .https-switch .btn, .throttling-select .btn {
-    width: 136px;
+    width: 200px;
     text-align: left;
 }
 
@@ -542,6 +542,7 @@ input[type=checkbox].block-point-select {
 
 .network-setting-open {
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .https-switch, .throttling-select {

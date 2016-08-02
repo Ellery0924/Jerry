@@ -38828,15 +38828,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NetworkSettingModal = __webpack_require__(273);
-
-	var _NetworkSettingModal2 = _interopRequireDefault(_NetworkSettingModal);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/**
-	 * Created by Ellery1 on 16/1/1.
-	 */
 	exports.default = _react2.default.createClass({
 	    displayName: 'GroupNavigator',
 	    _getJSX: function _getJSX() {
@@ -38893,7 +38886,9 @@
 	            )
 	        );
 	    }
-	});
+	}); /**
+	     * Created by Ellery1 on 16/1/1.
+	     */
 
 /***/ },
 /* 241 */
