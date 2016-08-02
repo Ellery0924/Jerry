@@ -17,14 +17,15 @@ import {
     insertGroupAndSave,
     insertRuleAndSave,
     editDomainAndSave,
-    switchHttpsAndSave
+    switchHttpsAndSave,
+    selectThrottleLevelAndSave
 } from '../../dataLayer/qproxy/action';
 
 var HostManageView = React.createClass({
     render() {
 
         const {dispatch, server}=this.props,
-            {group, activated, multiDeleteDisabled, httpsOn}=this.props.config;
+            {group, activated, multiDeleteDisabled, httpsOn, throttleLevel}=this.props.config;
 
         return (
             <div className="qproxyApp">
@@ -32,21 +33,29 @@ var HostManageView = React.createClass({
                 <HostManage
                     group={group}
                     httpsOn={httpsOn}
+                    throttleLevel={throttleLevel}
                     activated={activated}
                     multiDeleteDisabled={multiDeleteDisabled}
                     server={server}
                     onSelectGroup={(groupName)=>dispatch(selectGroupAndSave(groupName))}
-                    onEnvChange={(groupName,ruleIndex,env)=>dispatch(selectEnvAndSave(groupName,ruleIndex,env))}
-                    onHostChange={(groupName,ruleIndex,env,host)=>dispatch(selectHostAndSave(groupName,ruleIndex,env,host))}
-                    onDeleteRule={(groupName,ruleIndex)=>dispatch(deleteRuleAndSave(groupName,ruleIndex))}
+                    onEnvChange={(groupName, ruleIndex, env)=>dispatch(selectEnvAndSave(groupName, ruleIndex, env))}
+                    onHostChange={(groupName, ruleIndex, env, host)=>dispatch(selectHostAndSave(groupName, ruleIndex, env, host))}
+                    onDeleteRule={(groupName, ruleIndex)=>dispatch(deleteRuleAndSave(groupName, ruleIndex))}
                     onDeleteGroup={(groupName)=>dispatch(deleteGroupAndSave(groupName))}
                     onInsertGroup={(groupName)=>dispatch(insertGroupAndSave(groupName))}
-                    onEditDomain={(groupName,ruleIndex,domain)=>dispatch(editDomainAndSave(groupName,ruleIndex,domain))}
-                    onInsertRule={(groupName,ruleList)=>{dispatch(insertRuleAndSave(groupName,ruleList))}}
-                    onSelectRule={(groupName,ruleIndex)=>{dispatch(selectRule(groupName,ruleIndex))}}
-                    onDeselectRule={(groupName,ruleIndex)=>{dispatch(deselectRule(groupName,ruleIndex))}}
+                    onEditDomain={(groupName, ruleIndex, domain)=>dispatch(editDomainAndSave(groupName, ruleIndex, domain))}
+                    onInsertRule={(groupName, ruleList)=> {
+                        dispatch(insertRuleAndSave(groupName, ruleList))
+                    }}
+                    onSelectRule={(groupName, ruleIndex)=> {
+                        dispatch(selectRule(groupName, ruleIndex))
+                    }}
+                    onDeselectRule={(groupName, ruleIndex)=> {
+                        dispatch(deselectRule(groupName, ruleIndex))
+                    }}
                     onMultiDeleteRule={(groupName)=>dispatch(multiDeleteRuleAndSave(groupName))}
                     onSwitchHttps={(isOn)=>dispatch(switchHttpsAndSave(isOn))}
+                    onSelectThrottleLevel={level=>dispatch(selectThrottleLevelAndSave(level))}
                 />
             </div>
         );

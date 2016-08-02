@@ -6,6 +6,7 @@ import Immutable from 'immutable';
 var initialState = {
     qproxy: Immutable.fromJS({
         config: {
+            throttleLevel: null,
             group: {},
             activated: '',
             rewrite: []

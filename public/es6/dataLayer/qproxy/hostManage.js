@@ -118,3 +118,8 @@ export function switchHttps(state, isOn) {
 
     return state.updateIn(['config', 'httpsOn'], ()=>isOn);
 }
+
+export function selectThrottleLevel(state, level) {
+
+    return state.updateIn(['config', 'throttleLevel'], ()=>level);
+}

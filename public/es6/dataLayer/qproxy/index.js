@@ -15,7 +15,8 @@ import {
     SET_PATTERN,
     INSERT_PATTERN,
     DELETE_PATTERN,
-    SWITCH_HTTPS
+    SWITCH_HTTPS,
+    SELECT_THROTTLE_LEVEL
 } from './action';
 import {
     multiDeleteRule,
@@ -30,7 +31,8 @@ import {
     insertGroup,
     editDomain,
     insertRule,
-    switchHttps
+    switchHttps,
+    selectThrottleLevel
 } from './hostManage';
 import {setServer} from './serverManage';
 import {setPattern, insertPattern, deletePattern} from './rewriteManage';
@@ -91,6 +93,9 @@ export default function (state, action) {
 
         case SWITCH_HTTPS:
             return switchHttps(subState, action.isOn);
+
+        case SELECT_THROTTLE_LEVEL:
+            return selectThrottleLevel(subState, action.level);
 
         default:
             return subState;

@@ -2,6 +2,7 @@
  * Created by Ellery1 on 16/1/1.
  */
 import React from 'react';
+import NetworkSettingModal from './NetworkSettingModal';
 
 export default React.createClass({
     _getJSX(){
@@ -13,8 +14,10 @@ export default React.createClass({
             return Object.keys(group).map((groupName)=>
                 <li
                     key={groupName}
-                    onClick={()=>{onSelectGroup(groupName)}}
-                    className={activated===groupName?'active':''}
+                    onClick={()=> {
+                        onSelectGroup(groupName)
+                    }}
+                    className={activated === groupName ? 'active' : ''}
                 >
                     <a href="javascript:void 0;">{groupName}</a>
                 </li>
@@ -28,21 +31,16 @@ export default React.createClass({
     },
     render(){
 
-        const {onSwitchHttps, httpsOn}=this.props;
-        const httpsOnTxt =  httpsOn ? '开启' : '关闭';
 
         return (
             <div className="col-sm-3 col-md-2 sidebar">
-                <div className="btn-group https-switch">
-                    <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        Https代理:{httpsOnTxt} <span className="caret"/>
-                    </button>
-                    <ul className="dropdown-menu">
-                        <li><a onClick={()=>onSwitchHttps(true)} href="javascript:void 0;">开启</a></li>
-                        <li><a onClick={()=>onSwitchHttps(false)} href="javascript:void 0">关闭</a></li>
-                    </ul>
-                </div>
+                <button
+                    className="btn btn-default network-setting-open"
+                    data-target="#networkSettingModal"
+                    data-toggle="modal"
+                >
+                    网络配置
+                </button>
                 <ul className="nav nav-sidebar group_nav" id="group_nav">
                     {this._getJSX()}
                 </ul>

@@ -20,6 +20,7 @@ export const SELECT_RULE = 'SELECT_RULE';
 export const DESELECT_RULE = 'DESELECT_RULE';
 export const MULTI_DELETE_RULE = 'MULTI_DELETE_RULE';
 export const SWITCH_HTTPS = 'SWITCH_HTTPS';
+export const SELECT_THROTTLE_LEVEL = 'SELECT_THROTTLE_LEVEL';
 
 export function multiDeleteRule(groupName, indexes) {
     return {type: MULTI_DELETE_RULE, groupName, indexes};
@@ -251,6 +252,19 @@ export function switchHttpsAndSave(isOn) {
 
         alert(isOn ? '需要刷新SSL会话缓存,请重启chrome并刷新。' : 'warning:https的url rewrite功能将无法使用,host管理功能仍可正常使用。');
         dispatch(switchHttps(isOn));
+        return updateConfig(getState);
+    }
+}
+
+export function selectThrottleLevel(level) {
+    return {type: SELECT_THROTTLE_LEVEL, level};
+}
+
+export function selectThrottleLevelAndSave(level) {
+
+    return function (dispatch, getState) {
+
+        dispatch(selectThrottleLevel(level));
         return updateConfig(getState);
     }
 }
