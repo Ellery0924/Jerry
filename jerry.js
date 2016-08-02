@@ -9,7 +9,7 @@ module.exports = function(){
     if (cluster.isMaster) {
 
         var worker = cluster.fork(),
-            MAX_COUNT = 1,
+            MAX_COUNT = 3,
             count = 0;
 
         cluster.on('exit', function () {

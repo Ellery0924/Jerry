@@ -29,6 +29,10 @@ textarea {
     transition: transform .15s ease-out
 }
 
+.btn.focus, .btn:focus, .btn:hover{
+    outline: none;
+}
+
 /*
  * Base structure
  */
