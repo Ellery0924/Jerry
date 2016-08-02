@@ -2,7 +2,7 @@
  * Created by Ellery1 on 15/9/23.
  */
 var Logger = require('../../../logServer').Logger,
-    connectionManager = require('./throttle');
+    streamThrottleManager = require('./throttle');
 
 module.exports = function (opts, clientType, sreq, sres) {
 
@@ -49,15 +49,13 @@ module.exports = function (opts, clientType, sreq, sres) {
                         })
                         .catch(function () {
 
-                            //cres.pipe(sres);
-                            connectionManager.createConnection(cres,sres);
+                            streamThrottleManager.pipe(cres, sres, host);
                             logger.collect(cres, 'res');
                         });
                 }
                 else {
 
-                    //cres.pipe(sres);
-                    connectionManager.createConnection(cres,sres);
+                    streamThrottleManager.pipe(cres, sres, host);
                     logger.collect(cres, 'res');
                 }
             }
@@ -74,7 +72,7 @@ module.exports = function (opts, clientType, sreq, sres) {
 
     if (method === 'post' || method === 'put') {
 
-        sreq.pipe(creq);
+        streamThrottleManager.pipe(sreq, creq, host);
         logger.collect(sreq, 'req');
     }
     else {

@@ -1,13 +1,15 @@
 /**
  * Created by Ellery1 on 16/8/1.
  */
-function Connection(readStream, writeStream) {
+var service = require('../../../service');
 
-    this.initConnection(readStream, writeStream);
+function Stream(readStream, writeStream, lag) {
+
+    this.init(readStream, writeStream, lag);
 }
 
-Connection.prototype = {
-    initConnection: function (readStream, writeStream, lagency) {
+Stream.prototype = {
+    init: function (readStream, writeStream, lag) {
 
         var self = this;
 
@@ -17,7 +19,7 @@ Connection.prototype = {
         this.buffer = null;
         this.bufferList = [];
         this.currentOffset = 0;
-        this.lagency = lagency;
+        this.lag = lag;
 
         this.readStream
             .on('data', function (chunk) {
@@ -30,10 +32,10 @@ Connection.prototype = {
                 setTimeout(function () {
 
                     self.buffer = Buffer.concat(self.bufferList, self.bufferSize);
-                }, self.lagency);
+                }, self.lag);
             });
     },
-    step(speed){
+    step: function (speed) {
 
         if (this.buffer) {
 
@@ -67,42 +69,44 @@ Connection.prototype = {
     }
 };
 
-function ConnectionManager() {
+function StreamThrottleManager() {
 
     this.connectionPool = [];
-    this.setThrottleLevel('2G');
+    this.init();
 }
 
-ConnectionManager.FRAME_LENGTH = 32;
-Connection.FRAME_TIME = Math.floor(1000 / 32);
-ConnectionManager.LAGENCY_MAP = {
+StreamThrottleManager.FRAME_LENGTH = 32;
+StreamThrottleManager.FRAME_TIME = Math.floor(1000 / StreamThrottleManager.FRAME_LENGTH);
+StreamThrottleManager.LAG_MAP = {
     "4G": 20,
     "3G": 200,
     "2G": 300,
     "GPRS": 500
 };
-ConnectionManager.BANDWIDTH_MAP = {
-    "4G": 1024 * 1024 / ConnectionManager.FRAME_LENGTH,
-    "3G": 100 * 1024 / ConnectionManager.FRAME_LENGTH,
-    "2G": 15 * 1024 / ConnectionManager.FRAME_LENGTH,
-    "GPRS": 1024 / ConnectionManager.FRAME_LENGTH
+StreamThrottleManager.BANDWIDTH_MAP = {
+    "4G": 2 * 1024 * 1024 / (StreamThrottleManager.FRAME_LENGTH),
+    "3G": 750 * 1024 / (StreamThrottleManager.FRAME_LENGTH),
+    "2G": 120 * 1024 / (StreamThrottleManager.FRAME_LENGTH),
+    "GPRS": 20 * 1024 / (StreamThrottleManager.FRAME_LENGTH)
 };
 
-ConnectionManager.prototype = {
+StreamThrottleManager.prototype = {
     setThrottleLevel: function (throttleLevel) {
 
         this.throttleLevel = throttleLevel;
         this.bandWidth = this.getBandWidth(throttleLevel);
-    },
-    getBandWidth(throttleLevel){
 
-        return ConnectionManager.BANDWIDTH_MAP[throttleLevel];
+        return this;
     },
-    getSpeed(){
+    getBandWidth: function (throttleLevel) {
+
+        return StreamThrottleManager.BANDWIDTH_MAP[throttleLevel];
+    },
+    getSpeed: function () {
 
         return this.bandWidth / this.connectionPool.length;
     },
-    init(){
+    init: function () {
 
         var self = this;
 
@@ -117,23 +121,23 @@ ConnectionManager.prototype = {
                     self.removeConnection(connection);
                 }
             });
-        }, ConnectionManager.FRAME_TIME);
+        }, StreamThrottleManager.FRAME_TIME);
 
         return this;
     },
-    createConnection(readStream, writeStream){
+    createThrottling: function (readStream, writeStream) {
 
         var self = this;
 
         self.connectionPool.push(
-            new Connection(
+            new Stream(
                 readStream,
                 writeStream,
-                ConnectionManager.LAGENCY_MAP[this.throttleLevel]
+                StreamThrottleManager.LAG_MAP[this.throttleLevel]
             )
         );
     },
-    removeConnection(connection){
+    removeConnection: function (connection) {
 
         var index = this.connectionPool.indexOf(connection);
 
@@ -141,7 +145,22 @@ ConnectionManager.prototype = {
 
             this.connectionPool.splice(index, 1);
         }
+    },
+    pipe: function (readStream, writeStream, host) {
+
+        var config = service.getConfig(),
+            throttleLevel = config.throttleLevel;
+
+        if (!throttleLevel || host.search('127.0.0.1') !== -1 || host.search('localhost') !== -1) {
+
+            readStream.pipe(writeStream);
+        }
+        else {
+
+            this.setThrottleLevel(throttleLevel)
+                .createThrottling(readStream, writeStream);
+        }
     }
 };
 
-module.exports = new ConnectionManager().init();
+module.exports = new StreamThrottleManager();
