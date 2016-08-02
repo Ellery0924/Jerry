@@ -160,6 +160,10 @@ body {
     table-layout: fixed;
 }
 
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
 .group_setting_table .domain {
     width: 40%;
 }
