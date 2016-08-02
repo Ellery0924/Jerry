@@ -25,9 +25,10 @@ textarea {
     transition: opacity .15s linear;
 }
 
-.modal.fade .modal-dialog{
+.modal.fade .modal-dialog {
     transition: transform .15s ease-out
 }
+
 /*
  * Base structure
  */
@@ -239,16 +240,25 @@ body {
     width: 20px;
 }
 
-.https-switch {
-    margin-bottom: 10px;
+.network-setting-modal .form-group label {
+    width: 80px;
 }
 
-.https-switch .btn {
-    width: 136px;
+.network-setting-modal .modal-content {
+    width: 350px;
+}
+
+.https-switch, .throttling-select {
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+
+.https-switch .btn, .throttling-select .btn {
+    width: 200px;
     text-align: left;
 }
 
-.https-switch .caret {
+.https-switch .caret, .throttling-select .caret {
     float: right;
     display: block;
     margin-top: 8px;
@@ -528,4 +538,17 @@ input[type=checkbox].block-point-select {
 .block-point-list-item .block-point-list-regex {
     vertical-align: middle;
     word-break: break-all;
+}
+
+.network-setting-open {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.https-switch, .throttling-select {
+    margin-left: 10px;
+}
+
+.https-switch, .throttling-select button {
+    width: 136px;
 }
