@@ -30,38 +30,31 @@ module.exports = function (opts, clientType, sreq, sres) {
 
             cres.headers['real-host'] = host;
 
-            try {
+            sres.writeHead(cres.statusCode, cres.headers);
 
-                sres.writeHead(cres.statusCode, cres.headers);
+            cres.on('error', function (err) {
 
-                cres.on('error', function (err) {
+                console.log('Proxy Cres Error ' + err);
+                sres.end(err.toString());
+            });
 
-                    console.log('Proxy Cres Error ' + err);
-                    sres.end(err.toString());
-                });
+            if (logger.checkShouldBeBlocked(sreq, cres.headers)) {
 
-                if (logger.checkShouldBeBlocked(sreq, cres.headers)) {
+                logger.collect(cres, 'res')
+                    .then(function () {
 
-                    logger.collect(cres, 'res')
-                        .then(function () {
+                        logger.sendBlockLog().setBlockPromise(sres);
+                    })
+                    .catch(function () {
 
-                            logger.sendBlockLog().setBlockPromise(sres);
-                        })
-                        .catch(function () {
-
-                            streamThrottleManager.pipe(cres, sres, host);
-                            logger.collect(cres, 'res');
-                        });
-                }
-                else {
-
-                    streamThrottleManager.pipe(cres, sres, host);
-                    logger.collect(cres, 'res');
-                }
+                        streamThrottleManager.pipe(cres, sres, host);
+                        logger.collect(cres, 'res');
+                    });
             }
-            catch (err) {
+            else {
 
-                console.log('Log Error ' + err.stack);
+                streamThrottleManager.pipe(cres, sres, host);
+                logger.collect(cres, 'res');
             }
         })
         .on('error', function (err) {
