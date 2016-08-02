@@ -2,7 +2,7 @@
  * Created by Ellery1 on 15/9/23.
  */
 var Logger = require('../../../logServer').Logger,
-    streamThrottleManager = require('./throttle');
+    streamThrottleManager = require('./streamThrottleManager');
 
 module.exports = function (opts, clientType, sreq, sres) {
 

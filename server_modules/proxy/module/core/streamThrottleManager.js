@@ -151,7 +151,7 @@ StreamThrottleManager.prototype = {
         var config = service.getConfig(),
             throttleLevel = config.throttleLevel;
 
-        if (!throttleLevel || host.search('127.0.0.1') !== -1 || host.search('localhost') !== -1) {
+        if (!throttleLevel || !host || host.search('127.0.0.1') !== -1 || host.search('localhost') !== -1) {
 
             readStream.pipe(writeStream);
         }
