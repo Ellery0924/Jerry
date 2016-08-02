@@ -42,22 +42,12 @@ export default React.createClass({
                         <li>
                             <a target="_blank"
                                href="https://chrome.google.com/webstore/detail/qproxy/nbilnamflokjimlgajofochkjdmlohao/related">
-                                Chrome Extension (By Barret.Ma)
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://camsong.github.io/redux-in-chinese/">
-                                Powered By React-Redux
+                                Chrome Extension
                             </a>
                         </li>
                         <li>
                             <a target="_blank" href="https://github.com/Ellery0924/QProxy">
                                 Github
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://github.com/Ellery0924/QProxy">
-                                文档
                             </a>
                         </li>
                     </ul>

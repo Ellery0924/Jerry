@@ -7,10 +7,6 @@ import HostSelect from './HostSelect';
 import EditDomainModal from './EditDomainModal'
 
 export default React.createClass({
-    openEditDomainModal(){
-
-        $(this.refs.editDomainModal).children().eq(0).modal('show');
-    },
     render(){
 
         const {
@@ -24,7 +20,8 @@ export default React.createClass({
             onHostChange,
             onEditDomain,
             groupName,
-            ruleIndex}=this.props;
+            ruleIndex
+        }=this.props;
 
         return (
             <tr className="rule">
@@ -33,12 +30,19 @@ export default React.createClass({
                 </td>
                 <td>
                     <a
-                        onClick={this.openEditDomainModal}
+                        href="#editDomainModal"
                         data-toggle="modal"
                         className="rule_domain"
                     >
                         {domain}
                     </a>
+                    <EditDomainModal
+                        domain={domain}
+                        onEditDomain={onEditDomain}
+                        ruleList={ruleList}
+                        ruleIndex={ruleIndex}
+                        groupName={groupName}
+                    />
                 </td>
                 <td className="env_select_cell">
                     <EnvSelect
@@ -67,15 +71,6 @@ export default React.createClass({
                         删除
                     </button>
                 </td>
-                <td ref="editDomainModal">
-                    <EditDomainModal
-                        domain={domain}
-                        onEditDomain={onEditDomain}
-                        ruleList={ruleList}
-                        ruleIndex={ruleIndex}
-                        groupName={groupName}
-                    />
-                </td>
             </tr>
         );
     },
@@ -92,7 +87,7 @@ export default React.createClass({
     },
     deleteRule(){
 
-        const {onDeleteRule,groupName,ruleIndex}=this.props;
+        const {onDeleteRule, groupName, ruleIndex}=this.props;
 
         if (confirm('确定删除吗?')) {
             onDeleteRule(groupName, ruleIndex);

@@ -37,7 +37,7 @@ export default React.createClass({
         const {ruleIndex}=this.props;
 
         return (
-            <div className="modal newRuleModal" ref="editDomainModal" ruleIndex={ruleIndex}>
+            <div className="modal newRuleModal" id="editDomainModal" ref="editDomainModal" ruleIndex={ruleIndex}>
                 <div id="newRuleModal_content" className="modal-dialog newRuleModal_content">
                     <div className="modal-content">
                         <div className="modal-header">
