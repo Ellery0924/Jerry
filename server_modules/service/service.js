@@ -28,10 +28,11 @@ function checkActivatedGroupExist(config) {
     return config;
 }
 
-function getConfig() {
+function getConfig(force) {
 
-    if (!currentConfig) {
+    if (!currentConfig || force) {
 
+        console.log('refresh')
         var ret = JSON.parse(fs.readFileSync(configPath, 'utf8'));
         ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
         currentConfig = ret;
@@ -104,7 +105,7 @@ function getBlockPointSetting() {
 function setBlockPointSetting(setting) {
 
     var blockSetting = {list: setting};
-    
+
     fs.writeFile(blockPointSettingPath, JSON.stringify(blockSetting).trim(), function (err) {
 
         if (err) {

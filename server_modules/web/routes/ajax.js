@@ -6,7 +6,7 @@ router
     .route('/proxy/config')
     .get(function (req, res) {
 
-        res.send(service.getConfig());
+        res.send(service.getConfig(true));
     })
     .put(function (req, res) {
 
