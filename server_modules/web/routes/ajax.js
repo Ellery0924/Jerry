@@ -11,9 +11,7 @@ router
     .put(function (req, res) {
 
         service.setConfig(req.body.config);
-        res.send({
-            ret: 1
-        });
+        res.send({ret: 1});
     });
 
 router
@@ -25,9 +23,7 @@ router
     .put(function (req, res) {
 
         service.setServerInfo(req.body);
-        res.send({
-            ret: 1
-        });
+        res.send({ret: 1});
     });
 
 router
