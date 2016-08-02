@@ -2,7 +2,6 @@ require('colors');
 require('babel-polyfill');
 
 var cluster = require('cluster'),
-    OS=require('os'),
     startQProxy = require('./server_modules/mount/start.js');
 
 module.exports = function(){
