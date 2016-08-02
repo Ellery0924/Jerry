@@ -112,13 +112,11 @@ StreamThrottleManager.prototype = {
 
         setInterval(function () {
 
-            var speed = self.getSpeed();
-
             self.connectionPool.forEach(function (connection) {
 
-                if (connection.step(speed)) {
+                if (connection.step(self.getSpeed())) {
 
-                    self.removeConnection(connection);
+                    self.removeStream(connection);
                 }
             });
         }, StreamThrottleManager.FRAME_TIME);
@@ -137,7 +135,7 @@ StreamThrottleManager.prototype = {
             )
         );
     },
-    removeConnection: function (connection) {
+    removeStream: function (connection) {
 
         var index = this.connectionPool.indexOf(connection);
 
