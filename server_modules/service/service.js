@@ -32,7 +32,6 @@ function getConfig(force) {
 
     if (!currentConfig || force) {
 
-        console.log('refresh')
         var ret = JSON.parse(fs.readFileSync(configPath, 'utf8'));
         ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
         currentConfig = ret;
