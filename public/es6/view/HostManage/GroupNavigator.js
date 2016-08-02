@@ -2,7 +2,6 @@
  * Created by Ellery1 on 16/1/1.
  */
 import React from 'react';
-import NetworkSettingModal from './NetworkSettingModal';
 
 export default React.createClass({
     _getJSX(){
