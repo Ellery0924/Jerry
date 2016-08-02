@@ -18,7 +18,7 @@ export default React.createClass({
                     }}
                     className={activated === groupName ? 'active' : ''}
                 >
-                    <a href="javascript:void 0;">{groupName}</a>
+                    <a title={groupName} href="javascript:void 0;">{groupName}</a>
                 </li>
             );
         }

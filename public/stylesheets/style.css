@@ -29,7 +29,7 @@ textarea {
     transition: transform .15s ease-out
 }
 
-.btn.focus, .btn:focus, .btn:hover{
+.btn.focus, .btn:focus, .btn:hover {
     outline: none;
 }
 
@@ -559,4 +559,10 @@ input[type=checkbox].block-point-select {
 
 .https-switch, .throttling-select button {
     width: 136px;
+}
+
+.group_nav li a{
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
 }
