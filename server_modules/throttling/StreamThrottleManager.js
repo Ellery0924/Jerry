@@ -67,9 +67,9 @@ StreamThrottleManager.prototype = {
             )
         );
     },
-    removeStream: function (connection) {
+    removeStream: function (stream) {
 
-        var index = this.connectionPool.indexOf(connection);
+        var index = this.connectionPool.indexOf(stream);
 
         if (index !== -1) {
 

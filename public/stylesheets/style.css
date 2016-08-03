@@ -255,7 +255,14 @@ body {
 
 .https-switch .btn, .throttling-select .btn {
     width: 200px;
+    height: 34px;
     text-align: left;
+    display: block;
+    float: none;
+}
+
+.https-switch .btn span:first-child, .throttling-select .btn span:first-child {
+    float: left;
 }
 
 .https-switch .caret, .throttling-select .caret {
@@ -553,7 +560,7 @@ input[type=checkbox].block-point-select {
     width: 136px;
 }
 
-.group_nav li a{
+.group_nav li a {
     text-overflow: ellipsis;
     width: 100%;
     overflow: hidden;
