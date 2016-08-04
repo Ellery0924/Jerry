@@ -69,10 +69,11 @@ function startWithDevServer(serverName) {
 
         console.log(serverName + ' server已启动,参数为:' + fekitArgs.join(','));
     }
-    
+
     console.log('当前' + serverName + '工作目录为: ' + workPath);
 
     start(function () {
+
         spawn(serverName, ['server'].concat(fekitArgs), {
             cwd: workPath,
             env: process.env,
