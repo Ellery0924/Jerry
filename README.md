@@ -14,8 +14,6 @@ JerryProxy是一个集成了HostManager和Charles功能的代理服务器。
 
 Jerry是使用NodeJS和React/Redux开发的WebApp,因此可以兼容Windows/Linux。
 
-而且它是完全免费的！
-
 ## 安装
 
 npm安装:
