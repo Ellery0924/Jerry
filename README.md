@@ -35,7 +35,7 @@ sudo jerry -s ~/Documents/qunarzz
 ```
 cd path/to/your/project's parent
 ```
-然后启动jerry,会使用你目前的位置来启动fekit server
+然后启动jerry,会使用你目前的位置来启动fekit/ykit server(参照下面的说明)
 
 ##启动
 如果只启动代理服务器,使用以下命令,然后会启动浏览器并打开jerry的配置界面。
