@@ -13,6 +13,11 @@ var currentConfig = null,
     currentServerInfo = null,
     currentBlockPointSetting = null;
 
+function getWorkPath(path) {
+
+    return fs.existsSync(path) ? path : process.cwd();
+}
+
 function checkActivatedGroupExist(config) {
 
     var groupConfig = config.group,
@@ -33,7 +38,11 @@ function getConfig(force) {
     if (!currentConfig || force) {
 
         var ret = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-        ret.group = Object.assign({}, ret.group, ykitAdapter.fetchGroupConfig(getServerInfo()));
+        ret.group = Object.assign(
+            {},
+            ret.group,
+            ykitAdapter.fetchGroupConfig(getServerInfo(), getWorkPath(ret.fekitWorkPath))
+        );
         currentConfig = ret;
     }
 
@@ -55,7 +64,7 @@ function setConfig(config) {
 
     currentConfig = _.cloneDeep(config);
 
-    ykitAdapter.syncGroupConfig(config, getServerInfo());
+    ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(ret.fekitWorkPath));
 
     Object.keys(config.group).forEach(function (key) {
 
