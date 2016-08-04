@@ -26,7 +26,7 @@
       "isOn": 1
     },
     {
-      "pattern": "http://t    est2.qunar.com",
+      "pattern": "http://test2.qunar.com",
       "responder": "http://review.qunar.com/mall/touch/indexV2.htm",
       "isOn": 1
     },
