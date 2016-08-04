@@ -82,7 +82,7 @@ Logger.prototype = {
             return false;
         }
     },
-    _parseLog: function (req, res, bodies) {
+    parseLog: function (req, res, bodies) {
 
         var parsedUrl = req.url ? URL.parse(req.url) : "",
             parsedQuery = {};
@@ -215,7 +215,7 @@ Logger.prototype = {
 
                     if (self.rets.length === 2) {
 
-                        self._parseLog(self.req, self.res, self.rets);
+                        self.parseLog(self.req, self.res, self.rets);
                         resolve();
                     }
                 });
