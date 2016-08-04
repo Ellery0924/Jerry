@@ -1,5 +1,3 @@
-文档还在施工中...
-
 # JerryProxy
 ## 简介
 JerryProxy是一个集成了HostManager和Charles功能的代理服务器。
