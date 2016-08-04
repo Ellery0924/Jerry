@@ -72,7 +72,7 @@ function iterateFolder(path, operate, acc) {
 
     var folders = fs.readdirSync(path).filter(function (item) {
 
-        return fs.statSync(item).isDirectory()
+        return fs.statSync(Path.resolve(path, item)).isDirectory()
             && !rignore.test(item)
             && isYKitFolder(Path.resolve(path, item));
     });
