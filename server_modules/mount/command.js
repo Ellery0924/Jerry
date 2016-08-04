@@ -64,8 +64,12 @@ function startWithDevServer(serverName) {
 
     fekitArgs = Array.prototype.slice.call(process.argv, 3);
     workPath = fs.existsSync(qpconfig.fekitWorkPath) ? qpconfig.fekitWorkPath : process.cwd();
-    fekitArgs.length &&
-    console.log(serverName + ' server已启动,参数为:' + fekitArgs.join(','));
+
+    if (fekitArgs) {
+
+        console.log(serverName + ' server已启动,参数为:' + fekitArgs.join(','));
+    }
+    
     console.log('当前' + serverName + '工作目录为: ' + workPath);
 
     start(function () {
