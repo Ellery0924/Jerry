@@ -23,9 +23,9 @@ npm install -g jerryproxy
 windows用户请使用管理员模式运行npm命令行,Mac/Linux用户请使用sudo执行。
 
 ## 设置fekit工作路径(可选)
-Jerry是Qunar的产物,因此提供了快速启动Fekit的命令。
+Jerry是Qunar的产物,因此提供了快速启动fekit的命令。
 
-首先需要配置好Fekit的工作路径,例如你的项目都放在/Documents/qunarzz目录下,执行以下命令:
+首先需要配置好fekit的工作路径,例如你的项目都放在/Documents/qunarzz目录下,执行以下命令:
 ```
 sudo jerry -s ~/Documents/qunarzz
 ```
