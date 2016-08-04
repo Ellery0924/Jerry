@@ -1,7 +1,6 @@
 /**
  * Created by Ellery1 on 16/6/6.
  */
-const wsClient = window.qproxy.logClient;
 export const PUSH_LOG = 'PUSH_LOG';
 export const PUSH_BLOCK_POINT = 'PUSH_BLOCK_POINT';
 export const BLOCK_POINT_CONTINUE = 'BLOCK_POINT_CONTINUE';
@@ -43,6 +42,8 @@ export function blockPointContinueAsync(blockPoint, noJsonp) {
 
     return function (dispatch, getState) {
 
+        const wsClient = window.qproxy.logClient;
+
         dispatch(blockPointContinue(blockPoint));
         let isBlocked = getState().logger.get('isBlocked');
         wsClient.emit('blockPointContinue', blockPoint, isBlocked, noJsonp);
@@ -52,6 +53,8 @@ export function blockPointContinueAsync(blockPoint, noJsonp) {
 export function blockPointAbortAsync(blockPoint) {
 
     return function (dispatch, getState) {
+
+        const wsClient = window.qproxy.logClient;
 
         dispatch(blockPointAbort(blockPoint));
         let isBlocked = getState().logger.get('isBlocked');
