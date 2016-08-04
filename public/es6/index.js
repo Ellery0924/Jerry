@@ -19,14 +19,16 @@ const store = createStoreWithMiddleware(reducer);
 import wsClient from './wsClient';
 
 window.qproxy = {
-    shouldRefreshConsole: false
+    shouldRefreshConsole: false,
+    logClient: null
 };
 
 store.dispatch(fetchConfig()).then(function (ret) {
 
-    var logServerPort = ret.config.logServerPort || 3000;
+    const logServerPort = ret.config.logServerPort || 3000;
+    const logClient = window.qproxy.logClient = wsClient(logServerPort);
 
-    wsClient(logServerPort)
+    logClient
         .on('log', function (logData) {
 
             store.dispatch(pushLog(logData));

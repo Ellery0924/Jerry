@@ -1,8 +1,7 @@
 /**
  * Created by Ellery1 on 16/6/6.
  */
-import wsClient from '../../wsClient';
-
+const wsClient = window.qproxy.logClient;
 export const PUSH_LOG = 'PUSH_LOG';
 export const PUSH_BLOCK_POINT = 'PUSH_BLOCK_POINT';
 export const BLOCK_POINT_CONTINUE = 'BLOCK_POINT_CONTINUE';
