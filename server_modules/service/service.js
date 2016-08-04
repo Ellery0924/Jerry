@@ -7,7 +7,7 @@ var fs = require('fs'),
     serverConfigPath = CONST.QS_PATH,
     blockPointSettingPath = CONST.QB_PATH,
     ykitAdapter = require('./ykitAdapter'),
-    _ = require('lodash');
+    _ = require('underscore');
 
 var currentConfig = null,
     currentServerInfo = null,
