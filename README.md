@@ -63,7 +63,7 @@ sudo jerry -y
 
 墙裂推荐安装超姐(barret.ma)开发的chrome扩展(已经上传Chrome Store了哦),可以很快的在系统代理/jerry/无代理环境中切换,方便快捷。(在页面的右上角,需要翻墙)
 
-## 需要注意的地方
+## HTTPS
 如果你在做HTTPS的开发但是仅仅需要使用host功能,HTTPS代理不必开启。这时候代理服务器会接收浏览器的隧道请求,host配置依然可以生效。
 
 需要在HTTPS下使用URL MAP/抓包等功能的时候,需要开启HTTPS代理,但是需要安装根证书(像charles一样,不过在线下载还没做呢- -),请qtalk联系jiao.shen。
