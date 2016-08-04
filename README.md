@@ -29,6 +29,8 @@ Jerry是Qunar的产物,因此提供了快速启动fekit/ykit server的命令。
 ```
 sudo jerry -s ~/Documents/qunarzz
 ```
+配置了路径以后,可以通过一条命令启动jerry+fekit/ykit server,方便很多。
+
 如果你没有一个集中放置项目的文件夹,也没有关系,可以像正常使用fekit/ykit的时候一样,先cd到项目的父级目录:
 ```
 cd path/to/your/project's parent
