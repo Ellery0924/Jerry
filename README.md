@@ -61,7 +61,7 @@ sudo jerry -y
 
 做移动端真机调试的时候也需要设置手机代理,host和端口同上。
 
-墙裂推荐安装超姐(barret.ma)开发的chrome扩展(已经上传Chrome Store了哦),可以很快的在系统代理/jerry/无代理环境中切换,方便快捷。(在页面的右上角,需要翻墙)
+墙裂推荐安装超姐(barret.ma)开发的chrome扩展(已经上传Chrome Store了哦),可以很快的在系统代理/jerry/无代理环境中切换,方便快捷。(在页面的右上角有Chrome Store的链接,但是需要翻墙才能访问)
 
 ## HTTPS
 如果你在做HTTPS的开发但是仅仅需要使用host功能,HTTPS代理不必开启。这时候代理服务器会接收浏览器的隧道请求,host配置依然可以生效。
