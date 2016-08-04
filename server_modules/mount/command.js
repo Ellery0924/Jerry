@@ -16,6 +16,8 @@ var app = require('../web/app'),
     qpconfig = service.getConfig(),
     qport = qpconfig.qport || 999,
     aport = qpconfig.aport || 1000,
+    httpsPort = qpconfig.httpsPort || 1001,
+    logServerPort = qpconfig.logServerPort || 3000,
     fekitConfigPath,
     fekitArgs,
     workPath;
@@ -23,7 +25,7 @@ var app = require('../web/app'),
 function start(callback) {
 
     app.listen(aport);
-    logServer.listen(3000);
+    logServer.listen(logServerPort);
     app.on('error', function (e) {
 
         if (e.code === 'EADDRINUSE') {
@@ -44,7 +46,7 @@ function start(callback) {
         console.log('jerryproxy已经启动,端口为 ' + qport + '...');
         console.log('按CTRL+C退出');
         callback && callback();
-        qproxy.server.listen(qport);
+        qproxy.server.listen(qport, httpsPort);
 
         execSync((os.platform() !== 'win32' ? 'open' : 'start') + ' http://127.0.0.1:' + aport + '/qproxy');
     });
@@ -54,9 +56,14 @@ function setRunningPort() {
 
     qpconfig.qport = qport = process.argv[3] || 999;
     qpconfig.aport = aport = process.argv[4] || 1000;
+    qpconfig.httpsPort = httpsPort = process.argv[5] || 1001;
+    qpconfig.logServerPort = logServerPort = process.argv[6] || 3000;
     setConfig(qpconfig);
 
-    console.log('jerryproxy代理和jerryproxy界面的端口被设置为: ' + qport + ',' + aport);
+    console.log('http代理端口被设置为:' + qport);
+    console.log('界面服务器端口被设置为:' + aport);
+    console.log('https中间人服务器端口被设置为' + httpsPort);
+    console.log('日志服务器端口被设置为:' + logServerPort);
     process.send('exit');
 }
 

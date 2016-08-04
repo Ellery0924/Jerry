@@ -18,21 +18,24 @@ const store = createStoreWithMiddleware(reducer);
 
 import wsClient from './wsClient';
 
-wsClient
-    .on('log', function (logData) {
-
-        store.dispatch(pushLog(logData));
-    })
-    .on('blockpoint', function (logData) {
-
-        store.dispatch(pushBlockPoint(logData));
-    });
 
 window.qproxy = {
     shouldRefreshConsole: false
 };
 
-store.dispatch(fetchConfig());
+store.dispatch(fetchConfig()).then(function (ret) {
+
+    wsClient(ret.config.logServerPort)
+        .on('log', function (logData) {
+
+            store.dispatch(pushLog(logData));
+        })
+        .on('blockpoint', function (logData) {
+
+            store.dispatch(pushBlockPoint(logData));
+        });
+});
+
 store.dispatch(fetchBlockPoint());
 
 ReactDom.render(

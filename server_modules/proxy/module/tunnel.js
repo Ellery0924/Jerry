@@ -38,11 +38,11 @@ module.exports = function (req, socket) {
     //https中间人
     else {
 
-        netClient = net.createConnection(1001);
+        netClient = net.createConnection(config.httpsPort);
     }
 
     if (netClient) {
-        
+
         netClient.on('connect', function () {
 
             socket.write("HTTP/1.1 200 Connection established\r\nProxy-agent: Netscape-Proxy/1.1\r\n\r\n");

@@ -5,6 +5,8 @@
   "nocache": false,
   "qport": 999,
   "aport": 1000,
+  "httpsPort": 1001,
+  "logServerPort": 3000,
   "group": {
     "default": [
       {

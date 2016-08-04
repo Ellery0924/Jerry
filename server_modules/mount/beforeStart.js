@@ -10,8 +10,7 @@ module.exports = function () {
         privateKeyPath = CONST.SERVER_KEY,
         certificatePath = CONST.SERVER_CRT,
         key = require('../../defaultConfig/serverkey.js'),
-        crt = require('../../defaultConfig/servercrt.js'),
-        execSync = require('child_process').execSync;
+        crt = require('../../defaultConfig/servercrt.js');
 
     function createFileIfNotExists(path, content, msg, stringify) {
 

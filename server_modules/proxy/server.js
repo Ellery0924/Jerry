@@ -9,11 +9,11 @@ var KEY_FILE_PATH = CONST.SERVER_KEY,
     CRT_FILE_PATH = CONST.SERVER_CRT;
 
 module.exports = {
-    listen: function (port) {
+    listen: function (httpPort, httpsPort) {
 
         http
             .createServer(middleMan('http'))
-            .listen(port)
+            .listen(httpPort)
             .on('connect', tunnel);
 
         https
@@ -21,6 +21,6 @@ module.exports = {
                 key: fs.readFileSync(KEY_FILE_PATH),
                 cert: fs.readFileSync(CRT_FILE_PATH)
             }, middleMan('https'))
-            .listen(1001);
+            .listen(httpsPort);
     }
 };
