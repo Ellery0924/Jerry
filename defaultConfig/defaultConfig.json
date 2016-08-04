@@ -8,17 +8,7 @@
   "group": {
     "default": [
       {
-        "domain": "qunarzz.com",
-        "current": "local",
-        "cache": {
-          "local": 1,
-          "qzz": 2,
-          "dev": 3,
-          "custom": ""
-        }
-      },
-      {
-        "domain": "te.qunarzz.com",
+        "domain": "qunarzz.com q.qunarzz.com te.qunarzz.com",
         "current": "local",
         "cache": {
           "local": 1,
@@ -32,8 +22,18 @@
   "rewrite": [
     {
       "pattern": "http://test.qunar.com",
-      "responder": "http://www.qunar.com",
-      "isOn": true
+      "responder": "file:///Users/Ellery1/Documents/qunarzz2.com/yo/doc/animate.html",
+      "isOn": 1
+    },
+    {
+      "pattern": "http://t    est2.qunar.com",
+      "responder": "http://review.qunar.com/mall/touch/indexV2.htm",
+      "isOn": 1
+    },
+    {
+      "pattern": "http://test3.qunar.com/(.*)",
+      "responder": "http://$1.qunar.com",
+      "isOn": 1
     }
   ]
 }
