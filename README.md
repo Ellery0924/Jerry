@@ -48,9 +48,10 @@ sudo jerry -f [fekit args]
 ```
 sudo jerry -f -c -r
 ```
+(windows用户需要以管理员模式运行命令行)
 
 ## 配置代理端口
-使用jerry需要配置网络的代理,HTTP/HTTPS统一设置为127.0.0.1:999。
+使用jerry需要配置网络的代理,请将HTTP/HTTPS统一设置为127.0.0.1:999。
 
 墙裂推荐安装超姐(barret.ma)开发的chrome扩展(已经上传Chrome Store了哦),可以很快的在系统代理/jerry/无代理环境中切换,方便快捷。(在页面的右上角,需要翻墙)
 
