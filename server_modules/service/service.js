@@ -64,7 +64,7 @@ function setConfig(config) {
 
     currentConfig = _.cloneDeep(config);
 
-    ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(ret.fekitWorkPath));
+    ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(config.fekitWorkPath));
 
     Object.keys(config.group).forEach(function (key) {
 

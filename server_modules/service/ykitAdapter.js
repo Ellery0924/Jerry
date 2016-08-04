@@ -27,7 +27,7 @@ function fetchGroupConfigFromYkitFolder(serverInfo, CWD) {
     }, {});
 }
 
-function syncGroupConfigToYkitFolder(config, serverInfo) {
+function syncGroupConfigToYkitFolder(config, serverInfo, CWD) {
 
     Object.keys(config.group).forEach(function (key) {
 
