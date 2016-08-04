@@ -57,9 +57,7 @@ StreamThrottleManager.prototype = {
     },
     createThrottling: function (readStream, writeStream) {
 
-        var self = this;
-
-        self.connectionPool.push(
+        this.connectionPool.push(
             new Stream(
                 readStream,
                 writeStream,
