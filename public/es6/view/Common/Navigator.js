@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {Link} from 'react-router';
-import wsClient from '../../wsClient';
+const wsClient = window.qproxy.logClient;
 
 export default React.createClass({
     _onLogNavClick(){
