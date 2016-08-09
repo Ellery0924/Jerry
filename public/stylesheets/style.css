@@ -122,18 +122,18 @@ body {
  * Placeholder dashboard ideas
  */
 
-/*.jerry {*/
-    /*display: inline-block;*/
-    /*width: 40px;*/
-    /*height: 40px;*/
-    /*margin-top: 5px;*/
-    /*margin-right: 15px;*/
-    /*overflow: hidden;*/
-    /*background: url('/images/jerry.png') 60% 5%;*/
-    /*background-size: 180% 180%;*/
-    /*border-radius: 50%;*/
-    /*float: left;*/
-/*}*/
+.jerry {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-top: 5px;
+    margin-right: 15px;
+    overflow: hidden;
+    background: url('/images/jerry.png') 60% 5%;
+    background-size: 180% 180%;
+    border-radius: 50%;
+    float: left;
+}
 
 .placeholders {
     margin-bottom: 30px;

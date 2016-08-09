@@ -31386,6 +31386,7 @@
 	                        _react2.default.createElement('span', { className: 'icon-bar' }),
 	                        _react2.default.createElement('span', { className: 'icon-bar' })
 	                    ),
+	                    _react2.default.createElement('span', { className: 'jerry' }),
 	                    _react2.default.createElement(
 	                        'a',
 	                        { className: 'navbar-brand', href: 'javascript:void 0;' },

@@ -22,7 +22,7 @@ export default React.createClass({
                         <span className="icon-bar"/>
                         <span className="icon-bar"/>
                     </button>
-                    {/*<span className="jerry"/>*/}
+                    <span className="jerry"/>
                     <a className="navbar-brand" href="javascript:void 0;">
                         Jerry
                     </a>
