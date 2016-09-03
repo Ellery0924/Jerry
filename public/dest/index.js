@@ -35680,7 +35680,7 @@
 	                    onClick: this._onResetFilter,
 	                    className: 'btn btn-danger reset-btn'
 	                },
-	                '重置'
+	                '重置筛选'
 	            ),
 	            _react2.default.createElement(
 	                'button',
