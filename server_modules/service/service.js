@@ -63,6 +63,7 @@ function getServerInfo() {
 function setConfig(config) {
 
     try {
+
         currentConfig = _.cloneDeep(config);
 
         ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(config.fekitWorkPath));

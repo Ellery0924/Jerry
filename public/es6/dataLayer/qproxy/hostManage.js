@@ -123,3 +123,28 @@ export function selectThrottleLevel(state, level) {
 
     return state.updateIn(['config', 'throttleLevel'], ()=>level);
 }
+
+export function switchMockService(state, open) {
+
+    if (!state.get('config').get('mockServices')) {
+
+        state = state.updateIn(['config', 'mockServices'], ()=>Immutable.fromJS([]));
+    }
+
+    const activated = state.get('config').get('activated');
+
+    return state.updateIn(['config', 'mockServices'], mservices=> {
+
+        if (open) {
+
+            if (!mservices.find(groupName=>groupName === activated)) {
+
+                return mservices.push(activated);
+            }
+        }
+        else {
+
+            return mservices.filter(groupName=>groupName !== activated);
+        }
+    });
+}

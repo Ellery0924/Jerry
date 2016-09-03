@@ -578,3 +578,11 @@ input[type=checkbox].block-point-select {
     width: 100%;
     overflow: hidden;
 }
+
+.mock-switch span.mock-switch-caret {
+    margin-left: 5px;
+}
+
+#groupView .page-header .btn{
+
+}

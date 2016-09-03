@@ -12,10 +12,9 @@ function getRewriteRules(config) {
 
     var activated = config.activated,
         targetGroup = config.group[activated],
+        mockServices = config.mockServices,
         mockConfigObj = service.getMockConfig(activated),
-        isMockActivated = targetGroup ? !!config.group[activated].mockActivated : false;
-
-    isMockActivated = true;
+        isMockActivated = targetGroup ? !!mockServices.find(gname=>gname === activated) : false;
 
     if (mockConfigObj && isMockActivated) {
 
