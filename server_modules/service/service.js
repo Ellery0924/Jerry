@@ -127,11 +127,21 @@ function setBlockPointSetting(setting) {
     currentBlockPointSetting = blockSetting;
 }
 
+function getMockConfig(projectName) {
+
+    return ykitAdapter.fetchMockConfig(getWorkPath(currentConfig.fekitWorkPath), projectName);
+}
+
+function setMockConfig(projectName, mockConfig) {
+
+}
+
 module.exports = {
     getConfig: getConfig,
     setConfig: setConfig,
     getServerInfo: getServerInfo,
     setServerInfo: setServerInfo,
     getBlockPointSetting: getBlockPointSetting,
-    setBlockPointSetting: setBlockPointSetting
+    setBlockPointSetting: setBlockPointSetting,
+    getMockConfig: getMockConfig
 };

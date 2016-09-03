@@ -1,7 +1,10 @@
 /**
  * Created by Ellery1 on 16/7/27.
  */
+var requireUncached = require('require-uncached');
+
 var HOST_FILE_NAME = 'ykit.hosts',
+    MOCK_FILE_NAME = 'ykit.mock.js',
     fs = require('fs'),
     Path = require('path'),
     formatRuleList = require('./hostUtils').formatRuleList,
@@ -93,8 +96,33 @@ function extractHostFile(filepath, serverInfo) {
     return [];
 }
 
+function fetchMockConfig(CWD, projectName) {
+
+    console.log(CWD,projectName)
+
+    var folderName = projectName.replace(/\_ykit$/, ''),
+        mockConfigFilePath = Path.resolve(CWD, folderName, MOCK_FILE_NAME);
+
+    if (fs.existsSync(mockConfigFilePath)) {
+
+        return {
+            projectPath: Path.resolve(CWD, folderName),
+            mockConfig: requireUncached(mockConfigFilePath)
+        };
+    }
+    else {
+
+        return null;
+    }
+}
+
+function syncMockConfig(CWD, projectName, mockConfig) {
+
+}
+
 module.exports = {
     fetchGroupConfig: fetchGroupConfigFromYkitFolder,
     syncGroupConfig: syncGroupConfigToYkitFolder,
+    fetchMockConfig: fetchMockConfig,
     rykit: rykit
 };

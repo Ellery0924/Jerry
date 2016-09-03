@@ -2,13 +2,77 @@
  * Created by Ellery1 on 15/7/30.
  */
 var fs = require('fs'),
-    service = require('../../../service');
+    service = require('../../../service'),
+    Path = require('path');
+
+var rmres = /\$(\d)/g,
+    rlocal = /^\s*(\.|\/|file:\/\/|[A-Z]:)/;
+
+function getRewriteRules(config) {
+
+    var mockConfigObj = service.getMockConfig(config.activated);
+
+    if (mockConfigObj) {
+
+        var mockConfig = mockConfigObj.mockConfig,
+            projectPath = mockConfigObj.projectPath;
+
+        if (mockConfig) {
+
+            return mockConfig
+                .map(function (mconfig) {
+
+                    var pattern = mconfig.pattern,
+                        currentEnv = mconfig.current,
+                        responders = mconfig.responders,
+                        responder = mconfig.responder;
+
+                    if (pattern) {
+
+                        if (currentEnv && currentEnv !== 'online' && responders) {
+
+                            var currentResponder = responders[currentEnv];
+
+                            if (rlocal.test(currentResponder)) {
+
+                                currentResponder = Path.resolve(projectPath, currentResponder);
+                            }
+
+                            return {
+                                isOn: true,
+                                pattern: pattern,
+                                responder: currentResponder
+                            };
+                        }
+                        else if (typeof responder === 'string') {
+
+                            return {
+                                isOn: true,
+                                pattern: pattern,
+                                responder: responder
+                            }
+                        }
+                    }
+
+                    return null;
+                })
+                .concat(config.rewrite)
+                .filter(function (config) {
+                    return config !== null;
+                });
+        }
+    }
+
+    return config.rewrite;
+}
 
 function rewrite(url, context) {
 
     var config = service.getConfig();
 
-    var rules = context ? context : config.rewrite,
+    console.log(getRewriteRules(config));
+
+    var rules = context ? context : getRewriteRules(config),
         matchedRules,
         matchedRule,
         responder,
@@ -20,10 +84,8 @@ function rewrite(url, context) {
         redirected = false,
         mLocal,
         identifier,
-        isLocal = false;
-
-    var rmres = /\$(\d)/g,
-        rlocal = /^\s*(\/|file:\/\/|[A-Z]:)/;
+        isLocal = false,
+        responseData = null;
 
     //这里是为了捕获new RegExp可能产生的异常
     //因为一个不符合正则表达式规范的字符串可能会抛出这个异常
@@ -40,45 +102,55 @@ function rewrite(url, context) {
             matchedRule = matchedRules[0];
             pattern = matchedRule.pattern;
             responder = matchedRule.responder;
-            murl = url.match(pattern);
-            mresRaw = responder.match(rmres);
 
-            if (mresRaw) {
+            if (typeof responder === 'object') {
+                murl = url.match(pattern);
+                mresRaw = responder.match(rmres);
 
-                mresRaw.forEach(function (f) {
+                if (mresRaw) {
 
-                    mresponder[f[1]] = f;
-                });
+                    mresRaw.forEach(function (f) {
 
-                murl.forEach(function (matched, i) {
+                        mresponder[f[1]] = f;
+                    });
 
-                    var flag;
+                    murl.forEach(function (matched, i) {
 
-                    if (mresponder[i]) {
+                        var flag;
 
-                        flag = mresponder[i];
-                    }
+                        if (mresponder[i]) {
 
-                    responder = responder.replace(flag, matched);
-                });
+                            flag = mresponder[i];
+                        }
+
+                        responder = responder.replace(flag, matched);
+                    });
+                }
+
+                rewriteUrl = responder;
+
+                mLocal = rlocal.exec(responder);
+                identifier = mLocal && mLocal[1];
+                isLocal = !!mLocal;
+
+                if (identifier && identifier === 'file://') {
+
+                    rewriteUrl = rewriteUrl.replace(identifier, '');
+                }
+                else if (rewriteUrl.search(/http:|https:/) === -1) {
+
+                    rewriteUrl = 'http://' + rewriteUrl;
+                }
+
+                redirected = true;
             }
+            else {
 
-            rewriteUrl = responder;
-
-            mLocal = rlocal.exec(responder);
-            identifier = mLocal && mLocal[1];
-            isLocal = !!mLocal;
-
-            if (identifier && identifier === 'file://') {
-
-                rewriteUrl = rewriteUrl.replace(identifier, '');
+                isLocal = true;
+                redirected = true;
+                rewriteUrl = null;
+                responseData = responder;
             }
-            else if (rewriteUrl.search(/http:|https:/) === -1) {
-
-                rewriteUrl = 'http://' + rewriteUrl;
-            }
-
-            redirected = true;
         }
     }
     catch (e) {
@@ -86,14 +158,16 @@ function rewrite(url, context) {
         return {
             isLocal: false,
             redirected: false,
-            rewriteUrl: rewriteUrl
+            rewriteUrl: rewriteUrl,
+            responseData: responseData
         };
     }
 
     return {
         redirected: redirected,
         rewriteUrl: rewriteUrl,
-        isLocal: isLocal
+        isLocal: isLocal,
+        responseData: responseData
     };
 }
 
