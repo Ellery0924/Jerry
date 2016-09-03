@@ -10,9 +10,14 @@ var rmres = /\$(\d)/g,
 
 function getRewriteRules(config) {
 
-    var mockConfigObj = service.getMockConfig(config.activated);
+    var activated = config.activated,
+        targetGroup = config.group[activated],
+        mockConfigObj = service.getMockConfig(activated),
+        isMockActivated = targetGroup ? !!config.group[activated].mockActivated : false;
 
-    if (mockConfigObj) {
+    isMockActivated = true;
+
+    if (mockConfigObj && isMockActivated) {
 
         var mockConfig = mockConfigObj.mockConfig,
             projectPath = mockConfigObj.projectPath;
@@ -76,8 +81,6 @@ function rewrite(url, context) {
 
     var config = service.getConfig();
 
-    //console.log(getRewriteRules(config));
-
     var rules = context ? context : getRewriteRules(config),
         matchedRules,
         matchedRule,
@@ -103,6 +106,8 @@ function rewrite(url, context) {
 
             return rule.pattern && rule.isOn && (new RegExp(rule.pattern).test(url));
         });
+
+        //fconsole.log(matchedRules)
 
         if (matchedRules.length) {
 
@@ -136,7 +141,6 @@ function rewrite(url, context) {
                 }
 
                 rewriteUrl = responder;
-
                 mLocal = rlocal.exec(responder);
                 identifier = mLocal && mLocal[1];
                 isLocal = !!mLocal;
@@ -257,8 +261,22 @@ function logger(host, url, port, protocol, method, renderedUrl) {
     console.log([tag[tagColor], text, tail].join(''));
 }
 
+function extractJSONPFuncName(jsonpCallback, url) {
+
+    var rjsonpParam = new RegExp(jsonpCallback + '=([^&]+)'),
+        mjsonpParam = url.match(rjsonpParam);
+
+    if (mjsonpParam && mjsonpParam.length === 2) {
+
+        return mjsonpParam[1];
+    }
+
+    return null;
+}
+
 module.exports = {
     filter: filter,
     rewrite: rewrite,
-    logger: logger
+    logger: logger,
+    extractJSONPFuncName: extractJSONPFuncName
 };

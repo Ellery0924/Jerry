@@ -6,7 +6,8 @@ var util = require('./proxyUtil'),
     http = require("http"),
     url = require("url"),
     fs = require('fs'),
-    logger = util.logger;
+    logger = util.logger,
+    extractJSONPFuncName=util.extractJSONPFuncName;
 
 module.exports = function (sreq, sres) {
 
@@ -22,6 +23,7 @@ module.exports = function (sreq, sres) {
         sheaders,
         isLocal,
         jsonpCallback,
+        jsonpRetFuncName,
         protocol;
 
     //第一步过滤,匹配rewrite中的规则
@@ -30,6 +32,7 @@ module.exports = function (sreq, sres) {
     isLocal = redirect.isLocal;
     redirectUrl = redirect.rewriteUrl;
     jsonpCallback = redirect.jsonpCallback;
+    jsonpRetFuncName = extractJSONPFuncName(jsonpCallback, sreq.url);
 
     renderedUrl = redirectUrl ? url.parse(redirectUrl) : null;
 
@@ -59,9 +62,9 @@ module.exports = function (sreq, sres) {
                         return;
                     }
 
-                    if (jsonpCallback) {
+                    if (jsonpRetFuncName) {
 
-                        data = jsonpCallback + '(' + data + ');';
+                        data = jsonpRetFuncName + '(' + data + ');';
                     }
 
                     sres.writeHead(200, {
@@ -75,14 +78,14 @@ module.exports = function (sreq, sres) {
         else {
 
             sres.writeHead(200, {
-                'Content-Type': 'application/json'
+                'Content-Type': 'text/json'
             });
 
             responseData = JSON.stringify(responseData);
 
-            if (jsonpCallback) {
+            if (jsonpRetFuncName) {
 
-                responseData = jsonpCallback + '(' + responseData + ');';
+                responseData = jsonpRetFuncName + '(' + responseData + ');';
             }
 
             sres.end(responseData);
