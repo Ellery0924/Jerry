@@ -21,6 +21,7 @@ export const DESELECT_RULE = 'DESELECT_RULE';
 export const MULTI_DELETE_RULE = 'MULTI_DELETE_RULE';
 export const SWITCH_HTTPS = 'SWITCH_HTTPS';
 export const SELECT_THROTTLE_LEVEL = 'SELECT_THROTTLE_LEVEL';
+export const SWITCH_MOCK_SERVICE = 'SWITCH_MOCK_SERVICE';
 
 export function multiDeleteRule(groupName, indexes) {
     return {type: MULTI_DELETE_RULE, groupName, indexes};
@@ -265,6 +266,20 @@ export function selectThrottleLevelAndSave(level) {
     return function (dispatch, getState) {
 
         dispatch(selectThrottleLevel(level));
+        return updateConfig(getState);
+    }
+}
+
+export function switchMockService(open) {
+
+    return {type: SWITCH_MOCK_SERVICE, open};
+}
+
+export function switchMockServiceAndSave(open) {
+
+    return function (dispatch, getState) {
+
+        dispatch(switchMockService(open));
         return updateConfig(getState);
     }
 }

@@ -12,6 +12,7 @@ export default React.createClass({
     render(){
 
         const {
+            mockServices,
             activated,
             group,
             server,
@@ -24,11 +25,14 @@ export default React.createClass({
             onSelectRule,
             onDeselectRule,
             onMultiDeleteRule,
-            onInsertRule
+            onInsertRule,
+            onSwitchMockService
         }=this.props;
 
         var currentGroup = group[activated],
-            isAllSelected = currentGroup && currentGroup.length && currentGroup.every(rule=>rule.selected);
+            isAllSelected = currentGroup && currentGroup.length && currentGroup.every(rule=>rule.selected),
+            mockServiceOpen = mockServices && !!mockServices.find(gname=>gname === activated),
+            mockSwitchText = mockServiceOpen ? 'Mock服务:开启' : 'Mock服务:关闭';
 
         const rykitGroup = /\_ykit$/,
             isYkitGroup = rykitGroup.test(activated);
@@ -38,7 +42,7 @@ export default React.createClass({
                 <div id="groupView">
                     <div className="page-header">
                         <h1>当前分组:{activated}</h1>
-                        {activated !== 'default' && !isYkitGroup ?
+                        {activated && activated !== 'default' && !isYkitGroup ?
                             <button
                                 className="btn btn-danger rm_group"
                                 onClick={this.deleteGroup}
@@ -66,6 +70,24 @@ export default React.createClass({
                         <button className="btn btn-info export_host" data-target="#exportHostModal" data-toggle="modal">
                             导出host
                         </button>
+                        {isYkitGroup ?
+                            <div className="mock-switch btn-group">
+                                <button
+                                    type="button"
+                                    className="btn btn-warning dropdown-toggle"
+                                    data-toggle="dropdown"
+                                >
+                                    {mockSwitchText}
+                                    <span className="mock-switch-caret caret"/>
+                                </button>
+                                <ul className="dropdown-menu" role="menu">
+                                    <li>
+                                        <a onClick={()=>onSwitchMockService(true)} href="javascript:void 0;">开启</a></li>
+                                    <li>
+                                        <a onClick={()=>onSwitchMockService(false)} href="javascript:void 0;">关闭</a>
+                                    </li>
+                                </ul>
+                            </div> : null}
                     </div>
                     <div className="group_setting">
                         <table className="group_setting_table table table-striped table-hover">

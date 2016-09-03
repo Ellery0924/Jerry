@@ -2,13 +2,85 @@
  * Created by Ellery1 on 15/7/30.
  */
 var fs = require('fs'),
-    service = require('../../../service');
+    service = require('../../../service'),
+    Path = require('path');
+
+var rmres = /\$(\d)/g,
+    rlocal = /^\s*(\.|\/|file:\/\/|[A-Z]:)/;
+
+function getRewriteRules(config) {
+
+    var activated = config.activated,
+        targetGroup = config.group[activated],
+        mockServices = config.mockServices,
+        mockConfigObj = service.getMockConfig(activated),
+        isMockActivated = targetGroup ? !!mockServices.find(gname=>gname === activated) : false;
+
+    if (mockConfigObj && isMockActivated) {
+
+        var mockConfig = mockConfigObj.mockConfig,
+            projectPath = mockConfigObj.projectPath;
+
+        if (mockConfig) {
+
+            return mockConfig
+                .map(function (mconfig) {
+
+                    var pattern = mconfig.pattern,
+                        currentEnv = mconfig.current,
+                        responders = mconfig.responders,
+                        responder = mconfig.responder,
+                        jsonpCallback = mconfig.jsonpCallback;
+
+                    if (pattern) {
+
+                        if (currentEnv && currentEnv !== 'online' && responders) {
+
+                            var currentResponder = responders[currentEnv];
+
+                            if (currentResponder) {
+
+                                if (rlocal.test(currentResponder)) {
+
+                                    currentResponder = Path.resolve(projectPath, currentResponder);
+                                }
+
+                                return {
+                                    isOn: 1,
+                                    pattern: pattern,
+                                    responder: currentResponder,
+                                    jsonpCallback: jsonpCallback
+                                };
+                            }
+                        }
+                        else if (responder) {
+
+                            return {
+                                isOn: 1,
+                                pattern: pattern,
+                                responder: responder,
+                                jsonpCallback: jsonpCallback
+                            }
+                        }
+                    }
+
+                    return null;
+                })
+                .concat(config.rewrite)
+                .filter(function (config) {
+                    return config !== null;
+                });
+        }
+    }
+
+    return config.rewrite;
+}
 
 function rewrite(url, context) {
 
     var config = service.getConfig();
 
-    var rules = context ? context : config.rewrite,
+    var rules = context ? context : getRewriteRules(config),
         matchedRules,
         matchedRule,
         responder,
@@ -20,10 +92,9 @@ function rewrite(url, context) {
         redirected = false,
         mLocal,
         identifier,
-        isLocal = false;
-
-    var rmres = /\$(\d)/g,
-        rlocal = /^\s*(\/|file:\/\/|[A-Z]:)/;
+        isLocal = false,
+        jsonpCallback,
+        responseData = null;
 
     //这里是为了捕获new RegExp可能产生的异常
     //因为一个不符合正则表达式规范的字符串可能会抛出这个异常
@@ -35,50 +106,62 @@ function rewrite(url, context) {
             return rule.pattern && rule.isOn && (new RegExp(rule.pattern).test(url));
         });
 
+        //fconsole.log(matchedRules)
+
         if (matchedRules.length) {
 
             matchedRule = matchedRules[0];
             pattern = matchedRule.pattern;
             responder = matchedRule.responder;
-            murl = url.match(pattern);
-            mresRaw = responder.match(rmres);
+            jsonpCallback = matchedRule.jsonpCallback;
 
-            if (mresRaw) {
+            if (typeof responder !== 'object') {
+                murl = url.match(pattern);
+                mresRaw = responder.match(rmres);
 
-                mresRaw.forEach(function (f) {
+                if (mresRaw) {
 
-                    mresponder[f[1]] = f;
-                });
+                    mresRaw.forEach(function (f) {
 
-                murl.forEach(function (matched, i) {
+                        mresponder[f[1]] = f;
+                    });
 
-                    var flag;
+                    murl.forEach(function (matched, i) {
 
-                    if (mresponder[i]) {
+                        var flag;
 
-                        flag = mresponder[i];
-                    }
+                        if (mresponder[i]) {
 
-                    responder = responder.replace(flag, matched);
-                });
+                            flag = mresponder[i];
+                        }
+
+                        responder = responder.replace(flag, matched);
+                    });
+                }
+
+                rewriteUrl = responder;
+                mLocal = rlocal.exec(responder);
+                identifier = mLocal && mLocal[1];
+                isLocal = !!mLocal;
+
+                if (identifier && identifier === 'file://') {
+
+                    rewriteUrl = rewriteUrl.replace(identifier, '');
+                }
+                else if (!isLocal && rewriteUrl.search(/http:|https:/) === -1) {
+
+                    rewriteUrl = 'http://' + rewriteUrl;
+                }
+
+                redirected = true;
             }
+            else {
 
-            rewriteUrl = responder;
-
-            mLocal = rlocal.exec(responder);
-            identifier = mLocal && mLocal[1];
-            isLocal = !!mLocal;
-
-            if (identifier && identifier === 'file://') {
-
-                rewriteUrl = rewriteUrl.replace(identifier, '');
+                isLocal = true;
+                redirected = true;
+                rewriteUrl = null;
+                responseData = responder;
             }
-            else if (rewriteUrl.search(/http:|https:/) === -1) {
-
-                rewriteUrl = 'http://' + rewriteUrl;
-            }
-
-            redirected = true;
         }
     }
     catch (e) {
@@ -86,14 +169,17 @@ function rewrite(url, context) {
         return {
             isLocal: false,
             redirected: false,
-            rewriteUrl: rewriteUrl
+            rewriteUrl: rewriteUrl,
+            responseData: responseData
         };
     }
 
     return {
         redirected: redirected,
         rewriteUrl: rewriteUrl,
-        isLocal: isLocal
+        isLocal: isLocal,
+        responseData: responseData,
+        jsonpCallback: jsonpCallback
     };
 }
 
@@ -174,8 +260,22 @@ function logger(host, url, port, protocol, method, renderedUrl) {
     console.log([tag[tagColor], text, tail].join(''));
 }
 
+function extractJSONPFuncName(jsonpCallback, url) {
+
+    var rjsonpParam = new RegExp(jsonpCallback + '=([^&]+)'),
+        mjsonpParam = url.match(rjsonpParam);
+
+    if (mjsonpParam && mjsonpParam.length === 2) {
+
+        return mjsonpParam[1];
+    }
+
+    return null;
+}
+
 module.exports = {
     filter: filter,
     rewrite: rewrite,
-    logger: logger
+    logger: logger,
+    extractJSONPFuncName: extractJSONPFuncName
 };

@@ -77,7 +77,7 @@ export default React.createClass({
                     onClick={this._onResetFilter}
                     className="btn btn-danger reset-btn"
                 >
-                    重置
+                    重置筛选
                 </button>
                 <button type="button"
                         id="openBlockPointManageModal"

@@ -9,7 +9,8 @@ var initialState = {
             throttleLevel: null,
             group: {},
             activated: '',
-            rewrite: []
+            rewrite: [],
+            mockServices: []
         },
         server: {}
     }),

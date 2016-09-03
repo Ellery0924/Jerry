@@ -7,7 +7,7 @@ var fs = require('fs'),
     serverConfigPath = CONST.QS_PATH,
     blockPointSettingPath = CONST.QB_PATH,
     ykitAdapter = require('./ykitAdapter'),
-    _ = require('underscore');
+    _ = require('lodash');
 
 var currentConfig = null,
     currentServerInfo = null,
@@ -62,27 +62,34 @@ function getServerInfo() {
 
 function setConfig(config) {
 
-    currentConfig = _.cloneDeep(config);
+    try {
 
-    ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(config.fekitWorkPath));
+        currentConfig = _.cloneDeep(config);
 
-    Object.keys(config.group).forEach(function (key) {
+        ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(config.fekitWorkPath));
 
-        if (ykitAdapter.rykit.test(key)) {
+        Object.keys(config.group).forEach(function (key) {
 
-            delete config.group[key];
-        }
-    });
+            if (ykitAdapter.rykit.test(key)) {
 
-    fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
+                delete config.group[key];
+            }
+        });
 
-        if (err) {
+        fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
 
-            throw err;
-        }
+            if (err) {
 
-        console.log('~/.qpconfig updated.');
-    });
+                throw err;
+            }
+
+            console.log('~/.qpconfig updated.');
+        });
+    }
+    catch(e){
+
+        console.log(e.stack)
+    }
 }
 
 function setServerInfo(serverInfo) {
@@ -127,11 +134,21 @@ function setBlockPointSetting(setting) {
     currentBlockPointSetting = blockSetting;
 }
 
+function getMockConfig(projectName) {
+
+    return ykitAdapter.fetchMockConfig(getWorkPath(currentConfig.fekitWorkPath), projectName);
+}
+
+function setMockConfig(projectName, mockConfig) {
+
+}
+
 module.exports = {
     getConfig: getConfig,
     setConfig: setConfig,
     getServerInfo: getServerInfo,
     setServerInfo: setServerInfo,
     getBlockPointSetting: getBlockPointSetting,
-    setBlockPointSetting: setBlockPointSetting
+    setBlockPointSetting: setBlockPointSetting,
+    getMockConfig: getMockConfig
 };

@@ -1043,6 +1043,8 @@
 	exports.switchHttpsAndSave = switchHttpsAndSave;
 	exports.selectThrottleLevel = selectThrottleLevel;
 	exports.selectThrottleLevelAndSave = selectThrottleLevelAndSave;
+	exports.switchMockService = switchMockService;
+	exports.switchMockServiceAndSave = switchMockServiceAndSave;
 	/**
 	 * Created by Ellery1 on 16/1/1.
 	 */
@@ -1066,6 +1068,7 @@
 	var MULTI_DELETE_RULE = exports.MULTI_DELETE_RULE = 'MULTI_DELETE_RULE';
 	var SWITCH_HTTPS = exports.SWITCH_HTTPS = 'SWITCH_HTTPS';
 	var SELECT_THROTTLE_LEVEL = exports.SELECT_THROTTLE_LEVEL = 'SELECT_THROTTLE_LEVEL';
+	var SWITCH_MOCK_SERVICE = exports.SWITCH_MOCK_SERVICE = 'SWITCH_MOCK_SERVICE';
 
 	function multiDeleteRule(groupName, indexes) {
 	    return { type: MULTI_DELETE_RULE, groupName: groupName, indexes: indexes };
@@ -1313,6 +1316,20 @@
 	    return function (dispatch, getState) {
 
 	        dispatch(selectThrottleLevel(level));
+	        return updateConfig(getState);
+	    };
+	}
+
+	function switchMockService(open) {
+
+	    return { type: SWITCH_MOCK_SERVICE, open: open };
+	}
+
+	function switchMockServiceAndSave(open) {
+
+	    return function (dispatch, getState) {
+
+	        dispatch(switchMockService(open));
 	        return updateConfig(getState);
 	    };
 	}
@@ -1637,7 +1654,8 @@
 	            throttleLevel: null,
 	            group: {},
 	            activated: '',
-	            rewrite: []
+	            rewrite: [],
+	            mockServices: []
 	        },
 	        server: {}
 	    }),
@@ -1724,6 +1742,9 @@
 	        case _action.SELECT_THROTTLE_LEVEL:
 	            return (0, _hostManage.selectThrottleLevel)(subState, action.level);
 
+	        case _action.SWITCH_MOCK_SERVICE:
+	            return (0, _hostManage.switchMockService)(subState, action.open);
+
 	        default:
 	            return subState;
 	    }
@@ -1760,6 +1781,7 @@
 	exports.multiDeleteRule = multiDeleteRule;
 	exports.switchHttps = switchHttps;
 	exports.selectThrottleLevel = selectThrottleLevel;
+	exports.switchMockService = switchMockService;
 
 	var _immutable = __webpack_require__(21);
 
@@ -1901,6 +1923,36 @@
 
 	    return state.updateIn(['config', 'throttleLevel'], function () {
 	        return level;
+	    });
+	}
+
+	function switchMockService(state, open) {
+
+	    if (!state.get('config').get('mockServices')) {
+
+	        state = state.updateIn(['config', 'mockServices'], function () {
+	            return _immutable2.default.fromJS([]);
+	        });
+	    }
+
+	    var activated = state.get('config').get('activated');
+
+	    return state.updateIn(['config', 'mockServices'], function (mservices) {
+
+	        if (open) {
+
+	            if (!mservices.find(function (groupName) {
+	                return groupName === activated;
+	            })) {
+
+	                return mservices.push(activated);
+	            }
+	        } else {
+
+	            return mservices.filter(function (groupName) {
+	                return groupName !== activated;
+	            });
+	        }
 	    });
 	}
 
@@ -31259,6 +31311,7 @@
 	        var multiDeleteDisabled = _props$config.multiDeleteDisabled;
 	        var httpsOn = _props$config.httpsOn;
 	        var throttleLevel = _props$config.throttleLevel;
+	        var mockServices = _props$config.mockServices;
 
 
 	        return _react2.default.createElement(
@@ -31267,6 +31320,7 @@
 	            _react2.default.createElement(_Navigator2.default, null),
 	            _react2.default.createElement(_index2.default, {
 	                group: group,
+	                mockServices: mockServices,
 	                httpsOn: httpsOn,
 	                throttleLevel: throttleLevel,
 	                activated: activated,
@@ -31310,6 +31364,9 @@
 	                },
 	                onSelectThrottleLevel: function onSelectThrottleLevel(level) {
 	                    return dispatch((0, _action.selectThrottleLevelAndSave)(level));
+	                },
+	                onSwitchMockService: function onSwitchMockService(open) {
+	                    return dispatch((0, _action.switchMockServiceAndSave)(open));
 	                }
 	            })
 	        );
@@ -31377,7 +31434,6 @@
 	                        _react2.default.createElement('span', { className: 'icon-bar' }),
 	                        _react2.default.createElement('span', { className: 'icon-bar' })
 	                    ),
-	                    _react2.default.createElement('span', { className: 'jerry' }),
 	                    _react2.default.createElement(
 	                        'a',
 	                        { className: 'navbar-brand', href: 'javascript:void 0;' },
@@ -31634,6 +31690,7 @@
 	    displayName: 'RuleTable',
 	    render: function render() {
 	        var _props = this.props;
+	        var mockServices = _props.mockServices;
 	        var activated = _props.activated;
 	        var group = _props.group;
 	        var server = _props.server;
@@ -31647,12 +31704,17 @@
 	        var onDeselectRule = _props.onDeselectRule;
 	        var onMultiDeleteRule = _props.onMultiDeleteRule;
 	        var onInsertRule = _props.onInsertRule;
+	        var onSwitchMockService = _props.onSwitchMockService;
 
 
 	        var currentGroup = group[activated],
 	            isAllSelected = currentGroup && currentGroup.length && currentGroup.every(function (rule) {
 	            return rule.selected;
-	        });
+	        }),
+	            mockServiceOpen = mockServices && !!mockServices.find(function (gname) {
+	            return gname === activated;
+	        }),
+	            mockSwitchText = mockServiceOpen ? 'Mock服务:开启' : 'Mock服务:关闭';
 
 	        var rykitGroup = /\_ykit$/,
 	            isYkitGroup = rykitGroup.test(activated);
@@ -31672,7 +31734,7 @@
 	                        '当前分组:',
 	                        activated
 	                    ),
-	                    activated !== 'default' && !isYkitGroup ? _react2.default.createElement(
+	                    activated && activated !== 'default' && !isYkitGroup ? _react2.default.createElement(
 	                        'button',
 	                        {
 	                            className: 'btn btn-danger rm_group',
@@ -31709,7 +31771,47 @@
 	                        'button',
 	                        { className: 'btn btn-info export_host', 'data-target': '#exportHostModal', 'data-toggle': 'modal' },
 	                        '导出host'
-	                    )
+	                    ),
+	                    isYkitGroup ? _react2.default.createElement(
+	                        'div',
+	                        { className: 'mock-switch btn-group' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            {
+	                                type: 'button',
+	                                className: 'btn btn-warning dropdown-toggle',
+	                                'data-toggle': 'dropdown'
+	                            },
+	                            mockSwitchText,
+	                            _react2.default.createElement('span', { className: 'mock-switch-caret caret' })
+	                        ),
+	                        _react2.default.createElement(
+	                            'ul',
+	                            { className: 'dropdown-menu', role: 'menu' },
+	                            _react2.default.createElement(
+	                                'li',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { onClick: function onClick() {
+	                                            return onSwitchMockService(true);
+	                                        }, href: 'javascript:void 0;' },
+	                                    '开启'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'li',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'a',
+	                                    { onClick: function onClick() {
+	                                            return onSwitchMockService(false);
+	                                        }, href: 'javascript:void 0;' },
+	                                    '关闭'
+	                                )
+	                            )
+	                        )
+	                    ) : null
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -35578,7 +35680,7 @@
 	                    onClick: this._onResetFilter,
 	                    className: 'btn btn-danger reset-btn'
 	                },
-	                '重置'
+	                '重置筛选'
 	            ),
 	            _react2.default.createElement(
 	                'button',

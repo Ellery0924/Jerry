@@ -16,7 +16,8 @@ import {
     INSERT_PATTERN,
     DELETE_PATTERN,
     SWITCH_HTTPS,
-    SELECT_THROTTLE_LEVEL
+    SELECT_THROTTLE_LEVEL,
+    SWITCH_MOCK_SERVICE
 } from './action';
 import {
     multiDeleteRule,
@@ -32,7 +33,8 @@ import {
     editDomain,
     insertRule,
     switchHttps,
-    selectThrottleLevel
+    selectThrottleLevel,
+    switchMockService
 } from './hostManage';
 import {setServer} from './serverManage';
 import {setPattern, insertPattern, deletePattern} from './rewriteManage';
@@ -96,6 +98,9 @@ export default function (state, action) {
 
         case SELECT_THROTTLE_LEVEL:
             return selectThrottleLevel(subState, action.level);
+
+        case SWITCH_MOCK_SERVICE:
+            return switchMockService(subState, action.open);
 
         default:
             return subState;

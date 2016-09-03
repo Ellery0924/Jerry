@@ -18,20 +18,22 @@ import {
     insertRuleAndSave,
     editDomainAndSave,
     switchHttpsAndSave,
-    selectThrottleLevelAndSave
+    selectThrottleLevelAndSave,
+    switchMockServiceAndSave
 } from '../../dataLayer/qproxy/action';
 
 var HostManageView = React.createClass({
     render() {
 
         const {dispatch, server}=this.props,
-            {group, activated, multiDeleteDisabled, httpsOn, throttleLevel}=this.props.config;
+            {group, activated, multiDeleteDisabled, httpsOn, throttleLevel,mockServices}=this.props.config;
 
         return (
             <div className="qproxyApp">
                 <Navigator/>
                 <HostManage
                     group={group}
+                    mockServices={mockServices}
                     httpsOn={httpsOn}
                     throttleLevel={throttleLevel}
                     activated={activated}
@@ -56,6 +58,7 @@ var HostManageView = React.createClass({
                     onMultiDeleteRule={(groupName)=>dispatch(multiDeleteRuleAndSave(groupName))}
                     onSwitchHttps={(isOn)=>dispatch(switchHttpsAndSave(isOn))}
                     onSelectThrottleLevel={level=>dispatch(selectThrottleLevelAndSave(level))}
+                    onSwitchMockService={open=>dispatch(switchMockServiceAndSave(open))}
                 />
             </div>
         );
