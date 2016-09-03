@@ -98,8 +98,6 @@ function extractHostFile(filepath, serverInfo) {
 
 function fetchMockConfig(CWD, projectName) {
 
-    console.log(CWD,projectName)
-
     var folderName = projectName.replace(/\_ykit$/, ''),
         mockConfigFilePath = Path.resolve(CWD, folderName, MOCK_FILE_NAME);
 
@@ -116,9 +114,9 @@ function fetchMockConfig(CWD, projectName) {
     }
 }
 
-function syncMockConfig(CWD, projectName, mockConfig) {
-
-}
+//function syncMockConfig(CWD, projectName, mockConfig) {
+//
+//}
 
 module.exports = {
     fetchGroupConfig: fetchGroupConfigFromYkitFolder,

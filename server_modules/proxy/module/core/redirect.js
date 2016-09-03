@@ -30,7 +30,6 @@ module.exports = function (sreq, sres) {
     isLocal = redirect.isLocal;
     redirectUrl = redirect.rewriteUrl;
     jsonpCallback = redirect.jsonpCallback;
-    console.log(redirect)
 
     renderedUrl = redirectUrl ? url.parse(redirectUrl) : null;
 
