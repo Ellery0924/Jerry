@@ -7,7 +7,7 @@ var fs = require('fs'),
     serverConfigPath = CONST.QS_PATH,
     blockPointSettingPath = CONST.QB_PATH,
     ykitAdapter = require('./ykitAdapter'),
-    _ = require('underscore');
+    _ = require('lodash');
 
 var currentConfig = null,
     currentServerInfo = null,
@@ -62,27 +62,33 @@ function getServerInfo() {
 
 function setConfig(config) {
 
-    currentConfig = _.cloneDeep(config);
+    try {
+        currentConfig = _.cloneDeep(config);
 
-    ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(config.fekitWorkPath));
+        ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(config.fekitWorkPath));
 
-    Object.keys(config.group).forEach(function (key) {
+        Object.keys(config.group).forEach(function (key) {
 
-        if (ykitAdapter.rykit.test(key)) {
+            if (ykitAdapter.rykit.test(key)) {
 
-            delete config.group[key];
-        }
-    });
+                delete config.group[key];
+            }
+        });
 
-    fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
+        fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
 
-        if (err) {
+            if (err) {
 
-            throw err;
-        }
+                throw err;
+            }
 
-        console.log('~/.qpconfig updated.');
-    });
+            console.log('~/.qpconfig updated.');
+        });
+    }
+    catch(e){
+
+        console.log(e.stack)
+    }
 }
 
 function setServerInfo(serverInfo) {

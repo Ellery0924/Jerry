@@ -25,7 +25,8 @@ function getRewriteRules(config) {
                     var pattern = mconfig.pattern,
                         currentEnv = mconfig.current,
                         responders = mconfig.responders,
-                        responder = mconfig.responder;
+                        responder = mconfig.responder,
+                        jsonpCallback = mconfig.jsonpCallback;
 
                     if (pattern) {
 
@@ -33,23 +34,28 @@ function getRewriteRules(config) {
 
                             var currentResponder = responders[currentEnv];
 
-                            if (rlocal.test(currentResponder)) {
+                            if (currentResponder) {
 
-                                currentResponder = Path.resolve(projectPath, currentResponder);
+                                if (rlocal.test(currentResponder)) {
+
+                                    currentResponder = Path.resolve(projectPath, currentResponder);
+                                }
+
+                                return {
+                                    isOn: 1,
+                                    pattern: pattern,
+                                    responder: currentResponder,
+                                    jsonpCallback: jsonpCallback
+                                };
                             }
-
-                            return {
-                                isOn: true,
-                                pattern: pattern,
-                                responder: currentResponder
-                            };
                         }
-                        else if (typeof responder === 'string') {
+                        else if (responder) {
 
                             return {
-                                isOn: true,
+                                isOn: 1,
                                 pattern: pattern,
-                                responder: responder
+                                responder: responder,
+                                jsonpCallback: jsonpCallback
                             }
                         }
                     }
@@ -70,7 +76,7 @@ function rewrite(url, context) {
 
     var config = service.getConfig();
 
-    console.log(getRewriteRules(config));
+    //console.log(getRewriteRules(config));
 
     var rules = context ? context : getRewriteRules(config),
         matchedRules,
@@ -85,6 +91,7 @@ function rewrite(url, context) {
         mLocal,
         identifier,
         isLocal = false,
+        jsonpCallback,
         responseData = null;
 
     //这里是为了捕获new RegExp可能产生的异常
@@ -102,8 +109,9 @@ function rewrite(url, context) {
             matchedRule = matchedRules[0];
             pattern = matchedRule.pattern;
             responder = matchedRule.responder;
+            jsonpCallback = matchedRule.jsonpCallback;
 
-            if (typeof responder === 'object') {
+            if (typeof responder !== 'object') {
                 murl = url.match(pattern);
                 mresRaw = responder.match(rmres);
 
@@ -137,7 +145,7 @@ function rewrite(url, context) {
 
                     rewriteUrl = rewriteUrl.replace(identifier, '');
                 }
-                else if (rewriteUrl.search(/http:|https:/) === -1) {
+                else if (!isLocal && rewriteUrl.search(/http:|https:/) === -1) {
 
                     rewriteUrl = 'http://' + rewriteUrl;
                 }
@@ -167,7 +175,8 @@ function rewrite(url, context) {
         redirected: redirected,
         rewriteUrl: rewriteUrl,
         isLocal: isLocal,
-        responseData: responseData
+        responseData: responseData,
+        jsonpCallback: jsonpCallback
     };
 }
 

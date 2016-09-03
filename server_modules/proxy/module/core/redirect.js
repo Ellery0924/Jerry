@@ -21,6 +21,7 @@ module.exports = function (sreq, sres) {
         nocache,
         sheaders,
         isLocal,
+        jsonpCallback,
         protocol;
 
     //第一步过滤,匹配rewrite中的规则
@@ -28,8 +29,10 @@ module.exports = function (sreq, sres) {
     responseData = redirect.responseData;
     isLocal = redirect.isLocal;
     redirectUrl = redirect.rewriteUrl;
+    jsonpCallback = redirect.jsonpCallback;
+    console.log(redirect)
 
-    renderedUrl = url.parse(redirectUrl);
+    renderedUrl = redirectUrl ? url.parse(redirectUrl) : null;
 
     //如果是本地文件
     //直接从本地读取并返回
@@ -57,8 +60,13 @@ module.exports = function (sreq, sres) {
                         return;
                     }
 
+                    if (jsonpCallback) {
+
+                        data = jsonpCallback + '(' + data + ');';
+                    }
+
                     sres.writeHead(200, {
-                        'Content-Type': 'text/html;charset=utf-8',
+                        'Content-Type': 'text/json;charset=utf-8',
                         'Local-Path': redirectUrl
                     });
                     sres.end(data);
@@ -70,6 +78,14 @@ module.exports = function (sreq, sres) {
             sres.writeHead(200, {
                 'Content-Type': 'application/json'
             });
+
+            responseData = JSON.stringify(responseData);
+
+            if (jsonpCallback) {
+
+                responseData = jsonpCallback + '(' + responseData + ');';
+            }
+
             sres.end(responseData);
         }
 
