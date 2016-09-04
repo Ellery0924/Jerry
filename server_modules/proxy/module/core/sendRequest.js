@@ -11,31 +11,19 @@ module.exports = function (opts, clientType, sreq, sres) {
         return;
     }
 
-    var logger = new Logger();
-
-    var method = opts.method,
-        nocache = opts.nocache,
+    var logger = new Logger(),
+        method = opts.method,
         host = opts.host,
         client = clientType === 'http:' ? require('http') : require('https');
 
     var creq = client
         .request(opts, function (cres) {
 
-            if (nocache) {
-
-                cres.headers['cache-control'] = 'no-cache';
-                cres.headers['expires'] = -1;
-                cres.headers['pragma'] = 'no-cache';
-            }
-
-            cres.headers['real-host'] = host;
-
+            cres.headers['Real-Host'] = host;
             sres.writeHead(cres.statusCode, cres.headers);
-
             cres.on('error', function (err) {
 
-                console.log('Proxy Cres Error ' + err);
-                sres.end(err.toString());
+                sres.end(err.stack);
             });
 
             if (logger.checkShouldBeBlocked(sreq, cres.headers)) {
@@ -59,8 +47,7 @@ module.exports = function (opts, clientType, sreq, sres) {
         })
         .on('error', function (err) {
 
-            console.log('Proxy Creq Error ' + err);
-            sres.end(err.toString());
+            sres.end(err.stack);
         });
 
     if (method === 'post' || method === 'put') {

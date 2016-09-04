@@ -120,6 +120,7 @@ function rewrite(url, context) {
             contentType = matchedRule.contentType || 'text/html';
 
             if (typeof responder !== 'object') {
+
                 murl = url.match(pattern);
                 mresRaw = responder.match(rmres);
 
@@ -190,7 +191,7 @@ function filter(host) {
         serverInfo = service.getServerInfo();
 
     var rport = /:(\s*\d+)/,
-        port = (host && host.match(rport)) ? host.match(rport)[1] : null;
+        port = host && host.match(rport) ? host.match(rport)[1] : null;
 
     if (!host) {
 
@@ -209,9 +210,9 @@ function filter(host) {
         activatedGrpInfo,
         serverListInfo,
         env,
-        serverIndex;
-
-    var domainArr, domain;
+        serverIndex,
+        domainArr,
+        domain;
 
     for (var i = 0; i < activatedGrp.length; i++) {
 
