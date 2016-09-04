@@ -7,7 +7,7 @@ var util = require('./proxyUtil'),
     url = require("url"),
     fs = require('fs'),
     logger = util.logger,
-    extractJSONPFuncName=util.extractJSONPFuncName;
+    extractJSONPFuncName = util.extractJSONPFuncName;
 
 module.exports = function (sreq, sres) {
 
@@ -24,6 +24,7 @@ module.exports = function (sreq, sres) {
         isLocal,
         jsonpCallback,
         jsonpRetFuncName,
+        contentType,
         protocol;
 
     //第一步过滤,匹配rewrite中的规则
@@ -32,6 +33,7 @@ module.exports = function (sreq, sres) {
     isLocal = redirect.isLocal;
     redirectUrl = redirect.rewriteUrl;
     jsonpCallback = redirect.jsonpCallback;
+    contentType = redirect.contentType;
     jsonpRetFuncName = extractJSONPFuncName(jsonpCallback, sreq.url);
 
     renderedUrl = redirectUrl ? url.parse(redirectUrl) : null;
@@ -47,7 +49,7 @@ module.exports = function (sreq, sres) {
             if (!exists) {
 
                 sres.writeHead(404, {
-                    contentType: 'text/html'
+                    contentType: 'text/html;charset=utf-8'
                 });
                 sres.end('404 Not Found.');
             }
@@ -68,7 +70,7 @@ module.exports = function (sreq, sres) {
                     }
 
                     sres.writeHead(200, {
-                        'Content-Type': 'text/json;charset=utf-8',
+                        'Content-Type': contentType + ';charset=utf-8',
                         'Local-Path': redirectUrl
                     });
                     sres.end(data);
@@ -78,7 +80,7 @@ module.exports = function (sreq, sres) {
         else {
 
             sres.writeHead(200, {
-                'Content-Type': 'text/json'
+                'Content-Type': contentType + ';charset=utf-8'
             });
 
             responseData = JSON.stringify(responseData);

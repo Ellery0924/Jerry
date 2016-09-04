@@ -6,7 +6,8 @@ var fs = require('fs'),
     Path = require('path');
 
 var rmres = /\$(\d)/g,
-    rlocal = /^\s*(\.|\/|file:\/\/|[A-Z]:)/;
+    rlocal = /^\s*(\.|\/|file:\/\/|[A-Z]:)/,
+    rremote = /^\s*https:|http:/;
 
 function getRewriteRules(config) {
 
@@ -30,7 +31,8 @@ function getRewriteRules(config) {
                         currentEnv = mconfig.current,
                         responders = mconfig.responders,
                         responder = mconfig.responder,
-                        jsonpCallback = mconfig.jsonpCallback;
+                        jsonpCallback = mconfig.jsonpCallback,
+                        contentType = mconfig.contentType || 'application/json';
 
                     if (pattern) {
 
@@ -40,7 +42,7 @@ function getRewriteRules(config) {
 
                             if (currentResponder) {
 
-                                if (rlocal.test(currentResponder)) {
+                                if (!rremote.test(currentResponder)) {
 
                                     currentResponder = Path.resolve(projectPath, currentResponder);
                                 }
@@ -49,7 +51,8 @@ function getRewriteRules(config) {
                                     isOn: 1,
                                     pattern: pattern,
                                     responder: currentResponder,
-                                    jsonpCallback: jsonpCallback
+                                    jsonpCallback: jsonpCallback,
+                                    contentType: contentType
                                 };
                             }
                         }
@@ -59,7 +62,8 @@ function getRewriteRules(config) {
                                 isOn: 1,
                                 pattern: pattern,
                                 responder: responder,
-                                jsonpCallback: jsonpCallback
+                                jsonpCallback: jsonpCallback,
+                                contentType: contentType
                             }
                         }
                     }
@@ -94,6 +98,7 @@ function rewrite(url, context) {
         identifier,
         isLocal = false,
         jsonpCallback,
+        contentType = 'text/html',
         responseData = null;
 
     //这里是为了捕获new RegExp可能产生的异常
@@ -106,14 +111,13 @@ function rewrite(url, context) {
             return rule.pattern && rule.isOn && (new RegExp(rule.pattern).test(url));
         });
 
-        //fconsole.log(matchedRules)
-
         if (matchedRules.length) {
 
             matchedRule = matchedRules[0];
             pattern = matchedRule.pattern;
             responder = matchedRule.responder;
             jsonpCallback = matchedRule.jsonpCallback;
+            contentType = matchedRule.contentType || 'text/html';
 
             if (typeof responder !== 'object') {
                 murl = url.match(pattern);
@@ -142,15 +146,11 @@ function rewrite(url, context) {
                 rewriteUrl = responder;
                 mLocal = rlocal.exec(responder);
                 identifier = mLocal && mLocal[1];
-                isLocal = !!mLocal;
+                isLocal = !rremote.test(responder);
 
                 if (identifier && identifier === 'file://') {
 
                     rewriteUrl = rewriteUrl.replace(identifier, '');
-                }
-                else if (!isLocal && rewriteUrl.search(/http:|https:/) === -1) {
-
-                    rewriteUrl = 'http://' + rewriteUrl;
                 }
 
                 redirected = true;
@@ -179,7 +179,8 @@ function rewrite(url, context) {
         rewriteUrl: rewriteUrl,
         isLocal: isLocal,
         responseData: responseData,
-        jsonpCallback: jsonpCallback
+        jsonpCallback: jsonpCallback,
+        contentType: contentType
     };
 }
 
