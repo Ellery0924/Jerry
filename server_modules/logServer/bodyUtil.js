@@ -4,6 +4,8 @@
 var zlib = require('zlib'),
     Promise = require('bluebird');
 
+var VERY_LONG_STRING_LEN = 1024 * 1024 * 5;
+
 function queryToObj(queryStr) {
 
     return queryStr.split('&').reduce(function (acc, query) {
@@ -86,6 +88,12 @@ function unzipBody(stream) {
 }
 
 function _extractJSON(jsonStr) {
+
+    if (jsonStr.length >= VERY_LONG_STRING_LEN) {
+
+        console.log('very long!', jsonStr.length);
+        return {parsed: 'Too long to be parsed.', jsonp: null};
+    }
 
     if (!jsonStr) {
 
