@@ -139,10 +139,6 @@ function getMockConfig(projectName) {
     return ykitAdapter.fetchMockConfig(getWorkPath(currentConfig.fekitWorkPath), projectName);
 }
 
-function setMockConfig(projectName, mockConfig) {
-
-}
-
 module.exports = {
     getConfig: getConfig,
     setConfig: setConfig,
