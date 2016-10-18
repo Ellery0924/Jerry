@@ -15,7 +15,7 @@ function getRewriteRules(config) {
         targetGroup = config.group[activated],
         mockServices = config.mockServices,
         mockConfigObj = service.getMockConfig(activated),
-        isMockActivated = targetGroup ? !!mockServices.find(gname=>gname === activated) : false;
+        isMockActivated = targetGroup && mockServices ? !!mockServices.find(gname=>gname === activated) : false;
 
     if (mockConfigObj && isMockActivated) {
 
@@ -195,7 +195,7 @@ function filter(host) {
 
     if (!host) {
 
-        return {host: null, nocache: config.nocache, port: null};
+        return { host: null, nocache: config.nocache, port: null };
     }
 
     host = host.replace(rport, '').trim();
