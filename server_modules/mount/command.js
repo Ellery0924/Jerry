@@ -48,7 +48,7 @@ function start(callback) {
         callback && callback();
         qproxy.server.listen(qport, httpsPort);
 
-        execSync((os.platform() !== 'win32' ? 'open' : 'start') + ' http://127.0.0.1:' + aport + '/qproxy');
+        // execSync((os.platform() !== 'win32' ? 'open' : 'start') + ' http://127.0.0.1:' + aport + '/qproxy');
     });
 }
 

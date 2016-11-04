@@ -71,7 +71,8 @@ module.exports = function (sreq, sres) {
 
                     sres.writeHead(200, {
                         'Content-Type': contentType + ';charset=utf-8',
-                        'Local-Path': redirectUrl
+                        'Local-Path': redirectUrl,
+                        'Access-Control-Allow-Origin': '*'
                     });
                     sres.end(data);
                 });
@@ -80,7 +81,8 @@ module.exports = function (sreq, sres) {
         else {
 
             sres.writeHead(200, {
-                'Content-Type': contentType + ';charset=utf-8'
+                'Content-Type': contentType + ';charset=utf-8',
+                'Access-Control-Allow-Origin': '*'
             });
 
             responseData = JSON.stringify(responseData);
