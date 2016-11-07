@@ -71,7 +71,8 @@ jerry配置页面的地址是 http://127.0.0.1:3000/qproxy#/?_k=1kpa78
 ## HTTPS
 如果你在做HTTPS的开发但是仅仅需要使用host功能,HTTPS代理不必开启。这时候代理服务器会接收浏览器的隧道请求,host配置依然可以生效。
 
-需要在HTTPS下使用URL MAP/抓包等功能的时候,需要开启HTTPS代理,但是需要安装根证书(像charles一样,不过在线下载还没做呢- -),请qtalk联系jiao.shen。
+需要在HTTPS下使用URL MAP/抓包等功能的时候,需要开启HTTPS代理,但是需要安装根证书JerryProxyCA.cer, 你可以在这个工程的根目录里找到它。
+把它下载下来, 然后双击, 然后手动信任这个证书(步骤和手动信任12306的CA一样的)。
 
 在开启HTTPS代理的情况下,访问qunar之外的域名都会提示证书无效错误,所以如果不需要使用HTTPS的URL MAP/抓包功能,没必要开启HTTPS代理。
 
