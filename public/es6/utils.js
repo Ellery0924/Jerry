@@ -20,7 +20,6 @@ export function validateDomain(domain, index, ruleList) {
         NOT_VALID: '请输入一个合法的域!(请注意不要与当前已经定义的规则重复)',
         NOT_VALID_HOST: '不是一个合法的域!'
     };
-
     var rule,
         ret = {
             result: true
