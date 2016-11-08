@@ -6,31 +6,23 @@ import ListView from '../Common/ListView';
 
 var LogItem = React.createClass({
     shouldComponentUpdate(){
-
         return false;
     },
     _getStatusColor(statusCode){
-
         switch (statusCode.toString()[0]) {
-
             case "2":
                 return "success";
-
             case "3":
                 return "redirect";
-
             case "4":
                 return "client-error";
-
             case "5":
                 return "server-error";
-
             default:
                 return "others";
         }
     },
     render(){
-
         const {type, method, url, statusCode}=this.props.item;
 
         return (
@@ -46,45 +38,36 @@ var LogItem = React.createClass({
 
 export default React.createClass({
     shouldComponentUpdate(nextProp){
-
         if (window.qproxy.shouldRefreshConsole) {
-
             window.qproxy.shouldRefreshConsole = false;
             return true;
         }
         return nextProp.logList !== this.props.logList;
     },
     componentWillUnmount(){
-
         //在退出日志页面时设置一个全局变量,再次进入时刷新console
         window.qproxy.shouldRefreshConsole = true;
     },
     _renderRow(item){
-
         return (
             <LogItem item={item}/>
         );
     },
     _clearConsole(){
-
         this.props.clear();
     },
     _onItemLayout(item, domNode){
-
         if (item.index === this.props.current.index) {
-
             $(domNode).addClass('active');
         }
     },
     _onItemClick(item, evt){
-
         this.props.checkDetail(item);
         $('.js-overview-tablink').find('a').trigger('click');
         $('.listview-item-wrap').removeClass('active');
         $(evt.currentTarget).addClass('active');
     },
     render(){
-
         const logList = this.props.logList.toJS();
         const {isBlocked, allBlockPointContinue, allBlockPointAbort}=this.props;
         const vh = $(window).height();

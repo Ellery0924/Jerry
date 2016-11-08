@@ -24,7 +24,6 @@ import {
 
 var HostManageView = React.createClass({
     render() {
-
         const {dispatch, server}=this.props,
             {group, activated, multiDeleteDisabled, httpsOn, throttleLevel,mockServices}=this.props.config;
 

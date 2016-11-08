@@ -9,7 +9,6 @@ import BlockPointManageModal from './BlockPointManageModal';
 
 export default React.createClass({
     render(){
-
         const {
             filtered,
             isBlocked,

@@ -5,11 +5,9 @@ import React from 'react';
 
 export default React.createClass({
     _getJSX(){
-
         const {group, activated, onSelectGroup}=this.props;
 
         if (group !== undefined) {
-
             return Object.keys(group).map((groupName)=>
                 <li
                     key={groupName}
@@ -25,12 +23,9 @@ export default React.createClass({
         return [];
     },
     componentDidMount(){
-
         $('.dropdown-toggle').dropdown();
     },
     render(){
-
-
         return (
             <div className="col-sm-3 col-md-2 sidebar">
                 <button

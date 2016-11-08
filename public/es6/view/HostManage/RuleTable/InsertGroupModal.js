@@ -6,14 +6,12 @@ import {validateGroupName} from '../../../utils';
 
 export default React.createClass({
     componentDidMount(){
-
         var self = this;
 
         $('#newGroupModal').on('shown.bs.modal', function () {
                 $(this).find('#newGroup_name').val('').focus();
             }
         );
-
         $('#newGroup_name').on('keyup', function (e) {
             if (e.which === 13) {
                 self.submit();
@@ -21,7 +19,6 @@ export default React.createClass({
         });
     },
     render(){
-
         return (
             <div className="modal" id="newGroupModal">
                 <div className="modal-dialog modal-sm">

@@ -28,7 +28,6 @@ var initialState = {
 };
 
 export default function (state = initialState, action) {
-
     return {
         qproxy: qproxyReducer(state, action),
         logger: loggerReducer(state, action)

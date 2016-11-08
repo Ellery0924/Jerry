@@ -68,19 +68,16 @@ function setRunningPort() {
 }
 
 function startWithDevServer(serverName) {
-
     fekitArgs = Array.prototype.slice.call(process.argv, 3);
     workPath = fs.existsSync(qpconfig.fekitWorkPath) ? qpconfig.fekitWorkPath : process.cwd();
 
     if (fekitArgs) {
-
         console.log(serverName + ' server已启动,参数为:' + fekitArgs.join(','));
     }
 
     console.log('当前' + serverName + '工作目录为: ' + workPath);
 
     start(function () {
-
         spawn(serverName, ['server'].concat(fekitArgs), {
             cwd: workPath,
             env: process.env,
@@ -90,18 +87,15 @@ function startWithDevServer(serverName) {
 }
 
 function setWorkPath() {
-
     fekitConfigPath = process.argv[3];
 
     if (fekitConfigPath && fs.existsSync(fekitConfigPath)) {
-
         qpconfig.fekitWorkPath = fekitConfigPath;
         setConfig(qpconfig);
 
         console.log('fekit工作目录被设置为: ' + fekitConfigPath);
     }
     else {
-
         console.log('fekit工作目录设置不正确,请检查是否是合法的路径');
     }
 

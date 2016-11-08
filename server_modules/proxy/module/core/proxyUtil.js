@@ -10,7 +10,6 @@ var rmres = /\$(\d)/g,
     rremote = /^\s*https:|http:/;
 
 function getRewriteRules(config) {
-
     var activated = config.activated,
         targetGroup = config.group[activated],
         mockServices = config.mockServices,
@@ -18,15 +17,12 @@ function getRewriteRules(config) {
         isMockActivated = targetGroup && mockServices ? !!mockServices.find(gname=>gname === activated) : false;
 
     if (mockConfigObj && isMockActivated) {
-
         var mockConfig = mockConfigObj.mockConfig,
             projectPath = mockConfigObj.projectPath;
 
         if (mockConfig) {
-
             return mockConfig
                 .map(function (mconfig) {
-
                     var pattern = mconfig.pattern,
                         currentEnv = mconfig.current,
                         responders = mconfig.responders,
@@ -35,15 +31,11 @@ function getRewriteRules(config) {
                         contentType = mconfig.contentType || 'application/json';
 
                     if (pattern) {
-
                         if (currentEnv && currentEnv !== 'online' && responders) {
-
                             var currentResponder = responders[currentEnv];
 
                             if (currentResponder) {
-
                                 if (!rremote.test(currentResponder)) {
-
                                     currentResponder = Path.resolve(projectPath, currentResponder);
                                 }
 
@@ -57,7 +49,6 @@ function getRewriteRules(config) {
                             }
                         }
                         else if (responder) {
-
                             return {
                                 isOn: 1,
                                 pattern: pattern,
@@ -81,9 +72,7 @@ function getRewriteRules(config) {
 }
 
 function rewrite(url, context) {
-
     var config = service.getConfig();
-
     var rules = context ? context : getRewriteRules(config),
         matchedRules,
         matchedRule,
@@ -100,19 +89,15 @@ function rewrite(url, context) {
         jsonpCallback,
         contentType = 'text/html',
         responseData = null;
-
     //这里是为了捕获new RegExp可能产生的异常
     //因为一个不符合正则表达式规范的字符串可能会抛出这个异常
     //如果有异常就直接返回原url
     try {
-
         matchedRules = rules.filter(function (rule) {
-
             return rule.pattern && rule.isOn && (new RegExp(rule.pattern).test(url));
         });
 
         if (matchedRules.length) {
-
             matchedRule = matchedRules[0];
             pattern = matchedRule.pattern;
             responder = matchedRule.responder;
@@ -120,23 +105,16 @@ function rewrite(url, context) {
             contentType = matchedRule.contentType || 'text/html';
 
             if (typeof responder !== 'object') {
-
                 murl = url.match(pattern);
                 mresRaw = responder.match(rmres);
-
                 if (mresRaw) {
-
                     mresRaw.forEach(function (f) {
-
                         mresponder[f[1]] = f;
                     });
 
                     murl.forEach(function (matched, i) {
-
                         var flag;
-
                         if (mresponder[i]) {
-
                             flag = mresponder[i];
                         }
 
@@ -150,14 +128,12 @@ function rewrite(url, context) {
                 isLocal = !rremote.test(responder);
 
                 if (identifier && identifier === 'file://') {
-
                     rewriteUrl = rewriteUrl.replace(identifier, '');
                 }
 
                 redirected = true;
             }
             else {
-
                 isLocal = true;
                 redirected = true;
                 rewriteUrl = null;
@@ -166,7 +142,6 @@ function rewrite(url, context) {
         }
     }
     catch (e) {
-
         return {
             isLocal: false,
             redirected: false,
@@ -186,15 +161,12 @@ function rewrite(url, context) {
 }
 
 function filter(host) {
-
     var config = service.getConfig(),
         serverInfo = service.getServerInfo();
-
     var rport = /:(\s*\d+)/,
         port = host && host.match(rport) ? host.match(rport)[1] : null;
 
     if (!host) {
-
         return { host: null, nocache: config.nocache, port: null };
     }
 
@@ -215,34 +187,27 @@ function filter(host) {
         domain;
 
     for (var i = 0; i < activatedGrp.length; i++) {
-
         activatedGrpInfo = activatedGrp[i];
         domain = activatedGrpInfo.domain;
         domainArr = domain.split(/(\n|\s|\r)+/);
         domainArr.forEach(function (val, i) {
-
             domainArr[i] = val.trim();
         });
 
         if (domainArr.find(function (item) {
                 return item === host
             })) {
-
             env = activatedGrpInfo.current;
             serverIndex = activatedGrpInfo.cache[env];
-
             if (env === 'custom' && host !== '') {
-
                 result.host = serverIndex ? serverIndex : host;
             }
             else if (env !== 'online') {
-
                 serverListInfo = serverInfo[env];
                 result.host = serverListInfo[serverIndex];
             }
             result.isLocal = env === 'local';
             result.isOnline = env === 'online';
-
             break;
         }
     }
@@ -251,7 +216,6 @@ function filter(host) {
 }
 
 function logger(host, url, port, protocol, method, renderedUrl) {
-
     var isLocal = host && host.search('127.0.0.1') !== -1,
         isQunar = url.search('http://qunarzz.com') !== -1,
         tagColor = isLocal ? 'magenta' : isQunar ? 'cyan' : protocol === 'http' ? 'blue' : 'yellow',
@@ -263,15 +227,12 @@ function logger(host, url, port, protocol, method, renderedUrl) {
 }
 
 function extractJSONPFuncName(jsonpCallback, url) {
-
     var rjsonpParam = new RegExp(jsonpCallback + '=([^&]+)'),
         mjsonpParam = url.match(rjsonpParam);
 
     if (mjsonpParam && mjsonpParam.length === 2) {
-
         return mjsonpParam[1];
     }
-
     return null;
 }
 

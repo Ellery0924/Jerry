@@ -5,7 +5,6 @@ import React from 'react';
 
 export default React.createClass({
     render(){
-
         const {httpsOn, onSwitchHttps, onSelectThrottleLevel}=this.props;
         const httpsOnTxt = httpsOn ? '开启' : '关闭';
         const throttleLevel = this.props.throttleLevel ? this.props.throttleLevel : 'No throttling';

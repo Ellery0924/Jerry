@@ -1,5 +1,4 @@
 module.exports = function () {
-
     var fs = require('fs'),
         CONST = require('../constant'),
         configPath = CONST.QP_PATH,
@@ -13,12 +12,9 @@ module.exports = function () {
         crt = require('../../defaultConfig/servercrt.js');
 
     function createFileIfNotExists(path, content, msg, stringify) {
-
         if (!fs.existsSync(path)) {
-
             fs.writeFileSync(path, stringify ? JSON.stringify(content) : content);
             fs.chmodSync(path, '777');
-
             console.log(msg);
         }
     }

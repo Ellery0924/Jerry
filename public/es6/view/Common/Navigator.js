@@ -6,9 +6,7 @@ import {Link} from 'react-router';
 
 export default React.createClass({
     _onLogNavClick(){
-
         const wsClient = window.qproxy.logClient;
-
         wsClient.emit('refreshLog');
     },
     render(){

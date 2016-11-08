@@ -6,7 +6,6 @@ import {validatePattern} from '../../utils';
 
 export default React.createClass({
     onSubmit(){
-
         var pattern = this.refs.newPatternInput.value,
             responder = this.refs.newResponderInput.value;
 
@@ -15,17 +14,14 @@ export default React.createClass({
         var validateResult = validatePattern(pattern, responder, patternList);
 
         if (validateResult.result) {
-
             onInsertPattern({pattern, responder, isOn: 1});
             $(this.refs.insertPatternModal).modal('hide');
         }
         else {
-
             alert(validateResult.message);
         }
     },
     componentDidMount(){
-
         $(this.refs.insertPatternModal).on('shown.bs.modal', ()=> {
             
             $(this.refs.newPatternInput).val('').focus();
@@ -33,7 +29,6 @@ export default React.createClass({
         });
     },
     render(){
-
         return (
             <div className="modal" id="addPatternModal" ref="insertPatternModal">
                 <div className="modal-dialog">

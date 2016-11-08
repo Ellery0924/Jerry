@@ -92,7 +92,6 @@ export function switchHttps(isOn) {
 }
 
 export function fetchConfig() {
-
     return dispatch=>
         Promise.all([
             fetch('/proxy/config').then(res=>res.json()),
@@ -102,7 +101,6 @@ export function fetchConfig() {
 }
 
 function updateConfig(getState) {
-
     var source = getState().qproxy.toJS(),
         config = source.config;
 
@@ -124,83 +122,64 @@ function updateConfig(getState) {
 }
 
 export function insertGroupAndSave(groupName) {
-
     return function (dispatch, getState) {
-
         dispatch(insertGroup(groupName));
         return updateConfig(getState);
     }
 }
 
 export function insertRuleAndSave(groupName, ruleList) {
-
     return function (dispatch, getState) {
-
         dispatch(insertRule(groupName, ruleList));
         return updateConfig(getState);
     }
 }
 
 export function deleteGroupAndSave(groupName) {
-
     return function (dispatch, getState) {
-
         dispatch(deleteGroup(groupName));
         return updateConfig(getState);
     }
 }
 
 export function selectGroupAndSave(groupName) {
-
     return function (dispatch, getState) {
-
         dispatch(selectGroup(groupName));
         return updateConfig(getState);
     }
 }
 
 export function selectEnvAndSave(groupName, ruleIndex, env) {
-
     return function (dispatch, getState) {
-
         dispatch(selectEnv(groupName, ruleIndex, env));
         return updateConfig(getState);
     }
 }
 
 export function selectHostAndSave(groupName, ruleIndex, env, host) {
-
     return function (dispatch, getState) {
-
         dispatch(selectHost(groupName, ruleIndex, env, host));
         return updateConfig(getState);
     }
 }
 
 export function deleteRuleAndSave(groupName, ruleIndex) {
-
     return function (dispatch, getState) {
-
         dispatch(deleteRule(groupName, ruleIndex));
         return updateConfig(getState);
     }
 }
 
 export function editDomainAndSave(groupName, ruleIndex, domain) {
-
     return function (dispatch, getState) {
-
         dispatch(editDomain(groupName, ruleIndex, domain));
         return updateConfig(getState);
     }
 }
 
 export function setServerAndSave(server) {
-
     return function (dispatch, getState) {
-
         dispatch(setServer(server));
-
         return fetch('/proxy/serverInfo', {
             method: 'PUT',
             headers: {
@@ -212,45 +191,35 @@ export function setServerAndSave(server) {
 }
 
 export function setPatternAndSave(index, pattern) {
-
     return function (dispatch, getState) {
-
         dispatch(setPattern(index, pattern));
         return updateConfig(getState);
     }
 }
 
 export function insertPatternAndSave(pattern) {
-
     return function (dispatch, getState) {
-
         dispatch(insertPattern(pattern));
         return updateConfig(getState);
     }
 }
 
 export function deletePatternAndSave(index) {
-
     return function (dispatch, getState) {
-
         dispatch(deletePattern(index));
         return updateConfig(getState);
     }
 }
 
 export function multiDeleteRuleAndSave(groupName) {
-
     return function (dispatch, getState) {
-
         dispatch(multiDeleteRule(groupName));
         return updateConfig(getState);
     }
 }
 
 export function switchHttpsAndSave(isOn) {
-
     return function (dispatch, getState) {
-
         alert(isOn ? '需要刷新SSL会话缓存,请重启chrome并刷新。' : 'warning:https的url rewrite功能将无法使用,host管理功能仍可正常使用。');
         dispatch(switchHttps(isOn));
         return updateConfig(getState);
@@ -262,23 +231,18 @@ export function selectThrottleLevel(level) {
 }
 
 export function selectThrottleLevelAndSave(level) {
-
     return function (dispatch, getState) {
-
         dispatch(selectThrottleLevel(level));
         return updateConfig(getState);
     }
 }
 
 export function switchMockService(open) {
-
     return {type: SWITCH_MOCK_SERVICE, open};
 }
 
 export function switchMockServiceAndSave(open) {
-
     return function (dispatch, getState) {
-
         dispatch(switchMockService(open));
         return updateConfig(getState);
     }

@@ -8,7 +8,6 @@ import BodyContainer from './commonComponent/BodyContainer';
 
 export default React.createClass({
     render(){
-
         const {requestData, keyTail}=this.props;
 
         return (

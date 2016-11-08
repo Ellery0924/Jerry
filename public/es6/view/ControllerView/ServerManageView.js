@@ -9,28 +9,23 @@ import {validateServerConfig} from '../../utils';
 
 var ServerManageView = React.createClass({
     componentDidUpdate(){
-
         $(this.refs.serverInfoInput).val(JSON.stringify(this.props.server, null, '\t'))
     },
     onSubmit(){
-
         const {dispatch}=this.props;
 
         var serverInfo = this.refs.serverInfoInput.value,
             validateResult = validateServerConfig(serverInfo);
 
         if (validateResult.result) {
-
             dispatch(setServerAndSave(JSON.parse(this.refs.serverInfoInput.value)))
                 .then(()=>alert('保存成功,请重启qproxy.'));
         }
         else {
-
             alert(validateResult.message);
         }
     },
     render(){
-
         return (
             <div className="container-fluid serverView">
                 <Navigator/>

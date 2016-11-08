@@ -7,7 +7,6 @@ import BodyContainer from './commonComponent/BodyContainer';
 
 export default React.createClass({
     render(){
-
         const {responseData, isBlocked}=this.props;
 
         return (

@@ -28,7 +28,6 @@ import {
 
 var LoggerView = React.createClass({
     render(){
-
         const {dispatch, state}=this.props;
 
         return (
@@ -65,7 +64,6 @@ var LoggerView = React.createClass({
 });
 
 function select(state) {
-
     return {state: state.logger};
 }
 

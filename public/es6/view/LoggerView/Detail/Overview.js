@@ -8,7 +8,6 @@ import {parseCookie} from './util';
 
 export default React.createClass({
     render(){
-
         const {current}=this.props;
         const requestData = current.request;
         const cookieStr = requestData.headers.cookie || null,

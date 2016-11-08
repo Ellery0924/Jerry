@@ -6,13 +6,11 @@ import {exportHostList} from '../../../utils';
 
 export default React.createClass({
     componentDidMount(){
-
         $(this.refs.exportHostModal).on('shown.bs.modal', ()=>
             $(this.refs.exportHostDisplay).val(this.props.hostList).select()
         );
     },
     render(){
-
         return (
             <div ref="exportHostModal" className="modal" id="exportHostModal">
                 <div className="modal-dialog">

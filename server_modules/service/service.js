@@ -14,19 +14,16 @@ var currentConfig = null,
     currentBlockPointSetting = null;
 
 function getWorkPath(path) {
-
     return fs.existsSync(path) ? path : process.cwd();
 }
 
 function checkActivatedGroupExist(config) {
-
     var groupConfig = config.group,
         activatedGroupExist = Object.keys(groupConfig).some(function (key) {
             return key === config.activated;
         });
 
     if (!activatedGroupExist) {
-
         config.activated = 'default';
     }
 
@@ -34,9 +31,7 @@ function checkActivatedGroupExist(config) {
 }
 
 function getConfig(force) {
-
     if (!currentConfig || force) {
-
         var ret = JSON.parse(fs.readFileSync(configPath, 'utf8'));
         ret.group = Object.assign(
             {},
@@ -51,9 +46,7 @@ function getConfig(force) {
 }
 
 function getServerInfo() {
-
     if (!currentServerInfo) {
-
         currentServerInfo = JSON.parse(fs.readFileSync(serverConfigPath, 'utf8'));
     }
 
@@ -63,23 +56,16 @@ function getServerInfo() {
 function setConfig(config) {
 
     try {
-
         currentConfig = _.cloneDeep(config);
-
         ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(config.fekitWorkPath));
-
         Object.keys(config.group).forEach(function (key) {
-
             if (ykitAdapter.rykit.test(key)) {
-
                 delete config.group[key];
             }
         });
 
         fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
-
             if (err) {
-
                 throw err;
             }
 
@@ -87,17 +73,13 @@ function setConfig(config) {
         });
     }
     catch(e){
-
         console.log(e.stack)
     }
 }
 
 function setServerInfo(serverInfo) {
-
     fs.writeFile(serverConfigPath, JSON.stringify(serverInfo).trim(), function (err) {
-
         if (err) {
-
             throw err;
         }
 
@@ -108,9 +90,7 @@ function setServerInfo(serverInfo) {
 }
 
 function getBlockPointSetting() {
-
     if (!currentBlockPointSetting) {
-
         currentBlockPointSetting = JSON.parse(fs.readFileSync(blockPointSettingPath, 'utf8'));
     }
 
@@ -118,13 +98,10 @@ function getBlockPointSetting() {
 }
 
 function setBlockPointSetting(setting) {
-
     var blockSetting = {list: setting};
 
     fs.writeFile(blockPointSettingPath, JSON.stringify(blockSetting).trim(), function (err) {
-
         if (err) {
-
             throw err;
         }
 
@@ -135,7 +112,6 @@ function setBlockPointSetting(setting) {
 }
 
 function getMockConfig(projectName) {
-
     return ykitAdapter.fetchMockConfig(getWorkPath(currentConfig.fekitWorkPath), projectName);
 }
 

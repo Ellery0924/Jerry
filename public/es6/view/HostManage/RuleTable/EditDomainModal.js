@@ -6,16 +6,13 @@ import {validateDomain} from '../../../utils';
 
 export default React.createClass({
     componentDidMount(){
-
         const {domain}=this.props;
 
         $(this.refs.editDomainModal).on('shown.bs.modal', function () {
-
             $(this).find('textarea').focus().val(domain);
         });
     },
     submit(){
-
         const {onEditDomain,ruleList,ruleIndex,groupName}=this.props;
 
         var domainInput = this.refs.domainInput,
@@ -23,17 +20,14 @@ export default React.createClass({
             validateRet = validateDomain(newDomainVal, ruleIndex, ruleList);
 
         if (validateRet.result) {
-
             onEditDomain(groupName, ruleIndex, newDomainVal);
             $(this.refs.editDomainModal).modal('hide');
         }
         else {
-            
             alert(validateRet.message);
         }
     },
     render(){
-
         const {ruleIndex}=this.props;
 
         return (

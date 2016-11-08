@@ -5,7 +5,6 @@ import React from 'react';
 
 export default React.createClass({
     render(){
-
         const {name, value}=this.props;
 
         return value ? (

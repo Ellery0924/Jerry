@@ -6,7 +6,6 @@ import {formatRuleList} from '../../../utils';
 
 export default React.createClass({
     submit(){
-
         const {onInsertRule, serverInfo, groupName, existedRuleList}=this.props;
         const formatedRuleList = formatRuleList(this.refs.insertRuleInput.value, serverInfo, existedRuleList);
         if (formatedRuleList) {
@@ -15,14 +14,12 @@ export default React.createClass({
         }
     },
     componentDidMount(){
-
         $(this.refs.insertRuleModal).on('shown.bs.modal', ()=> {
             this.refs.insertRuleInput.value = "";
             this.refs.insertRuleInput.focus();
         });
     },
     render(){
-
         return (
             <div className="modal" ref="insertRuleModal" id="addRuleMultiModal">
                 <div className="modal-dialog">

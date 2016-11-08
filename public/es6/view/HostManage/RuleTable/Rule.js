@@ -8,7 +8,6 @@ import EditDomainModal from './EditDomainModal'
 
 export default React.createClass({
     render(){
-
         const {
             cache,
             current,

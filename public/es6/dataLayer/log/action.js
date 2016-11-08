@@ -39,11 +39,8 @@ export function blockPointAbort(blockPoint) {
 }
 
 export function blockPointContinueAsync(blockPoint, noJsonp) {
-
     return function (dispatch, getState) {
-
         const wsClient = window.qproxy.logClient;
-
         dispatch(blockPointContinue(blockPoint));
         let isBlocked = getState().logger.get('isBlocked');
         wsClient.emit('blockPointContinue', blockPoint, isBlocked, noJsonp);
@@ -51,11 +48,8 @@ export function blockPointContinueAsync(blockPoint, noJsonp) {
 }
 
 export function blockPointAbortAsync(blockPoint) {
-
     return function (dispatch, getState) {
-
         const wsClient = window.qproxy.logClient;
-
         dispatch(blockPointAbort(blockPoint));
         let isBlocked = getState().logger.get('isBlocked');
         wsClient.emit('blockPointAbort', blockPoint, isBlocked);
@@ -63,13 +57,9 @@ export function blockPointAbortAsync(blockPoint) {
 }
 
 export function allBlockPointContinueAsync() {
-
     return function (dispatch, getState) {
-
         getState().logger.get('list').toJS().forEach(log=> {
-
             if (log.type === 'blockpoint') {
-
                 log.response.body = log.response.raw;
                 dispatch(blockPointContinueAsync(log, true));
             }
@@ -78,13 +68,9 @@ export function allBlockPointContinueAsync() {
 }
 
 export function allBlockPointAbortAsync() {
-
     return function (dispatch, getState) {
-
         getState().logger.get('list').toJS().forEach(log=> {
-
             if (log.type === 'blockpoint') {
-
                 dispatch(blockPointAbortAsync(log));
             }
         });
@@ -108,15 +94,12 @@ export function closeDetail() {
 }
 
 export function fetchBlockPoint() {
-
     return function (dispatch) {
-
         return fetch('/qproxy/blockPointSetting', {
             method: 'get'
         })
             .then(res=>res.json())
             .then(res=> {
-
                 dispatch(initBlockPointList(res.list));
             });
     }
@@ -167,7 +150,6 @@ export function modifyBlockPointRegex(index, regex) {
 }
 
 function updateBlockPointSetting(getState) {
-
     var settingList = getState().logger.get('blockPoint').toJS().map(setting=>({
         regex: setting.regex,
         isOn: setting.isOn
@@ -183,54 +165,42 @@ function updateBlockPointSetting(getState) {
 }
 
 export function insertBlockPointAndSave(regex) {
-
     return function (dispatch, getState) {
-
         dispatch(insertBlockPoint(regex));
         updateBlockPointSetting(getState);
     }
 }
 
 export function removeBlockPointAndSave(index) {
-
     return function (dispatch, getState) {
-
         dispatch(removeBlockPoint(index));
         updateBlockPointSetting(getState);
     }
 }
 
 export function switchBlockPointAndSave(index, isOn) {
-
     return function (dispatch, getState) {
-
         dispatch(switchBlockPoint(index, isOn));
         updateBlockPointSetting(getState);
     }
 }
 
 export function removeSelectedBlockPointAndSave() {
-
     return function (dispatch, getState) {
-
         dispatch(removeSelectedBlockPoint());
         updateBlockPointSetting(getState);
     }
 }
 
 export function removeBlockPointByUrlAndSave(url) {
-
     return function (dispatch, getState) {
-
         dispatch(removeBlockPointByUrl(url));
         updateBlockPointSetting(getState);
     }
 }
 
 export function modifyBlockPointRegexAndSave(index, regex) {
-
     return function (dispatch, getState) {
-
         dispatch(modifyBlockPointRegex(index, regex));
         updateBlockPointSetting(getState);
     }

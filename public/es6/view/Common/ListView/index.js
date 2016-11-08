@@ -11,15 +11,11 @@ const noop = function () {
 
 var ListItem = React.createClass({
     componentDidMount(){
-
         const {item, onItemLayout}=this.props;
-
         onItemLayout(item, this.domNode);
     },
     render(){
-
         const {item, itemHeight, onItemClick, renderRow}=this.props;
-
         return (
             <li
                 ref={component=>{this.domNode=component}}
@@ -42,29 +38,24 @@ var ListItem = React.createClass({
 
 export default React.createClass({
     getInitialState(){
-
         return {
             visibleItemList: [],
             contentHeight: 0
         };
     },
     _onScrollGenerator(){
-
         var currentScrollTop = 0,
             self = this;
 
         return function (evt) {
-
             var container = evt.target,
                 nextScrollTop = container.scrollTop,
                 deltaTop = nextScrollTop - currentScrollTop;
 
             if (deltaTop < 0) {
-
                 self.autoScroll = false;
             }
             if (nextScrollTop >= ds.getMaxScrollTop() - self.props.itemHeight) {
-
                 self.autoScroll = true;
             }
 
@@ -77,11 +68,9 @@ export default React.createClass({
         };
     },
     componentWillReceiveProps(props){
-
         const {dataSrc}=props;
 
         if (dataSrc) {
-
             const {containerHeight, itemHeight, rangeSize}=props;
 
             ds.refresh({
@@ -96,22 +85,18 @@ export default React.createClass({
         }
     },
     componentDidUpdate(){
-
         var container = this.refs.container;
 
         if (this.autoScroll) {
-
             $(container).scrollTop(ds.getMaxScrollTop());
         }
     },
     componentWillMount(){
-
         this.autoScroll = true;
         this._onScroll = this._onScrollGenerator();
         ds.setVisibleRage(0, 10);
     },
     render(){
-
         const {renderRow, containerHeight, itemHeight, name}=this.props;
         const visibleItemList = this.state.visibleItemList;
         const contentHeight = this.state.contentHeight;

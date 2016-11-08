@@ -9,7 +9,6 @@ import {fixTextarea} from './util';
 
 export default React.createClass({
     componentDidMount(){
-
         $(document.body).on('click', ".js-body-tablink", ()=> {
 
             $('.body-textarea').each((i, ta)=> {
@@ -20,7 +19,6 @@ export default React.createClass({
         });
     },
     _onBlockPointContinue(){
-
         var bodyVal = $('#log-response-body-accordion-content').find('textarea').val(),
             {current, blockPointContinue}=this.props;
 
@@ -28,7 +26,6 @@ export default React.createClass({
         blockPointContinue(current);
     },
     render(){
-
         const {current, closeDetail, isBlocked, blockPointAbort, blockPointList, insertBlockPointAndSave}=this.props;
         const clippedUrl = current.url ? current.url.replace(/\?.+/, '') : null;
         const isCurrentInBlockPointList = current.url ? blockPointList.toJS().some(setting=>clippedUrl.search(setting.regex) !== -1) : false;

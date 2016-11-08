@@ -5,7 +5,6 @@ import React from 'react';
 
 export default React.createClass({
     render(){
-
         const {
                 current,
                 server,

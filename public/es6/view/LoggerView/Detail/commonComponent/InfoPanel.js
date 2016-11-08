@@ -5,7 +5,6 @@ import React from 'react';
 
 export default React.createClass({
     render(){
-
         const {id, title, isCollapsed}=this.props;
         const panelName = id + "-panel",
             controlId = id + "-accordion-control",

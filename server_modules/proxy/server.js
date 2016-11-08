@@ -10,12 +10,10 @@ var KEY_FILE_PATH = CONST.SERVER_KEY,
 
 module.exports = {
     listen: function (httpPort, httpsPort) {
-
         http
             .createServer(middleMan('http'))
             .listen(httpPort)
             .on('connect', tunnel);
-
         https
             .createServer({
                 key: fs.readFileSync(KEY_FILE_PATH),

@@ -4,7 +4,6 @@
 import React from 'react';
 export default React.createClass({
     onPatternChange(){
-
         const {index,onSetPattern}=this.props;
 
         var pattern = this.refs.patternInput.value,
@@ -14,16 +13,13 @@ export default React.createClass({
         onSetPattern(index, {pattern, responder, isOn});
     },
     onDeletePattern(){
-
         const {index,onDeletePattern}=this.props;
 
         if (confirm('确定删除吗?')) {
-
             onDeletePattern(index);
         }
     },
     render(){
-
         const {pattern,responder,isOn}=this.props;
 
         return (

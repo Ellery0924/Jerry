@@ -5,35 +5,28 @@ import React from 'react';
 
 export default React.createClass({
     componentDidMount(){
-
         $(this.refs.modal).on('shown.bs.modal', ()=> {
-
             $(this.refs.blockPointInsertInput).focus().val('');
         });
     },
     _onInsertBtnClick(){
-
         var regex = this.refs.blockPointInsertInput.value;
 
         if (regex) {
-
             this.props.insertBlockPointAndSave(regex);
             this.refs.blockPointInsertInput.value = "";
         }
         else {
-
             alert("请输入断点URL!");
         }
     },
     _onRemoveBtnClick(evt){
-
         var target = evt.target,
             index = target.dataset.blockpointindex;
 
         this.props.removeBlockPointAndSave(index);
     },
     _onSwitchIsOn(evt){
-
         var target = evt.target,
             index = target.dataset.blockpointindex,
             isOn = target.value === "true";
@@ -49,7 +42,6 @@ export default React.createClass({
     //     this.props.modifyBlockPointRegexAndSave(index, regex);
     // },
     _onSelectCheckBoxChange(evt){
-
         var target = evt.target,
             index = target.dataset.blockpointindex,
             selected = target.checked;
@@ -59,7 +51,6 @@ export default React.createClass({
             this.props.deselectBlockPoint(index);
     },
     _onSelectAllChange(evt){
-
         var target = evt.target,
             selected = target.checked;
 
@@ -68,11 +59,9 @@ export default React.createClass({
             this.props.deselectAllBlockPoint();
     },
     _onRemoveSelectedBlockPoint(){
-
         this.props.removeSelectedBlockPointAndSave();
     },
     render(){
-
         const blockPointList = this.props.blockPointList.toJS();
         const isBlockPointListEmpty = !blockPointList.length;
         const allSelected = !isBlockPointListEmpty && blockPointList.every(setting=>setting.selected);

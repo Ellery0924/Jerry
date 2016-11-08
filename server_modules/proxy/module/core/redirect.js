@@ -10,7 +10,6 @@ var util = require('./proxyUtil'),
     extractJSONPFuncName = util.extractJSONPFuncName;
 
 module.exports = function (sreq, sres) {
-
     var redirect,
         redirectUrl,
         responseData,
@@ -26,7 +25,6 @@ module.exports = function (sreq, sres) {
         jsonpRetFuncName,
         contentType,
         protocol;
-
     //第一步过滤,匹配rewrite中的规则
     redirect = util.rewrite(sreq.url);
     responseData = redirect.responseData;
@@ -35,37 +33,27 @@ module.exports = function (sreq, sres) {
     jsonpCallback = redirect.jsonpCallback;
     contentType = redirect.contentType;
     jsonpRetFuncName = extractJSONPFuncName(jsonpCallback, sreq.url);
-
     renderedUrl = redirectUrl ? url.parse(redirectUrl) : null;
 
     //如果是本地文件
     //直接从本地读取并返回
     if (isLocal) {
-
         if (!responseData) {
-
             var exists = fs.existsSync(redirectUrl);
-
             if (!exists) {
-
                 sres.writeHead(404, {
                     contentType: 'text/html;charset=utf-8'
                 });
                 sres.end('404 Not Found.');
             }
             else {
-
                 fs.readFile(redirectUrl, function (err, data) {
-
                     if (err) {
-
                         sres.writeHead(500);
                         sres.end(err.toString());
                         return;
                     }
-
                     if (jsonpRetFuncName) {
-
                         data = jsonpRetFuncName + '(' + data + ');';
                     }
 
@@ -79,19 +67,14 @@ module.exports = function (sreq, sres) {
             }
         }
         else {
-
             sres.writeHead(200, {
                 'Content-Type': contentType + ';charset=utf-8',
                 'Access-Control-Allow-Origin': '*'
             });
-
             responseData = JSON.stringify(responseData);
-
             if (jsonpRetFuncName) {
-
                 responseData = jsonpRetFuncName + '(' + responseData + ');';
             }
-
             sres.end(responseData);
         }
 
@@ -101,9 +84,7 @@ module.exports = function (sreq, sres) {
     else {
         //第二步过滤,匹配转发分组中的规则
         filtered = util.filter(renderedUrl.host);
-
         if (!filtered) {
-
             return;
         }
 
@@ -115,12 +96,9 @@ module.exports = function (sreq, sres) {
         method = sreq.method.toLowerCase();
 
         if (redirect.redirected && sreq.headers.host) {
-
             sheaders.host = host;
         }
-
         if (nocache) {
-
             sheaders['cache-control'] = 'no-cache';
         }
 

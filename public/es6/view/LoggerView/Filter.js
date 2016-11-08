@@ -5,38 +5,31 @@ import React from 'react';
 
 export default React.createClass({
     _onSelectMethod(method){
-
         const {filter}=this.props;
         var regex = this.refs.regexInput.value;
 
         if (method !== this.currentMethod) {
-
             this.currentMethod = method;
             filter({method, regex});
         }
     },
     _onResetFilter(){
-
         const {filter}=this.props;
         this.currentMethod = 'ALL';
         filter({method: 'ALL', regex: ''});
     },
     _onRegexChange(){
-
         const {filter}=this.props;
         var regex = this.refs.regexInput.value;
         filter({method: this.currentMethod, regex});
     },
     _onOpenBlockPointManageModal(){
-
         $('#blockPointManageModal').modal('show');
     },
     componentWillMount(){
-
         this.currentMethod = 'ALL';
     },
     render(){
-
         const {method, regex}=this.props.condition;
         const {isBlocked}=this.props;
         var methodText = method === 'ALL' ? '不限 ' : method;

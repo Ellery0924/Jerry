@@ -9,7 +9,6 @@ import {setPatternAndSave, insertPatternAndSave, deletePatternAndSave} from '../
 
 var RewriteManageView = React.createClass({
     render(){
-
         const {dispatch}=this.props;
         const {rewrite}=this.props.config;
 
@@ -28,7 +27,6 @@ var RewriteManageView = React.createClass({
 });
 
 function select(state) {
-
     return state.qproxy.toJS();
 }
 

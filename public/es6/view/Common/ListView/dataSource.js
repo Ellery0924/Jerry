@@ -9,7 +9,6 @@ export default class {
     }
 
     refresh(opt) {
-
         var self = this;
         this.itemHeight = opt.itemHeight;
         this.dataSrc = opt.dataSrc.map((itemData, i)=>Object.assign({}, itemData, {top: i * self.itemHeight}));
@@ -19,29 +18,23 @@ export default class {
     }
 
     setVisibleRage(start, end) {
-
         this.visibleRange = [start, end];
     }
 
     getVisibleItems() {
-
         return [].slice.apply(this.dataSrc, this.visibleRange);
     }
 
     getContentHeight() {
-
         return this.dataSrc.length * this.itemHeight + 20;
     }
 
     getMaxScrollTop() {
-
         return Math.ceil(this.getContentHeight() - this.containerHeight);
     }
 
     configureVisibleRange(offsetY) {
-
         if (offsetY < 0) {
-
             offsetY = 0;
         }
 

@@ -2,7 +2,6 @@ var service = require('../service'),
     Stream = require('./Stream');
 
 function StreamThrottleManager() {
-
     this.connectionPool = [];
     this.init();
 }
@@ -24,30 +23,22 @@ StreamThrottleManager.BANDWIDTH_MAP = {
 
 StreamThrottleManager.prototype = {
     setThrottleLevel: function (throttleLevel) {
-
         this.throttleLevel = throttleLevel;
         this.bandWidth = this.getBandWidth(throttleLevel);
-
         return this;
     },
     getBandWidth: function (throttleLevel) {
-
         return StreamThrottleManager.BANDWIDTH_MAP[throttleLevel];
     },
     getSpeed: function () {
-
         return this.bandWidth / this.connectionPool.length;
     },
     init: function () {
-
         var self = this;
 
         setInterval(function () {
-
             self.connectionPool.forEach(function (connection) {
-
                 if (connection.step(self.getSpeed())) {
-
                     self.removeStream(connection);
                 }
             });
@@ -56,7 +47,6 @@ StreamThrottleManager.prototype = {
         return this;
     },
     createThrottling: function (readStream, writeStream) {
-
         this.connectionPool.push(
             new Stream(
                 readStream,
@@ -66,25 +56,20 @@ StreamThrottleManager.prototype = {
         );
     },
     removeStream: function (stream) {
-
         var index = this.connectionPool.indexOf(stream);
 
         if (index !== -1) {
-
             this.connectionPool.splice(index, 1);
         }
     },
     pipe: function (readStream, writeStream, host) {
-
         var config = service.getConfig(),
             throttleLevel = config.throttleLevel;
 
         if (!throttleLevel || !host || host.search('127.0.0.1') !== -1 || host.search('localhost') !== -1) {
-
             readStream.pipe(writeStream);
         }
         else {
-
             this.setThrottleLevel(throttleLevel)
                 .createThrottling(readStream, writeStream);
         }

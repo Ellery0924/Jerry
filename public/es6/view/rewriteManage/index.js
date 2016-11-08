@@ -7,7 +7,6 @@ import InsertModal from './InsertModal';
 
 export default React.createClass({
     render(){
-
         const {patternList, onSetPattern, onDeletePattern, onInsertPattern}=this.props;
 
         return (

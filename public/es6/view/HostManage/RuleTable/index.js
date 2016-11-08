@@ -10,7 +10,6 @@ import {exportHostList} from '../../../utils';
 
 export default React.createClass({
     render(){
-
         const {
             mockServices,
             activated,

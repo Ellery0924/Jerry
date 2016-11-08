@@ -8,9 +8,7 @@ import NetworkSettingModal from './NetworkSettingModal';
 
 export default React.createClass({
     render(){
-
         const {httpsOn, onSwitchHttps, onSelectThrottleLevel, throttleLevel}=this.props;
-
         return (
             <div className="row">
                 <GroupNavigator {...this.props}/>
