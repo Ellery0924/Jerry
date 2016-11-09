@@ -4,7 +4,7 @@
 var requireUncached = require('require-uncached');
 
 var HOST_FILE_NAME = 'ykit.hosts',
-    MOCK_FILE_NAME = 'ykit.mock.js',
+    MOCK_FILE_NAME = 'mock.js',
     fs = require('fs'),
     Path = require('path'),
     formatRuleList = require('./hostUtils').formatRuleList,
@@ -81,7 +81,8 @@ function extractHostFile(filepath, serverInfo) {
 
 function fetchMockConfig(CWD, projectName) {
     var folderName = projectName.replace(/\_ykit$/, ''),
-        mockConfigFilePath = Path.resolve(CWD, folderName, MOCK_FILE_NAME);
+        mockConfigFilePath = Path.resolve(CWD, folderName, MOCK_FILE_NAME),
+        backupConfigPath = Path.resolve(CWD, folderName, 'mock.js');
 
     if (fs.existsSync(mockConfigFilePath)) {
         return {
@@ -89,8 +90,13 @@ function fetchMockConfig(CWD, projectName) {
             mockConfig: requireUncached(mockConfigFilePath)
         };
     }
+    else if (fs.existsSync(backupConfigPath)) {
+        return {
+            projectPath:Path.resolve(CWD, folderName),
+            mockConfig: requireUncached(backupConfigPath)
+        };
+    }
     else {
-
         return null;
     }
 }
