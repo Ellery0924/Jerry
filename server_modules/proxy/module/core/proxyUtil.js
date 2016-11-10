@@ -19,7 +19,6 @@ function getRewriteRules(config) {
     if (mockConfigObj && isMockActivated) {
         var mockConfig = mockConfigObj.mockConfig,
             projectPath = mockConfigObj.projectPath;
-        console.log(mockConfig)
 
         if (mockConfig) {
             return mockConfig
