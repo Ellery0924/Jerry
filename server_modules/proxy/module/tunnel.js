@@ -1,7 +1,6 @@
 var net = require('net'),
     util = require('./core/proxyUtil'),
     URL = require('url'),
-    logger = util.logger,
     fs = require('fs'),
     service = require('../../service');
 
@@ -27,7 +26,6 @@ module.exports = function (req, socket) {
                 host: host,
                 port: port
             });
-            logger(host, url, port, 'https', req.method, parsedUrl);
         }
     }
     //https中间人
