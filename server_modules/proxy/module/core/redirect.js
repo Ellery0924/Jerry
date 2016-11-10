@@ -102,7 +102,7 @@ module.exports = function (sreq, sres) {
             sheaders['cache-control'] = 'no-cache';
         }
 
-        logger(host, sreq.url, port, protocol.replace(':', ''), method, renderedUrl);
+        // logger(host, sreq.url, port, protocol.replace(':', ''), method, renderedUrl);
 
         return {
             host: host,

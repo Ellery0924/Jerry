@@ -19,6 +19,7 @@ function getRewriteRules(config) {
     if (mockConfigObj && isMockActivated) {
         var mockConfig = mockConfigObj.mockConfig,
             projectPath = mockConfigObj.projectPath;
+        console.log(mockConfig)
 
         if (mockConfig) {
             return mockConfig
@@ -49,6 +50,12 @@ function getRewriteRules(config) {
                             }
                         }
                         else if (responder) {
+                            if (typeof pattern === 'string') {
+                                if (pattern.charAt(pattern.length - 1) !== '$') {
+                                    pattern += '$';
+                                }
+                            }
+
                             return {
                                 isOn: 1,
                                 pattern: pattern,
@@ -94,6 +101,7 @@ function rewrite(url, context) {
     //如果有异常就直接返回原url
     try {
         matchedRules = rules.filter(function (rule) {
+            var pattern = rule.pattern;
             return rule.pattern && rule.isOn && (new RegExp(rule.pattern).test(url));
         });
 
