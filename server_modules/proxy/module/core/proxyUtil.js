@@ -47,8 +47,7 @@ function getRewriteRules(config) {
                                     contentType: contentType
                                 };
                             }
-                        }
-                        else if (responder) {
+                        } else if (responder) {
                             if (typeof pattern === 'string') {
                                 if (pattern.charAt(pattern.length - 1) !== '$') {
                                     pattern += '$';
@@ -139,8 +138,7 @@ function rewrite(url, context) {
                 }
 
                 redirected = true;
-            }
-            else {
+            } else {
                 isLocal = true;
                 redirected = true;
                 rewriteUrl = null;
@@ -208,8 +206,7 @@ function filter(host) {
             serverIndex = activatedGrpInfo.cache[env];
             if (env === 'custom' && host !== '') {
                 result.host = serverIndex ? serverIndex : host;
-            }
-            else if (env !== 'online') {
+            } else if (env !== 'online') {
                 serverListInfo = serverInfo[env];
                 result.host = serverListInfo[serverIndex];
             }

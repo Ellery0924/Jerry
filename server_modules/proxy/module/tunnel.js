@@ -27,9 +27,7 @@ module.exports = function (req, socket) {
                 port: port
             });
         }
-    }
-    //https中间人
-    else {
+    } else {
         netClient = net.createConnection(config.httpsPort);
     }
 

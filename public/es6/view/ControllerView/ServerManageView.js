@@ -20,8 +20,7 @@ var ServerManageView = React.createClass({
         if (validateResult.result) {
             dispatch(setServerAndSave(JSON.parse(this.refs.serverInfoInput.value)))
                 .then(()=>alert('保存成功,请重启qproxy.'));
-        }
-        else {
+        } else {
             alert(validateResult.message);
         }
     },

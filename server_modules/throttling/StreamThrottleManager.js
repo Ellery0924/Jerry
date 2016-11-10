@@ -68,8 +68,7 @@ StreamThrottleManager.prototype = {
 
         if (!throttleLevel || !host || host.search('127.0.0.1') !== -1 || host.search('localhost') !== -1) {
             readStream.pipe(writeStream);
-        }
-        else {
+        } else {
             this.setThrottleLevel(throttleLevel)
                 .createThrottling(readStream, writeStream);
         }

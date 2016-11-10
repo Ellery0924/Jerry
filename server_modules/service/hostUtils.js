@@ -13,8 +13,7 @@ function exportHostList(ruleList, serverInfo, shouldNotShowOnlineHosts) {
             if (!isOnline) {
                 result = result.concat(ip + ' ' + domainArr.join(' '));
             }
-        }
-        else {
+        } else {
             result = result.concat((isOnline ? 'online' : ip) + ' ' + domainArr.join(' '));
         }
 

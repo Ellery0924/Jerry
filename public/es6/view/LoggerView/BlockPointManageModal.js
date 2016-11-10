@@ -15,8 +15,7 @@ export default React.createClass({
         if (regex) {
             this.props.insertBlockPointAndSave(regex);
             this.refs.blockPointInsertInput.value = "";
-        }
-        else {
+        } else {
             alert("请输入断点URL!");
         }
     },
@@ -33,14 +32,6 @@ export default React.createClass({
 
         this.props.switchBlockPointAndSave(index, isOn);
     },
-    // _onModifyRegex(evt){
-    //
-    //     var target = evt.target,
-    //         regex = target.value,
-    //         index = target.dataset.blockpointindex;
-    //
-    //     this.props.modifyBlockPointRegexAndSave(index, regex);
-    // },
     _onSelectCheckBoxChange(evt){
         var target = evt.target,
             index = target.dataset.blockpointindex,

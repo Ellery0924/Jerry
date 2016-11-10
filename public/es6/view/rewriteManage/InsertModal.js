@@ -16,8 +16,7 @@ export default React.createClass({
         if (validateResult.result) {
             onInsertPattern({pattern, responder, isOn: 1});
             $(this.refs.insertPatternModal).modal('hide');
-        }
-        else {
+        } else {
             alert(validateResult.message);
         }
     },

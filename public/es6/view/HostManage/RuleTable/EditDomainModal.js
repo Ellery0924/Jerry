@@ -22,8 +22,7 @@ export default React.createClass({
         if (validateRet.result) {
             onEditDomain(groupName, ruleIndex, newDomainVal);
             $(this.refs.editDomainModal).modal('hide');
-        }
-        else {
+        } else {
             alert(validateRet.message);
         }
     },

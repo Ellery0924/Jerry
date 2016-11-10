@@ -44,8 +44,7 @@ module.exports = function (sreq, sres) {
                     contentType: 'text/html;charset=utf-8'
                 });
                 sres.end('404 Not Found.');
-            }
-            else {
+            } else {
                 fs.readFile(redirectUrl, function (err, data) {
                     if (err) {
                         sres.writeHead(500);
@@ -64,8 +63,7 @@ module.exports = function (sreq, sres) {
                     sres.end(data);
                 });
             }
-        }
-        else {
+        } else {
             sres.writeHead(200, {
                 'Content-Type': contentType + ';charset=utf-8',
                 'Access-Control-Allow-Origin': '*'
@@ -78,9 +76,7 @@ module.exports = function (sreq, sres) {
         }
 
         return null;
-    }
-    //线上资源
-    else {
+    } else {
         //第二步过滤,匹配转发分组中的规则
         filtered = util.filter(renderedUrl.host);
         if (!filtered) {

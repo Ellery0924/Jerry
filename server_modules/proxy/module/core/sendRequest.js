@@ -30,8 +30,7 @@ module.exports = function (opts, clientType, sreq, sres) {
                         streamThrottleManager.pipe(cres, sres, host);
                         logger.collect(cres, 'res');
                     });
-            }
-            else {
+            } else {
                 streamThrottleManager.pipe(cres, sres, host);
                 logger.collect(cres, 'res');
             }
@@ -43,8 +42,7 @@ module.exports = function (opts, clientType, sreq, sres) {
     if (method === 'post' || method === 'put') {
         streamThrottleManager.pipe(sreq, creq, host);
         logger.collect(sreq, 'req');
-    }
-    else {
+    } else {
         creq.end();
         logger.collect(sreq, 'req', true);
     }

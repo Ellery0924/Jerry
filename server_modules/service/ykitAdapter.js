@@ -89,14 +89,12 @@ function fetchMockConfig(CWD, projectName) {
             projectPath: Path.resolve(CWD, folderName),
             mockConfig: requireUncached(mockConfigFilePath)
         };
-    }
-    else if (fs.existsSync(backupConfigPath)) {
+    } else if (fs.existsSync(backupConfigPath)) {
         return {
             projectPath:Path.resolve(CWD, folderName),
             mockConfig: requireUncached(backupConfigPath)
         };
-    }
-    else {
+    } else {
         return null;
     }
 }

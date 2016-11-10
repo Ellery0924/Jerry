@@ -63,8 +63,7 @@ Logger.prototype = {
             this.resHeaders = resHeaders;
             blockPointCount++;
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     },
@@ -101,8 +100,7 @@ Logger.prototype = {
         this.logData = parsedObj;
         if (!this.blocked) {
             logPool.push(parsedObj);
-        }
-        else {
+        } else {
             Logger.instances.push(this);
         }
     },
@@ -158,8 +156,7 @@ Logger.prototype = {
                 if (self._checkIfInBlackList()) {
                     return;
                 }
-            }
-            else if (type === 'res') {
+            } else if (type === 'res') {
                 self.res = stream;
                 if (self._checkIfInBlackList()) {
                     return;
@@ -174,8 +171,7 @@ Logger.prototype = {
                         resolve();
                     }
                 });
-            }
-            else {
+            } else {
                 self.rets.push("");
             }
         });
@@ -202,8 +198,7 @@ function handler(blockPoint, type, isBlocked, noJsonp) {
             if (!isBlocked) {
                 blockPointCount = 0;
             }
-        }
-        else if (type === 'abort') {
+        } else if (type === 'abort') {
             instance.blockPromise.reject('abort');
             instance.isProposed = true;
             console.log('Block Point Abort:' + blockPoint.url);

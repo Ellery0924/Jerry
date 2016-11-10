@@ -148,8 +148,7 @@ export default React.createClass({
             if (checked) {
 
                 onSelectRule(activated, index);
-            }
-            else {
+            } else {
 
                 onDeselectRule(activated, index);
             }

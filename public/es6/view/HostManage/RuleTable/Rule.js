@@ -78,8 +78,7 @@ export default React.createClass({
         if (evt.target.checked) {
 
             this.props.onSelectRule(this.props.groupName, this.props.ruleIndex);
-        }
-        else {
+        } else {
 
             this.props.onDeselectRule(this.props.groupName, this.props.ruleIndex);
         }

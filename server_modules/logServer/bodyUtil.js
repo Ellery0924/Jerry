@@ -22,14 +22,12 @@ function zipBody(headers, str) {
             zlib.gzip(buf, function (err, result) {
                 !err ? resolve(result) : reject(err);
             });
-        }
-        else if (encoding === 'deflate') {
+        } else if (encoding === 'deflate') {
 
             zlib.deflate(buf, function (err, result) {
                 !err ? resolve(result) : reject(err);
             });
-        }
-        else {
+        } else {
             resolve(buf);
         }
     });
@@ -51,13 +49,11 @@ function unzipBody(stream) {
                     zlib.gunzip(buf, function (err, data) {
                         !err ? resolve(data.toString()) : reject(err);
                     });
-                }
-                else if (encoding === 'deflate') {
+                } else if (encoding === 'deflate') {
                     zlib.inflate(buf, function (err, data) {
                         !err ? resolve(data.toString()) : reject(err);
                     });
-                }
-                else {
+                } else {
                     resolve(buf.toString());
                 }
 
@@ -90,8 +86,7 @@ function _extractJSON(jsonStr) {
         catch (e) {
             return {parsed: "not a valid json", jsonp: null};
         }
-    }
-    else if (rquery.test(jsonStr)) {
+    } else if (rquery.test(jsonStr)) {
         return {parsed: queryToObj(jsonStr), jsonp: null};
     }
 
@@ -105,8 +100,7 @@ function parseBody(body) {
 function fixJsonp(response) {
     if (response.jsonp) {
         return response.jsonp + response.body + ")";
-    }
-    else {
+    } else {
         return response.body;
     }
 }

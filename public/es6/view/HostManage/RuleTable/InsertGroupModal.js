@@ -69,8 +69,7 @@ export default React.createClass({
         if (validateRet.result) {
             onInsertGroup(groupName);
             $('#newGroupModal').modal('hide');
-        }
-        else {
+        } else {
             alert(validateRet.message);
         }
     }

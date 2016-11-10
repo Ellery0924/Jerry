@@ -122,8 +122,7 @@ export function switchMockService(state, open) {
             if (!mservices.find(groupName=>groupName === activated)) {
                 return mservices.push(activated);
             }
-        }
-        else {
+        } else {
             return mservices.filter(groupName=>groupName !== activated);
         }
     });
