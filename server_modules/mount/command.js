@@ -23,37 +23,28 @@ var app = require('../web/app'),
     workPath;
 
 function start(callback) {
-
     app.listen(aport);
     logServer.listen(logServerPort);
     app.on('error', function (e) {
-
         if (e.code === 'EADDRINUSE') {
-
             console.log("[ERROR]"['red'] + ": 端口 " + qport + " 已经被占用, 请关闭占用该端口的程序或者使用其它端口.");
         }
         if (e.code === 'EACCES') {
-
             console.log("[ERROR]: 权限不足, 请使用sudo执行."['red']);
             process.send('exit');
         }
-
         return process.exit(1);
     });
 
     app.on('listening', function () {
-
         console.log('jerryproxy已经启动,端口为 ' + qport + '...');
         console.log('按CTRL+C退出');
         callback && callback();
         qproxy.server.listen(qport, httpsPort);
-
-        // execSync((os.platform() !== 'win32' ? 'open' : 'start') + ' http://127.0.0.1:' + aport + '/qproxy');
     });
 }
 
 function setRunningPort() {
-
     qpconfig.qport = qport = process.argv[3] || 999;
     qpconfig.aport = aport = process.argv[4] || 1000;
     qpconfig.httpsPort = httpsPort = process.argv[5] || 1001;
@@ -92,10 +83,8 @@ function setWorkPath() {
     if (fekitConfigPath && fs.existsSync(fekitConfigPath)) {
         qpconfig.fekitWorkPath = fekitConfigPath;
         setConfig(qpconfig);
-
         console.log('fekit工作目录被设置为: ' + fekitConfigPath);
-    }
-    else {
+    } else {
         console.log('fekit工作目录设置不正确,请检查是否是合法的路径');
     }
 
