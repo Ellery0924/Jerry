@@ -61,7 +61,6 @@ module.exports = function (req, socket) {
                 socket.end();
             })
             .on('error', function (err) {
-                console.log('netClient error ' + err.message + ',url:' + req.url);
                 socket.end();
             });
     }
