@@ -6,7 +6,6 @@ var util = require('./proxyUtil'),
     http = require("http"),
     url = require("url"),
     fs = require('fs'),
-    logger = util.logger,
     extractJSONPFuncName = util.extractJSONPFuncName;
 
 module.exports = function (sreq, sres) {
@@ -101,8 +100,6 @@ module.exports = function (sreq, sres) {
         if (nocache) {
             sheaders['cache-control'] = 'no-cache';
         }
-
-        // logger(host, sreq.url, port, protocol.replace(':', ''), method, renderedUrl);
 
         return {
             host: host,
