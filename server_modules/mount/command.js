@@ -5,8 +5,6 @@ require('./beforeStart')();
 
 var fs = require('fs'),
     spawn = require('child_process').spawn,
-    os = require('os'),
-    execSync = require('child_process').execSync,
     logServer = require('../logServer').wsServer,
     service = require('../service');
 
