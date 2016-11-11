@@ -70,7 +70,7 @@ function startWithDevServer(serverName) {
         spawn(serverName, ['server'].concat(fekitArgs), {
             cwd: workPath,
             env: process.env,
-            customFds: [0, 1, 2]
+            stdio: [0, 1, 2]
         });
     });
 }
