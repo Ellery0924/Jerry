@@ -10,7 +10,6 @@ var dest = './public/dest',
     style = dest + '/style.min.css';
 
 function md5(content) {
-
     return crypto.createHash('md5').update(content).digest('hex');
 }
 
