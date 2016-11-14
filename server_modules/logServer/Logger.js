@@ -1,3 +1,4 @@
+require('babel-polyfill');
 var wsServer = require('./wsServer'),
     URL = require('url'),
     unzipBody = require('./bodyUtil').unzipBody,
