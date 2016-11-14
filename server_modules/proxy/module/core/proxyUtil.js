@@ -1,6 +1,7 @@
 /**
  * Created by Ellery1 on 15/7/30.
  */
+require('babel-polyfill');
 var fs = require('fs'),
     service = require('../../../service'),
     Path = require('path');
@@ -14,7 +15,7 @@ function getRewriteRules(config) {
         targetGroup = config.group[activated],
         mockServices = config.mockServices,
         mockConfigObj = service.getMockConfig(activated),
-        isMockActivated = targetGroup && mockServices ? !!mockServices.find(gname=>gname === activated) : false;
+        isMockActivated = targetGroup && mockServices ? !!mockServices.find(function(gname){return gname === activated}) : false;
 
     if (mockConfigObj && isMockActivated) {
         var mockConfig = mockConfigObj.mockConfig,
