@@ -19,12 +19,12 @@ module.exports = [
         // 简易配置, 匹配规则
         pattern: /test2\.qunar\.com\/(.*)/,
         // 返回一个json格式数据, 而不是一个路径
-        responder: {id: 2222},
+        responder: { id: 2222 },
         // 同样可以配这个和contentType
         jsonpCallback: 'jsCallback'
     },
     {
         pattern: /test3\.qunar\.com/,
-        responder: {id: '1212dl;akds;l'}
+        responder: { id: '1212dl;akds;l' }
     }
 ];

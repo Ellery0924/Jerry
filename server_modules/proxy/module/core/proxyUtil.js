@@ -15,7 +15,9 @@ function getRewriteRules(config) {
         targetGroup = config.group[activated],
         mockServices = config.mockServices,
         mockConfigObj = service.getMockConfig(activated),
-        isMockActivated = targetGroup && mockServices ? !!mockServices.find(function(gname){return gname === activated}) : false;
+        isMockActivated = targetGroup && mockServices ? !!mockServices.find(function (gname) {
+            return gname === activated
+        }) : false;
 
     if (mockConfigObj && isMockActivated) {
         var mockConfig = mockConfigObj.mockConfig,
@@ -55,13 +57,17 @@ function getRewriteRules(config) {
                                 }
                             }
 
+                            if (typeof responder === 'string' && !Path.isAbsolute(responder) && !responder.match(/^(https?:)?\/\//)) {
+                                responder = Path.resolve(projectPath, responder);
+                            }
+
                             return {
                                 isOn: 1,
                                 pattern: pattern,
                                 responder: responder,
                                 jsonpCallback: jsonpCallback,
                                 contentType: contentType
-                            }
+                            };
                         }
                     }
 
