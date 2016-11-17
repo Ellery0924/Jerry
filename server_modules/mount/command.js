@@ -35,8 +35,9 @@ function start(callback) {
     });
 
     app.on('listening', function () {
-        console.log('jerryproxy已经启动,端口为 ' + qport + '...');
-        console.log('按CTRL+C退出');
+        console.log('[JerryProxy] '.grey + 'Starting up proxy...');
+        console.log('[JerryProxy] '.grey + 'Please set proxy server to 127.0.0.1:' + qport);
+        console.log('[JerryProxy] '.grey + 'Available on: ' + 'http://127.0.0.1:1000/qproxy'.underline);
         callback && callback();
         qproxy.server.listen(qport, httpsPort);
     });
