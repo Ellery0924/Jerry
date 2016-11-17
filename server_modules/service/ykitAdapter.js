@@ -7,8 +7,7 @@ var HOST_FILE_NAME = 'ykit.hosts',
     MOCK_FILE_NAME = 'mock.js',
     fs = require('fs'),
     Path = require('path'),
-    formatRuleList = require('./hostUtils').formatRuleList,
-    exportHostList = require('./hostUtils').exportHostList;
+    formatRuleList = require('./hostUtils').formatRuleList;
 
 var rignore = /^\./,
     rykit = /\_ykit$/,
@@ -30,15 +29,14 @@ function fetchGroupConfigFromYkitFolder(serverInfo, CWD) {
 function syncGroupConfigToYkitFolder(config, serverInfo, CWD) {
     Object.keys(config.group).forEach(function (key) {
         var setting = config.group[key];
-        writeSettingToYkitHosts(key, setting, serverInfo, CWD);
+        writeSettingToYkitHosts(key, setting, CWD);
     });
 }
 
-function writeSettingToYkitHosts(groupname, setting, serverInfo, CWD) {
+function writeSettingToYkitHosts(groupname, setting, CWD) {
     if (rykit.test(groupname)) {
         var folderPath = Path.resolve(CWD, groupname.replace(/\_ykit$/, '')),
-            hostsPath = Path.resolve(folderPath, 'ykit.hosts'),
-            renderedHostList = exportHostList(setting, serverInfo);
+            hostsPath = Path.resolve(folderPath, 'ykit.hosts');
 
         try {
             if (fs.existsSync(folderPath) && isYKitFolder(folderPath)) {
