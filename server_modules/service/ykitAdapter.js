@@ -26,7 +26,7 @@ function fetchGroupConfigFromYkitFolder(serverInfo, CWD) {
     }, {});
 }
 
-function syncGroupConfigToYkitFolder(config, serverInfo, CWD) {
+function syncGroupConfigToYkitFolder(config, CWD) {
     Object.keys(config.group).forEach(function (key) {
         var setting = config.group[key];
         writeSettingToYkitHosts(key, setting, CWD);

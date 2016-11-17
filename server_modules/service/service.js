@@ -57,7 +57,7 @@ function setConfig(config) {
 
     try {
         currentConfig = _.cloneDeep(config);
-        ykitAdapter.syncGroupConfig(config, getServerInfo(), getWorkPath(config.fekitWorkPath));
+        ykitAdapter.syncGroupConfig(config, getWorkPath(config.fekitWorkPath));
         Object.keys(config.group).forEach(function (key) {
             if (ykitAdapter.rykit.test(key)) {
                 delete config.group[key];
