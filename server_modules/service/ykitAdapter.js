@@ -42,7 +42,7 @@ function writeSettingToYkitHosts(groupname, setting, serverInfo, CWD) {
 
         try {
             if (fs.existsSync(folderPath) && isYKitFolder(folderPath)) {
-                fs.writeFileSync(hostsPath, renderedHostList, 'utf8');
+                fs.writeFileSync(hostsPath, JSON.stringify(setting, null, 4), 'utf8');
                 fs.chmodSync(hostsPath, '777');
             }
         }
@@ -73,7 +73,11 @@ function iterateFolder(path, operate, acc) {
 
 function extractHostFile(filepath, serverInfo) {
     if (fs.existsSync(filepath)) {
-        return formatRuleList(fs.readFileSync(filepath, 'utf8'), serverInfo);
+        try {
+            return JSON.parse(fs.readFileSync(filepath, 'utf8'));
+        } catch (e) {
+            return formatRuleList(fs.readFileSync(filepath, 'utf8'), serverInfo);
+        }
     }
 
     return [];
@@ -91,7 +95,7 @@ function fetchMockConfig(CWD, projectName) {
         };
     } else if (fs.existsSync(backupConfigPath)) {
         return {
-            projectPath:Path.resolve(CWD, folderName),
+            projectPath: Path.resolve(CWD, folderName),
             mockConfig: requireUncached(backupConfigPath)
         };
     } else {
