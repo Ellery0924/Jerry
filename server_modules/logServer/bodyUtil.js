@@ -68,11 +68,11 @@ function _extractJSON(jsonStr) {
 
     if (jsonStr.length >= VERY_LONG_STRING_LEN) {
         console.log('very long!', jsonStr.length);
-        return {parsed: 'Too long to be parsed.', jsonp: null};
+        return { parsed: 'Too long to be parsed.', jsonp: null, abort: true };
     }
 
     if (!jsonStr) {
-        return {parsed: null, jsonp: null};
+        return { parsed: null, jsonp: null };
     }
 
     var rjson = /(^|^\s*[\w\d_\$\.]+\()\s*(\{(?:.|[\n\r])*}|\[(?:.|[\n\r])*])(?:\s*$|\))/,
@@ -81,20 +81,20 @@ function _extractJSON(jsonStr) {
 
     if (mjson) {
         try {
-            return {parsed: JSON.parse(mjson[2]), jsonp: mjson[1]};
+            return { parsed: JSON.parse(mjson[2]), jsonp: mjson[1] };
         }
         catch (e) {
-            return {parsed: "not a valid json", jsonp: null};
+            return { parsed: "not a valid json", jsonp: null };
         }
     } else if (rquery.test(jsonStr)) {
-        return {parsed: queryToObj(jsonStr), jsonp: null};
+        return { parsed: queryToObj(jsonStr), jsonp: null };
     }
 
-    return {parsed: "not a valid json", jsonp: null};
+    return { parsed: "not a valid json", jsonp: null };
 }
 
 function parseBody(body) {
-    return {raw: body, json: _extractJSON(body)};
+    return { raw:body, json: _extractJSON(body) };
 }
 
 function fixJsonp(response) {
