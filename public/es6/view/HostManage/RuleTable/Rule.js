@@ -22,6 +22,8 @@ export default React.createClass({
             ruleIndex
         }=this.props;
 
+        const modalId="editDomainModal-"+groupName+'-'+ruleIndex;
+
         return (
             <tr className="rule">
                 <td>
@@ -29,7 +31,7 @@ export default React.createClass({
                 </td>
                 <td>
                     <a
-                        href="#editDomainModal"
+                        href={'#'+modalId}
                         data-toggle="modal"
                         className="rule_domain"
                     >
@@ -37,6 +39,7 @@ export default React.createClass({
                     </a>
                     <EditDomainModal
                         domain={domain}
+                        id={modalId}
                         onEditDomain={onEditDomain}
                         ruleList={ruleList}
                         ruleIndex={ruleIndex}

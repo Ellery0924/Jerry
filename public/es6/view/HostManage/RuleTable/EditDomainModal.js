@@ -2,18 +2,18 @@
  * Created by Ellery1 on 16/1/2.
  */
 import React from 'react';
-import {validateDomain} from '../../../utils';
+import { validateDomain } from '../../../utils';
 
 export default React.createClass({
     componentDidMount(){
-        const {domain}=this.props;
+        const { domain }=this.props;
 
         $(this.refs.editDomainModal).on('shown.bs.modal', function () {
             $(this).find('textarea').focus().val(domain);
         });
     },
     submit(){
-        const {onEditDomain,ruleList,ruleIndex,groupName}=this.props;
+        const { onEditDomain, ruleList, ruleIndex, groupName }=this.props;
 
         var domainInput = this.refs.domainInput,
             newDomainVal = domainInput.value,
@@ -27,10 +27,10 @@ export default React.createClass({
         }
     },
     render(){
-        const {ruleIndex}=this.props;
+        const { ruleIndex, id }=this.props;
 
         return (
-            <div className="modal newRuleModal" id="editDomainModal" ref="editDomainModal" ruleIndex={ruleIndex}>
+            <div className="modal newRuleModal" id={id} ref="editDomainModal" ruleIndex={ruleIndex}>
                 <div id="newRuleModal_content" className="modal-dialog newRuleModal_content">
                     <div className="modal-content">
                         <div className="modal-header">
