@@ -137,37 +137,27 @@ export default React.createClass({
         );
     },
     toggleSelectAll(evt){
-
         var {group, activated, onSelectRule, onDeselectRule}=this.props,
             ruleList = group[activated];
 
         ruleList.forEach(function (rule, index) {
-
             let checked = evt.target.checked;
-
             if (checked) {
-
                 onSelectRule(activated, index);
             } else {
-
                 onDeselectRule(activated, index);
             }
         });
     },
     deleteGroup(){
-
         const {onDeleteGroup, activated}=this.props;
-
         if (confirm('确定删除吗?')) {
             onDeleteGroup(activated);
         }
     },
     multiDeleteRule(){
-
         const {onMultiDeleteRule, activated}=this.props;
-
         if (confirm('确定删除吗?')) {
-
             onMultiDeleteRule(activated);
         }
     }
