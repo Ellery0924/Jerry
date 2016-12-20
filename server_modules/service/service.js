@@ -22,11 +22,9 @@ function checkActivatedGroupExist(config) {
         activatedGroupExist = Object.keys(groupConfig).some(function (key) {
             return key === config.activated;
         });
-
     if (!activatedGroupExist) {
         config.activated = 'default';
     }
-
     return config;
 }
 
@@ -40,7 +38,6 @@ function getConfig(force) {
         );
         currentConfig = ret;
     }
-
     currentConfig = checkActivatedGroupExist(currentConfig);
     return currentConfig;
 }
@@ -49,12 +46,10 @@ function getServerInfo() {
     if (!currentServerInfo) {
         currentServerInfo = JSON.parse(fs.readFileSync(serverConfigPath, 'utf8'));
     }
-
     return currentServerInfo;
 }
 
 function setConfig(config) {
-
     try {
         currentConfig = _.cloneDeep(config);
         ykitAdapter.syncGroupConfig(config, getWorkPath(config.fekitWorkPath));
@@ -63,7 +58,6 @@ function setConfig(config) {
                 delete config.group[key];
             }
         });
-
         fs.writeFile(configPath, JSON.stringify(config).trim(), function (err) {
             if (err) {
                 throw err;
@@ -82,10 +76,8 @@ function setServerInfo(serverInfo) {
         if (err) {
             throw err;
         }
-
         console.log('~/.qsconfig updated.');
     });
-
     currentServerInfo = serverInfo;
 }
 
@@ -93,21 +85,17 @@ function getBlockPointSetting() {
     if (!currentBlockPointSetting) {
         currentBlockPointSetting = JSON.parse(fs.readFileSync(blockPointSettingPath, 'utf8'));
     }
-
     return currentBlockPointSetting;
 }
 
 function setBlockPointSetting(setting) {
     var blockSetting = {list: setting};
-
     fs.writeFile(blockPointSettingPath, JSON.stringify(blockSetting).trim(), function (err) {
         if (err) {
             throw err;
         }
-
         console.log('~/.qbconfig updated.');
     });
-
     currentBlockPointSetting = blockSetting;
 }
 
