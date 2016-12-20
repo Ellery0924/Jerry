@@ -1,5 +1,4 @@
 function Stream(readStream, writeStream, lag) {
-
     this.init(readStream, writeStream, lag);
 }
 
