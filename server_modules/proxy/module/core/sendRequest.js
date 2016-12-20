@@ -39,11 +39,11 @@ module.exports = function (opts, clientType, sreq, sres) {
             sres.end(err.stack);
         });
 
-    if (method === 'post' || method === 'put') {
-        streamThrottleManager.pipe(sreq, creq, host);
-        logger.collect(sreq, 'req');
-    } else {
+    if (method === 'get' || method === 'trace') {
         creq.end();
         logger.collect(sreq, 'req', true);
+    } else {
+        streamThrottleManager.pipe(sreq, creq, host);
+        logger.collect(sreq, 'req');
     }
 };
