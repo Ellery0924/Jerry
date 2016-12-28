@@ -20,7 +20,7 @@ export default React.createClass({
                         <span className="icon-bar"/>
                         <span className="icon-bar"/>
                     </button>
-                    <a className="navbar-brand" href="javascript:void 0;">
+                    <a className="navbar-brand" target="_blank" href="https://github.com/Ellery0924/QProxy">
                         Jerry
                     </a>
                 </div>
