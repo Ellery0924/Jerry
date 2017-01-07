@@ -22,7 +22,7 @@
   },
   "scripts": {
     "prepublish": "sh ./build.sh",
-    "start": "sudo node bin/jerry"
+    "start": "sudo nodemon bin/jerry"
   },
   "author": {
     "name": "Ellery Shen",
