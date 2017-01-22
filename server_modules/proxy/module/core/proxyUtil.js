@@ -4,7 +4,8 @@
 require('babel-polyfill');
 var fs = require('fs'),
     service = require('../../../service'),
-    Path = require('path');
+    Path = require('path'),
+    Url = require('url');
 
 var rmres = /\$(\d)/g,
     rlocal = /^\s*(\.|\/|file:\/\/|[A-Z]:)/,
@@ -16,8 +17,8 @@ function getRewriteRules(config) {
         mockServices = config.mockServices,
         mockConfigObj = service.getMockConfig(activated),
         isMockActivated = targetGroup && mockServices ? !!mockServices.find(function (gname) {
-            return gname === activated
-        }) : false;
+                return gname === activated
+            }) : false;
 
     if (mockConfigObj && isMockActivated) {
         var mockConfig = mockConfigObj.mockConfig,
@@ -117,7 +118,7 @@ function rewrite(url, context) {
             jsonpCallback = matchedRule.jsonpCallback;
             contentType = matchedRule.contentType || 'text/html';
 
-            if (typeof responder !== 'object') {
+            if (typeof responder !== 'object' && typeof responder !== 'function') {
                 murl = url.match(pattern);
                 mresRaw = responder.match(rmres);
                 if (mresRaw) {
@@ -149,11 +150,10 @@ function rewrite(url, context) {
                 isLocal = true;
                 redirected = true;
                 rewriteUrl = null;
-                responseData = responder;
+                responseData = typeof responder === 'function' ? responder(Url.parse(url)) : responder;
             }
         }
-    }
-    catch (e) {
+    } catch (e) {
         return {
             isLocal: false,
             redirected: false,
