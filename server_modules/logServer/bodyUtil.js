@@ -3,7 +3,7 @@
  */
 var zlib = require('zlib'),
     Promise = require('bluebird');
-var VERY_LONG_STRING_LEN = 1024 * 1024 * 5;
+var VERY_LONG_STRING_LEN = 1024 * 1024 * 2;
 
 function queryToObj(queryStr) {
     return queryStr.split('&').reduce(function (acc, query) {
