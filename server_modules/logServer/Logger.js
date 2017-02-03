@@ -140,7 +140,7 @@ Logger.prototype = {
         if (this.logData.response.body === "not a valid json") {
             this.logData.response.body = this.logData.response.raw;
         }
-        wsServer.sockets.emit('blockpoint', [Object.assign(this.logData, {type: 'blockpoint'})]);
+        wsServer.sockets.emit('blockpoint', [Object.assign(this.logData, { type: 'blockpoint' })]);
         return this;
     },
     _checkIfInBlackList: function () {
@@ -171,6 +171,8 @@ Logger.prototype = {
                         self.parseLog(self.req, self.res, self.rets);
                         resolve();
                     }
+                }).catch(function (msg) {
+                    console.log(msg, self.req.url);
                 });
             } else {
                 self.rets.push("");
@@ -216,7 +218,7 @@ function resendBlockLog() {
             return ins.blocked && !ins.isProposed && ins.logData;
         })
         .map(function (ins) {
-            return Object.assign(ins.logData, {type: "blockpoint"});
+            return Object.assign(ins.logData, { type: "blockpoint" });
         });
 
     if (blockPointLogList.length) {

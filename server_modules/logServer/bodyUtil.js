@@ -45,18 +45,21 @@ function unzipBody(stream) {
                 var encoding = stream.headers['content-encoding'],
                     buf = Buffer.concat(buffers, size);
 
-                if (encoding === 'gzip') {
-                    zlib.gunzip(buf, function (err, data) {
-                        !err ? resolve(data.toString()) : reject(err);
-                    });
-                } else if (encoding === 'deflate') {
-                    zlib.inflate(buf, function (err, data) {
-                        !err ? resolve(data.toString()) : reject(err);
-                    });
+                if (size > VERY_LONG_STRING_LEN * 8) {
+                    if (encoding === 'gzip') {
+                        zlib.gunzip(buf, function (err, data) {
+                            !err ? resolve(data.toString()) : reject(err);
+                        });
+                    } else if (encoding === 'deflate') {
+                        zlib.inflate(buf, function (err, data) {
+                            !err ? resolve(data.toString()) : reject(err);
+                        });
+                    } else {
+                        resolve(buf.toString());
+                    }
                 } else {
-                    resolve(buf.toString());
+                    reject('TOO_LONG_TO_BE_PARSED');
                 }
-
             })
             .on('error', function (err) {
                 reject(err);
@@ -93,7 +96,7 @@ function _extractJSON(jsonStr) {
 }
 
 function parseBody(body) {
-    return { raw:body, json: _extractJSON(body) };
+    return { raw: body, json: _extractJSON(body) };
 }
 
 function fixJsonp(response) {
