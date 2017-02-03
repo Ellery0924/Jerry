@@ -45,7 +45,7 @@ function unzipBody(stream) {
                 var encoding = stream.headers['content-encoding'],
                     buf = Buffer.concat(buffers, size);
 
-                if (size < VERY_LONG_STRING_LEN * 8) {
+                if (size < VERY_LONG_STRING_LEN) {
                     if (encoding === 'gzip') {
                         zlib.gunzip(buf, function (err, data) {
                             !err ? resolve(data.toString()) : reject(err);
