@@ -3,7 +3,7 @@
  */
 import Immutable from 'immutable';
 
-const MAX_LOG_NUM = 1000;
+const MAX_LOG_NUM = 200;
 var guid = -1;
 
 function _renderLogData(logData) {

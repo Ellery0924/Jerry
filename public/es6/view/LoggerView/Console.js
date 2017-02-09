@@ -76,7 +76,7 @@ export default React.createClass({
             <div className="panel panel-default console">
                 <div className="panel-heading">
                     <h3 className="panel-title">
-                        日志(最多保留1000条,单击查看详情)
+                        日志(最多保留200条,单击查看详情)
                         <button
                             disabled={isBlocked}
                             onClick={this._clearConsole}
