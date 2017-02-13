@@ -2,6 +2,8 @@
 ## 简介
 JerryProxy是一个集成了HostManager和Charles功能的代理服务器。
 
+更详细的[图文使用说明：](http://ued.qunar.com/ykit/docs-%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7.html)
+
 它的主要功能:
 - 无DNS缓存的Host分组管理,支持同一条host在不同环境中快速切换
 - 代理服务器
