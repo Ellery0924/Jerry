@@ -48,7 +48,7 @@ export default React.createClass({
                         </li>
                         <li>
                             <a target="_blank" href="https://github.com/Ellery0924/QProxy">
-                                给个Start吧！
+                                给个Star吧
                             </a>
                         </li>
                     </ul>
