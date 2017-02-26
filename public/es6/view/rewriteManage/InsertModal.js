@@ -2,27 +2,27 @@
  * Created by Ellery1 on 16/1/11.
  */
 import React from 'react';
-import {validatePattern} from '../../utils';
+import { validatePattern } from '../../utils';
 
 export default React.createClass({
     onSubmit(){
-        var pattern = this.refs.newPatternInput.value,
+        const pattern = this.refs.newPatternInput.value,
             responder = this.refs.newResponderInput.value;
 
-        const {onInsertPattern,patternList}=this.props;
+        const { onInsertPattern, patternList }=this.props;
 
         var validateResult = validatePattern(pattern, responder, patternList);
 
         if (validateResult.result) {
-            onInsertPattern({pattern, responder, isOn: 1});
+            onInsertPattern({ pattern, responder, isOn: 1 });
             $(this.refs.insertPatternModal).modal('hide');
         } else {
             alert(validateResult.message);
         }
     },
     componentDidMount(){
-        $(this.refs.insertPatternModal).on('shown.bs.modal', ()=> {
-            
+        $(this.refs.insertPatternModal).on('shown.bs.modal', () => {
+
             $(this.refs.newPatternInput).val('').focus();
             $(this.refs.newResponderInput).val('');
         });

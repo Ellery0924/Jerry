@@ -4,7 +4,7 @@
 import _ from 'underscore';
 
 export function validateGroupName(groupName, groupList) {
-    var result = groupName && !groupList[groupName],
+    const result = groupName && !groupList[groupName],
         ERROR_MESSAGE = '请输入合法的组名!';
 
     return {
@@ -15,12 +15,12 @@ export function validateGroupName(groupName, groupList) {
 
 //验证当前新增的规则是否合法
 export function validateDomain(domain, index, ruleList) {
-    var ERROR_MESSAGE = {
+    const ERROR_MESSAGE = {
         EMPTY: '域不能为空!',
         NOT_VALID: '请输入一个合法的域!(请注意不要与当前已经定义的规则重复)',
         NOT_VALID_HOST: '不是一个合法的域!'
     };
-    var rule,
+    let rule,
         ret = {
             result: true
         };
@@ -77,7 +77,7 @@ function validateHost(host) {
 }
 
 export function validateMultiDomain(ruleList, existedRuleList) {
-    var ERR_MESSAGE = {
+    const ERR_MESSAGE = {
         EMPTY: '请输入规则!',
         REDUNDANT: '当前输入规则中存在重复的规则: ',
         NOT_VALID: '存在非法的域: ',
@@ -136,7 +136,7 @@ export function validatePattern(pattern, responder, patterList) {
 }
 
 export function validateServerConfig(serverConfig) {
-    var ERROR_MESSAGE = "非法的JSON字符串,请检查.";
+    const ERROR_MESSAGE = "非法的JSON字符串,请检查.";
 
     try {
         JSON.parse(serverConfig);

@@ -13,7 +13,6 @@ export function selectEnv(state, groupName, ruleIndex, env) {
     return state
         .updateIn(['config', 'group', groupName, ruleIndex, 'current'], () => env)
         .updateIn(['config', 'group', groupName, ruleIndex, 'cache', env], hostIndex => {
-
             return hostIndex ? hostIndex :
                 env === 'custom' || env === 'online' ? '' : 1;
         });
@@ -87,7 +86,7 @@ export function selectRule(state, groupName, ruleIndex) {
 }
 
 export function deselectRule(state, groupName, ruleIndex) {
-    var newState = state.updateIn(['config', 'group', groupName, ruleIndex, 'selected'], () => false);
+    const newState = state.updateIn(['config', 'group', groupName, ruleIndex, 'selected'], () => false);
 
     return newState
         .updateIn(

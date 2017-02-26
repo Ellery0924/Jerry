@@ -24,89 +24,89 @@ export const SELECT_THROTTLE_LEVEL = 'SELECT_THROTTLE_LEVEL';
 export const SWITCH_MOCK_SERVICE = 'SWITCH_MOCK_SERVICE';
 
 export function multiDeleteRule(groupName, indexes) {
-    return {type: MULTI_DELETE_RULE, groupName, indexes};
+    return { type: MULTI_DELETE_RULE, groupName, indexes };
 }
 
 export function selectRule(groupName, ruleIndex) {
-    return {type: SELECT_RULE, groupName, ruleIndex};
+    return { type: SELECT_RULE, groupName, ruleIndex };
 }
 
 export function deselectRule(groupName, ruleIndex) {
-    return {type: DESELECT_RULE, groupName, ruleIndex};
+    return { type: DESELECT_RULE, groupName, ruleIndex };
 }
 
 export function selectGroup(groupName) {
-    return {type: SELECT_GROUP, groupName};
+    return { type: SELECT_GROUP, groupName };
 }
 
 export function selectEnv(groupName, ruleIndex, env) {
-    return {type: SELECT_ENV, groupName, ruleIndex, env};
+    return { type: SELECT_ENV, groupName, ruleIndex, env };
 }
 
 export function selectHost(groupName, ruleIndex, env, host) {
-    return {type: SELECT_HOST, groupName, ruleIndex, env, host};
+    return { type: SELECT_HOST, groupName, ruleIndex, env, host };
 }
 
 export function editDomain(groupName, ruleIndex, domain) {
-    return {type: EDIT_DOMAIN, groupName, ruleIndex, domain};
+    return { type: EDIT_DOMAIN, groupName, ruleIndex, domain };
 }
 
 export function deleteRule(groupName, ruleIndex) {
-    return {type: DELETE_RULE, groupName, ruleIndex};
+    return { type: DELETE_RULE, groupName, ruleIndex };
 }
 
 export function insertRule(groupName, ruleList) {
-    return {type: INSERT_RULE, groupName, ruleList}
+    return { type: INSERT_RULE, groupName, ruleList }
 }
 
 export function deleteGroup(groupName) {
-    return {type: DELETE_GROUP, groupName};
+    return { type: DELETE_GROUP, groupName };
 }
 
 export function insertGroup(groupName) {
-    return {type: INSERT_GROUP, groupName};
+    return { type: INSERT_GROUP, groupName };
 }
 
 export function receiveConfig(config, server) {
-    return {type: RECEIVE_CONFIG, config, server};
+    return { type: RECEIVE_CONFIG, config, server };
 }
 
 export function setServer(server) {
-    return {type: SET_SERVER, server};
+    return { type: SET_SERVER, server };
 }
 
 export function setPattern(index, pattern) {
-    return {type: SET_PATTERN, index, pattern};
+    return { type: SET_PATTERN, index, pattern };
 }
 
 export function insertPattern(pattern) {
-    return {type: INSERT_PATTERN, pattern};
+    return { type: INSERT_PATTERN, pattern };
 }
 
 export function deletePattern(index) {
-    return {type: DELETE_PATTERN, index};
+    return { type: DELETE_PATTERN, index };
 }
 
 export function switchHttps(isOn) {
-    return {type: SWITCH_HTTPS, isOn};
+    return { type: SWITCH_HTTPS, isOn };
 }
 
 export function fetchConfig() {
-    return dispatch=>
+    return dispatch =>
         Promise.all([
-            fetch('/proxy/config').then(res=>res.json()),
-            fetch('/proxy/serverInfo').then(res=>res.json())
+            fetch('/proxy/config').then(res => res.json()),
+            fetch('/proxy/serverInfo').then(res => res.json())
         ])
-            .then((result)=>dispatch(receiveConfig(result[0], result[1])))
+            .then((result) => dispatch(receiveConfig(result[0], result[1])))
 }
 
 function updateConfig(getState) {
-    var source = getState().qproxy.toJS(),
+    const source = getState().qproxy.toJS(),
         config = source.config;
 
     //删除临时状态
-    Object.keys(config.group).forEach(groupName=> {
-        config.group[groupName].forEach(rule=> {
+    Object.keys(config.group).forEach(groupName => {
+        config.group[groupName].forEach(rule => {
             delete rule.selected;
         });
     });
@@ -122,14 +122,14 @@ function updateConfig(getState) {
 }
 
 export function insertGroupAndSave(groupName) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
         dispatch(insertGroup(groupName));
         return updateConfig(getState);
     }
 }
 
 export function insertRuleAndSave(groupName, ruleList) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
         dispatch(insertRule(groupName, ruleList));
         return updateConfig(getState);
     }
@@ -227,7 +227,7 @@ export function switchHttpsAndSave(isOn) {
 }
 
 export function selectThrottleLevel(level) {
-    return {type: SELECT_THROTTLE_LEVEL, level};
+    return { type: SELECT_THROTTLE_LEVEL, level };
 }
 
 export function selectThrottleLevelAndSave(level) {
@@ -238,7 +238,7 @@ export function selectThrottleLevelAndSave(level) {
 }
 
 export function switchMockService(open) {
-    return {type: SWITCH_MOCK_SERVICE, open};
+    return { type: SWITCH_MOCK_SERVICE, open };
 }
 
 export function switchMockServiceAndSave(open) {

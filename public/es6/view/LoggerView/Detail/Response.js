@@ -7,11 +7,11 @@ import BodyContainer from './commonComponent/BodyContainer';
 
 export default React.createClass({
     render(){
-        const {responseData, isBlocked}=this.props;
+        const { responseData, isBlocked } = this.props;
 
         return (
             <div className="log-response">
-                <InfoPanel id="log-response-body" title={isBlocked?"Body":"JSON Body"}>
+                <InfoPanel id="log-response-body" title={isBlocked ? "Body" : "JSON Body"}>
                     <BodyContainer
                         editable={isBlocked}
                         isBlocked={isBlocked}

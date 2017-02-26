@@ -10,26 +10,26 @@ var LogItem = React.createClass({
     },
     _getStatusColor(statusCode){
         switch (statusCode.toString()[0]) {
-            case "2":
-                return "success";
-            case "3":
-                return "redirect";
-            case "4":
-                return "client-error";
-            case "5":
-                return "server-error";
-            default:
-                return "others";
+        case "2":
+            return "success";
+        case "3":
+            return "redirect";
+        case "4":
+            return "client-error";
+        case "5":
+            return "server-error";
+        default:
+            return "others";
         }
     },
     render(){
-        const {type, method, url, statusCode}=this.props.item;
+        const { type, method, url, statusCode }=this.props.item;
 
         return (
             <a href="javascript:void 0;" className="log-item" title={url}>
                 {type === 'blockpoint' ? <span className="log-item-blockpoint">BLOCKPOINT</span> : null}
-                <span className={"log-item-method "+(method==='GET'?'get':'post')}>{method}</span>
-                <span className={"log-item-status "+this._getStatusColor(statusCode)}>{statusCode}</span>
+                <span className={"log-item-method " + (method === 'GET' ? 'get' : 'post')}>{method}</span>
+                <span className={"log-item-status " + this._getStatusColor(statusCode)}>{statusCode}</span>
                 <span className="log-item-url">{url}</span>
             </a>
         );
@@ -69,7 +69,7 @@ export default React.createClass({
     },
     render(){
         const logList = this.props.logList.toJS();
-        const {isBlocked, allBlockPointContinue, allBlockPointAbort}=this.props;
+        const { isBlocked, allBlockPointContinue, allBlockPointAbort } = this.props;
         const vh = $(window).height();
 
         return (
@@ -106,7 +106,7 @@ export default React.createClass({
                         name="console"
                         dataSrc={logList}
                         itemHeight={30}
-                        containerHeight={0.75 * vh-68}
+                        containerHeight={0.75 * vh - 68}
                         rangeSize={20}
                         renderRow={this._renderRow}
                         onItemClick={this._onItemClick}

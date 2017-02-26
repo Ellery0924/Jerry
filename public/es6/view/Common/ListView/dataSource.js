@@ -11,7 +11,7 @@ export default class {
     refresh(opt) {
         var self = this;
         this.itemHeight = opt.itemHeight;
-        this.dataSrc = opt.dataSrc.map((itemData, i)=>Object.assign({}, itemData, {top: i * self.itemHeight}));
+        this.dataSrc = opt.dataSrc.map((itemData, i) => Object.assign({}, itemData, { top: i * self.itemHeight }));
         this.containerHeight = opt.containerHeight;
         this.currentY = this.currentY > this.getMaxScrollTop() ? this.getMaxScrollTop() : this.currentY;
         this.configureVisibleRange(this.currentY);
@@ -38,7 +38,7 @@ export default class {
             offsetY = 0;
         }
 
-        var startY = offsetY - this.containerHeight / 4,
+        let startY = offsetY - this.containerHeight / 4,
             endY = offsetY + (5 / 4) * this.containerHeight,
             startIndex = Math.ceil(startY / this.itemHeight),
             endIndex = Math.floor(endY / this.itemHeight);

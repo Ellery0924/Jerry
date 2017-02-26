@@ -1,8 +1,8 @@
 /**
  * Created by Ellery1 on 16/1/1.
  */
-import React, {Component} from 'react'
-import {Link} from 'react-router';
+import React, { Component } from 'react'
+import { Link } from 'react-router';
 
 export default React.createClass({
     _onLogNavClick(){

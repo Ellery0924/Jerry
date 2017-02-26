@@ -5,23 +5,23 @@ import React from 'react';
 
 export default React.createClass({
     _onSelectMethod(method){
-        const {filter}=this.props;
-        var regex = this.refs.regexInput.value;
+        const { filter }=this.props;
+        const regex = this.refs.regexInput.value;
 
         if (method !== this.currentMethod) {
             this.currentMethod = method;
-            filter({method, regex});
+            filter({ method, regex });
         }
     },
     _onResetFilter(){
-        const {filter}=this.props;
+        const { filter }=this.props;
         this.currentMethod = 'ALL';
-        filter({method: 'ALL', regex: ''});
+        filter({ method: 'ALL', regex: '' });
     },
     _onRegexChange(){
-        const {filter}=this.props;
+        const { filter }=this.props;
         var regex = this.refs.regexInput.value;
-        filter({method: this.currentMethod, regex});
+        filter({ method: this.currentMethod, regex });
     },
     _onOpenBlockPointManageModal(){
         $('#blockPointManageModal').modal('show');
@@ -30,9 +30,9 @@ export default React.createClass({
         this.currentMethod = 'ALL';
     },
     render(){
-        const {method, regex}=this.props.condition;
-        const {isBlocked}=this.props;
-        var methodText = method === 'ALL' ? '不限 ' : method;
+        const { method, regex }=this.props.condition;
+        const { isBlocked }=this.props;
+        const methodText = method === 'ALL' ? '不限 ' : method;
 
         return (
             <div className="filter">
@@ -45,16 +45,17 @@ export default React.createClass({
                                 {methodText}<span className="caret"/>
                             </button>
                             <ul className="dropdown-menu">
-                                <li><a ref="allSelect" onClick={()=>this._onSelectMethod('ALL')} data-method='ALL'
+                                <li><a ref="allSelect" onClick={() => this._onSelectMethod('ALL')} data-method='ALL'
                                        href="javascript:void 0;">不限</a>
                                 </li>
-                                <li><a ref="getSelect" onClick={()=>this._onSelectMethod('GET')} data-method='GET'
+                                <li><a ref="getSelect" onClick={() => this._onSelectMethod('GET')} data-method='GET'
                                        href="javascript:void 0;">GET</a></li>
-                                <li><a ref="postSelect" onClick={()=>this._onSelectMethod('POST')} data-method='POST'
+                                <li><a ref="postSelect" onClick={() => this._onSelectMethod('POST')} data-method='POST'
                                        href="javascript:void 0">POST</a></li>
-                                <li><a ref="postSelect" onClick={()=>this._onSelectMethod('PUT')} data-method='POST'
+                                <li><a ref="postSelect" onClick={() => this._onSelectMethod('PUT')} data-method='POST'
                                        href="javascript:void 0">PUT</a></li>
-                                <li><a ref="postSelect" onClick={()=>this._onSelectMethod('DELETE')} data-method='POST'
+                                <li><a ref="postSelect" onClick={() => this._onSelectMethod('DELETE')}
+                                       data-method='POST'
                                        href="javascript:void 0">DELETE</a></li>
                             </ul>
                         </div>
@@ -75,7 +76,9 @@ export default React.createClass({
                 <button type="button"
                         id="openBlockPointManageModal"
                         disabled={isBlocked}
-                        onClick={()=>{this._onOpenBlockPointManageModal()}}
+                        onClick={() => {
+                            this._onOpenBlockPointManageModal()
+                        }}
                         className="btn btn-primary block-btn"
                         data-toogle="modal"
                         data-target="#blockPointManageModal"

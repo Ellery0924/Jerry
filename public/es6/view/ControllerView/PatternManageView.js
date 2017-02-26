@@ -2,24 +2,24 @@
  * Created by Ellery1 on 16/1/11.
  */
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Navigator from '../Common/Navigator';
 import RewriteManage from '../RewriteManage/index';
-import {setPatternAndSave, insertPatternAndSave, deletePatternAndSave} from '../../dataLayer/qproxy/action';
+import { setPatternAndSave, insertPatternAndSave, deletePatternAndSave } from '../../dataLayer/qproxy/action';
 
-var RewriteManageView = React.createClass({
+const RewriteManageView = React.createClass({
     render(){
-        const {dispatch}=this.props;
-        const {rewrite}=this.props.config;
+        const { dispatch }=this.props;
+        const { rewrite }=this.props.config;
 
         return (
             <div>
                 <Navigator/>
                 <RewriteManage
                     patternList={rewrite}
-                    onSetPattern={(index,pattern)=>dispatch(setPatternAndSave(index,pattern))}
-                    onInsertPattern={(pattern)=>dispatch(insertPatternAndSave(pattern))}
-                    onDeletePattern={(index)=>dispatch(deletePatternAndSave(index))}
+                    onSetPattern={(index, pattern) => dispatch(setPatternAndSave(index, pattern))}
+                    onInsertPattern={(pattern) => dispatch(insertPatternAndSave(pattern))}
+                    onDeletePattern={(index) => dispatch(deletePatternAndSave(index))}
                 />
             </div>
         );

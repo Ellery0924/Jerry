@@ -23,19 +23,19 @@ export const DESELECT_ALL_BLOCK_POINT = 'DESELECT_ALL_BLOCK_POINT';
 export const MODIFY_BLOCK_POINT_REGEX = 'MODIFY_BLOCK_POINT_REGEX';
 
 export function pushLog(logData) {
-    return {type: PUSH_LOG, logData};
+    return { type: PUSH_LOG, logData };
 }
 
 export function pushBlockPoint(logData) {
-    return {type: PUSH_BLOCK_POINT, logData};
+    return { type: PUSH_BLOCK_POINT, logData };
 }
 
 export function blockPointContinue(blockPoint) {
-    return {type: BLOCK_POINT_CONTINUE, blockPoint};
+    return { type: BLOCK_POINT_CONTINUE, blockPoint };
 }
 
 export function blockPointAbort(blockPoint) {
-    return {type: BLOCK_POINT_ABORT, blockPoint};
+    return { type: BLOCK_POINT_ABORT, blockPoint };
 }
 
 export function blockPointContinueAsync(blockPoint, noJsonp) {
@@ -58,7 +58,7 @@ export function blockPointAbortAsync(blockPoint) {
 
 export function allBlockPointContinueAsync() {
     return function (dispatch, getState) {
-        getState().logger.get('list').toJS().forEach(log=> {
+        getState().logger.get('list').toJS().forEach(log => {
             if (log.type === 'blockpoint') {
                 log.response.body = log.response.raw;
                 dispatch(blockPointContinueAsync(log, true));
@@ -69,7 +69,7 @@ export function allBlockPointContinueAsync() {
 
 export function allBlockPointAbortAsync() {
     return function (dispatch, getState) {
-        getState().logger.get('list').toJS().forEach(log=> {
+        getState().logger.get('list').toJS().forEach(log => {
             if (log.type === 'blockpoint') {
                 dispatch(blockPointAbortAsync(log));
             }
@@ -78,19 +78,19 @@ export function allBlockPointAbortAsync() {
 }
 
 export function checkDetail(current) {
-    return {type: CHECK_DETAIL, current};
+    return { type: CHECK_DETAIL, current };
 }
 
 export function filter(condition) {
-    return {type: FILTER, condition};
+    return { type: FILTER, condition };
 }
 
 export function clear() {
-    return {type: CLEAR};
+    return { type: CLEAR };
 }
 
 export function closeDetail() {
-    return {type: CLOSE_DETAIL};
+    return { type: CLOSE_DETAIL };
 }
 
 export function fetchBlockPoint() {
@@ -98,59 +98,59 @@ export function fetchBlockPoint() {
         return fetch('/qproxy/blockPointSetting', {
             method: 'get'
         })
-            .then(res=>res.json())
-            .then(res=> {
+            .then(res => res.json())
+            .then(res => {
                 dispatch(initBlockPointList(res.list));
             });
     }
 }
 
 export function initBlockPointList(list) {
-    return {type: INIT_BLOCK_POINT_LIST, list};
+    return { type: INIT_BLOCK_POINT_LIST, list };
 }
 
 export function insertBlockPoint(regex) {
-    return {type: INSERT_BLOCK_POINT, regex};
+    return { type: INSERT_BLOCK_POINT, regex };
 }
 
 export function removeBlockPoint(index) {
-    return {type: REMOVE_BLOCK_POINT, index};
+    return { type: REMOVE_BLOCK_POINT, index };
 }
 
 export function switchBlockPoint(index, isOn) {
-    return {type: SWITCH_BLOCK_POINT, index, isOn};
+    return { type: SWITCH_BLOCK_POINT, index, isOn };
 }
 
 export function removeSelectedBlockPoint() {
-    return {type: REMOVE_SELECTED_BLOCK_POINT};
+    return { type: REMOVE_SELECTED_BLOCK_POINT };
 }
 
 export function selectBlockPoint(index) {
-    return {type: SELECT_BLOCK_POINT, index};
+    return { type: SELECT_BLOCK_POINT, index };
 }
 
 export function deselectBlockPoint(index) {
-    return {type: DESELECT_BLOCK_POINT, index};
+    return { type: DESELECT_BLOCK_POINT, index };
 }
 
 export function selectAllBlockPoint() {
-    return {type: SELECT_ALL_BLOCK_POINT};
+    return { type: SELECT_ALL_BLOCK_POINT };
 }
 
 export function deselectAllBlockPoint() {
-    return {type: DESELECT_ALL_BLOCK_POINT};
+    return { type: DESELECT_ALL_BLOCK_POINT };
 }
 
 export function removeBlockPointByUrl(url) {
-    return {type: REMOVE_BLOCK_POINT_BY_URL, url};
+    return { type: REMOVE_BLOCK_POINT_BY_URL, url };
 }
 
 export function modifyBlockPointRegex(index, regex) {
-    return {type: MODIFY_BLOCK_POINT_REGEX, index, regex};
+    return { type: MODIFY_BLOCK_POINT_REGEX, index, regex };
 }
 
 function updateBlockPointSetting(getState) {
-    var settingList = getState().logger.get('blockPoint').toJS().map(setting=>({
+    const settingList = getState().logger.get('blockPoint').toJS().map(setting => ({
         regex: setting.regex,
         isOn: setting.isOn
     }));
@@ -160,47 +160,47 @@ function updateBlockPointSetting(getState) {
         headers: {
             'content-type': 'application/json'
         },
-        body: JSON.stringify({setting: settingList})
+        body: JSON.stringify({ setting: settingList })
     });
 }
 
 export function insertBlockPointAndSave(regex) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
         dispatch(insertBlockPoint(regex));
         updateBlockPointSetting(getState);
     }
 }
 
 export function removeBlockPointAndSave(index) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
         dispatch(removeBlockPoint(index));
         updateBlockPointSetting(getState);
     }
 }
 
 export function switchBlockPointAndSave(index, isOn) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
         dispatch(switchBlockPoint(index, isOn));
         updateBlockPointSetting(getState);
     }
 }
 
 export function removeSelectedBlockPointAndSave() {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
         dispatch(removeSelectedBlockPoint());
         updateBlockPointSetting(getState);
     }
 }
 
 export function removeBlockPointByUrlAndSave(url) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
         dispatch(removeBlockPointByUrl(url));
         updateBlockPointSetting(getState);
     }
 }
 
 export function modifyBlockPointRegexAndSave(index, regex) {
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
         dispatch(modifyBlockPointRegex(index, regex));
         updateBlockPointSetting(getState);
     }

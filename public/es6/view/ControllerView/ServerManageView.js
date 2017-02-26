@@ -3,23 +3,23 @@
  */
 import React from 'react';
 import Navigator from '../Common/Navigator';
-import {connect} from 'react-redux';
-import {setServerAndSave} from '../../dataLayer/qproxy/action';
-import {validateServerConfig} from '../../utils';
+import { connect } from 'react-redux';
+import { setServerAndSave } from '../../dataLayer/qproxy/action';
+import { validateServerConfig } from '../../utils';
 
-var ServerManageView = React.createClass({
+const ServerManageView = React.createClass({
     componentDidUpdate(){
         $(this.refs.serverInfoInput).val(JSON.stringify(this.props.server, null, '\t'))
     },
     onSubmit(){
-        const {dispatch}=this.props;
+        const { dispatch }=this.props;
 
         var serverInfo = this.refs.serverInfoInput.value,
             validateResult = validateServerConfig(serverInfo);
 
         if (validateResult.result) {
             dispatch(setServerAndSave(JSON.parse(this.refs.serverInfoInput.value)))
-                .then(()=>alert('保存成功,请重启qproxy.'));
+                .then(() => alert('保存成功,请重启qproxy.'));
         } else {
             alert(validateResult.message);
         }

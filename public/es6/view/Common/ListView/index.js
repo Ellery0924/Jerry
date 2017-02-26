@@ -4,30 +4,34 @@
 import React from 'react';
 import DataSource from './dataSource';
 
-var ds = new DataSource({visibleRange: 10});
+var ds = new DataSource({ visibleRange: 10 });
 
 const noop = function () {
 };
 
-var ListItem = React.createClass({
+const ListItem = React.createClass({
     componentDidMount(){
-        const {item, onItemLayout}=this.props;
+        const { item, onItemLayout }=this.props;
         onItemLayout(item, this.domNode);
     },
     render(){
-        const {item, itemHeight, onItemClick, renderRow}=this.props;
+        const { item, itemHeight, onItemClick, renderRow } = this.props;
         return (
             <li
-                ref={component=>{this.domNode=component}}
+                ref={component => {
+                    this.domNode = component
+                }}
                 className="listview-item-wrap"
-                onClick={(evt)=>{onItemClick(item,evt)}}
+                onClick={(evt) => {
+                    onItemClick(item, evt)
+                }}
                 itemIndex={item.index}
                 style={{
-                    position:"absolute",
-                    height:itemHeight+"px",
-                    top:item.top+"px",
-                    left:0,
-                    minWidth:"100%"
+                    position: "absolute",
+                    height: itemHeight + "px",
+                    top: item.top + "px",
+                    left: 0,
+                    minWidth: "100%"
                 }}
                 key={item.index}>
                 {renderRow(item)}
@@ -68,10 +72,10 @@ export default React.createClass({
         };
     },
     componentWillReceiveProps(props){
-        const {dataSrc}=props;
+        const { dataSrc }=props;
 
         if (dataSrc) {
-            const {containerHeight, itemHeight, rangeSize}=props;
+            const { containerHeight, itemHeight, rangeSize }=props;
 
             ds.refresh({
                 dataSrc,
@@ -97,7 +101,7 @@ export default React.createClass({
         ds.setVisibleRage(0, 10);
     },
     render(){
-        const {renderRow, containerHeight, itemHeight, name}=this.props;
+        const { renderRow, containerHeight, itemHeight, name }=this.props;
         const visibleItemList = this.state.visibleItemList;
         const contentHeight = this.state.contentHeight;
         const onItemClick = this.props.onItemClick || noop;
@@ -108,21 +112,21 @@ export default React.createClass({
             return (
                 <div onScroll={this._onScroll} className="listview-container" ref="container"
                      style={{
-                    position:'relative',
-                    height:containerHeight+'px'
-                }}>
+                         position: 'relative',
+                         height: containerHeight + 'px'
+                     }}>
                     <ul ref="content" style={{
-                        height:contentHeight+"px",
-                        marginBottom:0
+                        height: contentHeight + "px",
+                        marginBottom: 0
                     }}>
-                        {visibleItemList.map((item, i)=>(
+                        {visibleItemList.map((item, i) => (
                             <ListItem
                                 item={item}
                                 itemHeight={itemHeight}
                                 onItemClick={onItemClick}
                                 onItemLayout={onItemLayout}
                                 renderRow={renderRow}
-                                key={name+'-list-item-'+item.index}
+                                key={name + '-list-item-' + item.index}
                             />
                         ))}
                     </ul>

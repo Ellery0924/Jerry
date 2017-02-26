@@ -7,7 +7,7 @@ import InsertModal from './InsertModal';
 
 export default React.createClass({
     render(){
-        const {patternList, onSetPattern, onDeletePattern, onInsertPattern}=this.props;
+        const { patternList, onSetPattern, onDeletePattern, onInsertPattern } = this.props;
 
         return (
             <div className="rewriteSetting container-fluid">
@@ -24,7 +24,7 @@ export default React.createClass({
                         <th>Responder</th>
                         <th className="action">操作</th>
                     </tr>
-                    {patternList.map((pattern, index)=>
+                    {patternList.map((pattern, index) =>
                         <Pattern
                             key={index}
                             index={index}

@@ -2,11 +2,11 @@
  * Created by Ellery1 on 16/6/10.
  */
 import React from 'react';
-import {isObject} from '../../../../utils';
+import { isObject } from '../../../../utils';
 
 export default React.createClass({
     _setTextareaValue(){
-        const {body}=this.props;
+        const { body }=this.props;
         var isValidJSON = isObject(body) || Array.isArray(body);
 
         if (this.textarea) {
@@ -20,14 +20,14 @@ export default React.createClass({
         this._setTextareaValue();
     },
     render(){
-        const {body, editable}=this.props;
+        const { body, editable } = this.props;
 
         return (
             body ?
                 <textarea
-                    ref={component=>this.textarea=component}
+                    ref={component => this.textarea = component}
                     style={{
-                        resize:editable?'vertical':'none'
+                        resize: editable ? 'vertical' : 'none'
                     }}
                     disabled={!editable}
                     className="body-textarea">

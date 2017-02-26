@@ -1,12 +1,12 @@
 import thunkMiddleware from 'redux-thunk'
-import {createStore, applyMiddleware} from 'redux'
-import {fetchConfig} from './dataLayer/qproxy/action'
-import {pushLog, pushBlockPoint, fetchBlockPoint} from './dataLayer/log/action';
+import { createStore, applyMiddleware } from 'redux'
+import { fetchConfig } from './dataLayer/qproxy/action'
+import { pushLog, pushBlockPoint, fetchBlockPoint } from './dataLayer/log/action';
 import reducer from './dataLayer/index'
 import React from 'react';
 import ReactDom from 'react-dom';
-import {Provider} from 'react-redux';
-import {Router, Route} from 'react-router';
+import { Provider } from 'react-redux';
+import { Router, Route } from 'react-router';
 import HostManageView from './view/ControllerView/HostManageView';
 import ServerManageView from './view/ControllerView/ServerManageView';
 import PatternManageView from './view/ControllerView/PatternManageView';
@@ -21,16 +21,14 @@ window.qproxy = {
     logClient: null
 };
 
-store.dispatch(fetchConfig()).then(function (ret) {
+store.dispatch(fetchConfig()).then((ret) => {
     const logServerPort = ret.config.logServerPort || 3000;
     const logClient = window.qproxy.logClient = wsClient(logServerPort);
     logClient
-        .on('log', function (logData) {
-
+        .on('log', (logData) => {
             store.dispatch(pushLog(logData));
         })
-        .on('blockpoint', function (logData) {
-
+        .on('blockpoint', (logData) => {
             store.dispatch(pushBlockPoint(logData));
         });
 });

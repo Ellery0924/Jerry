@@ -4,23 +4,22 @@
 import React from 'react';
 export default React.createClass({
     onPatternChange(){
-        const {index,onSetPattern}=this.props;
-
-        var pattern = this.refs.patternInput.value,
+        const { index, onSetPattern } = this.props;
+        const pattern = this.refs.patternInput.value,
             responder = this.refs.responderInput.value,
             isOn = Number(this.refs.isOnSelect.value);
 
-        onSetPattern(index, {pattern, responder, isOn});
+        onSetPattern(index, { pattern, responder, isOn });
     },
     onDeletePattern(){
-        const {index,onDeletePattern}=this.props;
+        const { index, onDeletePattern } = this.props;
 
         if (confirm('确定删除吗?')) {
             onDeletePattern(index);
         }
     },
     render(){
-        const {pattern,responder,isOn}=this.props;
+        const { pattern, responder, isOn } = this.props;
 
         return (
             <tr className="rewrite_rule">

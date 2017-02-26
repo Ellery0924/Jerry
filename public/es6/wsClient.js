@@ -3,6 +3,6 @@
  */
 import io from 'socket.io-client/socket.io';
 
-export default function(logServerPort){
-    return new io('http://127.0.0.1:'+logServerPort);
+export default function (logServerPort) {
+    return new io('http://127.0.0.1:' + logServerPort);
 }
