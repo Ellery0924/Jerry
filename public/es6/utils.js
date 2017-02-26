@@ -32,12 +32,12 @@ export function validateDomain(domain, index, ruleList) {
         };
     }
 
-    var srcDomainArr,
-        rsplitter = /[\s\n\r]+/,
+    let srcDomainArr;
+    const rsplitter = /[\s\n\r]+/,
         currentDomainArr = domain.split(rsplitter);
 
     for (let i = 0; i < currentDomainArr.length; i++) {
-        let subDomain = currentDomainArr[i];
+        const subDomain = currentDomainArr[i];
         if (!validateHost(subDomain)) {
             return {
                 result: false,
@@ -52,7 +52,7 @@ export function validateDomain(domain, index, ruleList) {
             srcDomainArr = rule.domain.split(rsplitter);
 
             for (let j = 0; j < currentDomainArr.length; j++) {
-                let subD = currentDomainArr[j];
+                const subD = currentDomainArr[j];
                 if (_.contains(srcDomainArr, subD)) {
                     return {
                         result: false,
@@ -96,7 +96,7 @@ export function validateMultiDomain(ruleList, existedRuleList) {
             domain = rule.domain,
             ip = rule.ip;
 
-        if (_.where(ruleList, {domain: domain}).length > 1) {
+        if (_.where(ruleList, { domain: domain }).length > 1) {
             return {
                 result: false,
                 message: ERR_MESSAGE.REDUNDANT + domain
@@ -127,7 +127,7 @@ export function validatePattern(pattern, responder, patterList) {
     var ERROR_MESSAGE = "Pattern非法,请检查.",
         result = pattern &&
             pattern.search(/\s+/g) === -1 &&
-            responder && !_.findWhere(patterList, {pattern: pattern});
+            responder && !_.findWhere(patterList, { pattern: pattern });
 
     return {
         result: result,
@@ -154,7 +154,7 @@ export function validateServerConfig(serverConfig) {
     };
 }
 
-import {getServerByIp, formatRuleListGenerator, exportHostList} from '../../server_modules/service/hostUtils';
+import { getServerByIp, formatRuleListGenerator, exportHostList } from '../../server_modules/service/hostUtils';
 
 exports.getServerByIp = getServerByIp;
 exports.formatRuleList = formatRuleListGenerator(validateMultiDomain);
