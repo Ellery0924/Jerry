@@ -47,7 +47,7 @@ import {
 } from './blockPointManage';
 
 export default function (state, action) {
-    var logState = state.logger;
+    const logState = state.logger;
 
     switch (action.type) {
     case FILTER:

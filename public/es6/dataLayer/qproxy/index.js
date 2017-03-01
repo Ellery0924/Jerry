@@ -40,7 +40,7 @@ import { setServer } from './serverManage';
 import { setPattern, insertPattern, deletePattern } from './rewriteManage';
 
 export default function (state, action) {
-    var subState = state.qproxy;
+    const subState = state.qproxy;
 
     switch (action.type) {
     case RECEIVE_CONFIG:
