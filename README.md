@@ -111,8 +111,6 @@ sudo jerry -p [代理服务器] [网页服务器] [中间人服务器] [日志�
 访问http://127.0.0.1:1000/qproxy#/?_k=1kpa78
 左侧导航是项目(方案)列表，右侧面板是该分组下 Host 规则。这里你需要手动选择当前激活的分组。
 
-** 对于Ykit项目，会在项目内新建/读取`ykit.host`，并且同步更新。也就是说你不需要手动创建一个新的方案。 **
-
 ![Jerry-Host](https://github.com/Ellery0924/Jerry/blob/master/public/images/jerry-host.png)
 点击`添加规则`可以批量导入Host规则, 格式和Host文件完全相同, 除了不支持注释以外:
 
@@ -124,11 +122,11 @@ sudo jerry -p [代理服务器] [网页服务器] [中间人服务器] [日志�
 
 ![切换Env](https://github.com/Ellery0924/Jerry/blob/master/public/images/single-host.png)
 
-我们内置了一些常用的环境如qzz和local, 如果选择online等于没有配置host, 选择custom可以手动输入IP。
+我们内置了一些常用的环境如local, 如果选择online等于没有配置host, 选择custom可以手动输入IP。
 
 如果你需要修改默认的环境/机器组配置, 可以在服务器组配置面板中手动编辑, 如图:
 
-![Edit Server Group](http://cfyyq.img48.wal8.com/img48/561720_20161116122834/147927217132.png)
+![Edit Server Group](https://github.com/Ellery0924/Jerry/blob/master/public/images/host-config.png)
 
 修改完成后, 你需要重新启动代理才能生效。
 
