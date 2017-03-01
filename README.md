@@ -199,7 +199,7 @@ module.exports = [
 
 点击Continue/Abort就可以让响应继续返回或者abort掉, 这在模拟接口超时或失败时很有用, 另外你还可以在Response选项卡中编辑响应的内容, 如下:
 
-![Block Edit Response](http://cfyyq.img48.wal8.com/img48/561720_20161116122834/147927172206.png)
+![Block Edit Response](https://github.com/Ellery0924/Jerry/blob/master/public/images/abort.png)
 
 修改内容之后, 让响应Continue即可生效。在不需要中断时, 可以在断点配置面板中将断点关闭或者删除。
 
