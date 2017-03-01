@@ -191,11 +191,11 @@ module.exports = [
 
 切换到请求/响应日志选项卡，可以查看通过代理请求的接口详细信息，在进行移动端调试时十分便捷。
 
-![屏幕快照 2016-09-08 上午11.55.40](http://gitlab.corp.qunar.com/uploads/mfe/ykit/68d3467c6c/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_2016-09-08_%E4%B8%8A%E5%8D%8811.55.40.png)
+![屏幕快照 2016-09-08 上午11.55.40](https://github.com/Ellery0924/Jerry/blob/master/public/images/log.png)
 
 点击日志详情右上角的设置断点可以中断请求, 设置断点之后的效果:
 
-![Block](http://cfyyq.img48.wal8.com/img48/561720_20161116122834/14792715856.png)
+![Block](https://github.com/Ellery0924/Jerry/blob/master/public/images/block.png)
 
 点击Continue/Abort就可以让响应继续返回或者abort掉, 这在模拟接口超时或失败时很有用, 另外你还可以在Response选项卡中编辑响应的内容, 如下:
 
