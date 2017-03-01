@@ -179,7 +179,7 @@ module.exports = [
 
 然后在代理面板中找到你的项目, 然后在右侧开启Mock服务开关即可生效。
 
-![Mock](http://cfyyq.img48.wal8.com/img48/561720_20161116122834/14792706369.png)
+![Mock](https://github.com/Ellery0924/Jerry/blob/master/public/images/mock.png)
 
 ### 自定义 Url Map
 
