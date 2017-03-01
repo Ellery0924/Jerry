@@ -185,7 +185,7 @@ module.exports = [
 
 切换到Url Map选项卡，可以设置请求的远程/本地映射，支持正则匹配。
 
-![屏幕快照 2016-09-08 上午11.53.39](http://gitlab.corp.qunar.com/uploads/mfe/ykit/c1f92f0479/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_2016-09-08_%E4%B8%8A%E5%8D%8811.53.39.png)
+![屏幕快照 2016-09-08 上午11.53.39](https://github.com/Ellery0924/Jerry/blob/master/public/images/url-map.png)
 
 ### 查看请求日志/设置断点
 
