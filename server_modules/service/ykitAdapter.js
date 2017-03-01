@@ -11,7 +11,7 @@ var HOST_FILE_NAME = 'ykit.hosts',
 
 var rignore = /^\./,
     rykit = /\_ykit$/,
-    rykitconfig = /ykit\.[\w\_\d]+\.js/;
+    rykitconfig = /ykit(?:\.[\w\_\d]+)?\.js/;
 
 function fetchGroupConfigFromYkitFolder(serverInfo, CWD) {
     return iterateFolder(CWD, function (acc, folder) {
