@@ -100,7 +100,7 @@ sudo jerry -p [代理服务器] [网页服务器] [中间人服务器] [日志�
 
 最简单的方式是使用`SwitchyOmega`等chrome代理插件，或者使用Proxy右上角推荐的代理插件。以下是`SwitchyOmega`的配置，我们将所有外部请求打到`127.0.0.1:999`，也就是我们的本地代理上。
 
-![屏幕快照 2016-09-08 上午11.43.18](http://gitlab.corp.qunar.com/uploads/mfe/ykit/370cfe24b5/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7_2016-09-08_%E4%B8%8A%E5%8D%8811.43.18.png)
+![屏幕快照 2016-09-08 上午11.43.18](https://github.com/Ellery0924/Jerry/blob/master/public/images/switchhost.png)
 
 ** 注意: 你需要把所有忽略的规则全部清空。另外, ShadowSocks和所有的代理都冲突, 在使用时也需要关闭。 **
 
