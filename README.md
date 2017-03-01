@@ -12,7 +12,7 @@ JerryProxy是一个集成了HostManager和Charles功能的代理服务器。
 - 断点
 - 限速
 
-以上所有功能都支持HTTP/HTTPS。
+对于去哪儿网的前端开发来说，以上所有功能都支持HTTP/HTTPS。对于其他使用者，HTTPS下的Host管理功能依然可用，其他功能则不可用。
 
 Jerry是使用NodeJS和React/Redux开发的WebApp,因此可以兼容Windows/Linux。
 
