@@ -212,7 +212,7 @@ https://github.com/Ellery0924/Jerry/blob/master/JerryProxyCA.cer
 
 你需要手动信任这个证书, 整个流程和12306的证书安装流程一样。
 
-** 需要注意的是这个根证书只支持三个通配域名: \*.qunar.com \*.qunarzz.com和qunarzz.com。如果有更多的域名需要支持, 请qtalk联系`jiao.shen` **
+需要注意的是这个根证书只支持三个通配域名: \*.qunar.com \*.qunarzz.com和qunarzz.com。也就是说这也是一个去哪儿的特别定制功能。
 
 另外还需要在并在网络配置面板中设置`开启HTTPS代理`, 如下:
 
