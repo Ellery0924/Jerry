@@ -122,7 +122,7 @@ sudo jerry -p [代理服务器] [网页服务器] [中间人服务器] [日志�
 
 另外, Jerry还提供了快速切换环境的功能, 每条Host的右侧有可选择的环境和机器IP, 你可以通过选择它们来快速切换环境。
 
-![切换Env](http://cfyyq.img48.wal8.com/img48/561720_20161116122834/147927237041.png)
+![切换Env](https://github.com/Ellery0924/Jerry/blob/master/public/images/single-host.png)
 
 我们内置了一些常用的环境如qzz和local, 如果选择online等于没有配置host, 选择custom可以手动输入IP。
 
