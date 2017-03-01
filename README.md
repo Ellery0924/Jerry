@@ -216,7 +216,7 @@ https://github.com/Ellery0924/Jerry/blob/master/JerryProxyCA.cer
 
 另外还需要在并在网络配置面板中设置`开启HTTPS代理`, 如下:
 
-![开启https](http://cfyyq.img48.wal8.com/img48/561720_20161116122834/147927120123.png)
+![开启https](https://github.com/Ellery0924/Jerry/blob/master/public/images/https.png)
 
 ### 网速限流
 
