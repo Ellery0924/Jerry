@@ -147,7 +147,8 @@ module.exports = [
         // 也支持传入函数，它的参数是一个parse过的URL对象
         // 例如localhost/fakeurl?a=1&b=2 parse的结果是 {"protocol":"http:","slashes":true,"auth":null,"host":"localhost","port":null,"hostname":"localhost","hash":null,"search":"?a=1&b=2","query":"a=1&b=2","pathname":"/fakeurl","path":"/fakeurl?a=1&b=2","href":"http://localhost/fakeurl?a=1&b=2"}
         // 这在API依赖参数时会非常有用，例如某个分页列表的API需要传入当前页码的情况
-        responder: function (parsedUrl) {
+        // 第二个参数是请求的body，会以字符串的形式展示，因为不是所有的body都是JSON格式的
+        responder: function (parsedUrl, body) {
             // 它的返回值将作为请求的response.body
             return parsedUrl;
         }

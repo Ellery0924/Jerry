@@ -43,7 +43,7 @@ module.exports = function (opts, clientType, sreq, sres) {
         creq.end();
         logger.collect(sreq, 'req', true);
     } else {
-        streamThrottleManager.pipe(sreq, creq, host);
+        creq.end(sreq.body);
         logger.collect(sreq, 'req');
     }
 };

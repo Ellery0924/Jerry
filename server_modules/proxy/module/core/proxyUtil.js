@@ -84,9 +84,9 @@ function getRewriteRules(config) {
     return config.rewrite;
 }
 
-function rewrite(url, context) {
+function rewrite(url, body) {
     var config = service.getConfig();
-    var rules = context ? context : getRewriteRules(config),
+    var rules = getRewriteRules(config),
         matchedRules,
         matchedRule,
         responder,
@@ -150,7 +150,7 @@ function rewrite(url, context) {
                 isLocal = true;
                 redirected = true;
                 rewriteUrl = null;
-                responseData = typeof responder === 'function' ? responder(Url.parse(url)) : responder;
+                responseData = typeof responder === 'function' ? responder(Url.parse(url), body) : responder;
             }
         }
     } catch (e) {

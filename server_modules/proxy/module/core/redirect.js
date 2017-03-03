@@ -25,7 +25,7 @@ module.exports = function (sreq, sres) {
         contentType,
         protocol;
     //第一步过滤,匹配rewrite中的规则
-    redirect = util.rewrite(sreq.url);
+    redirect = util.rewrite(sreq.url,sreq.body);
     responseData = redirect.responseData;
     isLocal = redirect.isLocal;
     redirectUrl = redirect.rewriteUrl;
