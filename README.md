@@ -92,7 +92,7 @@ sudo jerry -p [代理服务器] [网页服务器] [中间人服务器] [日志�
 ![Jerry-Host](https://github.com/Ellery0924/Jerry/blob/master/public/images/jerry-host.png)
 点击`添加规则`可以批量导入Host规则, 格式和Host文件完全相同, 除了不支持注释以外:
 
-![Host导入](http://cfyyq.img48.wal8.com/img48/561720_20161116122834/147927077876.png)
+![Host导入](https://github.com/Ellery0924/Jerry/blob/master/public/images/import-host.png)
 
 在Host导入以后, 配置会立即生效, 无需重启浏览器。点击`导出Host`可以将当前的Host配置转换成Host文件的格式。
 
