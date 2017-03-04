@@ -51,7 +51,7 @@ sudo jerry -s /your/workpath
 sudo jerry -y -s // 启动代理和ykit https服务
 ```
 
-这样配置以后就不再需要每次启动YKit时cd到你的工作路径了，非常便捷。
+这样配置以后就不再需要每次启动YKit时cd到你的工作路径了。
 
 ## 配置系统/浏览器代理
 使用jerry需要配置网络的代理,请将HTTP/HTTPS统一设置为127.0.0.1:999。
