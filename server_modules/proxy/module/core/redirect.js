@@ -2,7 +2,7 @@
  * Created by Ellery1 on 15/9/23.
  * url重写和过滤
  */
-var util = require('./proxyUtil'),
+var util = require('./core'),
     http = require("http"),
     url = require("url"),
     fs = require('fs'),

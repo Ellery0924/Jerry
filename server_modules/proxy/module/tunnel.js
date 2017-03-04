@@ -1,5 +1,5 @@
 var net = require('net'),
-    util = require('./core/proxyUtil'),
+    util = require('./core/core'),
     URL = require('url'),
     fs = require('fs'),
     service = require('../../service');

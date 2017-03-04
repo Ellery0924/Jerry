@@ -1,11 +1,11 @@
 require('babel-polyfill');
 var wsServer = require('./wsServer'),
     URL = require('url'),
-    unzipBody = require('./bodyUtil').unzipBody,
-    parseBody = require('./bodyUtil').parseBody,
-    queryToObj = require('./bodyUtil').queryToObj,
-    zipBody = require('./bodyUtil').zipBody,
-    fixJsonp = require('./bodyUtil').fixJsonp,
+    unzipBody = require('./bodyHelper').unzipBody,
+    parseBody = require('./bodyHelper').parseBody,
+    queryToObj = require('./bodyHelper').queryToObj,
+    zipBody = require('./bodyHelper').zipBody,
+    fixJsonp = require('./bodyHelper').fixJsonp,
     service = require('../service'),
     blackList = require('./blacklist');
 var logPool = [],
