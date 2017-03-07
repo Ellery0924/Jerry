@@ -5,20 +5,22 @@ import React from 'react';
 
 export default React.createClass({
     _getJSX(){
-        const {group, activated, onSelectGroup}=this.props;
+        const { group, activated, onSelectGroup }=this.props;
 
         if (group !== undefined) {
-            return Object.keys(group).map((groupName)=>
-                <li
-                    key={groupName}
-                    onClick={()=> {
-                        onSelectGroup(groupName)
-                    }}
-                    className={activated === groupName ? 'active' : ''}
-                >
-                    <a title={groupName} href="javascript:void 0;">{groupName}</a>
-                </li>
-            );
+            return Object.keys(group)
+                .sort((a, b) => a === 'default' ? -1 : 1)
+                .map((groupName) =>
+                    <li
+                        key={groupName}
+                        onClick={() => {
+                            onSelectGroup(groupName)
+                        }}
+                        className={activated === groupName ? 'active' : ''}
+                    >
+                        <a title={groupName} href="javascript:void 0;">{groupName}</a>
+                    </li>
+                );
         }
         return [];
     },
