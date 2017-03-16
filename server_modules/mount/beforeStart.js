@@ -20,10 +20,6 @@ module.exports = function () {
     }
 
     var sampleBlockList = [
-        {
-            regex: "tips\.qunar\.com",
-            isOn: true
-        }
     ];
 
     createFileIfNotExists(blockConfigPath, {list: sampleBlockList}, "断点配置文件已更新,你可以在~/.qpconfig中手动编辑", true);
