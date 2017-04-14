@@ -19,6 +19,9 @@ module.exports = function () {
         case '-s':
             command.setWorkPath();
             break;
+        case '-ws':
+            command.setWebSocketConfig();
+            break;
         default:
             command.start(null);
     }

@@ -8,18 +8,35 @@ module.exports = function (req, socket) {
     var config = service.getConfig(),
         url = req.url,
         httpsOn = !!config.httpsOn,
-        netClient;
+        netClient,
+        mport = url.match(/:(\d+)$/),
+        urlPort = 443,
+        wsPort = Number(config.wsPort),
+        isWsConnection = false;
+
+    if (mport) {
+        urlPort = Number(mport[1]);
+        isWsConnection = urlPort === wsPort;
+    }
+
+    if (isWsConnection) {
+        console.log('websocket connect: ', url);
+    }
 
     //http隧道
     if (!httpsOn) {
         if (url.search(/http|https/) === -1) {
-            url = 'https://' + url;
+            url = (!isWsConnection ? 'https://' : 'ws://') + url;
         }
 
         var rewriteUrl = util.rewrite(url).rewriteUrl,
             parsedUrl = URL.parse(rewriteUrl),
             host = util.filter(parsedUrl.host).host,
             port = parsedUrl.port || 443;
+
+        if (isWsConnection) {
+            console.log('websocket connection is redirected to', host, port);
+        }
 
         if (host) {
             netClient = net.createConnection({
@@ -60,7 +77,7 @@ module.exports = function (req, socket) {
             .on('close', function () {
                 socket.end();
             })
-            .on('error', function (err) {
+            .on('error', function () {
                 socket.end();
             });
     }

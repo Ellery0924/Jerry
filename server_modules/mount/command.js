@@ -90,9 +90,24 @@ function setWorkPath() {
     process.send('exit');
 }
 
+function setWebSocketConfig() {
+    var wsPort = process.argv[3];
+
+    if (wsPort != null) {
+        qpconfig.wsPort = wsPort;
+        setConfig(qpconfig);
+        console.log('websocket端口被设置为: ' + wsPort);
+    } else {
+        console.log('websocket端口不能为空，请检查。');
+    }
+
+    process.send('exit');
+}
+
 module.exports = {
     setRunningPort: setRunningPort,
     startWithDevServer: startWithDevServer,
     start: start,
-    setWorkPath: setWorkPath
+    setWorkPath: setWorkPath,
+    setWebSocketConfig: setWebSocketConfig
 };
