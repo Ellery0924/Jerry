@@ -1,5 +1,5 @@
 {
-  "name": "jerryproxy",
+  "name": "jerryproxy-ykit",
   "version": "1.0.96",
   "private": false,
   "dependencies": {
@@ -25,9 +25,9 @@
     "start": "sudo nodemon bin/jerry"
   },
   "author": {
-    "name": "Ellery Shen",
-    "email": "jiao.shen@qunar.com",
-    "url": "https://github.com/Ellery0924/qproxy_github"
+    "name": "ymfe",
+    "email": "ymfe.team@gmail.com",
+    "url": "https://github.com/roscoe054/Jerry"
   },
   "bin": {
     "jerry": "./bin/jerry.js"
