@@ -7,6 +7,7 @@
   "aport": 1000,
   "httpsPort": 1001,
   "logServerPort": 3000,
+  "wsPort": 9999,
   "group": {
     "default": [
       {
