@@ -1,6 +1,6 @@
 {
   "name": "qfproxy",
-  "version": "1.0.97",
+  "version": "1.0.98",
   "private": false,
   "dependencies": {
     "babel-polyfill": "^6.16.0",
@@ -26,9 +26,9 @@
     "start": "sudo nodemon bin/jerry"
   },
   "author": {
-    "name": "ymfe",
-    "email": "ymfe.team@gmail.com",
-    "url": "https://github.com/roscoe054/Jerry"
+    "name": "jiao.shen",
+    "email": "shenjiao.sj@alibaba-inc.com",
+    "url": "https://github.com/Ellery0924/Jerry"
   },
   "bin": {
     "jerry": "./bin/jerry.js"
