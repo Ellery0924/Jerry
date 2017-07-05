@@ -19,10 +19,6 @@ module.exports = function (req, socket) {
         isWsConnection = urlPort === wsPort;
     }
 
-    if (isWsConnection) {
-        console.log('websocket connect: ', url);
-    }
-
     //http隧道
     if (!httpsOn) {
         if (url.search(/http|https/) === -1) {
