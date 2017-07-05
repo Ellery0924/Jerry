@@ -1,6 +1,6 @@
 {
   "name": "jerryproxy-ykit",
-  "version": "1.0.96",
+  "version": "1.0.97",
   "private": false,
   "dependencies": {
     "babel-polyfill": "^6.16.0",

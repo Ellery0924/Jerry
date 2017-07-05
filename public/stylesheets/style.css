@@ -394,8 +394,6 @@ body {
 }
 
 .log-item {
-    display: block;
-    height: 100%;
     line-height: 30px;
     vertical-align: middle;
     overflow: hidden;
