@@ -1,5 +1,5 @@
 {
-  "name": "jerryproxy-ykit",
+  "name": "qfproxy",
   "version": "1.0.97",
   "private": false,
   "dependencies": {
