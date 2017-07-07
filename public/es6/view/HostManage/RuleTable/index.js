@@ -33,7 +33,7 @@ export default React.createClass({
             mockServiceOpen = mockServices && !!mockServices.find(gname=>gname === activated),
             mockSwitchText = mockServiceOpen ? 'Mock服务:开启' : 'Mock服务:关闭';
 
-        const rykitGroup = /\_ykit$/,
+        const rykitGroup = /_project$/,
             isYkitGroup = rykitGroup.test(activated);
 
         return (

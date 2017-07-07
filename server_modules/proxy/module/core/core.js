@@ -24,7 +24,7 @@ function getRewriteRules(config) {
         var mockConfig = mockConfigObj.mockConfig,
             projectPath = mockConfigObj.projectPath;
 
-        if (mockConfig) {
+        if (mockConfig && mockConfig.length) {
             return mockConfig
                 .map(function (mconfig) {
                     var pattern = mconfig.pattern,

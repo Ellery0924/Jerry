@@ -3,15 +3,15 @@
  */
 var requireUncached = require('require-uncached');
 
-var HOST_FILE_NAME = 'ykit.hosts',
+var HOST_FILE_NAME = 'jerryproxy.hosts',
     MOCK_FILE_NAME = 'mock.js',
     fs = require('fs'),
     Path = require('path'),
     formatRuleList = require('./hostUtils').formatRuleList;
 
 var rignore = /^\./,
-    rykit = /\_ykit$/,
-    rykitconfig = /ykit(?:\.[\w\_\d]+)?\.js/;
+    rykit = /_project$/,
+    rykitconfig = /(?:ykit|webpack)(?:\.[\w\_\d]+)?\.js/;
 
 function fetchGroupConfigFromYkitFolder(serverInfo, CWD) {
     return iterateFolder(CWD, function (acc, folder) {
@@ -19,7 +19,7 @@ function fetchGroupConfigFromYkitFolder(serverInfo, CWD) {
             renderedHosts = extractHostFile(Path.resolve(realPath, HOST_FILE_NAME), serverInfo);
 
         if (renderedHosts) {
-            acc[folder + '_ykit'] = renderedHosts;
+            acc[folder + '_project'] = renderedHosts;
         }
 
         return acc;
@@ -35,8 +35,8 @@ function syncGroupConfigToYkitFolder(config, CWD) {
 
 function writeSettingToYkitHosts(groupname, setting, CWD) {
     if (rykit.test(groupname)) {
-        var folderPath = Path.resolve(CWD, groupname.replace(/\_ykit$/, '')),
-            hostsPath = Path.resolve(folderPath, 'ykit.hosts');
+        var folderPath = Path.resolve(CWD, groupname.replace(rykit, '')),
+            hostsPath = Path.resolve(folderPath, HOST_FILE_NAME);
 
         try {
             if (fs.existsSync(folderPath) && isYKitFolder(folderPath)) {
@@ -82,19 +82,13 @@ function extractHostFile(filepath, serverInfo) {
 }
 
 function fetchMockConfig(CWD, projectName) {
-    var folderName = projectName.replace(/\_ykit$/, ''),
-        mockConfigFilePath = Path.resolve(CWD, folderName, MOCK_FILE_NAME),
-        backupConfigPath = Path.resolve(CWD, folderName, 'mock.js');
+    var folderName = projectName.replace(rykit, ''),
+        mockConfigFilePath = Path.resolve(CWD, folderName, MOCK_FILE_NAME);
 
     if (fs.existsSync(mockConfigFilePath)) {
         return {
             projectPath: Path.resolve(CWD, folderName),
             mockConfig: requireUncached(mockConfigFilePath)
-        };
-    } else if (fs.existsSync(backupConfigPath)) {
-        return {
-            projectPath: Path.resolve(CWD, folderName),
-            mockConfig: requireUncached(backupConfigPath)
         };
     } else {
         return null;
