@@ -92,6 +92,7 @@ function fetchMockConfig(CWD, projectName) {
             mockConfig: requireUncached(mockConfigFilePath)
           };
         } catch(e) {
+            console.log('JerryProxy: 读取项目mock.js失败，请检查mock.js中是否有语法错误。');
             return null;
         }
     } else {
