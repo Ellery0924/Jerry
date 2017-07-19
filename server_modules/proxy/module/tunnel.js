@@ -30,10 +30,6 @@ module.exports = function (req, socket) {
             host = util.filter(parsedUrl.host).host,
             port = parsedUrl.port || 443;
 
-        if (isWsConnection) {
-            console.log('websocket connection is redirected to', host, port);
-        }
-
         if (host) {
             netClient = net.createConnection({
                 host: host,
