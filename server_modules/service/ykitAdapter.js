@@ -86,10 +86,14 @@ function fetchMockConfig(CWD, projectName) {
         mockConfigFilePath = Path.resolve(CWD, folderName, MOCK_FILE_NAME);
 
     if (fs.existsSync(mockConfigFilePath)) {
-        return {
+        try {
+          return {
             projectPath: Path.resolve(CWD, folderName),
             mockConfig: requireUncached(mockConfigFilePath)
-        };
+          };
+        } catch(e) {
+            return null;
+        }
     } else {
         return null;
     }
