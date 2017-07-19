@@ -77,7 +77,7 @@ jerry配置页面的地址是 http://127.0.0.1:1000/qproxy#/?_k=1kpa78
 
 访问http://127.0.0.1:1000/qproxy#/?_k=1kpa78
 左侧导航是项目(方案)列表，右侧面板是该分组下 Host 规则。这里你需要手动选择当前激活的分组。
-分组分成两种，一种是自定义分组，也就是你通过点击 `创建分组` 按钮手动创建的分组；另一种是你的项目分组，这些分组是jerry按照webpack.*.js找到的你的前端工程。
+分组分成两种，一种是自定义分组，也就是你通过点击 `添加分组` 按钮手动创建的分组；另一种是你的项目分组，这些分组是jerry按照webpack.*.js找到的你的前端工程。
 对于项目分组而言，所有host的配置会保存在项目下的 `jerryproxy.host` 文件中，且不能手动删除分组。
 
 ![Jerry-Host](https://github.com/Ellery0924/Jerry/blob/master/public/images/jerry-host.png)
