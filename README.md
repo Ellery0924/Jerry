@@ -14,7 +14,7 @@ JerryProxy是一个集成了HostManager和Charles功能的代理服务器。
 
 Jerry是使用NodeJS和React/Redux开发的WebApp,因此可以兼容Windows/Linux。
 
-Jerry目前已经作为去哪儿前端开发构建工具 [YKit](http://ued.qunar.com/ykit/) 的一部分，关于在 YKit 中的使用，请参考文档 http://ued.qunar.com/ykit/docs-%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7.html
+Jerry目前已经作为去哪儿前端开发构建工具 [YKit](http://ued.qunar.com/ykit/) 的一部分，关于在 YKit 中的使用，请参考[文档](http://ued.qunar.com/ykit/proxy.html)
 
 ## 安装和配置
 
@@ -23,35 +23,6 @@ npm安装:
 npm install -g jerryproxy
 ```
 windows用户请使用管理员模式运行npm命令行,Mac/Linux用户请使用sudo执行。
-
-## 启动
-在控制台执行以下命令：
-```
-sudo jerry
-```
-(windows用户需要以管理员模式运行命令行)
-
-jerry配置页面的地址是 http://127.0.0.1:1000/qproxy#/?_k=1kpa78
-
-注意, 由于最新的MacOS使用open命令无视系统配置的默认浏览器而直接用safari打开, jerry在命令行启动时已经不会自动打开浏览器了。
-最好自己收藏一下这个网址。
-
-## 去哪儿开发专用的便捷使用方式
-
-Jerry 针对去哪儿的开发人员提供了一些更为便捷的启动方式，可以一键启动代理工具+开发服务器，首先你需要配置你的工作目录路径：
-
-```
-sudo jerry -s /your/workpath
-```
-
-然后可以通过 `sudo jerry -y [ykit args]` 或者 `sudo jerry -f [fekit args]` 来启动代理和 YKit/FEKit 开发服务器，在 -y 参数后面可以写这两个服务的参数，
-例如：
-
-```
-sudo jerry -y -s // 启动代理和ykit https服务
-```
-
-这样配置以后就不再需要每次启动YKit时cd到你的工作路径了。
 
 ## 配置系统/浏览器代理
 使用jerry需要配置网络的代理,请将HTTP/HTTPS统一设置为127.0.0.1:999。
@@ -82,12 +53,32 @@ sudo jerry -p [代理服务器] [网页服务器] [中间人服务器] [日志�
 
 注意: 你需要把所有忽略的规则全部清空。另外, ShadowSocks和所有的代理都冲突, 在使用时也需要关闭。
 
+## 启动
+首先进入你的项目目录的上一级：
+
+```
+cd /path/to/your/projectFolder 
+```
+
+在控制台执行以下命令：
+```
+sudo jerry
+```
+(windows用户需要以管理员模式运行命令行)
+
+jerry配置页面的地址是 http://127.0.0.1:1000/qproxy#/?_k=1kpa78
+
+注意, 由于最新的MacOS使用open命令无视系统配置的默认浏览器而直接用safari打开, jerry在命令行启动时已经不会自动打开浏览器了。
+最好自己收藏一下这个网址。
+
 ### Host管理
 
 我们建议你彻底放弃编辑Host文件修改Host的方式并清空系统host文件中的所有内容, 直接转移到这套方案。这套方案不仅没有DNS缓存, 项目和环境的切换也十分便捷。
 
 访问http://127.0.0.1:1000/qproxy#/?_k=1kpa78
 左侧导航是项目(方案)列表，右侧面板是该分组下 Host 规则。这里你需要手动选择当前激活的分组。
+分组分成两种，一种是自定义分组，也就是你通过点击 `创建分组` 按钮手动创建的分组；另一种是你的项目分组，这些分组是jerry按照webpack.*.js找到的你的前端工程。
+对于项目分组而言，所有host的配置会保存在项目下的 `jerryproxy.host` 文件中，且不能手动删除分组。
 
 ![Jerry-Host](https://github.com/Ellery0924/Jerry/blob/master/public/images/jerry-host.png)
 点击`添加规则`可以批量导入Host规则, 格式和Host文件完全相同, 除了不支持注释以外:
@@ -108,9 +99,9 @@ sudo jerry -p [代理服务器] [网页服务器] [中间人服务器] [日志�
 
 修改完成后, 你需要重新启动代理才能生效。
 
-### Mock服务（去哪儿特供功能）
+### Mock服务
 
-所有ykit项目都可以开启mock服务, 首先你需要在项目的根路径下添加一个mock.js, 内容如下:
+所有webpack项目都可以开启mock服务, 首先你需要在项目的根路径下添加一个mock.js, 内容如下:
 
 ```
 module.exports = [
@@ -156,7 +147,7 @@ module.exports = [
 ];
 ```
 
-然后在代理面板中找到你的项目, 然后在右侧开启Mock服务开关即可生效。
+在代理面板中找到你的项目分组, 然后在右侧开启Mock服务开关即可生效。
 
 ![Mock](https://github.com/Ellery0924/Jerry/blob/master/public/images/mock.png)
 
