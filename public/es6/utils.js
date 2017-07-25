@@ -127,7 +127,7 @@ export function validatePattern(pattern, responder, patterList) {
     var ERROR_MESSAGE = "Pattern非法,请检查.",
         result = pattern &&
             pattern.search(/\s+/g) === -1 &&
-            responder && !_.findWhere(patterList, { pattern: pattern });
+            responder;
 
     return {
         result: result,
