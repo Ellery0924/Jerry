@@ -70,7 +70,7 @@ function getServerByIp(ip, serverInfo) {
 
 function formatRuleListGenerator(validator) {
     return function (ruleListStr, serverInfo, existedRuleList) {
-        var ruleListRaw = ruleListStr.replace(/\#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
+        var ruleListRaw = ruleListStr.replace(/\s*#.*([\n\r]|$)/g, '\n').split(/[\n\r]+/),
             ruleList = ruleListRaw.reduce(function (acc, ruleStr) {
                 var ruleArr = ruleStr.trim().split(/\s+/),
                     ip = ruleArr.shift(),

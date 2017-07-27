@@ -46,22 +46,22 @@ export function validateDomain(domain, index, ruleList) {
         }
     }
 
-    for (let i = 0; i < ruleList.length; i++) {
-        if (index === undefined || index !== undefined && i !== index) {
-            rule = ruleList[i];
-            srcDomainArr = rule.domain.split(rsplitter);
-
-            for (let j = 0; j < currentDomainArr.length; j++) {
-                const subD = currentDomainArr[j];
-                if (_.contains(srcDomainArr, subD)) {
-                    return {
-                        result: false,
-                        message: ERROR_MESSAGE.NOT_VALID
-                    };
-                }
-            }
-        }
-    }
+    // for (let i = 0; i < ruleList.length; i++) {
+    //     if (index === undefined || index !== undefined && i !== index) {
+    //         rule = ruleList[i];
+    //         srcDomainArr = rule.domain.split(rsplitter);
+    //
+    //         for (let j = 0; j < currentDomainArr.length; j++) {
+    //             const subD = currentDomainArr[j];
+    //             if (_.contains(srcDomainArr, subD)) {
+    //                 return {
+    //                     result: false,
+    //                     message: ERROR_MESSAGE.NOT_VALID
+    //                 };
+    //             }
+    //         }
+    //     }
+    // }
 
     return ret;
 }
@@ -95,13 +95,6 @@ export function validateMultiDomain(ruleList, existedRuleList) {
         var rule = ruleList[i],
             domain = rule.domain,
             ip = rule.ip;
-
-        if (_.where(ruleList, { domain: domain }).length > 1) {
-            return {
-                result: false,
-                message: ERR_MESSAGE.REDUNDANT + domain
-            };
-        }
 
         if (!validateDomain(domain, -1, existedRuleList).result) {
             return {
