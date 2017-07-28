@@ -1,6 +1,6 @@
 {
   "name": "jerryproxy",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": false,
   "dependencies": {
     "babel-polyfill": "^6.16.0",
@@ -23,7 +23,9 @@
   },
   "scripts": {
     "prepublish": "sh ./build.sh",
-    "start": "sudo nodemon bin/jerry"
+    "start": "sudo nodemon bin/jerry",
+    "login": "npm adduser --registry=http://registry.npmjs.org",
+    "pub": "npm publish --registry=http://registry.npmjs.org"
   },
   "author": {
     "name": "jiao.shen",
