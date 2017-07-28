@@ -189,6 +189,10 @@ body {
     width: 20%;
 }
 
+.group_setting_table .action {
+    width: 80px;
+}
+
 .table .rewrite_rule_is_on {
     width: 150px;
     display: inline-block;
