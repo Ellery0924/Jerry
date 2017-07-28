@@ -581,6 +581,6 @@ input[type=checkbox].block-point-select {
     margin-left: 5px;
 }
 
-#groupView .page-header .btn{
-
+.rewriteSetting .action {
+    width: 230px;
 }
