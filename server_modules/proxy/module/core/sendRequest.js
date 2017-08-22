@@ -15,7 +15,8 @@ module.exports = function (opts, clientType, sreq, sres) {
         client = clientType === 'http:' ? require('http') : require('https');
     var creq = client
         .request(opts, function (cres) {
-            cres.headers['Real-Host'] = host;
+            cres.headers['x-jerry-proxy-real-host'] = host;
+            cres.headers['x-jerry-proxy-redirect-url'] = opts.redirectUrl;
             sres.writeHead(cres.statusCode, cres.headers);
             cres.on('error', function (err) {
                 sres.end(err.stack);

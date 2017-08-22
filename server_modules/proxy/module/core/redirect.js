@@ -98,6 +98,7 @@ module.exports = function (sreq, sres) {
         }
 
         return {
+            redirectUrl: redirectUrl,
             host: host,
             port: port,
             path: renderedUrl.path,
