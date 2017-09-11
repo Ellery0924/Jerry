@@ -38,6 +38,10 @@ module.exports = function (opts, clientType, sreq, sres) {
             }
         })
         .on('error', function (err) {
+            sres.writeHead(500, {
+              'x-jerry-proxy-real-host': host,
+              'x-jerry-proxy-redirect-url': opts.redirectUrl
+            })
             sres.end(err.stack);
         });
 
