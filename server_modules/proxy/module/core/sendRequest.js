@@ -13,6 +13,7 @@ module.exports = function (opts, clientType, sreq, sres) {
         method = opts.method,
         host = opts.host,
         client = clientType === 'http:' ? require('http') : require('https');
+    opts.agent = false;
     var creq = client
         .request(opts, function (cres) {
             cres.headers['x-jerry-proxy-real-host'] = host;
