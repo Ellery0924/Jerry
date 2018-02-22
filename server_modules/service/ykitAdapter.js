@@ -52,7 +52,7 @@ function writeSettingToYkitHosts(groupname, setting, CWD) {
 
 function isYKitFolder(folderPath) {
     return fs.existsSync(folderPath) && fs.readdirSync(folderPath).some(function (path) {
-            return rykitconfig.test(path) && fs.statSync(Path.resolve(folderPath, path)).isFile();
+            return rykitconfig.test(path);
         });
 }
 

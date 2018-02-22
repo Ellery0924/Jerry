@@ -19,7 +19,6 @@ module.exports = function (opts, clientType, sreq, sres) {
             cres.headers['x-jerry-proxy-real-host'] = host;
             cres.headers['x-jerry-proxy-redirect-url'] = opts.redirectUrl;
             sres.writeHead(cres.statusCode, cres.headers);
-            console.log(cres.headers);
             cres.on('error', function (err) {
                 sres.end(err.stack);
             });
