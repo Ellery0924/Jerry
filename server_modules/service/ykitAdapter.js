@@ -11,7 +11,7 @@ var HOST_FILE_NAME = 'jerryproxy.hosts',
 
 var rignore = /^\./,
     rykit = /_project$/,
-    rykitconfig = /(?:ykit|webpack)(?:\.[\w\_\d]+)?\.js/;
+    rykitconfig = /(?:ykit|webpack)(?:\.[\w\_\d]+)?\w+(?:\.js)?/;
 
 function fetchGroupConfigFromYkitFolder(serverInfo, CWD) {
     return iterateFolder(CWD, function (acc, folder) {
